@@ -3,16 +3,21 @@
 ;        ASEG
 
         ORG 100h
-        jp main
+		di
+        jp start
 
 OLDSTK: dw 0            ; save stack to return to cp/m
+CURSCR: dw SCRMAP		; pointer to current screen
 
+		include "sbmacro.asm"		
         include "const.asm"
         include "screen_utils.asm"
         include "background_sprites.asm"
-        include "background.asm"
+        include "screens.asm"
+		include "keyboard.asm"
+		include "game.asm"
 
-main:
+start:
         call clrtscr
 
         ld hl,0
@@ -24,17 +29,27 @@ main:
 
         ld a,80h
         call fillscr
+        GRMODOFF
 
-; main cycle
-        ld de,SCRBK1
+main:					; main cycle
+        GRMODON
+
+		ld hl,(CURSCR)
+		ld e,(hl)
+		inc hl
+		ld d,(hl)
         call drawbkgr
 
         GRMODOFF
-        call bgkprsd
+		
+		call gmain
+		and a		
+		jp z,main		; continue if zero
 
-; exit to cp/m
+						; exit to cp/m
         ld hl,(OLDSTK)
         ld sp,hl
+		ei
         ret
 
 ;END 100h

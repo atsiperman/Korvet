@@ -18,7 +18,7 @@ ctslop: ld (hl),d
 
         ld hl,TSYSREG
         ld a,GCONFIG
-        di
+        ;di
         ld (hl),a
 
         endm
@@ -29,13 +29,14 @@ ctslop: ld (hl),d
         ld hl,GSYSREG
         ld a,1ch
         ld (hl),a
-        ei
+        ;ei
 
         endm
 
 
 ; -----  fills screen with color mode in A
 ; args: A - color mode
+
 fillscr:
         ld hl,COLRREG    ; color reg address
         ld (hl),a       ; switch to color mode
@@ -52,22 +53,11 @@ loop:
         jp nz,loop
         ret
 
-; -----  waits until some big key is pressed
-bgkprsd:
-        ld hl,0f840h
-readk:  ld a,255
-        and (hl)
-        jp z,readk
-        ret
 
 ; ----- draws background for current screen
 ; args: DE - address of the screen model
 
 drawbkgr:
-        ld hl,COLRREG
-        ld a,86h
-        ld (hl),a
-
         ld hl,SCRADDR
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
 										; C=COLNUM sprites in line
@@ -86,6 +76,12 @@ startdrw:
         ld e,(hl)
         inc hl
         ld d,(hl)
+		
+        ld hl,COLRREG   ; set sprite color
+        ld a,(de)
+        ld (hl),a
+		inc de
+		
         pop hl          ; restore screen address
         ld c,8
 sprloop:
