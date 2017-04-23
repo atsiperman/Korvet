@@ -27,13 +27,16 @@ start:
 
         GRMODON
 
-        ld a,80h
+        ld a,8eh 
         call fillscr
         GRMODOFF
 
 main:					; main cycle
         GRMODON
 
+		ld a,80h
+		call clrwscr
+		
 		ld hl,(CURSCR)
 		ld e,(hl)
 		inc hl

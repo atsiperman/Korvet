@@ -8,7 +8,7 @@ gmain:
 		;ret nz
 		jp z,gmain
 		
-		ld b,KUP
+		ld b,KESC
 		cp b
 		ret z			; exit button - end game	
 		

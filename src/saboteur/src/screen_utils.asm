@@ -44,15 +44,37 @@ fillscr:
         ld hl,GRAM
         ld bc,GRAMLEN
         ld d,255
-loop:
+fsloop:
         ld (hl),d
         inc hl
         dec bc
         ld a,b
         or c
-        jp nz,loop
+        jp nz,fsloop
         ret
 
+; -----  fills working screen with color mode in A
+; args: A - color mode
+
+clrwscr:
+        ld hl,COLRREG    ; color reg address
+        ld (hl),a       ; switch to color mode
+
+		ld de,64 - COLNUM
+        ld hl,SCRADDR
+        ld bc,(ROWNUM*8 << 8) + COLNUM 	; B=ROWNUM*8 lines on screen
+										; C=COLNUM sprites in line
+		ld a,255
+cwsloop:
+        ld (hl),a
+        inc hl
+        dec c
+        jp nz,cwsloop
+		ld c,COLNUM
+		add hl,de
+		dec b
+		jp nz,cwsloop
+        ret
 
 ; ----- draws background for current screen
 ; args: DE - address of the screen model
