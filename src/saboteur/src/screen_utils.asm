@@ -69,8 +69,8 @@ drawbkgr:
         ld (hl),a
 
         ld hl,SCRADDR
-        ld bc,2000h + COLNUM  ; B=32 lines on screen
-                        ; C=COLNUM sprites in line
+        ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
+										; C=COLNUM sprites in line
 startdrw:
         push hl         ; out address
         push de         ; sprite pointer
@@ -113,7 +113,7 @@ nextline:
         pop af          ; clear stack from prev hl
         ;inc hl
         push bc
-        ld bc,64-COLNUM
+        ld bc,64-COLNUM+1
         add hl,bc
         pop bc
         ld c,COLNUM     ; next line of sprites
