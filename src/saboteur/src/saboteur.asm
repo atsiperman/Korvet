@@ -8,6 +8,8 @@
 
 OLDSTK: dw 0            ; save stack to return to cp/m
 CURSCR: dw SCRMAP		; pointer to current screen
+MAINSPR:dw SABSPRT1
+MAINPOS:dw SCRADDR + 10 ;+ COLNUM/2 + ROWNUM*8/2
 
 		include "sbmacro.asm"		
         include "const.asm"
@@ -16,6 +18,8 @@ CURSCR: dw SCRMAP		; pointer to current screen
         include "screens.asm"
 		include "keyboard.asm"
 		include "game.asm"
+		include "saboteur_sprites.asm"
+		include "drawsprite.asm"
 
 start:
         call clrtscr
@@ -32,17 +36,27 @@ start:
         GRMODOFF
 
 main:					; main cycle
+;		call gmain
+;		and a		
+;		jp z,main		; continue if zero
+
         GRMODON
 
 		ld a,80h
 		call clrwscr
 		
 		ld hl,(CURSCR)
-		ld e,(hl)
-		inc hl
-		ld d,(hl)
+		load_de_hl
         call drawbkgr
-
+		
+		;ld hl,MAINPOS
+		;load_de_hl
+		;ex de,hl
+		ld hl,SCRADDR
+		
+		ld de,SABSPRT1
+		call drawspr
+		
         GRMODOFF
 		
 		call gmain

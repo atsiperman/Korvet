@@ -5,8 +5,8 @@
 gmain:
         call kbread
 		and 255
-		;ret nz
 		jp z,gmain
+		;ret z
 		
 		ld b,KESC
 		cp b
@@ -14,19 +14,40 @@ gmain:
 		
 		ld b,KLEFT
 		cp b
-		jp nz, gifrt
+		jp nz,gifrt
 		call gkleft
 		jp gend
 		
 gifrt:
 		ld b,KRIGHT
 		cp b
-		call z,gkright
+		jp nz,gifup
+		call gkright
+		jp gend
+		
+gifup:
+		ld b,KUP
+		cp b
+		jp nz,gend
+		call gkup
+		jp gend		
 		
 gend:	
 		xor a		
 		ret
 
+; ----- move up
+gkup:
+		;ld hl,MAINPOS
+		;load_de_hl
+		;ex de,hl
+		ld hl,SCRADDR
+		
+		ld de,SABSPRT1
+		call drawspr
+
+		ret
+		
 ; ----- move left
 gkleft:	
 		ld hl,(CURSCR)

@@ -11,15 +11,17 @@ COLRREG EQU GRGBASE + 0bfh
 GRAM    EQU 0c000h
 GRAMLEN EQU 4000h
 
-SCRADDR EQU GRAM ;+512+16 ; start of the working screen
+SCRADDR EQU GRAM ; + 512 + 10		; start of the working screen
 
 ROWNUM  EQU 17			; number of rows on the working screen
 COLNUM  EQU 30         	; number of columns on the working screen
-
+SCRDISP EQU 64 - COLNUM	; displacement on the screen memory to draw next line
 
 NEWSTK  EQU 0beffh
 
 CBLACK	EQU 0
 CBLUE	EQU 1
 CGREEN	EQU 2
-CYELLOW	EQU 6
+CYELLOW	EQU 3
+
+CMAIN 	EQU 4			; color of the main character

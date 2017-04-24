@@ -1,0 +1,38 @@
+﻿<Window x:Class="SpriteEditor.UI.NewImageDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New" Height="155.102" Width="300">
+    <Grid Margin="10 0 10 5">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        
+        <TextBlock Grid.Row="0" Grid.Column="0">Width:</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="1">Height:</TextBlock>
+
+        <TextBox Grid.Row="1" Grid.Column="0" Name="m_textWidth" ></TextBox>
+        <TextBox Grid.Row="1" Grid.Column="1" Name="m_textHeight"></TextBox>
+        
+        <Button Name="m_btnOK" Grid.Row="2" Grid.Column="0" IsDefault="True">OK</Button>
+        <Button Name="m_btnCancel" Grid.Row="2" Grid.Column="1" IsCancel="True">Cancel</Button>
+    </Grid>
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+         </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="5" />
+        </Style>
+    </Window.Resources>
+</Window>

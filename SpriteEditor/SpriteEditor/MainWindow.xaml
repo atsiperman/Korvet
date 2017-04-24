@@ -1,0 +1,77 @@
+﻿<Window x:Class="SpriteEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ui="clr-namespace:SpriteEditor.UI"
+        xmlns:se="clr-namespace:SpriteEditor"
+        Title="Sprite Editor" Height="600" Width="800" 
+        MinHeight="200" MinWidth="300"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
+    <Window.Resources>
+        <se:ArgbToColorConverter x:Key="ArgbConverter"></se:ArgbToColorConverter>
+    </Window.Resources>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="_File" IsEnabled="True">
+                <MenuItem Header="_New" IsEnabled="True" Click="MenuItem_New"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="_Open" IsEnabled="True" Click="MenuItem_Open"></MenuItem>
+                <MenuItem Header="_Save" IsEnabled="True" Click="MenuItem_Save"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="E_xit" IsEnabled="True" Click="MenuItem_Exit"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            
+            <ScrollViewer Grid.Column="0" Grid.Row="0" Background="LightGray" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Auto" Margin="0,2,0,-2">
+                <ui:EditorView x:Name="m_editorView" Margin="5"></ui:EditorView>
+            </ScrollViewer>
+            <StackPanel Grid.Column="1" Grid.Row="0" MinWidth="200" Orientation="Vertical" Margin="5">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="{Binding Path=ScaleText}" MinWidth="30" MinHeight="30"                               
+                               HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.TextAlignment="Center"/>
+                    <Slider Name="m_scaleSlider" IsSnapToTickEnabled="true" Minimum="1" Maximum="{Binding Path=MaxScale}" 
+                            MinWidth="100" TickFrequency="1" TickPlacement="Both"
+                            VerticalAlignment="Center" Value="{Binding Path=Scale,Mode=OneWay}"></Slider>
+                    <Button Content="+" Margin="5 0 0 0" MinWidth="30" Click="ZoomIn_Click" IsEnabled="{Binding Path=ZoomInEnabled}" VerticalContentAlignment="Center"/>
+                    <Button Content="-" Margin="5 0 0 0" MinWidth="30" Click="ZoomOut_Click" IsEnabled="{Binding Path=ZoomOutEnabled}" VerticalContentAlignment="Center"/>
+                </StackPanel>
+                <ListView ItemsSource="{Binding Path=Colors}" Name="m_colorPanel" Margin="0 5 0 5">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Border BorderThickness="1" BorderBrush="Gray">
+                                    <Canvas Width="30" MinHeight="20">
+                                        <Canvas.Background>
+                                            <SolidColorBrush Color="{Binding Path=Argb, Converter={StaticResource ArgbConverter}}"/>
+                                        </Canvas.Background>
+                                    </Canvas>
+                                </Border>
+                                <TextBlock Text="{Binding Path=Text}" Margin="5 0 0 0" VerticalAlignment="Center"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock VerticalAlignment="Center">Selected color:</TextBlock>
+                    <Border Margin="5 0 0 0" BorderThickness="1" BorderBrush="Gray">
+                        <Canvas MinHeight="20" MinWidth="20">
+                            <Canvas.Background>
+                                <SolidColorBrush Color="{Binding Path=SelectedColor.Argb,Converter={StaticResource ArgbConverter}}" />
+                            </Canvas.Background>                            
+                        </Canvas>
+                    </Border>
+                    <TextBlock Text="{Binding ElementName=m_colorPanel,Path=SelectedItem.Text}" Margin="5 0 0 0" VerticalAlignment="Center"></TextBlock>                    
+                </StackPanel>
+                <Button Name="m_btnFill" Margin="0 5 0 5" MinHeight="30" Width="50" HorizontalAlignment="Left">Fill</Button>
+            </StackPanel>
+        </Grid>
+    </DockPanel>
+</Window>

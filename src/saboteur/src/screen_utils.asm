@@ -114,7 +114,7 @@ sprloop:
         jp z,sprend
         push de
         ld de,64        ; add 64
-        add hl,de       ; move to next line on screen
+        add hl,de       ; move to the next line on screen
         pop de
         jp sprloop
 
@@ -129,7 +129,6 @@ sprend: pop bc          ; sprite finished
 
 nextline:
         pop af          ; clear stack from prev hl
-        ;inc hl
         push bc
         ld bc,64-COLNUM+1
         add hl,bc
