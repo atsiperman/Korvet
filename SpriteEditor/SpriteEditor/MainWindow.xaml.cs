@@ -127,9 +127,13 @@ namespace SpriteEditor
             Init();
         }
 
+        const string FileFilter = "Sprites (*.spr)|*.spr|Sprite masks (*.msk)|*.msk";
+
         private void MenuItem_Open(object sender, RoutedEventArgs e)
         {
             var d = new OpenFileDialog();
+            d.Filter = FileFilter;
+            d.FilterIndex = 0;
             var ret = d.ShowDialog(this);
             if (!(ret.HasValue && ret.Value))
             {
@@ -143,7 +147,9 @@ namespace SpriteEditor
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
         {
-            var d = new SaveFileDialog();
+            var d = new SaveFileDialog();            
+            d.Filter = FileFilter;
+            d.FilterIndex = 0;
             d.OverwritePrompt = true;            
             var ret = d.ShowDialog(this);
             if (!(ret.HasValue && ret.Value))

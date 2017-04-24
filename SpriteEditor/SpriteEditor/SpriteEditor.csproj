@@ -64,7 +64,8 @@
     <Compile Include="Code\Editor\SetPixelAction.cs" />
     <Compile Include="Code\Editor\IEditAction.cs" />
     <Compile Include="Code\EditorSettings.cs" />
-    <Compile Include="Code\FileSaver.cs" />
+    <Compile Include="Code\Storage\ExportMask.cs" />
+    <Compile Include="Code\Storage\FileSaver.cs" />
     <Compile Include="UI\EditorView.xaml.cs">
       <DependentUpon>EditorView.xaml</DependentUpon>
     </Compile>

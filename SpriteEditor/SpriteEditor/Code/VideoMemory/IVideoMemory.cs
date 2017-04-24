@@ -76,6 +76,8 @@ namespace SpriteEditor
         /// <param name="clone"></param>
         void CopyFrom(IVideoMemory clone);
 
+        byte GetMaskOfByte(int x, int y, uint inkColor);
+
         #endregion Methods
     }
 }

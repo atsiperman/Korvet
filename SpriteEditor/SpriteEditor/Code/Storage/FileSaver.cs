@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SpriteEditor.Code.Storage;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,24 @@ namespace SpriteEditor.Code
         }
 
         public static void Save(EditorSettings editor, string path)
+        {
+            var ext = Path.GetExtension(path);
+            switch (ext)
+            {
+                case ".spr":
+                    SaveNative(editor, path);
+                    break;
+
+                case ".msk":
+                    ExportMask.Save(path, editor.VideoMemory, 0);
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        private static void SaveNative(EditorSettings editor, string path)
         {
             var data = new NativeEditorFileFormat()
             {

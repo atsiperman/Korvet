@@ -52,7 +52,7 @@ namespace SpriteEditor
 
         public uint GetPixel(int x, int y)
         {
-            int idx = GetByteIndex(x, y);
+            int idx = GetIndexOfByte(x, y);
             int bit = 1 << (x % 8);
             uint bit0 = (uint)((m_planes[0][idx] & bit) == 0 ? 0 : 1);
             uint bit1 = (uint)((m_planes[1][idx] & bit) == 0 ? 0 : 1);
@@ -65,7 +65,7 @@ namespace SpriteEditor
 
         public void SetPixel(uint color, int x, int y)
         {
-            int idx = GetByteIndex(x, y);
+            int idx = GetIndexOfByte(x, y);
             byte bit = (byte)(1 << (x % 8));
 
             for (int k = 0; k < m_planes.Count; k++)
@@ -126,11 +126,22 @@ namespace SpriteEditor
             }
         }
 
+        public byte GetMaskOfByte(int x, int y, uint inkColor)
+        {
+            byte result = 0;
+            for (int w = 0; w < 8; w++)
+            {
+                byte pixel = GetPixel(x * 8  + 7 - w, y) == inkColor ? (byte)1 : (byte)0;
+                result |= (byte)(pixel << w);
+            }
+            return result;
+        }
+
         #endregion Public methods
 
         #region Private methods
 
-        int GetByteIndex(int x, int y)
+        int GetIndexOfByte(int x, int y)
         {
             return y * m_bytesPerLine + x / 8;
         }
