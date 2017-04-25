@@ -33,6 +33,20 @@ ctslop: ld (hl),d
 
         endm
 
+; ----- setup LUT
+lutsetup:
+		ld c,16
+		ld de,LUTREG
+		ld hl,LUTVAL
+		
+lutset2:
+		ld a,(hl)
+		ld (de),a
+		inc hl
+		dec c
+		jp nz,lutset2
+		ret
+		
 
 ; -----  fills screen with color mode in A
 ; args: A - color mode

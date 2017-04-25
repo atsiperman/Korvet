@@ -1,6 +1,3 @@
-SCRMAP:
-		DW SCRBK2
-		DW SCRBK1
 
 SCRBK1:
         dup ROWNUM

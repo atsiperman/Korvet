@@ -28,42 +28,40 @@ gifrt:
 gifup:
 		ld b,KUP
 		cp b
-		jp nz,gend
+		jp nz,gifdown
 		call gkup
 		jp gend		
-		
+
+gifdown:
+		ld b,KDOWN
+		cp b
+		jp nz,gend
+		call gkdown
+		jp gend		
+
 gend:	
 		xor a		
 		ret
 
 ; ----- move up
 gkup:
-		;ld hl,MAINPOS
-		;load_de_hl
-		;ex de,hl
-		ld hl,SCRADDR
-		
-		ld de,SABSPRT1
-		call drawspr
-
+		ld hl,SCRBK1
+		ld (CURSCR),hl
+		ret
+; ----- move down
+gkdown:
+		ld hl,SCRBK2
+		ld (CURSCR),hl
 		ret
 		
 ; ----- move left
 gkleft:	
-		;ld hl,(CURSCR)
-		;dec hl
-		;dec hl
-		;ld (CURSCR),hl
 		ld hl,SABSPLT1
 		ld (MAINSPR),hl
 		ret
 
 ; ----- move right
 gkright:	
-		;ld hl,(CURSCR)
-		;inc hl
-		;inc hl
-		;ld (CURSCR),hl
 		ld hl,SABSPRT1
 		ld (MAINSPR),hl
 		ret
