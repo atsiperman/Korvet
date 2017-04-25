@@ -45,12 +45,12 @@ gend:
 
 ; ----- move up
 gkup:
-		ld hl,SCRBK1
+		ld hl,SCRBK3
 		ld (CURSCR),hl
 		ret
 ; ----- move down
 gkdown:
-		ld hl,SCRBK2
+		ld hl,SCRBK4
 		ld (CURSCR),hl
 		ret
 		

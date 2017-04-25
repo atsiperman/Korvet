@@ -5,7 +5,7 @@ OLDSTK: dw 0            	; save stack to return to cp/m
 ; ---- LUT 
 LUTVAL:
 		db 0				; black		
-		db 91h				; CBLUE		1001 0001
+		db 11h				; CBLUE		0001 0001
 		db 19h				; CBLUE		0001 1001
 		db 0a2h				; CGREEN	1010 0010
  		db 02ah				; CGREEN    0010 1010
