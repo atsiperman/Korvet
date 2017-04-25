@@ -16,7 +16,7 @@
 		include "saboteur_sprites.asm"
 		include "drawsprite.asm"
 		include "control_data.asm"
-		include "screen_control_logic.asm"
+		include "screen_draw.asm"
 
 start:
         call clrtscr

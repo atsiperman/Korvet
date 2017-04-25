@@ -24,5 +24,4 @@ CBLACK		EQU 0
 CBLUE		EQU 1
 CGREEN		EQU 2
 CYELLOW		EQU 3
-
 CMAIN 		EQU 4			; color of the main character
