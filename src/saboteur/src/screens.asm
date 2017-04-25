@@ -1,5 +1,5 @@
 
-SCRBK1:
+scrbk1:
         dup ROWNUM
 			bkindex BK2ADDR
 			dup COLNUM - 1
@@ -7,7 +7,7 @@ SCRBK1:
 			edup
         edup
 		
-SCRBK2:
+scrbk2:
         dup ROWNUM
 			bkindex BK2ADDR
 			dup COLNUM - 1
@@ -15,7 +15,7 @@ SCRBK2:
 			edup
         edup
 
-SCRBK3:
+scrbk3:
 		dup 20
 		bkindex BK5ADDR
 		edup
@@ -44,8 +44,8 @@ SCRBK3:
 		dup 10
 		bkindex BK2ADDR
 		edup		
-		bkindex BK5ADDR
-		bkindex BK5ADDR
+		bkindex BK4ADDR
+		bkindex BK4ADDR
 		dup 18
 		bkindex BK2ADDR
 		edup
@@ -53,8 +53,8 @@ SCRBK3:
 		dup 10
 		bkindex BK2ADDR
 		edup		
-		bkindex BK5ADDR
-		bkindex BK5ADDR
+		bkindex BK4ADDR
+		bkindex BK4ADDR
 		dup 18
 		bkindex BK2ADDR
 		edup
@@ -62,11 +62,11 @@ SCRBK3:
 		dup 9
 		bkindex BK2ADDR
 		edup		
-		bkindex BK5ADDR
-		bkindex BK5ADDR
-		bkindex BK5ADDR
+		bkindex BK4ADDR
+		bkindex BK4ADDR
+		bkindex BK4ADDR
 		dup 18
-		bkindex BK5ADDR
+		bkindex BK4ADDR
 		edup
 		
 		dup 6
@@ -74,7 +74,7 @@ SCRBK3:
 		bkindex BK2ADDR
 		edup		
 		dup 21
-		bkindex BK5ADDR
+		bkindex BK4ADDR
 		edup
 		edup
 
@@ -82,9 +82,9 @@ SCRBK3:
 		bkindex BK2ADDR
 		edup	
 
-; --- end of SCRBK3
+; --- end of scrbk3
 	
-SCRBK4:
+scrbk4:
 		dup 5
 		bkindex BK2ADDR
 		edup
@@ -210,4 +210,4 @@ SCRBK4:
 		bkindex BK2ADDR
 		edup
 
-; --- end of SCRBK4
+; --- end of scrbk4

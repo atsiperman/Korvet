@@ -20,6 +20,7 @@
 		include "frame_sprites.asm"
 		include "draw_frame.asm"
 		include "strings.asm"
+		include "screen_map.asm"
 
 start:
         call clrtscr
@@ -33,21 +34,20 @@ start:
 		call lutsetup
 
         ld a,8eh 
-        call fillscr
+        call fillscr	; clear screen with black
 
-		call drawfrm
+		call drawfrm	; draw frame
 		
         GRMODOFF
-
+		
 main:					; main cycle
-
         GRMODON
 
 		call drawscr
 				
         GRMODOFF
 		
-		call gmain
+		call gmain		; test keyboard 
 		and a		
 		jp z,main		; continue if zero
 

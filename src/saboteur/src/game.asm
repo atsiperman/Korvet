@@ -45,26 +45,19 @@ gend:
 
 ; ----- move up
 gkup:
-		ld hl,SCRBK3
-		ld (CURSCR),hl
-		ret
+		nextscreen upscrd
+		
 ; ----- move down
 gkdown:
-		ld hl,SCRBK4
-		ld (CURSCR),hl
-		ret
+		nextscreen downscrd
 		
 ; ----- move left
 gkleft:	
-		ld hl,SABSPLT1
-		ld (MAINSPR),hl
-		ret
+		nextscreen leftscrd
+
 
 ; ----- move right
 gkright:	
-		ld hl,SABSPRT1
-		ld (MAINSPR),hl
-		ret
-		
+		nextscreen rigtscrd
 
 		

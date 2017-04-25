@@ -27,10 +27,10 @@ CMAINHI	EQU 0h				; hi byte of the main color
 		
 		
 ; ---- screen control block
+scblock:
 
-SCBLOCK:
-CURSCR: 	dw SCRBK1		; pointer to current screen
-PREVSCR:	dw 0
+curscr: 	dw scrmap		; pointer to current screen
+prevscr:	dw 0			; pointer to previous screen
 MAINSPR:	dw SABSPRT1
 MAINPOS:	dw SCRADDR + COLNUM/2 + 64*ROWNUM*8/2
 
