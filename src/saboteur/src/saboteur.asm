@@ -19,6 +19,7 @@
 		include "screen_draw.asm"
 		include "frame_sprites.asm"
 		include "draw_frame.asm"
+		include "strings.asm"
 
 start:
         call clrtscr

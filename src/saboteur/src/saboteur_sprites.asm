@@ -1,24 +1,18 @@
-
-
 ; sprites of main character
 ;	all sprites are working in plain mode
-
-SABCOLOR EQU ((7 & ~CMAIN) << 1) + 1		; color register
+		
 
 ; ----	data to clear main sprite
 SABCLR:	
 		DB (7 & ~CMAIN) << 1		; color register in plain mode
-		;DB 6
 		DB 4,48
 		dup 4*48
 		DB 255
 		edup
 
 ; ----	saboteur right 1 
-SABSPRT1:	;sprhead CMAIN,4,16
-		DB SABCOLOR
-		DB 4,48
-					
+SABSPRT1:	
+		sabsphd
 		DB 0,0,0,0
 		DB 0,0,0,0
 		DB 0,1,224,0
@@ -70,10 +64,8 @@ SABSPRT1:	;sprhead CMAIN,4,16
 
 
 ; ----	saboteur left 1 
-SABSPLT1:	;sprhead CMAIN,4,16
-		DB SABCOLOR
-		DB 4,48
-
+SABSPLT1:	
+		sabsphd
 		DB 0,0,0,0
 		DB 0,0,0,0
 		DB 0,7,128,0

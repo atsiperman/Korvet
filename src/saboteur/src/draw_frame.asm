@@ -50,14 +50,27 @@ drwfrm3:
 		add hl,de
 		pop de
 		jp drwfrm3
+	
+; ---- draws static text 	
+drfrmtxt:		
+		ld hl,FRMADDR + (FRMHIGT-2)*8*64 + 22
+		ld de,strtime
+		call drawspr
 		
+		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 27
+		ld de,nthnear
+		call drawspr				
+
+		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 1
+		ld de,nthnheld
+		call drawspr
+		ret
 
 ; ----- draws frame around working screen
 drawfrm:		
+		call drfrmtxt
 		
-		ld a,80h + (CRED << 1)
-		ld hl,COLRREG
-		ld (hl),a
+		setcolor CRED
 		
 		; left top
 		ld hl,FRMADDR
@@ -90,10 +103,34 @@ drawfrm:
 		ld hl,FRMADDR + (FRMHIGT-1)*8*64 + 1
 		ld de,frmbotm
 		call drwfrm2
+
+		; middle line
+		ld b,FRMWIDT-2
+		ld hl,FRMADDR + (FRMHIGT-6)*8*64 + 1
+		ld de,frmbotm
+		call drwfrm2
 		
 		; left column
 		ld b,FRMHIGT - 2
 		ld hl,FRMADDR + 64*8
+		ld de,frmleft
+		call drwfrm3
+
+		; second column
+		ld b,6
+		ld hl,FRMADDR + (FRMHIGT-6)*8*64 + 5
+		ld de,frmleft
+		call drwfrm3
+
+		; 3-rd column
+		ld b,6
+		ld hl,FRMADDR + (FRMHIGT-6)*8*64 + 21
+		ld de,frmleft
+		call drwfrm3
+
+		; 4-th column
+		ld b,6
+		ld hl,FRMADDR + (FRMHIGT-6)*8*64 + 26
 		ld de,frmleft
 		call drwfrm3
 
