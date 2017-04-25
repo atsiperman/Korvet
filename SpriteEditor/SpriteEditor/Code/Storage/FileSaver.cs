@@ -50,7 +50,8 @@ namespace SpriteEditor.Code
             {
                 for (int w = 0; w < data.Width; w++)
                 {
-                    data.Data[h * data.Height + w] = editor.VideoMemory.GetPixel(w, h);
+                    var b = editor.VideoMemory.GetPixel(w, h);
+                    data.Data[h * data.Width + w] = b;
                 }
             }
             using (var writer = new StreamWriter(path))

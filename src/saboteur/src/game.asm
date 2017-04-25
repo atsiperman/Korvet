@@ -50,18 +50,22 @@ gkup:
 		
 ; ----- move left
 gkleft:	
-		ld hl,(CURSCR)
-		dec hl
-		dec hl
-		ld (CURSCR),hl
+		;ld hl,(CURSCR)
+		;dec hl
+		;dec hl
+		;ld (CURSCR),hl
+		ld hl,SABSPLT1
+		ld (MAINSPR),hl
 		ret
 
 ; ----- move right
 gkright:	
-		ld hl,(CURSCR)
-		inc hl
-		inc hl
-		ld (CURSCR),hl
+		;ld hl,(CURSCR)
+		;inc hl
+		;inc hl
+		;ld (CURSCR),hl
+		ld hl,SABSPRT1
+		ld (MAINSPR),hl
 		ret
 		
 

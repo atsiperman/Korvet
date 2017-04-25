@@ -35,7 +35,14 @@ namespace SpriteEditor
             m_colorPanel.SelectionChanged += ColorPanel_SelectionChanged;
             m_btnFill.Click += Fill_Click;
             m_scaleSlider.ValueChanged += ScaleSlider_ValueChanged;
-            Init();
+            m_btnMirrorVertically.Click += MirrorVertically;
+            //Init();
+        }
+
+        private void MirrorVertically(object sender, RoutedEventArgs e)
+        {
+            m_viewModel.MirrorVertically();
+            FireRedraw();
         }
 
         private void ScaleSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -79,7 +86,7 @@ namespace SpriteEditor
 
         private void FireRedraw()
         {
-            m_editorView.SetNewSize();
+            m_editorView.InvalidateVisual();
         }
 
         private void ZoomIn_Click(object sender, RoutedEventArgs e)

@@ -12,12 +12,23 @@ namespace SpriteEditor.ViewModels
         #region Private members 
        
         List<SeColor> m_colors;
+        EditorSettings m_editorSettings;
 
         #endregion Private members
 
         #region Public properties
 
-        public EditorSettings EditorSettings { get; private set; }
+        public bool IsViewEnabled { get { return EditorSettings != null && EditorSettings.VideoMemory != null; } }
+
+        public EditorSettings EditorSettings 
+        { 
+            get { return m_editorSettings; }
+            private set
+            {
+                m_editorSettings = value;
+                FireRenew();
+            }
+        }
 
         public int MaxScale { get { return 32; } }
 
@@ -76,6 +87,11 @@ namespace SpriteEditor.ViewModels
             FirePropertyChanged("ScaleText");
         }
 
+        private void FireRenew()
+        {
+            FirePropertyChanged("IsViewEnabled");
+        }
+
         #endregion Private methods
 
         #region Public methods
@@ -91,6 +107,7 @@ namespace SpriteEditor.ViewModels
             Colors = videoMemory.Palette;            
 
             OnScaleChanged();
+            FireRenew();
         }
 
         public void SetScale(int scale)
@@ -128,6 +145,22 @@ namespace SpriteEditor.ViewModels
         public EditorSettings LoadFromFile(string file)
         {
             return FileSaver.Read(file);
+        }
+
+        public void MirrorVertically()
+        {
+            var vm = EditorSettings.VideoMemory;
+            for (var y = 0; y < vm.ScreenHeight; y++)
+            {
+                for (var x = 0; x < vm.ScreenWidth / 2; x++)
+                {
+                    var rightIndex = vm.ScreenWidth - 1 - x;
+                    var a = vm.GetPixel(x, y);
+                    var b = vm.GetPixel(rightIndex, y);
+                    vm.SetPixel(b, x, y);
+                    vm.SetPixel(a, rightIndex, y);
+                }
+            }
         }
 
         #endregion Public methods

@@ -30,10 +30,10 @@
             </Grid.RowDefinitions>
             
             <ScrollViewer Grid.Column="0" Grid.Row="0" Background="LightGray" VerticalScrollBarVisibility="Auto"
-                          HorizontalScrollBarVisibility="Auto" Margin="0,2,0,-2">
+                          HorizontalScrollBarVisibility="Auto" Margin="0,2,0,-2" IsEnabled="{Binding IsViewEnabled}">
                 <ui:EditorView x:Name="m_editorView" Margin="5"></ui:EditorView>
             </ScrollViewer>
-            <StackPanel Grid.Column="1" Grid.Row="0" MinWidth="200" Orientation="Vertical" Margin="5">
+            <StackPanel Grid.Column="1" Grid.Row="0" MinWidth="200" Orientation="Vertical" Margin="5" IsEnabled="{Binding IsViewEnabled}">
                 <StackPanel Orientation="Horizontal">
                     <Label Content="{Binding Path=ScaleText}" MinWidth="30" MinHeight="30"                               
                                HorizontalAlignment="Center" VerticalAlignment="Center" TextBlock.TextAlignment="Center"/>
@@ -70,7 +70,12 @@
                     </Border>
                     <TextBlock Text="{Binding ElementName=m_colorPanel,Path=SelectedItem.Text}" Margin="5 0 0 0" VerticalAlignment="Center"></TextBlock>                    
                 </StackPanel>
-                <Button Name="m_btnFill" Margin="0 5 0 5" MinHeight="30" Width="50" HorizontalAlignment="Left">Fill</Button>
+                <Button Name="m_btnFill" Margin="0 5 0 5" MinHeight="30" MinWidth="50" HorizontalAlignment="Left">Fill</Button>
+                <StackPanel Orientation="Horizontal">
+                    <Button Name="m_btnMirrorVertically" Margin="0 5 0 5" Padding="5 0 5 0" MinHeight="30" MinWidth="30" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        Mirror &lt;- -&gt;
+                    </Button>
+                </StackPanel>
             </StackPanel>
         </Grid>
     </DockPanel>

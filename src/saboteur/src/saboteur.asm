@@ -9,7 +9,7 @@
 OLDSTK: dw 0            ; save stack to return to cp/m
 CURSCR: dw SCRMAP		; pointer to current screen
 MAINSPR:dw SABSPRT1
-MAINPOS:dw SCRADDR + 10 ;+ COLNUM/2 + ROWNUM*8/2
+MAINPOS:dw SCRADDR + COLNUM/2 + 64*ROWNUM*8/2
 
 		include "sbmacro.asm"		
         include "const.asm"
@@ -49,12 +49,10 @@ main:					; main cycle
 		load_de_hl
         call drawbkgr
 		
-		;ld hl,MAINPOS
-		;load_de_hl
-		;ex de,hl
-		ld hl,SCRADDR
+		ld hl,(MAINSPR)
+		ex de,hl				
 		
-		ld de,SABSPRT1
+		ld hl,(MAINPOS)		
 		call drawspr
 		
         GRMODOFF
