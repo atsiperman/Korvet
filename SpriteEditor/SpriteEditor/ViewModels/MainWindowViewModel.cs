@@ -139,7 +139,7 @@ namespace SpriteEditor.ViewModels
 
         public void SaveToFile(string file)
         {
-            FileSaver.Save(EditorSettings, file);
+            FileSaver.Save(EditorSettings, file, SelectedColor.NativeColor);
         }
 
         public EditorSettings LoadFromFile(string file)

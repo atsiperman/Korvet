@@ -17,6 +17,8 @@
 		include "drawsprite.asm"
 		include "control_data.asm"
 		include "screen_draw.asm"
+		include "frame_sprites.asm"
+		include "draw_frame.asm"
 
 start:
         call clrtscr
@@ -31,12 +33,12 @@ start:
 
         ld a,8eh 
         call fillscr
+
+		call drawfrm
+		
         GRMODOFF
 
 main:					; main cycle
-;		call gmain
-;		and a		
-;		jp z,main		; continue if zero
 
         GRMODON
 

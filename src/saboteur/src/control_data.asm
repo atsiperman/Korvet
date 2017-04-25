@@ -1,5 +1,5 @@
 
-OLDSTK: 	dw 0            ; save stack to return to cp/m
+OLDSTK: dw 0            	; save stack to return to cp/m
 
 	
 ; ---- LUT 

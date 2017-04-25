@@ -12,11 +12,15 @@ LUTREG		EQU GREGBASE	+ 0fbh
 GRAM    	EQU 0c000h
 GRAMLEN 	EQU 4000h
 
-SCRADDR 	EQU GRAM ; + 512 + 10		; start of the working screen
+SCRADDR 	EQU GRAM + 1 + 64*8 	; start of the working screen
 
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
 SCRDISP 	EQU 64 - COLNUM	; displacement on the screen memory to draw next line
+
+FRMADDR		EQU GRAM
+FRMWIDT		EQU COLNUM + 2
+FRMHIGT		EQU 24
 
 NEWSTK  	EQU 0beffh
 
@@ -25,3 +29,4 @@ CBLUE		EQU 1
 CGREEN		EQU 2
 CYELLOW		EQU 3
 CMAIN 		EQU 4			; color of the main character
+CRED		EQU 2

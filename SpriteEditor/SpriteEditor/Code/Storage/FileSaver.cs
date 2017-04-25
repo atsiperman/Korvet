@@ -19,7 +19,7 @@ namespace SpriteEditor.Code
             public uint[] Data { get; set; }
         }
 
-        public static void Save(EditorSettings editor, string path)
+        public static void Save(EditorSettings editor, string path, uint nativeColor)
         {
             var ext = Path.GetExtension(path);
             switch (ext)
@@ -29,7 +29,7 @@ namespace SpriteEditor.Code
                     break;
 
                 case ".msk":
-                    ExportMask.Save(path, editor.VideoMemory, 0);
+                    ExportMask.Save(path, editor.VideoMemory, nativeColor);
                     break;
 
                 default:

@@ -5,8 +5,8 @@
 gmain:
         call kbread
 		and 255
-		jp z,gmain
-		;ret z
+		;jp z,gmain
+		ret z
 		
 		ld b,KESC
 		cp b
