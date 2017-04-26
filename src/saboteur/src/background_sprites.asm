@@ -11,6 +11,13 @@ BK4ADDR:	DW BK4DATA
 BK5ADDR:	DW BK5DATA
 BK6ADDR:	DW BK6DATA
 BK7ADDR:	DW BK7DATA
+BK8ADDR:	DW BK8DATA
+BK9ADDR:	DW BK9DATA
+BK10ADDR:	DW BK10DATA
+BK11ADDR:	DW BK11DATA
+BK12ADDR:	DW BK12DATA
+BK13ADDR:	DW BK13DATA
+BK14ADDR:	DW BK14DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -33,3 +40,28 @@ BK6DATA:	bksh CYELLOW		; 2 yellow bricks
 			
 BK7DATA:	bksh CYELLOW		; big yellow brick
 			DB 0,126,126,126,126,126,126,126
+
+BK8DATA:	bksh CBLUE			; blue ladder left bottom
+			DB 16,115,115,112,16,243,243,240			
+
+BK9DATA:	bksh CBLUE			; blue ladder right bottom
+			DB 8,207,207,15,8,207,207,15 
+
+BK10DATA:	bksh CBLUE			; blue small bricks
+			DB 0,247,0,127,0,247,247,247
+	
+BK11DATA:	bksh CBLUE			; blue ladder top left
+			DB 144,115,3,112,144,115,3,112
+
+BK12DATA:	bksh CBLUE			; blue ladder top right
+			DB 9,206,192,14,9,206,192,14
+			
+BK13DATA:	bksh CGREEN			; green ladder bottom left
+			DB 144,179,147,240,144,179,147,240
+
+BK14DATA:	bksh CGREEN			; green ladder bottom right
+			DB 8,206,200,15,8,206,200,15 
+
+
+
+
