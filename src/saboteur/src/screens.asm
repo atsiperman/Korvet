@@ -529,4 +529,248 @@ scrbk8:
 			bkindex BK2ADDR
 			edup
 		edup
+		
 ; --- end of scrbk8
+
+scrbk9:
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 16
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+								; 2nd line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK3ADDR
+		edup		
+		dup 8
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+
+								; 3rd line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 9
+		bkindex BK3ADDR
+		edup		
+		dup 7
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+
+								; 4th line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 10
+		bkindex BK3ADDR
+		edup		
+		dup 6
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+
+								; 5th line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 11
+		bkindex BK3ADDR
+		edup		
+		dup 5
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+								; 6th line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 12
+		bkindex BK3ADDR
+		edup		
+		dup 4
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK2ADDR
+		edup
+								; 7th line
+		dup 2
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 13
+		bkindex BK2ADDR
+		edup		
+		dup 3
+		bkindex BK2ADDR
+		edup
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 4
+		bkindex BK2ADDR
+		edup
+		bkindex BK2ADDR		; door	
+		dup 3
+		bkindex BK2ADDR
+		edup			
+	
+		dup 6
+			dup 2
+			bkindex BK2ADDR
+			edup
+			bkindex BK13ADDR
+			bkindex BK14ADDR
+			dup 16
+			bkindex BK3ADDR
+			edup		
+			bkindex BK13ADDR
+			bkindex BK14ADDR
+			dup 8
+			bkindex BK3ADDR
+			edup					
+		edup
+
+		dup 8
+		bkindex BK2ADDR
+		edup
+		dup 12
+		bkindex BK3ADDR
+		edup		
+		bkindex BK13ADDR
+		bkindex BK14ADDR
+		dup 8
+		bkindex BK3ADDR
+		edup
+
+		dup 10
+		bkindex BK2ADDR
+		edup
+		bkindex BK11ADDR
+		bkindex BK12ADDR
+		bkindex BK2ADDR
+		bkindex BK2ADDR
+		bkindex BK2ADDR			; pipe top
+		dup 8
+		bkindex BK2ADDR
+		edup
+		bkindex BK2ADDR			; pipe top
+		dup 6
+		bkindex BK2ADDR
+		edup
+					
+		dup 2
+			dup 10
+			bkindex BK2ADDR
+			edup
+			bkindex BK8ADDR
+			bkindex BK9ADDR
+			bkindex BK2ADDR
+			bkindex BK2ADDR
+			bkindex BK2ADDR			; pipe
+			dup 8
+			bkindex BK2ADDR
+			edup
+			bkindex BK2ADDR			; pipe
+			dup 6
+			bkindex BK2ADDR
+			edup
+		end
+		
+; --- end of scrbk9
+
+scrbk10:
+		dup 6
+			dup 30
+			bkindex BK2ADDR
+			edup
+		edup
+
+		bkindex BK2ADDR				
+		bkindex BK2ADDR
+		bkindex BK2ADDR				; door
+		dup 27
+		bkindex BK2ADDR
+		edup
+				
+		dup 7
+			dup 27
+			bkindex BK3ADDR
+			edup
+			dup 27
+			bkindex BK2ADDR
+			edup			
+		edup
+
+		dup 4
+		bkindex BK2ADDR
+		edup
+		bkindex BK11ADDR
+		bkindex BK12ADDR
+		dup 14
+		bkindex BK2ADDR
+		edup
+		bkindex BK11ADDR
+		bkindex BK12ADDR
+		dup 7
+		bkindex BK2ADDR
+		edup		
+		
+		dup 2
+			dup 4
+			bkindex BK2ADDR
+			edup
+			bkindex BK8ADDR
+			bkindex BK9ADDR
+			dup 14
+			bkindex BK2ADDR
+			edup
+			bkindex BK8ADDR
+			bkindex BK9ADDR
+			dup 7
+			bkindex BK2ADDR
+			edup		
+		edup
+		
+; --- end of scrbk10
