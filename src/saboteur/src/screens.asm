@@ -641,7 +641,7 @@ scrbk9:
 		bkindex BK13ADDR
 		bkindex BK14ADDR
 		dup 13
-		bkindex BK2ADDR
+		bkindex BK3ADDR
 		edup		
 		dup 3
 		bkindex BK2ADDR
@@ -716,7 +716,7 @@ scrbk9:
 			dup 6
 			bkindex BK2ADDR
 			edup
-		end
+		edup
 		
 ; --- end of scrbk9
 
@@ -738,7 +738,7 @@ scrbk10:
 			dup 27
 			bkindex BK3ADDR
 			edup
-			dup 27
+			dup 3
 			bkindex BK2ADDR
 			edup			
 		edup
@@ -753,7 +753,7 @@ scrbk10:
 		edup
 		bkindex BK11ADDR
 		bkindex BK12ADDR
-		dup 7
+		dup 8
 		bkindex BK2ADDR
 		edup		
 		
@@ -768,7 +768,7 @@ scrbk10:
 			edup
 			bkindex BK8ADDR
 			bkindex BK9ADDR
-			dup 7
+			dup 8
 			bkindex BK2ADDR
 			edup		
 		edup
