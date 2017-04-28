@@ -107,134 +107,126 @@ smap3e:
 ; --- end of scrbk3
 	
 scrbk4:
-		dup 5
-		bkindex BK2ADDR
-		edup
-		dup 3
-		bkindex BK4ADDR
-		edup
-							; ladder
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		
-		dup 12
-		bkindex BK2ADDR
-		edup
-		dup 8
-		bkindex BK4ADDR
-		edup
+		spmaplen smap4b,smap4e
+smap4b:			
+		bkindex BK2ADDR		; 0, 	wall
+		bkindex BK1ADDR		; 1, 	yellow L
+		bkindex BK6ADDR		; 2, 	2 yellow bricks 
+		bkindex BK7ADDR		; 3, 	big yellow brick
+		bkindex BK8ADDR		; 4,	blue ladder left bottom
+		bkindex BK9ADDR		; 5,	blue ladder right bottom
+		bkindex BK4ADDR		; 6, 	blue bricks
+smap4e:				
 
+		dup 2				; 1st line
+		mkbyte 0,0
+		edup
+		mkbyte 0,6
+		mkbyte 6,6
+		mkbyte 4,5
+		dup 6
+		mkbyte 0,0
+		edup
 		dup 4
-		bkindex BK1ADDR
+		mkbyte 6,6
 		edup
-		bkindex BK6ADDR
-		dup 3
-		bkindex BK4ADDR
-		edup
-							; ladder
-		bkindex BK8ADDR
-		bkindex BK9ADDR
 		
-		dup 20
-		bkindex BK4ADDR
+		dup 2				; 2 1st line
+		mkbyte 1,1
+		edup
+		mkbyte 1,6
+		mkbyte 6,6
+		mkbyte 4,5
+		dup 10
+		mkbyte 6,6
 		edup
 
+		dup 5				; next 5 lines
+			dup 2				
+			mkbyte 1,1
+			edup
+			mkbyte 1,6
+			mkbyte 6,6
+			mkbyte 4,5
+			dup 10
+			mkbyte 6,6
+			edup
+		edup
+		
+		dup 2				; ladder begins
+		mkbyte 0,0
+		edup
+		mkbyte 0,6
+		mkbyte 6,6
+		mkbyte 4,5		
+		dup 10
+		mkbyte 6,6
+		edup
+							;
 		dup 5
-			dup 4
-			bkindex BK1ADDR
-			edup
-			bkindex BK7ADDR
-			dup 3
-			bkindex BK4ADDR
-			edup
-							; ladder
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			
-			dup 20
-			bkindex BK4ADDR
-			edup
+		mkbyte 0,0
+		edup
+		mkbyte 0,6
+		dup 9
+		mkbyte 6,6
+		edup
+							; 
+		dup 9
+		mkbyte 6,6
+		edup		
+		dup 6				
+		mkbyte 0,0
 		edup
 
-		dup 5
-		bkindex BK2ADDR
-		edup
-		dup 3
-		bkindex BK4ADDR
-		edup
-							; ladder
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		dup 20
-		bkindex BK4ADDR
+		dup 8
+		mkbyte 6,6
+		edup		
+		mkbyte 6,0
+		dup 6				
+		mkbyte 0,0
 		edup
 
-		dup 11
-		bkindex BK2ADDR
-		edup
-		dup 19
-		bkindex BK4ADDR
-		edup
-
-		dup 18
-		bkindex BK4ADDR
-		edup
-		dup 12
-		bkindex BK2ADDR
+		dup 8
+		mkbyte 6,6
+		edup		
+		dup 7				
+		mkbyte 0,0
 		edup
 
-
-		dup 17
-		bkindex BK4ADDR
-		edup
-		dup 13
-		bkindex BK2ADDR
-		edup
-
-
-		dup 16
-		bkindex BK4ADDR
-		edup
-		dup 14
-		bkindex BK2ADDR
-		edup
-
-
-		dup 15
-		bkindex BK4ADDR
-		edup
-		dup 15
-		bkindex BK2ADDR
+		dup 7
+		mkbyte 6,6
+		edup		
+		mkbyte 6,0
+		dup 7				
+		mkbyte 0,0
 		edup
 		
+		dup 7
+		mkbyte 6,6
+		edup		
+		dup 8				
+		mkbyte 0,0
+		edup
+
+		dup 6
+		mkbyte 6,6
+		edup		
+		mkbyte 6,0
+		dup 8				
+		mkbyte 0,0
+		edup
 		
-		dup 14
-		bkindex BK4ADDR
-		edup
-		dup 16
-		bkindex BK2ADDR
-		edup
-
-
-		dup 13
-		bkindex BK4ADDR
-		edup
-		dup 17
-		bkindex BK2ADDR
-		edup
-
-
-		dup 12
-		bkindex BK4ADDR
-		edup
-		dup 18
-		bkindex BK2ADDR
+		dup 6
+		mkbyte 6,6
+		edup		
+		dup 9				
+		mkbyte 0,0
 		edup
 
 		dup 30
-		bkindex BK2ADDR
+		db 0
 		edup
-
+		
 ; --- end of scrbk4
 
 

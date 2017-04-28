@@ -1,5 +1,6 @@
 
 ; -----  clear text screen
+;
 clrtscr:
         ld hl,0fc00h
         ld bc,1024
@@ -13,7 +14,8 @@ ctslop: ld (hl),d
         jp nz, ctslop
         ret
 
-; -----  switch to graphics mode
+; -----  switches to graphics mode
+;
         macro   GRMODON 
 
         ld hl,TSYSREG
@@ -23,7 +25,8 @@ ctslop: ld (hl),d
 
         endm
 
-; -----  switch back to CP/M
+; -----  switches back to CP/M
+;
         macro   GRMODOFF 
 
         ld hl,GSYSREG
@@ -34,6 +37,7 @@ ctslop: ld (hl),d
         endm
 
 ; ----- setup LUT
+;
 lutsetup:
 		ld c,16
 		ld de,LUTREG

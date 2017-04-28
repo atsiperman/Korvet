@@ -18,12 +18,12 @@ scrchng2:
 		ld a,1
 		ret
 
-uncmcnt:
+decmcnt:
 		db 0		; counter of bytes in compressed screen
 		
-; ----- uncompresses current screen into shadow area
+; ----- decompresses current screen into shadow area
 ; 1a93
-uncmrscr:		
+decmrscr:		
 		ld hl,(curscr)		; pointer to screen control block
 		load_de_hl			; load address of the current screen
 		ex de,hl
@@ -36,29 +36,13 @@ uncmrscr:
 		
 		add hl,de			; now hl points to the first sprite's index
 		
-		ld de,shadscr		; pointer to the shadow screen
-		
+		ld de,shadscr		; pointer to the shadow screen	
 		
 		ld a, ROWNUM * (COLNUM/2)
-		ld (uncmcnt),a		; save counter
-		call uncmps1
-
-		ld a, ROWNUM * (COLNUM/2)
-		ld (uncmcnt),a		; save counter
-		call uncmps1
+		ld (decmcnt),a		; save counter
 		
-		ret
-		
-uncmps1:
-		;push de						
-		
+decmprs1:
 		ld a,(hl)
-		;ld d,0
-		;add hl,de			; first byte of sprites
-		;ld e,(hl)
-		;ld a,e				; is in A
-		
-		;pop de
 		push af				; save compressed byte in A		
 		
 		rra
@@ -71,12 +55,12 @@ uncmps1:
 		push de
 		ld d,0
 		ld e,a
-		ld h,b
-		ld l,c				; screen address		
+		ld h,b				; screen address		
+		ld l,c				; from bc to hl
 		add hl,de			; add index of sprite
-		pop de
-		
 		ld a,(hl)			; index of sprite in global table
+		
+		pop de
 		ex de,hl
 		ld (hl),a			; write it to the shadow screen
 		ex de,hl
@@ -92,9 +76,9 @@ uncmps1:
 		ld e,a
 		ld h,b
 		ld l,c				; screen address		
-		add hl,de			; add index of sprite
-		pop de
+		add hl,de			; add index of sprite		
 		ld a,(hl)			; index of sprite in global table
+		pop de
 		ex de,hl
 		ld (hl),a			; write it to the shadow screen
 		ex de,hl
@@ -102,11 +86,11 @@ uncmps1:
 
 		inc de
 		inc hl
-		ld a,(uncmcnt)		; save counter
+		ld a,(decmcnt)		; save counter
 		dec a
 		ret	z
-		ld (uncmcnt),a		; save counter
-		jp uncmps1
+		ld (decmcnt),a		; save counter
+		jp decmprs1
 		
 ; ----- draws current screen	
 drawscr:
@@ -117,7 +101,7 @@ drawscr:
 		ld a,80h
 		call clrwscr
 		
-		call uncmrscr
+		call decmrscr
 		
 		ld de,shadscr		; address of the shadow screen
         call drawbkgr
