@@ -1,4 +1,12 @@
-
+		; sprite map length
+		macro spmaplen	bmap, emap
+		db	(emap - bmap)
+		endm
+		
+		macro mkbyte hi,lo
+		db (hi << 4) | lo
+		endm
+		
 scrbk1:
         dup ROWNUM
 			bkindex BK2ADDR
@@ -16,73 +24,84 @@ scrbk2:
         edup
 
 scrbk3:
-		dup 20
-		bkindex BK5ADDR
-		edup
+		spmaplen smap3b,smap3e
+smap3b:			
+		bkindex BK5ADDR		; 0, 	solid blue
+		bkindex BK2ADDR		; 1, 	wall
+		bkindex BK1ADDR		; 2, 	yellow L
+		bkindex BK6ADDR		; 3, 	2 yellow bricks 
+		bkindex BK7ADDR		; 4, 	big yellow brick
+		bkindex BK8ADDR		; 5,	blue ladder left bottom
+		bkindex BK9ADDR		; 6,	blue ladder right bottom
+		bkindex BK11ADDR	; 7,	blue ladder top left
+		bkindex BK12ADDR	; 8,	blue ladder top right
+		bkindex BK10ADDR	; 9,	blue small bricks
+		bkindex BK4ADDR		; A, 	blue bricks
+smap3e:				
+							; 1st line
 		dup 10
-		bkindex BK2ADDR
+		db	0
+		edup		
+		dup 5
+		mkbyte 1,1
 		edup
-		
-		dup 21
-		bkindex BK5ADDR
-		edup
-		bkindex BK6ADDR
-		dup 8
-		bkindex BK1ADDR
+							; 2nd line
+		dup 10
+		db 0
+		endm
+		mkbyte 0,3
+		dup 4
+		mkbyte 2,2
 		edup
 	
 		dup 5				; yellow door
-			dup 21
-			bkindex BK5ADDR
-			edup
-			bkindex BK7ADDR
-			dup 8
-			bkindex BK1ADDR
+			dup 10
+			db	0
+			edup		
+			mkbyte 0,4
+			dup 4
+			mkbyte 2,2
 			edup
 		edup
-							; ladder 
-		dup 10
-		bkindex BK2ADDR
+							; ladder 							
+		dup 5
+		mkbyte 1,1
 		edup		
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 18
-		bkindex BK2ADDR
+		mkbyte 7,8
+		dup 9
+		mkbyte 1,1
 		edup
 							; ladder 		
-		dup 10
-		bkindex BK2ADDR
+		dup 5
+		mkbyte 1,1
 		edup		
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		dup 18
-		bkindex BK2ADDR
+		mkbyte 5,6
+		dup 9
+		mkbyte 1,1
 		edup
 							; ladder 
-		dup 9
-		bkindex BK2ADDR
+		dup 4
+		mkbyte 1,1
 		edup		
-		bkindex BK10ADDR
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		dup 18
-		bkindex BK10ADDR
+		mkbyte 1,9
+		mkbyte 5,6
+		dup 9
+		mkbyte 9,9
 		edup
 		
 		dup 6
+			dup 4
+			mkbyte 1,1
+			edup
+			mkbyte 1,10
+			mkbyte 5,6
 			dup 9
-			bkindex BK2ADDR
-			edup		
-			bkindex BK4ADDR
-			bkindex BK8ADDR
-			bkindex BK9ADDR			
-			dup 18
-			bkindex BK4ADDR
+			mkbyte 10,10
 			edup
 		edup
 
-		dup 30
-		bkindex BK2ADDR
+		dup 15
+		mkbyte 1,1
 		edup	
 
 ; --- end of scrbk3

@@ -11,8 +11,10 @@
 		DB hi
 	endm
 	
-	; header of moving sprites
-	; all sprites are working in plain mode
+	; ---- header of moving sprites
+	;
+	; all moving sprites are working in plain mode
+	;
 	macro sabsphd 
 		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
 		db 4, 48
@@ -30,6 +32,9 @@
 		ld b,(hl)
 	endm
 	
+	; ---- moves to the next screen
+	; args:	disp - displacement from the beginning of the screen map to the next screen pointer
+	;
 	macro nextscreen disp
 		ld hl,(curscr)	; load block of the current screen
 		ld de,disp
@@ -48,3 +53,4 @@
 		ld hl,COLRREG
 		ld (hl),a
 	endm
+	

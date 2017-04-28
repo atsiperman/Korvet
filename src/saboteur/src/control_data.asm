@@ -34,3 +34,6 @@ prevscr:	dw 0			; pointer to previous screen
 MAINSPR:	dw SABSPRT1
 MAINPOS:	dw SCRADDR + COLNUM/2 + 64*ROWNUM*8/2
 
+shadscr:	dup	ROWNUM * COLNUM
+			db 0
+			edup

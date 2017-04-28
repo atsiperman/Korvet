@@ -17,7 +17,96 @@ scrchngd:
 scrchng2:	
 		ld a,1
 		ret
-			
+
+uncmcnt:
+		db 0		; counter of bytes in compressed screen
+		
+; ----- uncompresses current screen into shadow area
+; 1a93
+uncmrscr:		
+		ld hl,(curscr)		; pointer to screen control block
+		load_de_hl			; load address of the current screen
+		ex de,hl
+
+		ld d,0
+		ld e,(hl)			; length of local sprite map		
+		inc hl
+		push hl
+		pop	bc				; keep screen address in BC as pointer to local sprite map		
+		
+		add hl,de			; now hl points to the first sprite's index
+		
+		ld de,shadscr		; pointer to the shadow screen
+		
+		
+		ld a, ROWNUM * (COLNUM/2)
+		ld (uncmcnt),a		; save counter
+		call uncmps1
+
+		ld a, ROWNUM * (COLNUM/2)
+		ld (uncmcnt),a		; save counter
+		call uncmps1
+		
+		ret
+		
+uncmps1:
+		;push de						
+		
+		ld a,(hl)
+		;ld d,0
+		;add hl,de			; first byte of sprites
+		;ld e,(hl)
+		;ld a,e				; is in A
+		
+		;pop de
+		push af				; save compressed byte in A		
+		
+		rra
+		rra
+		rra
+		rra		
+		and 15				; index of the first sprite
+				
+		push hl
+		push de
+		ld d,0
+		ld e,a
+		ld h,b
+		ld l,c				; screen address		
+		add hl,de			; add index of sprite
+		pop de
+		
+		ld a,(hl)			; index of sprite in global table
+		ex de,hl
+		ld (hl),a			; write it to the shadow screen
+		ex de,hl
+		pop hl				; restore pointer to the next byte
+		
+		inc de				; next byte of shadow screen
+
+		pop af				; restore compressed byte		
+		and 15
+		push hl
+		push de
+		ld d,0
+		ld e,a
+		ld h,b
+		ld l,c				; screen address		
+		add hl,de			; add index of sprite
+		pop de
+		ld a,(hl)			; index of sprite in global table
+		ex de,hl
+		ld (hl),a			; write it to the shadow screen
+		ex de,hl
+		pop hl				; restore pointer to the next byte
+
+		inc de
+		inc hl
+		ld a,(uncmcnt)		; save counter
+		dec a
+		ret	z
+		ld (uncmcnt),a		; save counter
+		jp uncmps1
 		
 ; ----- draws current screen	
 drawscr:
@@ -28,8 +117,9 @@ drawscr:
 		ld a,80h
 		call clrwscr
 		
-		ld hl,(curscr)		; pointer to screen control block
-		load_de_hl			; load address of the current screen
+		call uncmrscr
+		
+		ld de,shadscr		; address of the shadow screen
         call drawbkgr
 
 		ld hl,(curscr)		; save current screen as previous
