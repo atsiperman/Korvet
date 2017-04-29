@@ -231,556 +231,552 @@ smap4e:
 
 
 scrbk5:
-		dup 2
-		bkindex BK4ADDR
+		spmaplen smap5b,smap5e
+smap5b:			
+		bkindex BK2ADDR		; 0, 	wall
+		bkindex BK6ADDR		; 1, 	2 yellow bricks 
+		bkindex BK7ADDR		; 2, 	big yellow brick
+		bkindex BK4ADDR		; 3, 	blue bricks
+		bkindex BK3ADDR		; 4,	green bricks
+smap5e:				
+		mkbyte 3,3
+		dup 3
+		mkbyte 0,0
 		edup
-		dup 6
-		bkindex BK2ADDR
-		edup
-		dup 22
-		bkindex BK3ADDR
+		dup 11
+		mkbyte 4,4
 		edup		
 
-		dup 5
-		bkindex BK4ADDR
+		dup 2
+		mkbyte 3,3
 		edup
-		bkindex BK6ADDR
-		dup 24
-		bkindex BK3ADDR
+		mkbyte 3,1
+		dup 12
+		mkbyte 4,4
 		edup		
 
 		dup 7
-			dup 5
-			bkindex BK4ADDR		
+			dup 2
+			mkbyte 3,3
 			edup
-			bkindex BK7ADDR
-			dup 24
-			bkindex BK3ADDR
+			mkbyte 3,2
+			dup 12
+			mkbyte 4,4
 			edup
 		edup
 
-		dup 15
-		bkindex BK2ADDR		
+		dup 7
+		mkbyte 0,0
 		edup
-		dup 15
-		bkindex BK3ADDR
-		edup
-		
-		dup 16
-		bkindex BK2ADDR		
-		edup
-		dup 14
-		bkindex BK3ADDR
+		mkbyte 0,4
+		dup 7
+		mkbyte 4,4
 		edup
 		
-		dup 17
-		bkindex BK2ADDR		
+		dup 8
+		mkbyte 0,0
 		edup
-		dup 13
-		bkindex BK3ADDR
+		dup 7
+		mkbyte 4,4
 		edup
 		
-		dup 18
-		bkindex BK2ADDR		
+		dup 8
+		mkbyte 0,0
 		edup
-		dup 12
-		bkindex BK3ADDR
+		mkbyte 0,4
+		dup 6
+		mkbyte 4,4
+		edup
+		
+		dup 9
+		mkbyte 0,0
+		edup
+		dup 6
+		mkbyte 4,4
 		edup
 
-		dup 19
-		bkindex BK2ADDR		
+		dup 9
+		mkbyte 0,0
 		edup
-		dup 11
-		bkindex BK3ADDR
+		mkbyte 0,4
+		dup 5
+		mkbyte 4,4
 		edup
 
 		dup 3
-			dup 30
-			bkindex BK2ADDR
+			dup 15
+			db 0
 			edup
 		edup
 ; --- end of scrbk5
 
 scrbk6:
+		spmaplen smap6b,smap6e
+smap6b:			
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK4ADDR		; 1, blue bricks
+		bkindex BK3ADDR		; 2, green bricks
+		bkindex BK13ADDR	; 3, green ladder bottom left
+		bkindex BK14ADDR    ; 4, green ladder bottom right
+		bkindex BK11ADDR	; 5, blue ladder top left
+		bkindex BK12ADDR	; 6, blue ladder top right
+		bkindex BK8ADDR		; 7, blue ladder bottom left
+		bkindex BK9ADDR		; 8, blue ladder bottom right
+smap6e:				
+
 		dup 14
-			dup 14
-			bkindex BK3ADDR
+			dup 7
+			mkbyte 2,2
 			edup
-								; ladder
-			bkindex BK13ADDR
-			bkindex BK14ADDR
-			
-			dup 14
-			bkindex BK3ADDR
+			mkbyte 3,4
+			dup 7
+			mkbyte 2,2
 			edup
 		edup
 		
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0
+		edup	
+		mkbyte 5,6			; ladder
+		dup 5
+		db 0
 		edup
-								; ladder
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 10
-		bkindex BK2ADDR
-		edup
-		dup 10
-		bkindex BK3ADDR
+		dup 5
+		mkbyte 2,2
 		edup
 		
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0
 		edup
-								; ladder
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		dup 11
-		bkindex BK2ADDR
+		mkbyte 7,8			; ladder
+		dup 5
+		db 0
 		edup
-		dup 9
-		bkindex BK3ADDR
+		mkbyte 0,2
+		dup 4
+		mkbyte 2,2
 		edup
 		
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0			
 		edup
-								; ladder
-		bkindex BK8ADDR
-		bkindex BK9ADDR
-		dup 20
-		bkindex BK2ADDR
+		mkbyte 7,8			; ladder		
+		dup 10
+		db 0
 		edup
 				
 ; --- end of scrbk6
 
 scrbk7:
+		spmaplen smap7b,smap7e
+smap7b:			
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR		; 1, green bricks
+		bkindex BK13ADDR	; 2, green ladder bottom left
+		bkindex BK14ADDR    ; 3, green ladder bottom right
+		bkindex BK6ADDR     ; 4, 2 yellow bricks
+		bkindex BK7ADDR     ; 5, big yellow brick
+		bkindex BK11ADDR	; 6, blue ladder top left
+		bkindex BK12ADDR	; 7, blue ladder top right		
+smap7e:				
 		dup 5
-			dup 11
-			bkindex BK2ADDR
+			dup 5
+			db 0
 			edup
-								; ladder
-			bkindex BK13ADDR
-			bkindex BK14ADDR
-			
-			dup 17
-			bkindex BK2ADDR
+			mkbyte 0,2
+			mkbyte 3,0
+			dup 8
+			db 0
 			edup
 		edup
 							; ladder with door
-		dup 11
-		bkindex BK2ADDR
+		dup 5
+		db 0
 		edup
 							; ladder
-		bkindex BK13ADDR
-		bkindex BK14ADDR
+		mkbyte 0,2
+		mkbyte 3,0
 		
-		dup 17
-		bkindex BK2ADDR
+		dup 8
+		db 0
 		edup
 							;
-		dup 11
-		bkindex BK3ADDR
+		dup 5
+		mkbyte 1,1
 		edup
-							; ladder
-		bkindex BK13ADDR
-		bkindex BK14ADDR
+		mkbyte 1,2
+		mkbyte 3,1
 		
-		dup 15
-		bkindex BK3ADDR
+		dup 7
+		mkbyte 1,1
 		edup
-		bkindex BK6ADDR
-		bkindex BK3ADDR
-		
+		mkbyte 4,1		
 							;
 		dup 6		
-			dup 11
-			bkindex BK3ADDR
+			dup 5
+			mkbyte 1,1
 			edup
-								; ladder
-			bkindex BK13ADDR
-			bkindex BK14ADDR
+			mkbyte 1,2
+			mkbyte 3,1
 			
-			dup 15
-			bkindex BK3ADDR
+			dup 7
+			mkbyte 1,1
 			edup
-			bkindex BK7ADDR
-			bkindex BK3ADDR
+			mkbyte 5,1		
 		edup
 		
-		dup 11					; stairs	
-		bkindex BK3ADDR
+								; stairs	
+		dup 5
+		mkbyte 1,1
 		edup
-								; ladder
-		bkindex BK13ADDR
-		bkindex BK14ADDR
+		mkbyte 1,2
+		mkbyte 3,1
 		
-		dup 11
-		bkindex BK3ADDR
+		dup 5
+		mkbyte 1,1
 		edup
-		dup 6
-		bkindex BK2ADDR
+		dup 3
+		db 0
 		edup
 
-		dup 11					; stairs	
-		bkindex BK3ADDR
+								; stairs	
+		dup 5
+		mkbyte 1,1
 		edup
-								; ladder
-		bkindex BK13ADDR
-		bkindex BK14ADDR
+		mkbyte 1,2
+		mkbyte 3,1
 		
-		dup 10
-		bkindex BK3ADDR
-		edup
-		dup 7
-		bkindex BK2ADDR
-		edup
-		
-		dup 11					; stairs	
-		bkindex BK3ADDR
-		edup
-								; ladder
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		
-		dup 9
-		bkindex BK3ADDR
-		edup
-		dup 8
-		bkindex BK2ADDR
-		edup
-					
-								; last line								
 		dup 4
-		bkindex BK2ADDR
+		mkbyte 1,1
 		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 12
-		bkindex BK2ADDR
+		mkbyte 1,0
+		dup 3
+		db 0
+		edup		
+								; stairs	
+		dup 5
+		mkbyte 1,1
 		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 10
-		bkindex BK2ADDR
+		mkbyte 1,2
+		mkbyte 3,1		
+		dup 4
+		mkbyte 1,1
+		edup
+		dup 4
+		db 0
+		edup
+								; last line								
+		dup 2
+		db 0
+		edup
+		mkbyte 6,7 
+		dup 6
+		db 0
+		edup
+		mkbyte 6,7 
+		dup 5
+		db 0
 		edup
 				
 ; --- end of scrbk7
 
 scrbk8:
+		spmaplen smap8b,smap8e
+smap8b:			
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR		; 1, green bricks
+		bkindex BK13ADDR	; 2, green ladder bottom left
+		bkindex BK14ADDR    ; 3, green ladder bottom right
+		bkindex BK6ADDR     ; 4, 2 yellow bricks
+		bkindex BK7ADDR     ; 5, big yellow brick
+		bkindex BK11ADDR	; 6, blue ladder top left
+		bkindex BK12ADDR	; 7, blue ladder top right		
+		bkindex BK8ADDR		; 8, blue ladder bottom left
+		bkindex BK9ADDR		; 9, blue ladder bottom right		
+smap8e:				
 		dup 6
-			dup 5
-			bkindex BK2ADDR
+			dup 2
+			db 0
 			edup
-			bkindex BK13ADDR
-			bkindex BK14ADDR
-			dup 20
-			bkindex BK3ADDR
+			mkbyte 0,2
+			mkbyte 3,1
+			dup 9
+			mkbyte 1,1
 			edup			
-			dup 3
-			bkindex BK2ADDR
-			edup						
+			mkbyte 1,0
+			db 0
 		edup
 		
-		bkindex BK3ADDR
-		bkindex BK6ADDR
-		dup 3
-		bkindex BK3ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 20
-		bkindex BK3ADDR
-		edup			
-		dup 3
-		bkindex BK2ADDR
-		edup						
+		mkbyte 1,4
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		dup 9
+		mkbyte 1,1
+		edup		
+		mkbyte 1,0
+		db 0
 
 		dup 6
-			bkindex BK3ADDR
-			bkindex BK7ADDR
-			dup 3
-			bkindex BK3ADDR
-			edup
-			bkindex BK13ADDR
-			bkindex BK14ADDR
-			dup 20
-			bkindex BK3ADDR
+			mkbyte 1,5
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			dup 9
+			mkbyte 1,1
 			edup			
-			dup 3
-			bkindex BK2ADDR
-			edup						
+			mkbyte 1,0
+			db 0
 		edup
 
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0
 		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 10
-		bkindex BK2ADDR
+		mkbyte 6,7
+		dup 5
+		db 0
 		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 6,7		
+		dup 4
+		db 0
 		edup
 
 		dup 3
-			dup 8
-			bkindex BK2ADDR
+			dup 4
+			db 0
 			edup
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			dup 10
-			bkindex BK2ADDR
+			mkbyte 8,9
+			dup 5
+			db 0
 			edup
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			dup 8
-			bkindex BK2ADDR
+			mkbyte 8,9
+			dup 4
+			db 0
 			edup
 		edup
 		
 ; --- end of scrbk8
 
 scrbk9:
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 16
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
+		spmaplen smap9b,smap9e
+smap9b:			
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR		; 1, green bricks
+		bkindex BK13ADDR	; 2, green ladder bottom left
+		bkindex BK14ADDR    ; 3, green ladder bottom right
+		bkindex BK6ADDR     ; 4, 2 yellow bricks
+		bkindex BK7ADDR     ; 5, big yellow brick
+		bkindex BK11ADDR	; 6, blue ladder top left
+		bkindex BK12ADDR	; 7, blue ladder top right		
+		bkindex BK8ADDR		; 8, blue ladder bottom left
+		bkindex BK9ADDR		; 9, blue ladder bottom right		
+		bkindex BK3ADDR		; 10, door
+		bkindex BK2ADDR		; 11, pipe top
+		bkindex BK2ADDR		; 12, pipe
+smap9e:		
+		db 0
+		mkbyte 2,3
 		dup 8
-		bkindex BK2ADDR
+		db 0
+		edup
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 								; 2nd line
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK3ADDR
+		db 0
+		mkbyte 2,3
+		dup 4
+		mkbyte 1,1
 		edup		
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 
 								; 3rd line
-		dup 2
-		bkindex BK2ADDR
+		db 0
+		mkbyte 2,3
+		dup 4
+		mkbyte 1,1
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 9
-		bkindex BK3ADDR
-		edup		
-		dup 7
-		bkindex BK2ADDR
+		mkbyte 1,0
+		dup 3
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 
 								; 4th line
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 10
-		bkindex BK3ADDR
+		db 0
+		mkbyte 2,3
+		dup 5
+		mkbyte 1,1
 		edup		
-		dup 6
-		bkindex BK2ADDR
+		dup 3
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 
 								; 5th line
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 11
-		bkindex BK3ADDR
-		edup		
+		db 0
+		mkbyte 2,3
 		dup 5
-		bkindex BK2ADDR
+		mkbyte 1,1
+		edup		
+		mkbyte 1,0
+		dup 2
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 								; 6th line
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 12
-		bkindex BK3ADDR
+		db 0
+		mkbyte 2,3
+		dup 6
+		mkbyte 1,1
 		edup		
-		dup 4
-		bkindex BK2ADDR
+		dup 2
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 2,3
+		dup 4
+		db 0
 		edup
 								; 7th line
-		dup 2
-		bkindex BK2ADDR
-		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 13
-		bkindex BK3ADDR
+		db 0
+		mkbyte 2,3
+		dup 6
+		mkbyte 1,1
 		edup		
-		dup 3
-		bkindex BK2ADDR
+		mkbyte 1,0
+		db 0
+		mkbyte 2,3
+		dup 2
+		db 0
 		edup
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 4
-		bkindex BK2ADDR
-		edup
-		bkindex BK2ADDR		; door	
-		dup 3
-		bkindex BK2ADDR
-		edup			
+		mkbyte 10,0				; door	
+		db 0
 	
 		dup 6
-			dup 2
-			bkindex BK2ADDR
-			edup
-			bkindex BK13ADDR
-			bkindex BK14ADDR
-			dup 16
-			bkindex BK3ADDR
-			edup		
-			bkindex BK13ADDR
-			bkindex BK14ADDR
+			db 0
+			mkbyte 2,3
 			dup 8
-			bkindex BK3ADDR
+			mkbyte 1,1
+			edup		
+			mkbyte 2,3
+			dup 4
+			mkbyte 1,1
 			edup					
 		edup
 
-		dup 8
-		bkindex BK2ADDR
+		dup 4
+		db 0
 		edup
-		dup 12
-		bkindex BK3ADDR
+		dup 6
+		mkbyte 1,1
 		edup		
-		bkindex BK13ADDR
-		bkindex BK14ADDR
-		dup 8
-		bkindex BK3ADDR
+		mkbyte 2,3
+		dup 4
+		mkbyte 1,1
 		edup
 
-		dup 10
-		bkindex BK2ADDR
+		dup 5
+		db 0
 		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		bkindex BK2ADDR
-		bkindex BK2ADDR
-		bkindex BK2ADDR			; pipe top
-		dup 8
-		bkindex BK2ADDR
+		mkbyte 6,7
+		db 0
+		mkbyte 11,0				; pipe top
+		dup 3
+		db 0
 		edup
-		bkindex BK2ADDR			; pipe top
-		dup 6
-		bkindex BK2ADDR
+		mkbyte 0,11				; pipe top
+		dup 3
+		db 0
 		edup
 					
 		dup 2
-			dup 10
-			bkindex BK2ADDR
+			dup 5
+			db 0
 			edup
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			bkindex BK2ADDR
-			bkindex BK2ADDR
-			bkindex BK2ADDR			; pipe
-			dup 8
-			bkindex BK2ADDR
+			mkbyte 8,9
+			db 0
+			mkbyte 12,0 		; pipe
+			dup 3
+			db 0
 			edup
-			bkindex BK2ADDR			; pipe
-			dup 6
-			bkindex BK2ADDR
+			mkbyte 0,12 		; pipe
+			dup 3
+			db 0
 			edup
 		edup
 		
 ; --- end of scrbk9
 
 scrbk10:
+		spmaplen smap10b,smap10e
+smap10b:			
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR		; 1, green bricks
+		bkindex BK11ADDR	; 2, blue ladder top left
+		bkindex BK12ADDR	; 3, blue ladder top right		
+		bkindex BK8ADDR		; 4, blue ladder bottom left
+		bkindex BK9ADDR		; 5, blue ladder bottom right		
+		bkindex BK3ADDR		; 6, door
+smap10e:		
 		dup 6
-			dup 30
-			bkindex BK2ADDR
+			dup 15
+			db 0
 			edup
 		edup
-
-		bkindex BK2ADDR				
-		bkindex BK2ADDR
-		bkindex BK2ADDR				; door
-		dup 27
-		bkindex BK2ADDR
+		
+		db 0
+		mkbyte 6,0			; door
+		dup 13
+		db 0
 		edup
 				
 		dup 7
-			dup 27
-			bkindex BK3ADDR
+			dup 13
+			mkbyte 1,1
 			edup
-			dup 3
-			bkindex BK2ADDR
-			edup			
+			mkbyte 1,0
+			db 0
 		edup
 
+		dup 2
+		db 0
+		edup
+		mkbyte 2,3
+		dup 7
+		db 0
+		edup
+		mkbyte 2,3
 		dup 4
-		bkindex BK2ADDR
-		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 14
-		bkindex BK2ADDR
-		edup
-		bkindex BK11ADDR
-		bkindex BK12ADDR
-		dup 8
-		bkindex BK2ADDR
+		db 0
 		edup		
 		
 		dup 2
+			dup 2
+			db 0
+			edup
+			mkbyte 4,5 
+			dup 7
+			db 0
+			edup
+			mkbyte 4,5
 			dup 4
-			bkindex BK2ADDR
-			edup
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			dup 14
-			bkindex BK2ADDR
-			edup
-			bkindex BK8ADDR
-			bkindex BK9ADDR
-			dup 8
-			bkindex BK2ADDR
+			db 0
 			edup		
 		edup
 		

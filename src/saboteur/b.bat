@@ -5,6 +5,7 @@ del /Y out\*.*
 @IF ERRORLEVEL 1 GOTO error
 
 @echo off
+del /Q sab.kdi
 copy /Y sab-clean.kdi sab.kdi
 cd out
 ..\..\..\tools\xkorvet a ..\sab.kdi SAB.COM >nul
@@ -18,4 +19,5 @@ echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 :end
+time /T
 
