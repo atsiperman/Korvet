@@ -44,20 +44,28 @@ gend:
 		ret
 
 ; ----- move up
+;
 gkup:
-		nextscreen upscrd
+		ret
+		;nextscreen upscrd
 		
 ; ----- move down
+;
 gkdown:
-		nextscreen downscrd
+		ret
+		;nextscreen downscrd
 		
 ; ----- move left
+;
 gkleft:	
-		nextscreen leftscrd
+		ret
+		;nextscreen leftscrd
 
 
 ; ----- move right
-gkright:	
-		nextscreen rigtscrd
+; 
+gkright:
+		ret
+		
 
 		

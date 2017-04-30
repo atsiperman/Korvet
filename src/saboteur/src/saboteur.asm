@@ -13,7 +13,9 @@
 		include "game.asm"
 		include "drawsprite.asm"
 		include "screen_draw.asm"
-		include "draw_frame.asm"		
+		include "draw_frame.asm"
+		include "object_draw.asm"
+		
         include "background_sprites.asm"
         include "screens.asm"
 				
@@ -21,7 +23,7 @@
 		include "control_data.asm"		
 		include "frame_sprites.asm"		
 		include "strings.asm"
-		include "screen_map.asm"
+		include "screen_map.asm"		
 
 start:
         call clrtscr

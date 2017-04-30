@@ -8,20 +8,7 @@
 		endm
 		
 scrbk1:
-        dup ROWNUM
-			bkindex BK2ADDR
-			dup COLNUM - 1
-				bkindex BK1ADDR
-			edup
-        edup
-		
 scrbk2:
-        dup ROWNUM
-			bkindex BK2ADDR
-			dup COLNUM - 1
-				bkindex BK3ADDR
-			edup
-        edup
 
 scrbk3:
 		spmaplen smap3b,smap3e

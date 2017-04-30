@@ -42,6 +42,13 @@ dirlt	EQU 2
 dirup	EQU 4
 dirdn	EQU 8
 
+; ---- object types
+;
+osabotr	EQU 1				; saboteur
+odog	EQU 2				; dog
+oguard	EQU 3				; guard
+
+
 ; ---- screen control block
 ;
 curscr: 	dw scrmap		; pointer to current screen
@@ -51,17 +58,24 @@ shadscr:	dup	ROWNUM * COLNUM
 			db 0
 			edup
 
+			macro mkctrlb otype,curstat,prvstat,direct,prevpos,curpos,curspr
+			db otype,curstat,prvstat,direct
+			dw prevpos,curpos,curspr
+			endm
+			
 ; ----	saboteur control block			
 ;
-sbcurpos:	dw SCRADDR + 64*8		; current position, top left corner
-sbprvpos:	dw SCRADDR 				; previous position
+sbctrlb:	
+			mkctrlb osabotr,sbstay,0,dirrt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt
+	
+;			db osabotr		; 0, object type
+;sbcursta:	db sbstay		; 1, current state of saboteur
+;sbprvsta:	db 0			; 2, previous state of saboteur
+;sbdirect:	db dirrt		; 3, direction
+;sbprvpos:	dw SCRADDR 				; 4, previous position
+;sbcurpos:	dw SCRADDR + 64*8		; 6, current position, top left corner
+;sbcurspr:	dw sabsprt		; 8, address of the current sprite of saboteur to be drawn
 
-sbcurspr:	dw sabsprt		; current sprite of saboteur to be drawn
-
-sbcursta:	db sbstay		; current state of saboteur
-sbprvsta:	db 0			; previous state of saboteur
-
-sbdirect:	db dirrt		; direction
 
 
 				

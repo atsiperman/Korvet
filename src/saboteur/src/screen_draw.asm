@@ -22,7 +22,7 @@ decmcnt:
 		db 0		; counter of bytes in compressed screen
 		
 ; ----- decompresses current screen into shadow area
-; 1a93
+; 
 decmrscr:		
 		ld hl,(curscr)		; pointer to screen control block
 		load_de_hl			; load address of the current screen
@@ -110,16 +110,10 @@ drawscr:
 		ld (prevscr),hl		
 		
 drawobjs:					; draw all objects
-		;ret
-							; clear old sprite
-		ld de,SABCLR
-		ld hl,(sbcurpos)		
-		call drawspr
-		
-		ld hl,(sbcurspr)
-		ex de,hl								
-		ld hl,(sbcurpos)		
-		call drawspr
+
+							; draw saboteur
+		ld hl,sbctrlb
+		call drawobj
 		
 		ret
 			
