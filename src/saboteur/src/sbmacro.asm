@@ -24,12 +24,14 @@
 		ld e,(hl)
 		inc hl
 		ld d,(hl)
+		inc hl
 	endm
 	
 	macro load_bc_hl
 		ld c,(hl)
 		inc hl
 		ld b,(hl)
+		inc bc
 	endm
 	
 	; ---- moves to the next screen

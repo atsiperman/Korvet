@@ -72,7 +72,7 @@ sbctrlb:
 ;sbcursta:	db sbstay		; 1, current state of saboteur
 ;sbprvsta:	db 0			; 2, previous state of saboteur
 ;sbdirect:	db dirrt		; 3, direction
-;sbprvpos:	dw SCRADDR 				; 4, previous position
+;sbprvpos:	dw SCRADDR + 64*8 		; 4, previous position
 ;sbcurpos:	dw SCRADDR + 64*8		; 6, current position, top left corner
 ;sbcurspr:	dw sabsprt		; 8, address of the current sprite of saboteur to be drawn
 
