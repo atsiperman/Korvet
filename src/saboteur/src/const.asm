@@ -16,7 +16,7 @@ SCRADDR 	EQU GRAM + 1 + 64*8 	; start of the working screen
 
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
-SCRDISP 	EQU 64 - COLNUM	; displacement on the screen memory to draw next line
+;SCRDISP 	EQU 64 - COLNUM	; displacement on the screen memory to draw next line
 
 FRMADDR		EQU GRAM
 FRMWIDT		EQU COLNUM + 2

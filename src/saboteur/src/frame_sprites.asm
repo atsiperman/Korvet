@@ -18,8 +18,8 @@ frmtop:
 		DB 231
 		DB 60
 		DB 36
-		DB 36
 		DB 68
+		DB 0
 
 frmrttop:
 		DB 0

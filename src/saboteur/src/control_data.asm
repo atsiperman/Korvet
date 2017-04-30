@@ -1,6 +1,6 @@
 
 OLDSTK: dw 0            	; save stack to return to cp/m
-
+tmpstk: dw 0				; to save stack for some operations
 	
 ; ---- LUT 
 LUTVAL:

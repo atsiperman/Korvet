@@ -134,7 +134,7 @@ smap4e:
 		dup 2				; 2 1st line
 		mkbyte 1,1
 		edup
-		mkbyte 1,6
+		mkbyte 2,6
 		mkbyte 6,6
 		mkbyte 4,5
 		dup 10
@@ -145,7 +145,7 @@ smap4e:
 			dup 2				
 			mkbyte 1,1
 			edup
-			mkbyte 1,6
+			mkbyte 3,6
 			mkbyte 6,6
 			mkbyte 4,5
 			dup 10

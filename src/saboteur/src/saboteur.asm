@@ -34,7 +34,7 @@ start:
         GRMODON
 		call lutsetup
 
-        ld a,8eh 
+        ld a,86h 
         call fillscr	; clear screen with black
 
 		call drawfrm	; draw frame
