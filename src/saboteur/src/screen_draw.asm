@@ -110,15 +110,15 @@ drawscr:
 		ld (prevscr),hl		
 		
 drawobjs:					; draw all objects
-		ret
+		;ret
 							; clear old sprite
 		ld de,SABCLR
-		ld hl,(MAINPOS)		
+		ld hl,(sbcurpos)		
 		call drawspr
 		
-		ld hl,(MAINSPR)
+		ld hl,(sbcurspr)
 		ex de,hl								
-		ld hl,(MAINPOS)		
+		ld hl,(sbcurpos)		
 		call drawspr
 		
 		ret

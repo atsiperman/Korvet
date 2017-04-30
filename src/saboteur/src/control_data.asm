@@ -24,16 +24,44 @@ CMAINHI	EQU 0h				; hi byte of the main color
 		db CMAINHI + 0eh	; CMAIN     0000 1110
 		db CMAINHI + 0fh	; CMAIN     0000 1111		
 				
-		
-		
-; ---- screen control block
-scblock:
+; ---- saboteur state
+;
+sbstay	EQU 1				; staying 
+sbmvrt	EQU 2				; moving right
+sbmvlt	EQU 3				; moving left
+sbmvup	EQU 4				; moving up
+sbmvdn	EQU 5				; moving down
+sbkick	EQU 6				; kicking
+sbjump	EQU 7				; jumping
+sbfall	EQU 8				; falling down
 
+; ---- directions
+;
+dirrt	EQU 1				
+dirlt	EQU 2
+dirup	EQU 4
+dirdn	EQU 8
+
+; ---- screen control block
+;
 curscr: 	dw scrmap		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
-MAINSPR:	dw SABSPRT1
-MAINPOS:	dw SCRADDR + COLNUM/2 + 64*ROWNUM*8/2
 
 shadscr:	dup	ROWNUM * COLNUM
 			db 0
 			edup
+
+; ----	saboteur control block			
+;
+sbcurpos:	dw SCRADDR + 64*8		; current position, top left corner
+sbprvpos:	dw SCRADDR 				; previous position
+
+sbcurspr:	dw sabsprt		; current sprite of saboteur to be drawn
+
+sbcursta:	db sbstay		; current state of saboteur
+sbprvsta:	db 0			; previous state of saboteur
+
+sbdirect:	db dirrt		; direction
+
+
+				
