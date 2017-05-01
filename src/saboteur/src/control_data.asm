@@ -24,30 +24,6 @@ CMAINHI	EQU 0h				; hi byte of the main color
 		db CMAINHI + 0eh	; CMAIN     0000 1110
 		db CMAINHI + 0fh	; CMAIN     0000 1111		
 				
-; ---- saboteur state
-;
-sbstay	EQU 1				; staying 
-sbmvrt	EQU 2				; moving right
-sbmvlt	EQU 3				; moving left
-sbmvup	EQU 4				; moving up
-sbmvdn	EQU 5				; moving down
-sbkick	EQU 6				; kicking
-sbjump	EQU 7				; jumping
-sbfall	EQU 8				; falling down
-
-; ---- directions
-;
-dirrt	EQU 1				
-dirlt	EQU 2
-dirup	EQU 4
-dirdn	EQU 8
-
-; ---- object types
-;
-osabotr	EQU 1				; saboteur
-odog	EQU 2				; dog
-oguard	EQU 3				; guard
-
 
 ; ---- screen control block
 ;
@@ -58,23 +34,20 @@ shadscr:	dup	ROWNUM * COLNUM
 			db 0
 			edup
 
-			macro mkctrlb otype,curstat,prvstat,direct,prevpos,curpos,curspr
-			db otype,curstat,prvstat,direct
-			dw prevpos,curpos,curspr
-			endm
 			
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-			mkctrlb osabotr,sbstay,0,dirrt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt
+			mkctrlb osabotr,1,sbstay,dirrt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt,0
 	
-;			db osabotr		; 0, object type
-;sbcursta:	db sbstay		; 1, current state of saboteur
-;sbprvsta:	db 0			; 2, previous state of saboteur
-;sbdirect:	db dirrt		; 3, direction
-;sbprvpos:	dw SCRADDR + 64*8 		; 4, previous position
-;sbcurpos:	dw SCRADDR + 64*8		; 6, current position, top left corner
-;sbcurspr:	dw sabsprt		; 8, address of the current sprite of saboteur to be drawn
+;			db osabotr				; 0, object type
+;			db 1					; 1, draw flag
+;			db sbstay				; 2, current state of saboteur
+;			db dirrt				; 3, direction
+;			dw SCRADDR + 64*8 		; 4, previous position
+;			dw SCRADDR + 64*8		; 6, current position, top left corner
+;			dw sabsprt				; 8, address of the current sprite of saboteur to be drawn
+;			db sabspri				; 10, index if the current sprite
 
 
 

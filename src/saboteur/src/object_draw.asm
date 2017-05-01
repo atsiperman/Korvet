@@ -4,9 +4,9 @@
 copystat:	
 		inc hl				; skip object type
 		
-		ld a,(hl)			; copy state
+		ld (hl),0			; reset draw flag
 		inc hl
-		ld (hl),a
+		
 		
 		inc hl
 		inc hl				; skip direction		
@@ -28,16 +28,16 @@ drawobj:
 		push hl				; save control block address
 		
 		inc hl				; skip object type
-		ld a,(hl)			; cur state
+		ld a,(hl)			; draw flag
 		inc hl
-		ld c,(hl)			; prev state
-		cp c		
+		and 255
 		jp nz,drawobj1		
+							; state is not changed
 		pop hl				; clear stack
 		ret
 		
-drawobj1:		
-		inc hl
+drawobj1:			
+		inc hl				; skip state
 		inc hl				; skip direction
 		
 		load_de_hl			; load address of the previous position

@@ -8,6 +8,10 @@
 
 		include "sbmacro.asm"		
         include "const.asm"
+		include "object_def.asm"
+		
+		include "saboteur_control.asm"
+		
         include "screen_utils.asm"
 		include "keyboard.asm"
 		include "game.asm"

@@ -27,11 +27,25 @@
 		inc hl
 	endm
 	
+	macro savem_hl_de
+		ld (hl),e
+		inc hl
+		ld (hl),d
+		inc hl
+	endm
+
 	macro load_bc_hl
 		ld c,(hl)
 		inc hl
 		ld b,(hl)
 		inc bc
+	endm
+
+	macro savem_hl_bc
+		ld (hl),c
+		inc hl
+		ld (hl),b
+		inc hl
 	endm
 	
 	; ---- moves to the next screen
