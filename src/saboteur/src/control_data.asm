@@ -38,7 +38,7 @@ shadscr:	dup	ROWNUM * COLNUM
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-			mkctrlb osabotr,1,sbstay,dirrt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt,0
+			mkctrlb osabotr,1,sbstay,dirlt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt,0
 	
 ;			db osabotr				; 0, object type
 ;			db 1					; 1, draw flag

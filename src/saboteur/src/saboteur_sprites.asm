@@ -4,12 +4,12 @@
 sbmvrttb:										; table of addresses of saboteur sprites when moving right
 		db (sbmvrtte - sbmvrttb - 1) / 2
 		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
-sbmvrtte:	; end of table
+sbmvrtte:										; end of table
 
 sbmvlttb:										; table of addresses of saboteur sprites when moving right
 		db (sbmvltte - sbmvlttb - 1) / 2
 		dw sabspml1,sabspml2,sabspml3,sabspml4
-sbmvltte:	; end of table
+sbmvltte:										; end of table
 
 ; ----	data to clear main sprite
 SABCLR:	

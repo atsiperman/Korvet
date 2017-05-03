@@ -24,6 +24,11 @@ sbnoact1:
 		pop hl
 		push hl		
 		scurspr  			; stop, look at right
+		
+		pop hl
+		push hl
+		scurdir dirrt
+		
 		jp sbnoacte
 		
 sbnoact2:		
@@ -37,6 +42,11 @@ sbnoact2:
 		pop hl
 		push hl
 		scurspr 			; stop, look at left
+		
+		pop hl
+		push hl
+		scurdir dirlt
+
 
 sbnoacte:		
 		pop hl
@@ -57,32 +67,7 @@ sbstmove:
 		ld a,dirrt
 		cp c
 		jp nz,sbstmv1
-		
-							; move object right
-		ld de,odcurp
-		add hl,de
-		push hl				; address of the current pos
-		load_de_hl
-		inc de				; increase position
-		pop hl				
-		savem_hl_de			; save new position		
-		
-							; change sprite
-		pop hl
-		push hl
-		ld de,odcursi		
-		add hl,de
-		ld (hl),0			; first sprite
-
-		ld hl,sbmvrttb + 1	; skip header
-		load_de_hl			; address of the first sprite		
-		
-		pop	hl
-		push hl
-		ld bc,odcursp
-		add hl,bc
-		savem_hl_de			; save sprite address		
-				
+		call sbstgort		
 		jp sbstmve
 		
 sbstmv1:				
@@ -90,14 +75,14 @@ sbstmv1:
 		ld a,dirlt
 		cp c
 		jp nz,sbstmv2
-		
+		call sbstgolt
 		jp sbstmve
 		
 sbstmv2:		
 
 sbstmve:
 		pop hl
-		push hl
+		push hl		
 		sdrawf 1
 		pop hl		
 		scurst sbmove
@@ -105,6 +90,70 @@ sbstmve:
 ;
 ; ----	end of sbstmove:
 ;
+
+; ---- saboteur starts going right
+; args: HL - address of control block
+;
+sbstgort:
+							; move object right
+		push hl
+		ldcurp
+		inc de				; increase position
+		pop hl				
+		push hl
+		scurp				; save new position		
+		
+		pop hl
+		push hl
+		ld a,0				; set first sprite
+		scurspi
+
+		ld hl,sbmvrttb + 1	; skip header
+		load_de_hl			; address of the first sprite		
+		
+		pop	hl
+		push hl
+		scurspr				; save sprite address		
+		
+		pop hl
+		scurdir dirrt
+		ret		
+;
+; ----	end of sbgort:
+;
+
+
+; ---- saboteur starts going left
+; args: HL - address of control block
+;
+sbstgolt:
+							; move object left
+		push hl
+		ldcurp		
+		dec de				; decrease position
+		pop hl				
+		push hl
+		scurp				; save new position		
+		
+		pop hl
+		push hl
+		ld a,0				; set first sprite
+		scurspi
+
+		ld hl,sbmvlttb + 1	; skip header
+		load_de_hl			; address of the first sprite		
+		
+		pop	hl
+		push hl
+		scurspr				; save sprite address		
+		
+		pop hl
+		scurdir dirlt
+		ret		
+;
+; ----	end of sbgort:
+;
+
 
 ; ---- continue moving
 ; args: 
@@ -115,13 +164,37 @@ sbdomove:
 		push hl		
 		lddir			; load direction to A
 		
-		cp dirrt
-		jp nz,esbdomov	
-						; moving right
 		pop hl
 		push hl
+		
+		cp dirrt
+		jp nz,sbdomove1	
+		call sbgort 	; moving right
+		jp esbdomov	
+		
+sbdomove1:
+		cp dirlt
+		jp nz,esbdomov
+		call sbgolt		; moving left
+		jp esbdomov
+		
+esbdomov:
+		pop hl
+		sdrawf 1
+
+		ret
+;
+; ----	end of sbdomove:
+;
+
+
+; ---- saboteur is going right
+; args: HL - address of control block
+;		
+sbgort:
+		push hl
 		ldcurp
-		inc de
+		inc de			; increase position
 		pop hl
 		push hl
 		scurp			; set new position
@@ -134,15 +207,15 @@ sbdomove:
 		ld e,(hl)		; total sprite count		
 		inc a
 		cp e	
-		jp nz,sbdomov1
+		jp nz,sbgort1
 		ld a,0
 		
-sbdomov1:
+sbgort1:
 		pop hl
 		push hl		
 		scurspi
 
-		ld hl,sbmvrttb + 1	; sprite table
+		ld hl,sbmvrttb + 1  ; sprite table
 		ld b,0
 		ld c,a
 		add hl,bc
@@ -150,18 +223,46 @@ sbdomov1:
 		load_de_hl			; load sprite address
 		
 		pop hl				; save new sprite addr
-		push hl
 		scurspr				
-		jp esbdomov	
-		
-esbdomov:
-		pop hl
-		push hl
-		sdrawf 1
-		pop hl		
 
 		ret
-;
-; ----	end of sbdomove:
-;
+		
+; ---- saboteur is going left
+; args: HL - address of control block
+;		
+sbgolt:
+		push hl
+		ldcurp
+		dec de			; decrease position
+		pop hl
+		push hl
+		scurp			; set new position
 
+		pop hl
+		push hl
+		ldcurspi		; cur index in A
+
+		ld hl,sbmvlttb
+		ld e,(hl)		; total sprite count		
+		inc a
+		cp e	
+		jp nz,sbgolt1
+		ld a,0
+		
+sbgolt1:
+		pop hl
+		push hl		
+		scurspi
+
+		ld hl,sbmvlttb + 1  ; sprite table
+		ld b,0
+		ld c,a
+		add hl,bc
+		add hl,bc			; 
+		load_de_hl			; load sprite address
+		
+		pop hl				; save new sprite addr
+		scurspr				
+
+		ret
+				

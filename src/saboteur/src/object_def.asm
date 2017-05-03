@@ -96,13 +96,22 @@ odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
 		ld (hl),drawf
 		endm
 
-; ----  set currrent state
+; ----  set current state
 ; args: HL - address of control block 
 ; 		
 		macro scurst	state
 		ld bc,odcurst
 		add hl,bc		
 		ld (hl),state
+		endm
+
+; ----  set current direction
+; args: HL - address of control block 
+; 		
+		macro scurdir	dir
+		ld bc,oddir
+		add hl,bc		
+		ld (hl),dir
 		endm
 
 ; ----  set current position
@@ -125,3 +134,15 @@ odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
 		add hl,bc
 		ld (hl),a
 		endm
+
+; ---- set new state of the object
+; args: HL - address of control block
+		macro setobj pos,spraddr,spridx
+		ld de,pos
+		scurp 
+		ld de,spraddr
+		savem_hl_de
+		ld c,spridx
+		ld (hl),c
+		endm
+		

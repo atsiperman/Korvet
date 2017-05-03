@@ -84,23 +84,29 @@ gkdown:
 ;
 gkleft:	
 		ld hl,sbctrlb
-		push hl
-		
-		ldstate
-		
+		ldstate				; load state to A
+
 		ld c,dirlt
 		
-		pop hl
 		cp sbstay			
-		call z,sbstmove
+		jp nz, gklmove
+		call sbstmove
+		jp gklefte
 		
+gklmove:
+		cp sbmove
+		jp nz,gklefte
+		call sbdomove		; continue movement
+		jp gklefte
+		
+gklefte:		
 		ret
 
 ; ----- move right
 ; 
 gkright:
 		ld hl,sbctrlb
-		ldstate				; load direction to A
+		ldstate				; load state to A
 
 		ld c,dirrt
 		
