@@ -95,64 +95,35 @@ sbstmve:
 ; args: HL - address of control block
 ;
 sbstgort:
-							; move object right
 		push hl
-		ldcurp
-		inc de				; increase position
-		pop hl				
-		push hl
-		scurp				; save new position		
-		
+		scurdir dirrt		
+		ld hl,sbmvrttb		; number of sprites
+		ld a,(hl)			; set first sprite
+		dec a				; index of last sprite
 		pop hl
 		push hl
-		ld a,0				; set first sprite
 		scurspi
 
-		ld hl,sbmvrttb + 1	; skip header
-		load_de_hl			; address of the first sprite		
-		
-		pop	hl
-		push hl
-		scurspr				; save sprite address		
-		
 		pop hl
-		scurdir dirrt
+		call sbgort			; start movement
 		ret		
-;
-; ----	end of sbgort:
-;
-
 
 ; ---- saboteur starts going left
 ; args: HL - address of control block
 ;
 sbstgolt:
-							; move object left
 		push hl
-		ldcurp		
-		dec de				; decrease position
-		pop hl				
-		push hl
-		scurp				; save new position		
-		
+		scurdir dirlt
+		ld hl,sbmvlttb		; number of sprites
+		ld a,(hl)			; set first sprite
+		dec a				; index of last sprite
 		pop hl
 		push hl
-		ld a,0				; set first sprite
 		scurspi
 
-		ld hl,sbmvlttb + 1	; skip header
-		load_de_hl			; address of the first sprite		
-		
-		pop	hl
-		push hl
-		scurspr				; save sprite address		
-		
 		pop hl
-		scurdir dirlt
+		call sbgolt			; start movement
 		ret		
-;
-; ----	end of sbgort:
-;
 
 
 ; ---- continue moving
@@ -201,6 +172,9 @@ sbgort:
 		push hl
 		call goscrnrt	; switch screen
 		pop hl
+		or a
+		ret z			; return if screen not changed
+		
 		ld a,SCOLNUM 	; index of the first column 
 		jp sbgort3
 		
@@ -281,6 +255,9 @@ sbgolt:
 		push hl
 		call goscrnlt	; switch screen
 		pop hl
+		or a
+		ret z			; return if screen not changed
+		
 		ld a,ECOLNUM 	; index of the last column 
 		jp sbgolt3
 		
@@ -328,7 +305,7 @@ sbgolt1:
 		ld e,(hl)
 		
 		pop af
-		ld c,SCOLNUM
+		ld c,ECOLNUM
 		cp c
 		jp z,sbgolt4
 		dec de			; change position
