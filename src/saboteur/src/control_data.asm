@@ -38,17 +38,5 @@ shadscr:	dup	ROWNUM * COLNUM
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-			mkctrlb osabotr,1,sbstay,dirlt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt,0
-	
-;			db osabotr				; 0, object type
-;			db 1					; 1, draw flag
-;			db sbstay				; 2, current state of saboteur
-;			db dirrt				; 3, direction
-;			dw SCRADDR + 64*8 		; 4, previous position
-;			dw SCRADDR + 64*8		; 6, current position, top left corner
-;			dw sabsprt				; 8, address of the current sprite of saboteur to be drawn
-;			db sabspri				; 10, index if the current sprite
+			mkctrlb osabotr,1,sbstay,dirlt,(SCRADDR + 64*8),(SCRADDR + 64*8),sabsprt,0,SCOLNUM,8
 
-
-
-				

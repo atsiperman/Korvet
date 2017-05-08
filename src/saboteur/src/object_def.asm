@@ -25,19 +25,38 @@ oguard	EQU 3				; guard
 ;
 odtype	EQU 0		; 0, object type
 oddraw	EQU 1       ; 1, draw sprite if not 0
-odcurst EQU 2       ; 2, previous state 
+odcurst EQU 2       ; 2, current state 
 oddir	EQU 3       ; 3, direction
-odprevp EQU 4       ; 4, previous position
-odcurp	EQU 6       ; 6, current position, top left corner
+odprevp EQU 4       ; 4, previous position in screen memory
+odcurp	EQU 6       ; 6, current position in screen memory, top left corner
 odcursp	EQU 8       ; 8, address of the current sprite to be drawn
 odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
+odcursc	EQU 11      ; 11, index of the current column on the working screen, top-left corner
+odcursr	EQU 12      ; 12, index of the current row on the working screen, top-left corner
+odcbend EQU 13		; end of the control block
 
 ; ----	makes control block for an object
 ;
-		macro mkctrlb otype,fdraw,curstat,direct,prevpos,curpos,curspr,curspri
+		macro mkctrlb otype,fdraw,curstat,direct,prevpos,curpos,curspr,curspri,curscol,cursrow
 		db otype,fdraw,curstat,direct
 		dw prevpos,curpos,curspr
-		db curspri
+		db curspri,curscol,cursrow,0
+		endm
+
+; ----  loads ldcurscb
+; args: HL - address of the current column index
+		macro ldcurscb
+		ld c,(hl)
+		dec hl
+		endm
+		
+; ----  loads current screen column into A
+; args: HL - address of control block 
+; 
+		macro ldcursc
+		ld bc,odcursc
+		add hl,bc
+		ld a,(hl)	
 		endm
 
 ; ----  loads current state into A
@@ -134,6 +153,18 @@ odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
 		add hl,bc
 		ld (hl),a
 		endm
+
+
+; ----  set current screen column
+; args: HL - address of control block 
+; 		A - new screen column
+		macro scursc
+		ld bc,odcursc
+		add hl,bc
+		ld (hl),a
+		endm
+
+
 
 ; ---- set new state of the object
 ; args: HL - address of control block

@@ -13,6 +13,7 @@ GRAM    	EQU 0c000h
 GRAMLEN 	EQU 4000h
 
 SCRADDR 	EQU GRAM + 1 + 64*8 	; start of the working screen
+;SABSTADR	EQU SCR
 
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
@@ -29,3 +30,6 @@ CGREEN		EQU 2
 CYELLOW		EQU 3
 CMAIN 		EQU 4			; color of the main character
 CRED		EQU 2
+
+SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
+ECOLNUM		EQU COLNUM-6	; iddex of the last column for saboteur on the new screen

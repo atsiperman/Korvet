@@ -9,6 +9,7 @@
 		include "sbmacro.asm"		
         include "const.asm"
 		include "object_def.asm"
+		include "screen_control.asm"
 		
 		include "saboteur_control.asm"
 		
