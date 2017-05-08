@@ -31,5 +31,5 @@ CYELLOW		EQU 3
 CMAIN 		EQU 4			; color of the main character
 CRED		EQU 2
 
-SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
-ECOLNUM		EQU COLNUM-6	; iddex of the last column for saboteur on the new screen
+SCOLNUM		EQU 2			; index of the start column for saboteur on the new screen
+ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen

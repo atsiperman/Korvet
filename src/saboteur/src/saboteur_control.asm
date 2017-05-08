@@ -272,28 +272,30 @@ sbgorte:
 ; args: HL - address of control block
 ;		
 sbgolt:
-		push hl
-		ldcursc			; load current screen column
+		ld bc,odcursc
+		add hl,bc
+		ld a,(hl)		; load current screen column
 		ld c,SCOLNUM
 		cp c			; staying on the left border
-		;jp nz,sbgolt2
-		;call goscrnlt	; switch screen
-		;pop hl
-		;ret
+		jp nz,sbgolt2
+		push hl
+		call goscrnlt	; switch screen
+		pop hl
+		ld a,ECOLNUM 	; index of the last column 
+		jp sbgolt3
 		
-sbgolt2:	
-		pop hl
-		push hl
-		ldcurp
-		dec de			; decrease position
-		pop hl
-		push hl
-		scurp			; set new position
+sbgolt2:
+		dec a			; next column
 
-		pop hl
-		push hl
-		ldcurspi		; cur index in A
+sbgolt3:		
+		ld (hl),a		; save column index
+		push af			; save column index on stack
 
+		dec hl
+		ld a,(hl)		; cur sprite index in A
+		
+		push hl
+		
 		ld hl,sbmvlttb
 		ld e,(hl)		; total sprite count		
 		inc a
@@ -303,9 +305,10 @@ sbgolt2:
 		
 sbgolt1:
 		pop hl
-		push hl		
-		scurspi
-
+		ld (hl),a		; save sprite index
+		
+		push hl
+		
 		ld hl,sbmvlttb + 1  ; sprite table
 		ld b,0
 		ld c,a
@@ -314,7 +317,33 @@ sbgolt1:
 		load_de_hl			; load sprite address
 		
 		pop hl				; save new sprite addr
-		scurspr				
+		dec hl
+		ld (hl),d
+		dec hl
+		ld (hl),e
+
+		dec hl
+		ld d,(hl)
+		dec hl
+		ld e,(hl)
+		
+		pop af
+		ld c,SCOLNUM
+		cp c
+		jp z,sbgolt4
+		dec de			; change position
+		jp sbgolte
+		
+sbgolt4:				; set first column on the same row
+		push hl
+		ld hl,ECOLNUM - SCOLNUM
+		add hl,de
+		ld d,h
+		ld e,l
+		pop hl
+sbgolte:		
+		savem_hl_de		; set new position
 
 		ret
+
 				

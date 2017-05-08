@@ -8,3 +8,4 @@ goscrnrt:
 goscrnlt:
 		nextscreen leftscrd
 		
+		
