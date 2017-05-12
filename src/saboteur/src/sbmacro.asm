@@ -1,9 +1,15 @@
 
 	; background sprite header
-	macro bksh color				
+	macro bksh color
 		DB (80h + (color << 1)) 	; color register
+		db 0						; background is a texture
 	endm
 	
+	macro bksh2 color,btype
+		DB (80h + (color << 1)) 	; color register
+		db btype					; sprite type
+	endm
+		
 	; header of a generic sprite
 	macro sprhead color,wi,hi
 		DB (80h + (color << 1)) 	; color register
@@ -70,4 +76,29 @@
 		ld hl,COLRREG
 		ld (hl),a
 	endm
+	
+	macro ldsprt
+		ld d,0
+		ld e,(hl)			; sprite index
+		ld hl,BKSPRTAB
+		add hl,de
+		add hl,de			; address of the current sprite
+		load_de_hl			; in DE
+
+		inc de				; sprite type
+		ex de,hl
+		ld a,(hl)				
+	endm
+;	
+;	macro ldscrst			; loads start of the screen into HL
+;		ld hl,(curscr)		; pointer to screen control block
+;		load_de_hl			; load address of the current screen
+;		ex de,hl
+
+;		ld d,0
+;		ld e,(hl)			; length of local sprite map		
+;		inc hl
+;		add hl,de
+;	endm
+	
 	

@@ -1,5 +1,6 @@
 
 
+
 ; ---- logic when no button pressed
 ;
 sbnoactn:
@@ -163,9 +164,28 @@ esbdomov:
 ; args: HL - address of control block
 ;		
 sbgort:
+		push hl
 		ld bc,odcursc
 		add hl,bc
-		ld a,(hl)		; load current screen column
+		ld d,(hl)		; load current screen column
+		
+		inc hl
+		ld e,(hl)		; load screen row
+		pop hl
+		push de
+		push hl
+		
+		ld a,d
+		add a,SBWI
+		ld d,a
+				
+		call sbchknpr
+		pop hl
+		pop de
+		or a
+		ret z
+				
+		ld a,d
 		ld c,ECOLNUM
 		cp c			; staying on the right border
 		jp nz,sbgort2
@@ -181,7 +201,9 @@ sbgort:
 sbgort2:
 		inc a			; next column
 
-sbgort3:		
+sbgort3:
+		ld bc,odcursc
+		add hl,bc
 		ld (hl),a		; save column index
 		push af			; save column index on stack
 
@@ -242,13 +264,34 @@ sbgorte:
 
 		ret
 		
+; ---- end of sbgort
+;
+
 ; ---- saboteur is going left
 ; args: HL - address of control block
 ;		
 sbgolt:
+		push hl
 		ld bc,odcursc
 		add hl,bc
-		ld a,(hl)		; load current screen column
+		ld d,(hl)		; load current screen column
+		
+		inc hl
+		ld e,(hl)		; load screen row
+		pop hl
+		push de
+		push hl
+		
+		dec d		
+		
+		call sbchknpl
+		pop hl
+		pop de
+		or a
+		ret z
+				
+		ld a,d
+		
 		ld c,SCOLNUM
 		cp c			; staying on the left border
 		jp nz,sbgolt2
@@ -265,6 +308,8 @@ sbgolt2:
 		dec a			; next column
 
 sbgolt3:		
+		ld bc,odcursc
+		add hl,bc
 		ld (hl),a		; save column index
 		push af			; save column index on stack
 
@@ -323,4 +368,275 @@ sbgolte:
 
 		ret
 
+; ---- end of sbgolt
+;
+
+; ---- checks next position on right
+; args: HL - address of control block
+;		D  - next column
+;		E  - current row 
+;
+; result: 
+;		A - 0 not to continue movement 
+;
+sbchknpr:		
+		push hl
+		
+		ld hl,shadscr
+		
+		ld b,0
+		ld c,d
+		add hl,bc			; X next position
+		
+		ld c,e
+		inc c
+		ld de,COLNUM
+							; calculate Y + 1, head's row
+sbchkn1:					
+		add hl,de
+		dec c
+		jp nz,sbchkn1
+		
+		
+		ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
+sbchkn2:		
+							; X, Y - top-left or top-right point BEFORE the saboteur
+		push hl				
+		
+		ldsprt		
+		and bwall
+		jp nz,sbchke0		; wall, no movement
+		
+		pop hl
+		ld de,COLNUM
+		add hl,de			
+		
+		dec c
+		jp nz,sbchkn2		
+		
+		ld c,2				; go down
+		ld de,COLNUM
+sbchkn3:		
+		add hl,de
+		dec c
+		jp nz,sbchkn3
+		
+							; X - 1,(Y + SBHI-1) - one block upper
+		dec hl				
+		push hl
+
+		ldsprt
+		and bwall
+		jp z,sbchk1
+							; upstairs
+		pop hl
+		pop hl				; control block
+		call sbgoupst
+		ret
+		
+sbchk1:
+		pop hl
+		ld de,COLNUM
+		add hl,de			; X - 1,Y - floor
+		push hl
+		ldsprt
+		and bwall + bladder
+		jp nz,sbchke1		; floor continues
+		
+		;jp sbchke1
+		
+		; ------
+							; X - 2,Y - floor under saboteur
+		pop hl
+		dec hl
+;		ld de,COLNUM
+;		add hl,de			
+		push hl
+
+		ldsprt
+		and bwall
+		jp nz,sbchke1		; wall, go further
+		
+							; no wall - downstairs
+		pop hl
+		pop hl				; control block
+		call sbgodnst
+		ret
+	
+sbchke1:					
+		pop hl
+		pop hl
+		ld a,1
+		ret
+		
+sbchke0:				
+		pop hl
+		pop hl
+		xor a
+		ret
+		
+; ---- end of sbchknpr
+;
+
+; ---- checks next position on left
+; args: HL - address of control block
+;		D  - next column
+;		E  - current row 
+;
+; result: 
+;		A - 0 not to continue movement 
+;
+sbchknpl:		
+		push hl
+		
+		ld hl,shadscr
+		
+		ld b,0
+		ld c,d
+		add hl,bc			; X next position
+		
+		ld c,e
+		inc c				
+		ld de,COLNUM
+							; calculate Y + 1, head's row
+sbchkln1:					
+		add hl,de
+		dec c
+		jp nz,sbchkln1
+		
+		
+		ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
+sbchkln2:		
+							; X, Y - top-left or top-right point BEFORE the saboteur
+		push hl				
+		
+		ldsprt		
+		and bwall
+		jp nz,sbchkle0		; wall, no movement
+		
+		pop hl
+		ld de,COLNUM
+		add hl,de			
+		
+		dec c
+		jp nz,sbchkln2		
+		
+		ld c,2				; go down
+		ld de,COLNUM
+sbchkl3:		
+		add hl,de
+		dec c
+		jp nz,sbchkl3
+		
+							; X + 1,(Y + SBHI-1) - one block upper
+		inc hl				
+		push hl
+
+		ldsprt
+		and bwall
+		jp z,sbchkl1
+							; upstairs
+		pop hl
+		pop hl				; control block
+		call sbgoupst
+		ret
+		
+sbchkl1:
+		pop hl
+		ld de,COLNUM
+		add hl,de			; X - 1,Y - floor
+		push hl
+		ldsprt
+		and bwall + bladder
+		jp nz,sbchkle1		; floor continues
 				
+		; ------
+							; X + 2,Y - floor under saboteur
+		pop hl
+		inc hl
+		push hl
+
+		ldsprt
+		and bwall
+		jp nz,sbchkle1		; wall, go further
+		
+							; no wall - downstairs
+		pop hl
+		pop hl				; control block
+		call sbgodnst
+		ret
+	
+sbchkle1:					
+		pop hl
+		pop hl
+		ld a,1
+		ret
+		
+sbchkle0:				
+		pop hl
+		pop hl
+		xor a
+		ret
+		
+; ---- end of sbchknpl
+;
+
+; ---- go upstairs
+; args: HL - address of control block
+;
+sbgoupst:		
+		ld bc,odcursr
+		add hl,bc
+		ld a,(hl)
+		dec a
+		ld (hl),a
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		push hl
+		load_de_hl			; current address in screen memory		
+		ld a,d				; move one row upper
+		sub 2
+		ld d,a
+		pop hl
+		savem_hl_de
+		ld a,1
+		ret
+				
+; ---- go downstairs
+; args: HL - address of control block
+;
+sbgodnst:
+		ld bc,odcursr
+		add hl,bc
+		ld a,(hl)
+		inc a
+		ld (hl),a
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		dec hl
+		push hl
+		load_de_hl			; current address in screen memory		
+		ld a,d				; move one row down
+		add 2
+		ld d,a
+		pop hl
+		savem_hl_de
+		ret
+		
+; ---- makes check if the block is a barrier
+;
+; args: 	A - block type
+; result:	A - 0 if block is not a barrier
+;					
+isbarr:	
+		and bwall + bladder
+		ret
+		
+		

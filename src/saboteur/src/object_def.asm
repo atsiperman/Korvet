@@ -14,6 +14,10 @@ dirlt	EQU 2
 dirup	EQU 4
 dirdn	EQU 8
 
+; ---- background type
+bwall   EQU 1
+bladder EQU 2 
+
 ; ---- object types
 ;
 osabotr	EQU 1				; saboteur

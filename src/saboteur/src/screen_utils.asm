@@ -121,6 +121,7 @@ startdrw:
         ld a,(de)
         ld (hl),a
 		inc de
+		inc de			; skip header
 		
         pop hl          ; restore screen address
         ld c,8
