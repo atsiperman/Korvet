@@ -71,12 +71,88 @@ gend:
 ; ----- move up
 ;
 gkup:
+		ld hl,sbctrlb
+		push hl
+		ldstate 			; load state to A
+		pop hl
+		push hl
+		
+		ld c,dirup
+
+		cp sbkick			; if is kicking		
+		jp nz,gkup2
+		call sbdokick		; do kicking
+		jp gkupe
+
+gkup2:
+		cp sbladr			; if is moving on the ladder
+		jp nz,gkup3
+		call sbdoladr		; continue movement
+		jp gkupe		
+			
+gkup3:		
+		cp sbstay			; if is staying then check
+		jp nz,gkupe
+		call cangolad		; if can go upstairs
+		or a
+		jp z,gkstkick		; start kicking if no
+
+		pop hl
+		push hl		
+		call sbstladr		; start moving on the ladder
+		jp gkupe
+				
+gkstkick:
+		pop hl
+		push hl		
+		call sbstkick		; start kicking		
+		
+gkupe:
+		pop hl
+		inc hl
+		ld (hl),1			; set draw flag
 		ret
 		;nextscreen upscrd
 		
 ; ----- move down
 ;
 gkdown:
+		ld hl,sbctrlb
+		push hl
+		ldstate 			; load state to A
+		pop hl
+		push hl
+		
+		ld c,dirdn
+
+gkdn2:
+		cp sbladr			; if is moving on the ladder
+		jp nz,gkdn3
+		call sbdoladr		; continue movement
+		jp gkdne		
+			
+gkdn3:		
+		cp sbstay			; if is staying then check
+		jp nz,gkdne
+		ld c,dirdn
+		call cangolad		; if can go downstairs
+		or a
+		jp z,gkduck			; duck if can't go
+
+		pop hl
+		push hl		
+		call sbstladr		; start moving on the ladder
+		jp gkdne
+				
+gkduck:
+		pop hl
+		push hl		
+		call sbstkick		; duck
+		
+gkdne:
+		pop hl
+		inc hl
+		ld (hl),1			; set draw flag
 		ret
 		;nextscreen downscrd
 		
@@ -86,17 +162,23 @@ gkleft:
 		ld hl,sbctrlb
 		ldstate				; load state to A
 
-		ld c,dirlt
+		ld bc,(sbmove << 8) + dirlt
 		
-		cp sbstay			
+		cp sbstay			; start movement if is staying
 		jp nz, gklmove
 		call sbstmove
 		jp gklefte
 		
 gklmove:
 		cp sbmove
-		jp nz,gklefte
+		jp nz,gkllad
 		call sbdomove		; continue movement
+		jp gklefte
+
+gkllad:
+		cp sbladr
+		jp nz,gklefte
+		call sbstmove		; leave ladder
 		jp gklefte
 		
 gklefte:		
@@ -108,7 +190,7 @@ gkright:
 		ld hl,sbctrlb
 		ldstate				; load state to A
 
-		ld c,dirrt
+		ld bc,(sbmove << 8) + dirrt
 		
 		cp sbstay			
 		jp nz, gkrmove
@@ -117,8 +199,14 @@ gkright:
 		
 gkrmove:
 		cp sbmove
-		jp nz,gkrighte
+		jp nz,gkrlad
 		call sbdomove		; continue movement
+		jp gkrighte
+
+gkrlad:
+		cp sbladr
+		jp nz,gkrighte
+		call sbstmove		; leave ladder		
 		jp gkrighte
 		
 gkrighte:

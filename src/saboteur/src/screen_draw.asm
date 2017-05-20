@@ -104,7 +104,7 @@ drawscr:
 		call decmrscr
 		
 		ld de,shadscr		; address of the shadow screen
-        call drawbkgr
+        call drawbkgr		; draw background
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		

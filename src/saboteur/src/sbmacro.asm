@@ -25,6 +25,11 @@
 		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
 		db 4, 48
 	endm
+
+	macro sbspldhd
+		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
+		db 2, 56
+	endm
 	
 	macro load_de_hl
 		ld e,(hl)

@@ -3,9 +3,10 @@
 ;
 sbstay	EQU 1				; staying 
 sbmove	EQU 2				; moving 
-sbkick	EQU 3				; kicking
-sbjump	EQU 4				; jumping
-sbfall	EQU 5				; falling down
+sbkick	EQU 4				; kicking
+sbjump	EQU 8				; jumping
+sbfall	EQU 16				; falling down
+sbladr	EQU 32				; moving on the ladder
 
 ; ---- directions
 ;
@@ -46,7 +47,7 @@ odcbend EQU 13		; end of the control block
 		dw prevpos,curpos,curspr
 		db curspri,curscol,cursrow,0
 		endm
-
+		
 ; ----  loads ldcurscb
 ; args: HL - address of the current column index
 		macro ldcurscb

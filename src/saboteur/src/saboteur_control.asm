@@ -8,10 +8,18 @@ sbnoactn:
 		push hl
 		
 		ldstate
+		
 		cp sbstay
-		jp nz,sbnoact1	
+		jp nz,sbnoact3
 							; player is staying, no action
 		pop hl
+		ret
+
+sbnoact3:		
+		cp sbladr			
+		jp nz,sbnoact1		
+							; player is on the ladder, no action
+		pop hl		
 		ret
 		
 sbnoact1:
@@ -59,9 +67,12 @@ sbnoacte:
 		
 ; ---- start move
 ; args: 
+;		B  - new state
 ;		C  - direction to move
 ;
 sbstmove:
+		push bc
+		
 		ld hl,sbctrlb
 		push hl
 							; check right dir
@@ -86,7 +97,11 @@ sbstmve:
 		push hl		
 		sdrawf 1
 		pop hl		
-		scurst sbmove
+							; set new state
+		pop bc		
+		ld de,odcurst
+		add hl,de
+		ld (hl),b
 		ret
 ;
 ; ----	end of sbstmove:
@@ -98,15 +113,16 @@ sbstmve:
 sbstgort:
 		push hl
 		scurdir dirrt		
-		ld hl,sbmvrttb		; number of sprites
-		ld a,(hl)			; set first sprite
-		dec a				; index of last sprite
+		;ld hl,sbmvrttb		; number of sprites
+		;ld a,(hl)			; set first sprite
+		;dec a				; index of last sprite
 		pop hl
-		push hl
+		;push hl
+		xor a
 		scurspi
 
-		pop hl
-		call sbgort			; start movement
+		;pop hl
+		;call sbgort			; start movement
 		ret		
 
 ; ---- saboteur starts going left
@@ -115,15 +131,16 @@ sbstgort:
 sbstgolt:
 		push hl
 		scurdir dirlt
-		ld hl,sbmvlttb		; number of sprites
-		ld a,(hl)			; set first sprite
-		dec a				; index of last sprite
+		;ld hl,sbmvlttb		; number of sprites
+		;ld a,(hl)			; set first sprite
+		;dec a				; index of last sprite
 		pop hl
-		push hl
+		;push hl
+		xor a
 		scurspi
 
-		pop hl
-		call sbgolt			; start movement
+		;pop hl
+		;call sbgolt			; start movement
 		ret		
 
 
@@ -443,14 +460,10 @@ sbchk1:
 		and bwall + bladder
 		jp nz,sbchke1		; floor continues
 		
-		;jp sbchke1
-		
 		; ------
 							; X - 2,Y - floor under saboteur
 		pop hl
 		dec hl
-;		ld de,COLNUM
-;		add hl,de			
 		push hl
 
 		ldsprt
@@ -630,13 +643,5 @@ sbgodnst:
 		savem_hl_de
 		ret
 		
-; ---- makes check if the block is a barrier
-;
-; args: 	A - block type
-; result:	A - 0 if block is not a barrier
-;					
-isbarr:	
-		and bwall + bladder
-		ret
 		
 		

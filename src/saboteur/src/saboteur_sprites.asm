@@ -1,15 +1,34 @@
 ; sprites of main character
 ;	all sprites are working in plain mode
 		
-sbmvrttb:										; table of addresses of saboteur sprites when moving right
+; table of addresses of saboteur sprites when moving right
+;
+sbmvrttb:										
 		db (sbmvrtte - sbmvrttb - 1) / 2
 		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
-sbmvrtte:										; end of table
+sbmvrtte:										
+;
+; end of table
 
-sbmvlttb:										; table of addresses of saboteur sprites when moving right
+; table of addresses of saboteur sprites when moving right
+;
+sbmvlttb:										
 		db (sbmvltte - sbmvlttb - 1) / 2
 		dw sabspml1,sabspml2,sabspml3,sabspml4
-sbmvltte:										; end of table
+sbmvltte:		
+;								
+; end of table
+
+
+; table of addresses of saboteur sprites when moving on the ladder
+;
+sbladtb:
+		db (sbladtbe - sbladtb - 1) / 2
+		dw sablad1,sablad2
+sbladtbe:
+;								
+; end of table		
+		
 
 ; ----	data to clear main sprite
 SABCLR:	
@@ -18,6 +37,126 @@ SABCLR:
 		dup 4*48
 		DB 255
 		edup
+
+; saboteur moving on the ladder 1
+sablad1:
+		sbspldhd
+		DB 0,0
+		DB 0,0
+		DB 0,0
+		DB 0,0
+		DB 24,0
+		DB 60,0
+		DB 60,0
+		DB 56,0
+		DB 112,0
+		DB 115,192
+		DB 103,224
+		DB 103,224
+		DB 103,224
+		DB 103,224
+		DB 119,230
+		DB 119,230
+		DB 99,215
+		DB 92,51
+		DB 63,251
+		DB 63,251
+		DB 63,251
+		DB 63,251
+		DB 63,251
+		DB 63,254
+		DB 63,252
+		DB 63,248
+		DB 63,248
+		DB 63,248
+		DB 31,240
+		DB 32,16
+		DB 32,48
+		DB 63,248
+		DB 127,248
+		DB 255,248
+		DB 255,248
+		DB 223,248
+		DB 239,252
+		DB 240,252
+		DB 252,252
+		DB 124,126
+		DB 92,126
+		DB 100,62
+		DB 60,62
+		DB 60,30
+		DB 60,62
+		DB 30,60
+		DB 30,124
+		DB 30,88
+		DB 14,232
+		DB 14,240
+		DB 13,224
+		DB 13,224
+		DB 1,192
+		DB 11,192
+		DB 11,224
+		DB 11,240
+
+; saboteur moving on the ladder 2
+sablad2:
+		sbspldhd
+		DB 0,0
+		DB 0,0
+		DB 0,0
+		DB 0,0
+		DB 0,24
+		DB 0,60
+		DB 0,60
+		DB 0,28
+		DB 0,14
+		DB 3,206
+		DB 7,230
+		DB 7,230
+		DB 7,230
+		DB 7,230
+		DB 103,238
+		DB 103,238
+		DB 235,198
+		DB 204,58
+		DB 223,252
+		DB 223,252
+		DB 223,252
+		DB 223,252
+		DB 223,252
+		DB 127,252
+		DB 63,252
+		DB 31,252
+		DB 31,252
+		DB 31,252
+		DB 15,248
+		DB 8,4
+		DB 12,4
+		DB 31,252
+		DB 31,254
+		DB 31,255
+		DB 31,255
+		DB 31,251
+		DB 63,247
+		DB 63,15
+		DB 63,63
+		DB 126,62
+		DB 126,58
+		DB 124,38
+		DB 124,60
+		DB 120,60
+		DB 124,60
+		DB 60,120
+		DB 62,120
+		DB 26,120
+		DB 23,112
+		DB 15,112
+		DB 7,176
+		DB 7,176
+		DB 3,128
+		DB 3,208
+		DB 7,208
+		DB 15,208
 
 ; ----	saboteur right 1 
 sabsprt:

@@ -37,3 +37,4 @@ SROWNUM 	EQU 1			; index of the start row
 
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
+		

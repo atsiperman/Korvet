@@ -11,6 +11,7 @@
 		include "object_def.asm"
 		include "screen_control.asm"
 		
+		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"
 		
         include "screen_utils.asm"
