@@ -32,7 +32,7 @@ CRED		EQU 2
 
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
-SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM
+SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboreur on the start screen
 SROWNUM 	EQU 1			; index of the start row
 
 SBWI		EQU 4			; width of the saboteur sprite

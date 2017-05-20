@@ -1,4 +1,5 @@
 
+
 ; ----  copies current state to the previous
 ; args: HL - address of the object's control block
 copystat:	

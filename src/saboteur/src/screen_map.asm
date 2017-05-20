@@ -4,7 +4,7 @@
 
 leftscrd equ 2	; displacement of left screen's address from the screen map
 rigtscrd equ 4	; right screen
-upscrd	 equ 6	; up scrren
+upscrd	 equ 6	; up screen
 downscrd equ 8	; bottom screen
 
 ; ---- map of screens

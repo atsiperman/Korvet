@@ -255,7 +255,7 @@ sbgort1:
 		dec hl
 		ld (hl),e
 
-		dec hl
+		dec hl				; load position in screen memory
 		ld d,(hl)
 		dec hl
 		ld e,(hl)

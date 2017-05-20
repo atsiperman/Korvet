@@ -64,6 +64,15 @@ odcbend EQU 13		; end of the control block
 		ld a,(hl)	
 		endm
 
+; ----  loads current screen row into A
+; args: HL - address of control block 
+; 
+		macro ldcursr
+		ld bc,odcursr
+		add hl,bc
+		ld a,(hl)	
+		endm
+
 ; ----  loads current state into A
 ; args: HL - address of control block 
 ; 
@@ -100,6 +109,15 @@ odcbend EQU 13		; end of the control block
 		ld a,(hl)
 		endm
 		
+		
+		
+;	------------------------------------
+;
+;	macros for storing data
+;
+;	------------------------------------
+
+
 ; ----  saves current sprite address
 ; args: HL - address of control block 
 ; 		DE - sprite address
@@ -169,6 +187,14 @@ odcbend EQU 13		; end of the control block
 		ld (hl),a
 		endm
 
+; ----  set current screen row
+; args: HL - address of control block 
+; 		A - new screen row
+		macro scursr
+		ld bc,odcursr
+		add hl,bc
+		ld (hl),a
+		endm
 
 
 ; ---- set new state of the object
@@ -180,5 +206,27 @@ odcbend EQU 13		; end of the control block
 		savem_hl_de
 		ld c,spridx
 		ld (hl),c
+		endm
+		
+; ---- calculate new sprite address from sprite table
+; args: HL - address to save new value
+;		A  - current sprite index
+;
+		macro snewspa sprtab
+		
+		push hl
+		
+		ld hl,sprtab + 1  ; sprite table
+		ld b,0
+		ld c,a
+		add hl,bc
+		add hl,bc			; 
+		load_de_hl			; load sprite address
+		
+		pop hl				; save new sprite addr
+		ld (hl),e
+		inc hl
+		ld (hl),d
+		
 		endm
 		

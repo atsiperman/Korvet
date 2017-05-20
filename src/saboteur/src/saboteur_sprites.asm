@@ -33,8 +33,8 @@ sbladtbe:
 ; ----	data to clear main sprite
 SABCLR:	
 		DB (7 & ~CMAIN) << 1		; color register in plain mode
-		DB 4,48
-		dup 4*48
+		DB 4,56
+		dup 4*56
 		DB 255
 		edup
 
