@@ -77,6 +77,7 @@ gkup:
 		pop hl
 		push hl
 		
+		ld b,a		
 		ld c,dirup
 
 		cp sbkick			; if is kicking		
@@ -87,13 +88,24 @@ gkup:
 gkup2:
 		cp sbladr			; if is moving on the ladder
 		jp nz,gkup3
+		push hl
+		push bc
+		call cangolad
+		pop bc
+		pop hl		
+		or a
+		jp z,gkup3			; can not continue movement
 		call sbdoladr		; continue movement
 		jp gkupe		
 			
 gkup3:		
 		cp sbstay			; if is staying then check
 		jp nz,gkupe
+		push hl
+		push bc		
 		call cangolad		; if can go upstairs
+		pop bc
+		pop hl		
 		or a
 		jp z,gkstkick		; start kicking if no
 
@@ -123,19 +135,31 @@ gkdown:
 		pop hl
 		push hl
 		
+		ld b,a
 		ld c,dirdn
 
 gkdn2:
 		cp sbladr			; if is moving on the ladder
 		jp nz,gkdn3
+		push hl
+		push bc
+		call cangolad
+		pop bc
+		pop hl		
+		or a
+		jp z,gkdn3			; can not continue movement
+		
 		call sbdoladr		; continue movement
 		jp gkdne		
 			
 gkdn3:		
 		cp sbstay			; if is staying then check
 		jp nz,gkdne
-		ld c,dirdn
+		push hl
+		push bc		
 		call cangolad		; if can go downstairs
+		pop bc
+		pop hl		
 		or a
 		jp z,gkduck			; duck if can't go
 

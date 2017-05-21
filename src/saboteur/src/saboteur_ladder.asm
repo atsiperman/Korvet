@@ -1,11 +1,14 @@
 
 ; ----- check, if saboteur can go upstairs or downstairs
 ; args: HL - address of control block
+;		B  - state
 ;		C  - direction
 ; result:
 ;		A - 0 if not a ladder
 ;
 cangolad:
+		push bc				; save direction
+		
 		ldcursc
 		ld e,a				; E - column
 		inc e				; next column	
@@ -16,24 +19,34 @@ cangolad:
 		
 		ld d,0
 		add hl,de			; X next position
+				
+		add a,SBHI-1		; add height to reach floor top
 		
-		add a,SBHI-1		; add height to the current row
-		ld b,a
+		pop bc				; pop direction
+		
+		ld e,a				; save counter
 		
 		ld a,dirdn
 		cp c		
-		jp nz,sbcanld1
-		
-		inc b				; plus one block for down direction
+		jp nz,sbcanld1		; if not down start calculation
 
-sbcanld1:		
-		ld a,b
+		inc e 				; if down then check floor level
+		
+sbcanld1:
+		
+		ld a,sbladr			
+		cp b
+		jp nz,sbcanld2
+		
+		inc e 				; if already moving then height is bigger		
+		
+sbcanld2:		
 		ld bc,COLNUM
 							; calculate Y 
-sbcanld2:	
+sbcanld3:	
 		add hl,bc
-		dec a
-		jp nz,sbcanld2
+		dec e
+		jp nz,sbcanld3
 		
 		push hl
 		ldsprt
