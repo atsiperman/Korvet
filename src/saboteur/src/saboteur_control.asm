@@ -403,7 +403,7 @@ sbchknpr:
 		
 		ld b,0
 		ld c,d
-		add hl,bc			; X next position
+		add hl,bc			; X + 1 position - right side + 1
 		
 		ld c,e
 		inc c
@@ -438,7 +438,7 @@ sbchkn3:
 		dec c
 		jp nz,sbchkn3
 		
-							; X - 1,(Y + SBHI-1) - one block upper
+							; X,(Y + SBHI-1) - one block upper
 		dec hl				
 		push hl
 
@@ -454,7 +454,7 @@ sbchkn3:
 sbchk1:
 		pop hl
 		ld de,COLNUM
-		add hl,de			; X - 1,Y - floor
+		add hl,de			; X,Y - floor
 		push hl
 		ldsprt
 		and bwall + bladder
@@ -469,7 +469,22 @@ sbchk1:
 		ldsprt
 		and bwall
 		jp nz,sbchke1		; wall, go further
+
+		pop hl
+		ld de,COLNUM
+		add hl,de			; X - 2,Y - 1 - one block under floor
+		push hl
+		ldsprt
+		and bwall + bladder
+		jp nz,sbrdn			; can't fall down
 		
+		pop hl
+		pop hl				; control block
+		call sbstfall		; start falling down
+		xor a
+		ret
+		
+sbrdn:						
 							; no wall - downstairs
 		pop hl
 		pop hl				; control block
@@ -541,7 +556,7 @@ sbchkl3:
 		dec c
 		jp nz,sbchkl3
 		
-							; X + 1,(Y + SBHI-1) - one block upper
+							; X - 1,(Y + SBHI-1) - one block upper
 		inc hl				
 		push hl
 
@@ -564,7 +579,7 @@ sbchkl1:
 		jp nz,sbchkle1		; floor continues
 				
 		; ------
-							; X + 2,Y - floor under saboteur
+							; X - 2,Y - floor under saboteur
 		pop hl
 		inc hl
 		push hl

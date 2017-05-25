@@ -1,4 +1,35 @@
 
+; --- checks type of a sprite
+; args:		A - sprite type
+; result:	A - 0 if not a floor type (something to walk on)
+;
+isfloor:
+		and bwall + bladder
+		ret 
+
+; 
+; ----- calculates address in memory of specified column and row of shadow screen
+;	args: 	D - column
+;			E - row
+; result: 	HL - address 
+;			
+shscradr:
+		ld hl,shadscr
+		
+		ld b,0
+		ld c,d
+		add hl,bc			; X position
+		
+		ld bc,COLNUM
+							; calculate Y 
+spadrcr1:					
+		add hl,bc
+		dec e
+		jp nz,spadrcr1
+		
+		ret
+
+
 ; -----  clear text screen
 ;
 clrtscr:

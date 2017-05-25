@@ -25,6 +25,10 @@ mkpause3:
 ; result: A - 0 to continue
 
 gmain:
+		call chkfalng
+		or a
+		jp z,gend		; exit if is falling down
+
         call kbread
 		and 255
 		jp nz,gkifesc
@@ -32,33 +36,28 @@ gmain:
 		jp gend
 				
 gkifesc:		
-		ld b,KESC
-		cp b
+		cp KESC
 		ret z			; exit button - end game	
 		
-		ld b,KLEFT
-		cp b
+		cp KLEFT
 		jp nz,gifrt
 		call gkleft
 		jp gend
 		
 gifrt:
-		ld b,KRIGHT
-		cp b
+		cp KRIGHT
 		jp nz,gifup
 		call gkright
 		jp gend
 		
 gifup:
-		ld b,KUP
-		cp b
+		cp KUP
 		jp nz,gifdown
 		call gkup
 		jp gend		
 
 gifdown:
-		ld b,KDOWN
-		cp b
+		cp KDOWN
 		jp nz,gend
 		call gkdown
 		jp gend		

@@ -8,6 +8,7 @@ KSPACE  EQU 80h
 
 ; -----  reads keyboard state
 ; result: A - key mask
+;
 kbread:	
 		ld hl,0f901h
 		ld a,(hl)

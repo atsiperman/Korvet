@@ -1,3 +1,86 @@
+; ----- checks, if saboteur is falling down and makes next step if he is
+; result:
+;		A - 0 if is falling
+;
+chkfalng:
+		ld hl,sbctrlb
+		push hl
+		ldstate
+		
+		cp sbfall
+		pop hl
+		ret nz				; exit if not falling down
+		
+		push hl
+		ldcursc
+		ld d,a				; column in D
+		inc hl
+		ld a,(hl)			; row in E
+		inc a				; next row
+		ld e,a
+		
+		pop hl
+		push de				; save current coordinates
+		push hl
+		
+		add SBHI
+		ld e,a				; row in E		
+		
+		call shscradr		; get address of the sprites' index
+		ldsprt
+		call isfloor
+		pop hl
+		pop de
+		or a
+		jp z,contfall
+		scurst sbstay
+		dec hl
+		ld (hl),1			; redraw
+		ret
+		
+contfall:		
+							; continue falling down
+		push hl
+		ld a,e				; save next row	
+		scursr			
+		
+		pop hl
+		push hl
+		ldcurp		
+							; increase row
+		ld a,d
+		add 2
+		ld d,a
+		dec hl
+		dec hl
+		savem_hl_de
+		pop hl
+		inc hl
+		ld (hl),1			; redraw
+		xor a		
+		ret
+;
+; --- end of chkfalng
+;
+
+; ----- starts falling down
+; args: HL - address of control block
+;				
+sbstfall:
+		push hl
+		ldcursc
+		inc a
+		inc a
+		ld (hl),a
+		pop hl
+		scurst sbfall		
+		ret	
+
+;
+; --- end of sbstfall
+;
+
+
 
 ; ----- check, if saboteur can go upstairs or downstairs
 ; args: HL - address of control block

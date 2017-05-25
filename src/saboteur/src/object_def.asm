@@ -19,6 +19,7 @@ dirdn	EQU 8
 bwall   EQU 1
 bladder EQU 2 
 
+
 ; ---- object types
 ;
 osabotr	EQU 1				; saboteur
@@ -91,7 +92,7 @@ odcbend EQU 13		; end of the control block
 		ld a,(hl)		
 		endm
 
-; ----  loads current position into de
+; ----  loads current position into DE
 ; args: HL - address of control block 
 ; 				
 		macro ldcurp
