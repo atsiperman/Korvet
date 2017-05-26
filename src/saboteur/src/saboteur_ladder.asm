@@ -5,7 +5,7 @@
 chkfalng:
 		ld hl,sbctrlb
 		push hl
-		ldstate
+		ldstate				; load state
 		
 		cp sbfall
 		pop hl
@@ -33,8 +33,20 @@ chkfalng:
 		pop de
 		or a
 		jp z,contfall
-		scurst sbstay
+		
+		push hl
+		scurst sbstay		; set new state
+		pop hl
+		push hl
+		ld a,0
+		scurspi				; sprite index
+		dec hl	
 		dec hl
+		ld de,sabsprt		; sprite for staying 
+		savem_hl_de
+		
+		pop hl
+		inc hl
 		ld (hl),1			; redraw
 		ret
 		
@@ -64,15 +76,56 @@ contfall:
 ;
 
 ; ----- starts falling down
-; args: HL - address of control block
-;				
+; args: HL 	- address of control block
+;		C	- direction
+;
 sbstfall:
+		push bc
 		push hl
 		ldcursc
-		inc a
-		inc a
-		ld (hl),a
+		
 		pop hl
+		pop bc
+		push hl
+		
+		ld e,a
+		
+		ld a,c
+		cp dirrt
+		jp z,sbfall1
+							; falling to the left side
+		dec e
+		dec e
+		ld a,e
+		
+		ldcurp
+		dec de
+		dec de
+		
+		jp sbfalle
+							; falling to the right side
+sbfall1:
+		inc e
+		inc e
+		ld a,e
+		
+		ldcurp
+		inc de
+		inc de
+		
+sbfalle:
+		dec hl
+		dec hl
+		savem_hl_de			; save new screen position
+		
+		ld de,sabfall
+		savem_hl_de			; save sprite address
+		
+		pop hl
+		push hl		
+		scursc		
+		ld (hl),a
+		pop hl		
 		scurst sbfall		
 		ret	
 

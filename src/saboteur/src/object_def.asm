@@ -92,7 +92,7 @@ odcbend EQU 13		; end of the control block
 		ld a,(hl)		
 		endm
 
-; ----  loads current position into DE
+; ----  loads current position in screen memory into DE
 ; args: HL - address of control block 
 ; 				
 		macro ldcurp

@@ -480,6 +480,7 @@ sbchk1:
 		
 		pop hl
 		pop hl				; control block
+		ld c,dirrt
 		call sbstfall		; start falling down
 		xor a
 		ret
