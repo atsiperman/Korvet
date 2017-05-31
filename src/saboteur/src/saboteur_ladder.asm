@@ -23,7 +23,7 @@ chkfalng:
 		push de				; save current coordinates
 		push hl
 		
-		add SBHI
+		add SBHI			; add height of the saboteur to get floor level
 		ld e,a				; row in E		
 		
 		call shscradr		; get address of the sprites' index
@@ -35,7 +35,22 @@ chkfalng:
 		jp z,contfall
 		
 		push hl
+		dec d				; decrease column
+		ld a,d
+		scursc
+		
+		pop hl
+		push hl
 		scurst sbstay		; set new state
+
+		pop hl
+		push hl
+		ldcurp
+		dec de				; decrease screen address
+		dec hl
+		dec hl
+		savem_hl_de			
+		
 		pop hl
 		push hl
 		ld a,0
@@ -124,7 +139,7 @@ sbfalle:
 		pop hl
 		push hl		
 		scursc		
-		ld (hl),a
+		;ld (hl),a
 		pop hl		
 		scurst sbfall		
 		ret	
@@ -301,24 +316,23 @@ sbdolad1:					; go down
 		jp sbdolad4
 		
 sbdolad2:		
-		call goscnrup		; change screen
+		call goscrnup		; change screen
 		or a
 		jp z,sbdolade		; screen not changed
 		
 		pop hl
 		push hl
 		ld a,ROWNUM
-		sub a,SBHI+1		; row num on the new screen
+		sub SBHI+1		; row num on the new screen
 		scursr	
 		
-		dec hl
 		dec hl
 		ld e,(hl)
 		ld d,0
 		ld hl,SCRADDR
 		add hl,de			; new address in screen memory for current column
-		ld bc,((ROWNUM-1)-(SBHI+1))*64
-		add hl,de
+		ld bc,(ROWNUM-(SBHI+1))*8*64
+		add hl,bc
 		ex de,hl
 		pop hl
 		push hl
@@ -337,11 +351,11 @@ sbdolad3:
 		scursr				
 		
 		dec hl
-		dec hl
 		ld e,(hl)
 		ld d,0
 		ld hl,SCRADDR
 		add hl,de			; new address in screen memory in top row
+		ex de,hl
 
 		pop hl
 		push hl
@@ -351,12 +365,12 @@ sbdolad3:
 sbdolad4:
 		pop hl
 		push hl
-		
-		ldcurspi
+							; calculate new sprite index and address
+		ldcurspi			
 		push hl
 		
 		ld hl,sbladtb
-		ld e,(hl)		; total sprite count		
+		ld e,(hl)			; total sprite count		
 		inc a
 		cp e	
 		jp nz,sbdolad5
@@ -364,13 +378,13 @@ sbdolad4:
 		
 sbdolad5:
 		pop hl
-		ld (hl),a		; save sprite index		
+		ld (hl),a			; save sprite index		
 				
 		pop hl
 		push hl
 		ld bc,odcursp
 		add hl,bc
-		snewspa sbladtb
+		snewspa sbladtb		; calc and save new sprite address
 		
 sbdolade:
 		pop hl		

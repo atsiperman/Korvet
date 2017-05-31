@@ -209,7 +209,7 @@ odcbend EQU 13		; end of the control block
 		ld (hl),c
 		endm
 		
-; ---- calculate new sprite address from sprite table
+; ---- calculate and save new sprite address from sprite table
 ; args: HL - address to save new value
 ;		A  - current sprite index
 ;

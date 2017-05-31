@@ -48,7 +48,7 @@ BK8DATA:	bksh2 CBLUE,bladder							; blue ladder left bottom
 BK9DATA:	bksh2 CBLUE,bladder							; blue ladder right bottom
 			DB 8,207,207,15,8,207,207,15 
 
-BK10DATA:	bksh CBLUE			; blue small bricks
+BK10DATA:	bksh CBLUE									; blue small bricks
 			DB 0,247,0,127,0,247,247,247
 	
 BK11DATA:	bksh2 CBLUE,bladder							; blue ladder top left

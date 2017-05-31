@@ -7,7 +7,7 @@ goscrnrt:
 goscrnlt:
 		nextscreen leftscrd
 		
-goscnrup:
+goscrnup:
 		nextscreen upscrd
 
 goscrndn:		
