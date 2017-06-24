@@ -25,6 +25,7 @@
         include "background_sprites.asm"
         include "screens.asm"
 		include "screens/screens-11.asm"
+		include "screens/screens-23.asm"
 				
 		include "saboteur_sprites.asm"		
 		include "control_data.asm"		

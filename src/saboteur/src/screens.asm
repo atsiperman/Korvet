@@ -6,7 +6,7 @@
 		macro mkbyte hi,lo
 		db (hi << 4) | lo
 		endm
-		
+				
 scrbk1:
 scrbk2:
 
