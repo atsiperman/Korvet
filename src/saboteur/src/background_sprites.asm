@@ -19,6 +19,9 @@ BK11ADDR:	DW BK11DATA
 BK12ADDR:	DW BK12DATA
 BK13ADDR:	DW BK13DATA
 BK14ADDR:	DW BK14DATA
+BK15ADDR:	DW BK15DATA
+BK16ADDR:	DW BK16DATA
+BK17ADDR:	DW BK17DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -62,6 +65,13 @@ BK13DATA:	bksh2 CGREEN,bladder						; green ladder bottom left
 
 BK14DATA:	bksh2 CGREEN,bladder						; green ladder bottom right
 			DB 8,206,200,15,8,206,200,15 
+
+BK15DATA:	bksh2 CBLUE,bwall							; blue tube top 
+			DB 126,0,44,44,44,44,44,44 
+BK16DATA:	bksh2 CBLUE,bwall							; blue tube 
+			DB 44,44,44,44,44,44,44,44 
+BK17DATA:	bksh2 CBLUE,bwall							; blue tube bottom
+			DB 44,44,44,44,44,44,0,126
 
 
 
