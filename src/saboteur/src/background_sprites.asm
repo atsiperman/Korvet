@@ -27,6 +27,9 @@ BK19ADDR:	DW BK19DATA
 BK20ADDR:	DW BK20DATA
 BK21ADDR:	DW BK21DATA
 BK22ADDR:	DW BK22DATA
+BK23ADDR:	DW BK23DATA
+BK24ADDR:	DW BK24DATA
+BK25ADDR:	DW BK25DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -92,3 +95,18 @@ BK21DATA:	bksh2 CBLUE,bladder							; water green
 			
 BK22DATA:	bksh CBLUE									; solid white
 			DB 255,255,255,255,255,255,255,255
+			
+BK23DATA:	bksh2 CRED,bwall							; red beam
+			DB 255,255,255,255,0,0,255,0
+			
+BK24DATA:	bksh2 CYELLOW,bladder						; yellow ladder left
+			DB 16,115,83,80,80,115,19,240			
+			
+BK25DATA:	bksh2 CYELLOW,bladder						; yellow ladder right
+			DB 9,205,205,13,13,205,201,15
+
+
+
+
+			
+			

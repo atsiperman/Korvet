@@ -27,7 +27,7 @@ CMAINHI	EQU 0h				; hi byte of the main color
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn9		; pointer to current screen
+curscr: 	dw scrn1		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 
 shadscr:	dup	ROWNUM * COLNUM

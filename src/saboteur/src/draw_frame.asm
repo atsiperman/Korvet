@@ -141,3 +141,28 @@ drawfrm:
 		call drwfrm3
 
 		ret
+
+
+; ----
+; ----	draws part of the frame's color which is in the text RAM
+;
+drawfrmt:
+		ld hl,TVIREG
+		ld (hl),ATRSET			; turn on inversion
+		
+		ld hl,FRMADRT
+		ld b,FRMHIGT/2
+		
+		ld de,64
+		
+		ld a,0
+drfrmt1:		
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmt1
+				
+		ld hl,TVIREG
+		ld (hl),ATRRES			; turn off inversion
+		ret 
+		

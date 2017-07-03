@@ -242,3 +242,293 @@ smap24e:
 		
 ; --- end of scrbk24
 
+
+scrbk25:
+		spmaplen smap25b,smap25e
+smap25b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK10ADDR	; 1, blue small bricks
+		bkindex BK4ADDR		; 2, blue bricks
+		bkindex BK22ADDR	; 3, solid white
+smap25e:
+		dup 7
+			dup 15
+			db 0
+			edup
+		edup
+		
+		dup 15
+		mkbyte 1,1
+		edup
+		
+		dup 5
+			dup 15
+			mkbyte 2,2
+			edup
+		edup
+		
+		dup 2
+			dup 15
+			mkbyte 3,3
+			edup
+		edup
+
+		dup 2
+			dup 15
+			db 0
+			edup
+		edup
+		
+; --- end of scrbk25
+
+scrbk26:
+		spmaplen smap26b,smap26e
+smap26b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK4ADDR		; 1, blue bricks
+		bkindex BK22ADDR	; 2, solid white
+smap26e:
+		dup 5
+			dup 15
+			db 0
+			edup
+		edup
+		
+		dup 11
+		mkbyte 1,1
+		edup
+		dup 4
+		db 0
+		edup
+		
+		dup 11
+		mkbyte 1,1
+		edup
+		mkbyte 1,0
+		dup 3
+		db 0
+		edup
+		
+		dup 5
+			dup 15
+				mkbyte 1,1
+			edup
+		edup
+		
+		dup 10
+		db 0
+		edup
+		mkbyte 0,1
+		dup 4
+		mkbyte 1,1
+		edup
+		
+		dup 11
+		db 0
+		edup
+		dup 4
+		mkbyte 2,2
+		edup
+
+		dup 11
+		db 0
+		edup
+		mkbyte 0,2
+		dup 3
+		mkbyte 2,2
+		edup
+		
+		dup 2
+			dup 15
+			db 0
+			edup
+		edup
+		
+; --- end of scrbk26
+
+scrbk27:
+		spmaplen smap27b,smap27e
+smap27b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK4ADDR		; 2, blue bricks
+		bkindex BK6ADDR		; 3, 2 yellow bricks 
+		bkindex BK7ADDR		; 4, big yellow brick
+smap27e:
+		dup 5
+			dup 15
+			db 0
+			edup
+		edup
+	
+		dup 13
+		mkbyte 1,1
+		edup
+		mkbyte 1,3
+		mkbyte 2,2
+		
+		dup 6
+			dup 13
+			mkbyte 1,1
+			edup
+			mkbyte 1,4
+			mkbyte 2,2
+		edup
+		
+		dup 5
+			dup 15
+			db 0
+			edup
+		edup
+; --- end of scrbk27
+
+scrbk28:
+		spmaplen smap28b,smap28e
+smap28b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK23ADDR	; 2, red beam
+smap28e:
+		dup 5
+			dup 15
+			db 0
+			edup
+		edup
+
+		dup 7
+			dup 15
+			mkbyte 1,1
+			edup
+		edup
+	
+		dup 10
+		mkbyte 1,1
+		edup
+		mkbyte 1,0
+		dup 4
+		db 0
+		edup
+		
+		dup 8
+		mkbyte 2,2
+		edup
+		dup 7
+		db 0
+		edup
+		
+		dup 3
+			dup 7
+			mkbyte 1,1
+			edup
+			dup 8
+			db 0
+			edup
+		edup
+		
+; --- end of scrbk28
+
+
+scrbk29:
+		spmaplen smap29b,smap29e
+smap29b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK23ADDR	; 2, red beam
+		bkindex BK24ADDR	; 3, yellow ladder left
+		bkindex BK25ADDR	; 4, yellow ladder right
+smap29e:
+		dup 5
+			dup 15
+			db 0
+			edup
+		edup
+		
+		dup 5
+		db 0
+		edup
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 3,4
+		dup 7
+		mkbyte 1,1
+		edup
+		
+		dup 4
+		db 0
+		edup
+		mkbyte 0,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 3,4
+		dup 7
+		mkbyte 1,1
+		edup
+		
+		dup 4
+		db 0
+		edup
+		dup 3
+		mkbyte 1,1
+		edup
+		mkbyte 3,4
+		dup 7
+		mkbyte 1,1
+		edup
+
+		dup 5
+			dup 3
+			db 0
+			edup
+			mkbyte 0,1
+			dup 3
+			mkbyte 1,1
+			edup
+			mkbyte 3,4
+			dup 7
+			mkbyte 1,1
+			edup
+		edup
+		
+		
+		dup 7
+		db 0
+		edup
+		mkbyte 3,4
+		db 0
+		dup 6
+		mkbyte 2,2
+		edup
+
+		dup 7
+		db 0
+		edup
+		mkbyte 3,4
+		db 0
+		db 0
+		dup 5
+		mkbyte 1,1
+		edup
+		
+		dup 4
+		db 0
+		edup
+		dup 3
+		mkbyte 1,1
+		edup
+		mkbyte 3,4
+		dup 7
+		mkbyte 1,1
+		edup
+		
+		dup 3
+		db 0
+		edup
+		dup 4
+		mkbyte 1,1
+		edup
+		mkbyte 3,4
+		dup 7
+		mkbyte 1,1
+		edup
+		
+; --- end of scrbk29

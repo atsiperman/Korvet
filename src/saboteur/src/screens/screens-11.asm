@@ -701,9 +701,10 @@ smap18e:
 		mkbyte 1,1
 		edup
 		mkbyte 1,4
-		dup 5
+		dup 4
 		mkbyte 4,4
 		edup
+		db 0
 		
 		dup 4
 			dup 4

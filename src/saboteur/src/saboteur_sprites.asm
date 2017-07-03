@@ -10,7 +10,7 @@ sbmvrtte:
 ;
 ; end of table
 
-; table of addresses of saboteur sprites when moving right
+; table of addresses of saboteur sprites when moving left
 ;
 sbmvlttb:										
 		db (sbmvltte - sbmvlttb - 1) / 2

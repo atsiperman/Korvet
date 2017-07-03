@@ -19,7 +19,7 @@ scrn8:	mkscreen scrbk8, scrn7, scrn9, 0, scrn13
 scrn9:	mkscreen scrbk9, scrn8, scrn10,0, scrn14
 scrn10:	mkscreen scrbk10, scrn9,0,0,scrn15
 scrn11:	mkscreen scrbk11, 0,0,scrn6,scrn16
-scrn12:	mkscreen scrbk12, 0,0,scrn7,0
+scrn12:	mkscreen scrbk12, 0,0,scrn7,scrn17
 scrn13:	mkscreen scrbk13, 0,scrn14,scrn8,scrn18
 scrn14:	mkscreen scrbk14, scrn13,scrn15,scrn9,0
 scrn15:	mkscreen scrbk15, scrn14,0,scrn10,scrn20
@@ -31,4 +31,9 @@ scrn20:	mkscreen scrbk20, 0,0, scrn15,scrn22
 scrn21:	mkscreen scrbk21, 0,0, scrn19,scrn24
 scrn22:	mkscreen scrbk22, 0,0, scrn20,scrn23
 scrn23:	mkscreen scrbk23, scrn24,0, scrn22,0
-scrn24:	mkscreen scrbk24, 0,scrn23, scrn21,0
+scrn24:	mkscreen scrbk24, scrn25,scrn23, scrn21,0
+scrn25:	mkscreen scrbk25, scrn26,scrn24, 0,0
+scrn26:	mkscreen scrbk26, scrn27,scrn25, 0,0
+scrn27:	mkscreen scrbk27, scrn28,scrn26, 0,0
+scrn28:	mkscreen scrbk28, scrn29,scrn27, 0,0
+scrn29:	mkscreen scrbk29, 0,scrn28, 0,0

@@ -35,16 +35,17 @@
 
 start:
         call clrtscr
+		call drawfrmt	; draw frame in text ram 		
 
         ld hl,0
         add hl,sp
         ld (OLDSTK),hl
         ld sp,NEWSTK
-
+		
         GRMODON
 		call lutsetup
 
-        ld a,86h 
+        ld a,80h 
         call fillscr	; clear screen with black
 
 		call drawfrm	; draw frame
