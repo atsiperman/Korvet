@@ -6,12 +6,12 @@ tmpstk: dw 0				; to save stack for some operations
 LUTVAL:
 		db 0				; black		
 		db 11h				; CBLUE		0001 0001
-		db 19h				; CBLUE		0001 1001
+		db 19h				;           0001 1001
 		db 0a2h				; CGREEN	1010 0010
- 		db 02ah				; CGREEN    0010 1010
+ 		db 04ah				; red       1100 1010
 		db 0e3h				; CYELLOW   1110 0011
-		db 06bh				; CYELLOW   0110 1011
-		db 48h				; CRED		0100 1000
+		db 06bh				;           0110 1011
+		db 08h				;     		0000 1000
 		
 CMAINHI	EQU 0h				; hi byte of the main color
 		

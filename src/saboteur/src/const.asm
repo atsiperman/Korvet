@@ -25,13 +25,13 @@ GRAMLEN 	EQU 4000h
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
 
-FRMADDR		EQU GRAM + 16 + 64*30
+FRMADDR		EQU GRAM + 16 + 64*32
 FRMWIDT		EQU COLNUM + 2
 FRMHIGT		EQU 24
 FRMADRT		EQU TRAM + 2*64 + 16	; address of the frame in text RAM
 
 
-SCRADDR 	EQU GRAM + 17 + 64*30 + 64*8 	; start of the working screen
+SCRADDR 	EQU GRAM + 17 + 64*32 + 64*8 	; start of the working screen
 
 
 NEWSTK  	EQU 0beffh		; new address of stack

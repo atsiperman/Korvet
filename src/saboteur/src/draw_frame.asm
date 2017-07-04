@@ -156,12 +156,52 @@ drawfrmt:
 		ld de,64
 		
 		ld a,0
+		
+								; left frame column
 drfrmt1:		
 		ld (hl),a
 		add hl,de
 		dec b
 		jp nz,drfrmt1
-				
+
+		
+								; right frame column
+		ld hl,FRMADRT + COLNUM + 1
+		ld b,FRMHIGT/2
+drfrmt2:		
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmt2
+
+
+								; right frame column
+		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 5
+		ld b,3
+drfrmt3:		
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmt3
+			
+								; right frame column
+		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 21
+		ld b,3
+drfrmt4:		
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmt4
+
+								; right frame column
+		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 26
+		ld b,3
+drfrmt5:
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmt5
+		
 		ld hl,TVIREG
 		ld (hl),ATRRES			; turn off inversion
 		ret 
