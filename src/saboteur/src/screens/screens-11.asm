@@ -10,62 +10,59 @@ smap11b:
 		bkindex BK10ADDR	; 6, blue small bricks
 smap11e:					
 		dup 4
-			dup 4
+			mkline 4
 			db 0
-			edup
 			
 			mkbyte 4,5
 			
-			dup 10
+			mkline 10
 			db 0
-			edup
 		edup
 
-		dup 3
+		mkline 3
 		db 0
-		edup
+		
 		mkbyte 0,6
 		mkbyte 4,5
-		dup 7
+		mkline 7
 		mkbyte 6,6
-		edup
+		
 		mkbyte 6,0
 		db 0
 		db 0
 
 		dup 5
-			dup 3
+			mkline 3
 			db 0
-			edup
+			
 			mkbyte 0,1
 			mkbyte 4,5
-			dup 7
+			mkline 7
 			mkbyte 1,1
-			edup
+			
 			mkbyte 1,0
 			db 0
 			db 0
 		edup
 		
-		dup 4
+		mkline 4
 		db 0
-		edup
+		
 		mkbyte 2,3
-		dup 10
+		mkline 10
 		db 0
-		edup
 
 		dup 6
-			dup 4
+			mkline 4
 			db 0
-			edup
 			
 			mkbyte 4,5
 			
-			dup 10
+			mkline 10
 			db 0
-			edup
 		edup
+		
+		mscrend
 		
 ; --- end of scrbk11
 
@@ -81,84 +78,75 @@ smap12b:
 		bkindex BK10ADDR	; 6, blue small bricks
 smap12e:					
 		dup 4
-			dup 2
+			mkline 2
 			db 0
-			edup
 			
 			mkbyte 4,5
 			
-			dup 6
+			mkline 6
 			db 0
-			edup
 			
 			mkbyte 4,5
 			
-			dup 5
-			db 0
-			edup			
+			mkline 5
+			db 0		
 		edup
 
 		db 0
 		mkbyte 6,6
 		mkbyte 4,5
-		dup 2
+		mkline 2
 		mkbyte 6,6
-		edup
 		db 0
 		mkbyte 0,6
-		dup 2
+		mkline 2
 		mkbyte 6,6
-		edup
+
 		mkbyte 4,5
 		mkbyte 6,6
 		mkbyte 6,0
-		dup 3
+		mkline 3
 		db 0
-		edup
 		
 		dup 5
 			db 0
 			mkbyte 1,1
 			mkbyte 4,5
-			dup 2
+			mkline 2
 			mkbyte 1,1
-			edup
+			
 			db 0
 			mkbyte 0,1
-			dup 2
+			mkline 2
 			mkbyte 1,1
-			edup
+			
 			mkbyte 4,5
 			mkbyte 1,1
 			mkbyte 1,0
-			dup 3
-			db 0
-			edup			
+			mkline 3
+			db 0		
 		edup
 		
 		db 0
 		mkbyte 1,1
 		mkbyte 4,5
-		dup 2
+		mkline 2
 		mkbyte 1,1
-		edup
-		dup 4
+		mkline 4
 		db 0
-		edup
 		mkbyte 2,3
-		dup 5
+		mkline 5
 		db 0
-		edup
 
 		dup 6
-			dup 9
+			mkline 9
 			db 0
-			edup
 			mkbyte 4,5
-			dup 5
+			mkline 5
 			db 0
-			edup
 		edup
+		
+		mscrend
 ; --- end of scrbk12
 
 
@@ -172,83 +160,78 @@ smap13b:
 		bkindex BK10ADDR	; 4, blue small bricks
 smap13e:
 		dup 7
-			dup 4
+			mkline 4
 			db 0
-			edup
 			
 			mkbyte 2,3
 			
-			dup 5
+			mkline 5
 			db 0
-			edup
 			
 			mkbyte 2,3
 			
-			dup 4
-			db 0
-			edup			
+			mkline 4
+			db 0		
 		edup
 
-		dup 4
+		mkline 4
 		db 0
-		edup		
+	
 		mkbyte 2,3
-		dup 3
+		mkline 3
 		db 0
-		edup		
-		dup 2
+	
+		mkline 2
 		mkbyte 4,4
-		edup		
+	
 		mkbyte 2,3
 		mkbyte 4,4
 		mkbyte 4,0
-		dup 2
+		mkline 2
 		db 0
-		edup		
-
-		dup 4
+	
+		mkline 4
 		db 0
-		edup		
+	
 		mkbyte 2,3
-		dup 3
+		mkline 3
 		db 0
-		edup		
-		dup 2
+	
+		mkline 2
 		mkbyte 1,1
-		edup		
+	
 		mkbyte 2,3
 		mkbyte 1,1
 		mkbyte 1,4
-		dup 2
-		mkbyte 4,4
-		edup		
+		mkline 2
+		mkbyte 4,4	
 
 		dup 5
-			dup 4
+			mkline 4
 			db 0
-			edup		
+	
 			mkbyte 2,3
-			dup 3
+			mkline 3
 			db 0
-			edup		
-			dup 2
+	
+			mkline 2
 			mkbyte 1,1
-			edup		
+	
 			mkbyte 2,3
-			dup 4
+			mkline 4
 			mkbyte 1,1
-			edup
 		edup
 
 		dup 3
-			dup 4
+			mkline 4
 			db 0
-			edup		
+	
 			mkbyte 2,3		
-			dup 10
-			db 0
-			edup		
+			mkline 10
+			db 0	
 		edup
+		
+		mscrend
 		
 ; --- end of scrbk13
 
@@ -265,141 +248,131 @@ smap14b:
 		bkindex BK17ADDR	; 7, blue tube bottom
 smap14e:
 		dup 4
-			dup 5
+			mkline 5
 			db 0
-			edup
 			
 			mkbyte 2,3
 			db 0
 			mkbyte 6,0
 			
-			dup 3
+			mkline 3
 			db 0			
-			edup
 			
 			mkbyte 0,6
 
-			dup 3
-			db 0			
-			edup
+			mkline 3
+			db 0
 		edup
 
-		dup 5
+		mkline 5
 		db 0
-		edup		
+	
 		mkbyte 2,3
 		db 0
 		mkbyte 6,0
-		dup 3
+		mkline 3
 		db 0			
-		edup	
+
 		mkbyte 0,7
-		dup 3
+		mkline 3
 		db 0			
-		edup
 
-		dup 5
+		mkline 5
 		db 0
-		edup		
+	
 		mkbyte 2,3
 		db 0
 		mkbyte 6,0
-		dup 7
+		mkline 7
 		mkbyte 4,4
-		edup	
 
-		dup 5
+		mkline 5
 		db 0
-		edup		
+	
 		mkbyte 2,3
 		db 0
 		mkbyte 6,0
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup	
 		
-		dup 2
+		mkline 2
 		db 0
-		edup		
-		dup 3
+	
+		mkline 3
 		mkbyte 4,4
-		edup
+		
 		mkbyte 2,3
 		mkbyte 4,0
 		mkbyte 6,0
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup	
 
-		dup 2
+		mkline 2
 		mkbyte 4,4
-		edup		
-		dup 3
+	
+		mkline 3
 		mkbyte 1,1
-		edup
+		
 		mkbyte 2,3
 		mkbyte 1,0
 		mkbyte 6,0
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup	
 
 		dup 2
-			dup 5
+			mkline 5
 			mkbyte 1,1
-			edup		
+	
 			mkbyte 2,3
 			mkbyte 1,0
 			mkbyte 6,0
-			dup 7
+			
+			mkline 7
 			mkbyte 1,1
-			edup	
 		edup
 
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup		
+	
 		mkbyte 2,3
 		mkbyte 1,0
 		mkbyte 6,0
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 0,5
-		dup 3
+		mkline 3
 		db 0
-		edup	
 		
 		dup 2
-			dup 5
+			mkline 5
 			mkbyte 1,1
-			edup		
+	
 			mkbyte 2,3
 			mkbyte 1,0
 			mkbyte 6,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,6
-			dup 3
+			mkline 3
 			db 0
-			edup	
 		edup
 
 		dup 3
-			dup 7
+			mkline 7
 			db 0
-			edup
+
 			mkbyte 6,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,6
-			dup 3
-			db 0
-			edup				
+			mkline 3
+			db 0			
 		edup
 		
+		mscrend
 ; --- end of scrbk14
 
 scrbk15:
@@ -420,9 +393,9 @@ smap15e:
 			db 0
 			db 0
 			mkbyte 2,3
-			dup 4
+			mkline 4
 			db 0
-			edup
+
 			mkbyte 6,0
 			db 0
 			mkbyte 6,0
@@ -436,9 +409,9 @@ smap15e:
 		db 0
 		db 0
 		mkbyte 2,3
-		dup 4
+		mkline 4
 		db 0
-		edup
+		
 		mkbyte 6,0
 		db 0
 		mkbyte 7,0
@@ -451,9 +424,9 @@ smap15e:
 		mkbyte 4,4
 		mkbyte 4,4
 		mkbyte 2,3
-		dup 3
+		mkline 3
 		mkbyte 4,4
-		edup
+
 		mkbyte 4,0
 		mkbyte 6,0
 		mkbyte 4,4
@@ -465,13 +438,13 @@ smap15e:
 		db 0
 
 		dup 5
-			dup 2
+			mkline 2
 			mkbyte 1,1
-			edup
+
 			mkbyte 2,3
-			dup 3
+			mkline 3
 			mkbyte 1,1
-			edup
+
 			mkbyte 1,0
 			mkbyte 6,0
 			mkbyte 1,1
@@ -486,9 +459,9 @@ smap15e:
 		db 0
 		mkbyte 0,1
 		mkbyte 2,3
-		dup 3
+		mkline 3
 		mkbyte 1,1
-		edup
+
 		mkbyte 1,0
 		mkbyte 6,0
 		mkbyte 1,1
@@ -497,11 +470,10 @@ smap15e:
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 1,0
+		
+		mkline 4
 		db 0
-
-		db 0
-		db 0
-		db 0
+		
 		mkbyte 0,8
 		mkbyte 9,0
 		mkbyte 5,0
@@ -512,13 +484,13 @@ smap15e:
 		mkbyte 8,9
 		db 0
 		mkbyte 0,5
-		db 0
+		mkline 2
 		db 0
 		
 		dup 4
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,2
 			mkbyte 3,0
 			mkbyte 6,0
@@ -529,10 +501,11 @@ smap15e:
 			mkbyte 2,3
 			db 0
 			mkbyte 0,6
-			db 0
+			mkline 2
 			db 0
 		edup
-		
+
+		mscrend
 		
 ; --- end of scrbk15
 
@@ -547,41 +520,40 @@ smap16b:
 		bkindex BK10ADDR	; 4, blue small bricks
 smap16e:
 		dup 8
-			db 0
-			db 0
-			db 0
+			mkline 4
 			db 0
 			mkbyte 2,3
-			dup 10
+			mkline 10
 			db 0
-			edup 
 		edup
 		
 		db 0
-		dup 3
+		mkline 3
 		mkbyte 4,4
-		edup
+
 		mkbyte 2,3
-		dup 10
+		mkline 10
 		mkbyte 4,4
-		edup 
 
 		dup 6
 			db 0
-			dup 3
+			mkline 3
 			mkbyte 1,1
-			edup
+
 			mkbyte 2,3
-			dup 10
+			mkline 10
 			mkbyte 1,1
-			edup 
 		edup
 		
 		dup 2
-			dup 15
+			mkline 13
 			db 0
-			edup
+			
+			mkline 2
+			db 0
 		edup
+		
+		mscrend
 
 ; --- end of scrbk16
 
@@ -595,58 +567,56 @@ smap17b:
 		bkindex BK10ADDR	; 4, blue small bricks
 smap17e:
 		dup 7
-			dup 9
+			mkline 9
 			db 0
-			edup
+
 			mkbyte 2,3
-			dup 5
+			mkline 5
 			db 0
-			edup 
 		edup
 		
+		mkline 2
 		db 0
-		db 0
-		dup 7
+		mkline 7
 		mkbyte 4,4
-		edup
+
 		mkbyte 2,3
-		dup 5
+		mkline 5
 		mkbyte 4,4
-		edup 
 
 		mkbyte 4,4
 		mkbyte 4,4
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup
+
 		mkbyte 2,3
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
 
 		dup 5
-			dup 9
+			mkline 9
 			mkbyte 1,1
-			edup
+
 			mkbyte 2,3
-			dup 5
+			mkline 5
 			mkbyte 1,1
-			edup 
 		edup
 		
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
-		dup 11
+
+		mkline 11
 		db 0
-		edup
 		
 		dup 2
-			dup 15
+			mkline 13
 			db 0
-			edup
+			
+			mkline 2
+			db 0
 		edup
 		
+		mscrend
 
 ; --- end of scrbk17
 
@@ -662,99 +632,95 @@ smap18b:
 		bkindex BK16ADDR	; 6, blue tube
 smap18e:
 		dup 7
-			dup 4
+			mkline 4
 			db 0
-			edup
+
 			mkbyte 2,3
-			dup 10
+			mkline 10
 			db 0
-			edup
 		edup
 
-		dup 3
+		mkline 3
 		mkbyte 4,4
-		edup
+
 		db 0
 		mkbyte 2,3
-		dup 10
+		mkline 10
 		db 0
-		edup
 		
-		dup 3
+		mkline 3
 		mkbyte 1,1
-		edup
+
 		mkbyte 4,4
 		mkbyte 2,3
-		dup 4
+		mkline 4
 		mkbyte 4,4
-		edup
+
 		mkbyte 4,0
-		dup 5
+		mkline 5
 		db 0
-		edup
 		
-		dup 4
+		mkline 4
 		mkbyte 1,1
-		edup
+
 		mkbyte 2,3
-		dup 4
+		mkline 4
 		mkbyte 1,1
-		edup
+
 		mkbyte 1,4
-		dup 4
+		mkline 4
 		mkbyte 4,4
-		edup
+
 		db 0
 		
 		dup 4
-			dup 4
+			mkline 4
 			mkbyte 1,1
-			edup
+
 			mkbyte 2,3
-			dup 9
+			mkline 9
 			mkbyte 1,1
-			edup
+
 			db 0
 		edup
 
 		db 0
-		dup 3
+		mkline 3
 		mkbyte 1,1
-		edup
+
 		mkbyte 2,3
-		dup 9
+		mkline 9
 		mkbyte 1,1
-		edup
+
+		mkline 3
 		db 0
 		
-		db 0
-		db 0
 		mkbyte 5,0
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 5,0
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup
+
+		mkline 3
 		db 0
 		
-		db 0
-		db 0
 		mkbyte 6,0
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 6,0
-		db 0
+		mkline 2
 		db 0
 		mkbyte 0,6
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 6,0
 		db 0
-		
+
+		mscrend
 ; --- end of scrbk18
 
 scrbk19:
@@ -770,70 +736,69 @@ smap19b:
 		bkindex BK12ADDR	; 7, blue ladder top right						
 smap19e:
 		dup 6
-			dup 7
+			mkline 7
 			db 0			
-			edup
+
 			mkbyte 5,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,5
-			dup 3
+			mkline 3
 			db 0
-			edup
 		edup
 		
 		db 0
 		mkbyte 0,4
-		dup 11
+		mkline 11
 		mkbyte 4,4
-		edup
+
 		mkbyte 4,0
 		db 0
 
 		dup 6
 			db 0
 			mkbyte 0,1
-			dup 11
+			mkline 11
 			mkbyte 1,1
-			edup
+
 			mkbyte 1,0
 			db 0
 		edup
 		
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 6,7
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 5,0
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 0,5
-		dup 3
+		mkline 3
 		db 0
-		edup
 
 		dup 3
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 2,3
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 5,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,5
-			dup 3
+			mkline 3
 			db 0
-			edup
 		edup
+
+		mscrend
 		
 ; --- end of scrbk19
 
@@ -846,9 +811,9 @@ smap20b:
 		bkindex BK16ADDR	; 3, blue tube
 smap20e:
 		dup 17
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,1
 			mkbyte 2,0
 			mkbyte 3,0
@@ -859,10 +824,12 @@ smap20e:
 			mkbyte 1,2
 			db 0
 			mkbyte 0,3
-			db 0
+			mkline 2
 			db 0
 		edup
 
+		mscrend
+		
 ; --- end of scrbk20
 
 scrbk21:
@@ -874,23 +841,24 @@ smap21b:
 		bkindex BK16ADDR	; 3, blue tube
 smap21e:
 		dup 17
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 1,2
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 3,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,3
-			dup 3
+			mkline 3
 			db 0
-			edup
 		edup
 
+		mscrend
+		
 ; --- end of scrbk21
 
 scrbk22:
@@ -908,9 +876,9 @@ smap22b:
 		bkindex BK12ADDR	; 9, blue ladder top right						
 smap22e:
 		dup 3
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 0,2
 			mkbyte 3,0
 			mkbyte 6,0
@@ -921,13 +889,13 @@ smap22e:
 			mkbyte 2,3
 			db 0
 			mkbyte 0,6
-			db 0
+			mkline 2
 			db 0
 		edup
 
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 0,2
 		mkbyte 3,0
 		mkbyte 7,0
@@ -946,15 +914,15 @@ smap22e:
 		mkbyte 4,4
 		mkbyte 4,2
 		mkbyte 3,4
-		dup 3
+		mkline 3
 		mkbyte 4,4
-		edup
+
 		mkbyte 4,0
 		mkbyte 6,0
 		mkbyte 2,3
-		dup 3
+		mkline 3
 		mkbyte 4,4
-		edup
+
 		db 0
 		
 		dup 7
@@ -963,15 +931,15 @@ smap22e:
 			mkbyte 1,1
 			mkbyte 1,2
 			mkbyte 3,1
-			dup 3
+			mkline 3
 			mkbyte 1,1
-			edup
+
 			mkbyte 1,0
 			mkbyte 6,0
 			mkbyte 2,3
-			dup 3
+			mkline 3
 			mkbyte 1,1
-			edup
+
 			db 0
 		edup
 		
@@ -981,14 +949,14 @@ smap22e:
 		db 0
 		db 0
 		mkbyte 5,0
-		dup 3
+		mkline 3
 		db 0
-		edup
+
 		mkbyte 6,0
 		mkbyte 8,9
 		db 0
 		mkbyte 0,5
-		db 0
+		mkline 2
 		db 0
 		
 		dup 4
@@ -998,16 +966,17 @@ smap22e:
 			db 0
 			db 0
 			mkbyte 6,0
-			dup 3
+			mkline 3
 			db 0
-			edup
+
 			mkbyte 6,0
 			mkbyte 2,3
 			db 0
 			mkbyte 0,6
-			db 0
+			mkline 2
 			db 0
 		edup
 		
+		mscrend
 		
 ; --- end of scrbk22
