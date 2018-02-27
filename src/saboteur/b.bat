@@ -1,4 +1,6 @@
 
+mkdir out
+
 del /Y out\*.*
 ..\..\tools\sjasmplus sabmain.asm  --lst=out/sabmain.lst
 

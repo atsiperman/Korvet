@@ -1,12 +1,22 @@
+SCREND	EQU 255
+LINELEN EQU 15 << 4
+
 		; sprite map length
 		macro spmaplen	bmap, emap
 		db	(emap - bmap)
 		endm
-		
+
+		macro mscrend
+		db	SCREND
+		endm
+
 		macro mkbyte hi,lo
 		db (hi << 4) | lo
 		endm
-				
+								
+		macro mkline len
+		db LINELEN | len
+		endm
 scrbk1:
 scrbk2:
 
@@ -24,72 +34,71 @@ smap3b:
 		bkindex BK12ADDR	; 8,	blue ladder top right
 		bkindex BK10ADDR	; 9,	blue small bricks
 		bkindex BK4ADDR		; A, 	blue bricks
-smap3e:				
+smap3e:										
 							; 1st line
-		dup 10
-		db	0
-		edup		
-		dup 5
+		mkline 10
+		db	0		
+		
+		mkline 5
 		mkbyte 1,1
-		edup
 							; 2nd line
-		dup 10
+		mkline 10
 		db 0
-		endm
+		
 		mkbyte 0,3
-		dup 4
+		mkline 4
 		mkbyte 2,2
-		edup
 	
 		dup 5				; yellow door
-			dup 10
+			mkline 10
 			db	0
-			edup		
+				
 			mkbyte 0,4
-			dup 4
+			
+			mkline 4
 			mkbyte 2,2
-			edup
 		edup
 							; ladder 							
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup		
+				
 		mkbyte 7,8
-		dup 9
+		mkline 9
 		mkbyte 1,1
-		edup
 							; ladder 		
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup		
+		
 		mkbyte 5,6
-		dup 9
+		
+		mkline 9
 		mkbyte 1,1
-		edup
 							; ladder 
-		dup 4
+		mkline 4
 		mkbyte 1,1
-		edup		
+				
 		mkbyte 1,9
 		mkbyte 5,6
-		dup 9
+		
+		mkline 9
 		mkbyte 9,9
-		edup
 		
 		dup 6
-			dup 4
+			mkline 4
 			mkbyte 1,1
-			edup
+			
 			mkbyte 1,10
 			mkbyte 5,6
-			dup 9
+			
+			mkline 9
 			mkbyte 10,10
-			edup
 		edup
 
-		dup 15
-		mkbyte 1,1
-		edup	
+		mkline 14
+		mkbyte 1,1	
+		mkbyte 1,1	
+		
+		mscrend
 
 ; --- end of scrbk3
 	
@@ -105,114 +114,110 @@ smap4b:
 		bkindex BK4ADDR		; 6, 	blue bricks
 smap4e:				
 
-		dup 2				; 1st line
+		mkline 2				; 1st line
 		mkbyte 0,0
-		edup
+		
 		mkbyte 0,6
 		mkbyte 6,6
 		mkbyte 4,5
-		dup 6
-		mkbyte 0,0
-		edup
-		dup 4
-		mkbyte 6,6
-		edup
 		
-		dup 2				; 2 1st line
+		mkline 6
+		mkbyte 0,0
+		
+		mkline 4
+		mkbyte 6,6		
+		
+		mkline 2				; 2 1st line
 		mkbyte 1,1
-		edup
+		
 		mkbyte 2,6
 		mkbyte 6,6
 		mkbyte 4,5
-		dup 10
-		mkbyte 6,6
-		edup
+		mkline 10
+		mkbyte 6,6		
 
 		dup 5				; next 5 lines
-			dup 2				
+			mkline 2				
 			mkbyte 1,1
-			edup
+			
 			mkbyte 3,6
 			mkbyte 6,6
 			mkbyte 4,5
-			dup 10
+			mkline 10
 			mkbyte 6,6
-			edup
 		edup
 		
-		dup 2				; ladder begins
+		mkline 2				; ladder begins
 		mkbyte 0,0
-		edup
+		
 		mkbyte 0,6
 		mkbyte 6,6
 		mkbyte 4,5		
-		dup 10
-		mkbyte 6,6
-		edup
+		mkline 10
+		mkbyte 6,6		
 							;
-		dup 5
+		mkline 5
 		mkbyte 0,0
-		edup
+		
 		mkbyte 0,6
-		dup 9
-		mkbyte 6,6
-		edup
+		
+		mkline 9
+		mkbyte 6,6		
 							; 
-		dup 9
+		mkline 9
 		mkbyte 6,6
-		edup		
-		dup 6				
+			
+		mkline 6				
 		mkbyte 0,0
-		edup
 
-		dup 8
+		mkline 8
 		mkbyte 6,6
-		edup		
+			
 		mkbyte 6,0
-		dup 6				
-		mkbyte 0,0
-		edup
-
-		dup 8
-		mkbyte 6,6
-		edup		
-		dup 7				
-		mkbyte 0,0
-		edup
-
-		dup 7
-		mkbyte 6,6
-		edup		
-		mkbyte 6,0
-		dup 7				
-		mkbyte 0,0
-		edup
 		
-		dup 7
-		mkbyte 6,6
-		edup		
-		dup 8				
+		mkline 6				
 		mkbyte 0,0
-		edup
-
-		dup 6
-		mkbyte 6,6
-		edup		
-		mkbyte 6,0
-		dup 8				
-		mkbyte 0,0
-		edup
 		
-		dup 6
-		mkbyte 6,6
-		edup		
-		dup 9				
-		mkbyte 0,0
-		edup
 
-		dup 30
+		mkline 8
+		mkbyte 6,6
+				
+		mkline 7				
+		mkbyte 0,0		
+
+		mkline 7
+		mkbyte 6,6
+			
+		mkbyte 6,0
+		
+		mkline 7				
+		mkbyte 0,0		
+		
+		mkline 7
+		mkbyte 6,6
+		
+		mkline 8				
+		mkbyte 0,0
+
+		mkline 6
+		mkbyte 6,6
+			
+		mkbyte 6,0
+		
+		mkline 8				
+		mkbyte 0,0
+		
+		mkline 6
+		mkbyte 6,6
+			
+		mkline 9				
+		mkbyte 0,0		
+		
+		mkline 14
 		db 0
-		edup
+		db 0
+		
+		mscrend
 		
 ; --- end of scrbk4
 
@@ -227,74 +232,73 @@ smap5b:
 		bkindex BK3ADDR		; 4,	green bricks
 smap5e:				
 		mkbyte 3,3
-		dup 3
+		mkline 3
 		mkbyte 0,0
-		edup
-		dup 11
-		mkbyte 4,4
-		edup		
+		
+		mkline 11
+		mkbyte 4,4	
 
-		dup 2
+		mkline 2
 		mkbyte 3,3
-		edup
+
 		mkbyte 3,1
-		dup 12
-		mkbyte 4,4
-		edup		
+		mkline 12
+		mkbyte 4,4	
 
 		dup 7
-			dup 2
+			mkline 2
 			mkbyte 3,3
-			edup
+			
 			mkbyte 3,2
-			dup 12
-			mkbyte 4,4
-			edup
+			
+			mkline 12
+			mkbyte 4,4		
 		edup
 
-		dup 7
+		mkline 7
 		mkbyte 0,0
-		edup
+		
 		mkbyte 0,4
-		dup 7
-		mkbyte 4,4
-		edup
 		
-		dup 8
-		mkbyte 0,0
-		edup
-		dup 7
-		mkbyte 4,4
-		edup
+		mkline 7
+		mkbyte 4,4	
 		
-		dup 8
+		mkline 8
 		mkbyte 0,0
-		edup
+		
+		mkline 7
+		mkbyte 4,4
+		
+		mkline 8
+		mkbyte 0,0
+		
 		mkbyte 0,4
-		dup 6
-		mkbyte 4,4
-		edup
 		
-		dup 9
-		mkbyte 0,0
-		edup
-		dup 6
+		mkline 6
 		mkbyte 4,4
-		edup
+		
+		mkline 9
+		mkbyte 0,0
+		
+		mkline 6
+		mkbyte 4,4
 
-		dup 9
+		mkline 9
 		mkbyte 0,0
-		edup
-		mkbyte 0,4
-		dup 5
-		mkbyte 4,4
-		edup
 
+		mkbyte 0,4
+		
+		mkline 5		
+		mkbyte 4,4
+		
 		dup 3
-			dup 15
+			mkline 14
 			db 0
-			edup
+			db 0
 		edup
+		
+		mscrend
+		
 ; --- end of scrbk5
 
 scrbk6:
@@ -312,45 +316,43 @@ smap6b:
 smap6e:				
 
 		dup 14
-			dup 7
+			mkline 7
 			mkbyte 2,2
-			edup
+			
 			mkbyte 3,4
-			dup 7
-			mkbyte 2,2
-			edup
+			
+			mkline 7
+			mkbyte 2,2			
 		edup
 		
-		dup 4
+		mkline 4
 		db 0
-		edup	
-		mkbyte 5,6			; ladder
-		dup 5
-		db 0
-		edup
-		dup 5
+		
+		mkbyte 5,6			; ladder		
+		mkline 5
+		db 0		
+		mkline 5
 		mkbyte 2,2
-		edup
 		
-		dup 4
+		mkline 4
 		db 0
-		edup
+		
 		mkbyte 7,8			; ladder
-		dup 5
+		mkline 5
 		db 0
-		edup
-		mkbyte 0,2
-		dup 4
-		mkbyte 2,2
-		edup
 		
-		dup 4
+		mkbyte 0,2
+		mkline 4
+		mkbyte 2,2		
+		
+		mkline 4
 		db 0			
-		edup
+		
 		mkbyte 7,8			; ladder		
-		dup 10
+		mkline 10
 		db 0
-		edup
+
+		mscrend
 				
 ; --- end of scrbk6
 
@@ -367,103 +369,98 @@ smap7b:
 		bkindex BK12ADDR	; 7, blue ladder top right		
 smap7e:				
 		dup 5
-			dup 5
+			mkline 5
 			db 0
-			edup
+			
 			mkbyte 0,2
 			mkbyte 3,0
-			dup 8
-			db 0
-			edup
+			mkline 8
+			db 0			
 		edup
 							; ladder with door
-		dup 5
+		mkline 5
 		db 0
-		edup
 							; ladder
 		mkbyte 0,2
 		mkbyte 3,0
 		
-		dup 8
+		mkline 8
 		db 0
-		edup
 							;
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
+
 		mkbyte 1,2
 		mkbyte 3,1
 		
-		dup 7
+		mkline 7
 		mkbyte 1,1
-		edup
+
 		mkbyte 4,1		
 							;
 		dup 6		
-			dup 5
+			mkline 5
 			mkbyte 1,1
-			edup
+			
 			mkbyte 1,2
 			mkbyte 3,1
 			
-			dup 7
+			mkline 7
 			mkbyte 1,1
-			edup
+
 			mkbyte 5,1		
 		edup
 		
 								; stairs	
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
+		
 		mkbyte 1,2
 		mkbyte 3,1
 		
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
-		dup 3
+		
+		mkline 3
 		db 0
-		edup
 
 								; stairs	
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
+		
 		mkbyte 1,2
 		mkbyte 3,1
 		
-		dup 4
+		mkline 4
 		mkbyte 1,1
-		edup
+		
 		mkbyte 1,0
-		dup 3
-		db 0
-		edup		
+		mkline 3
+		db 0	
 								; stairs	
-		dup 5
+		mkline 5
 		mkbyte 1,1
-		edup
+		
 		mkbyte 1,2
 		mkbyte 3,1		
-		dup 4
+		mkline 4
 		mkbyte 1,1
-		edup
-		dup 4
+		
+		mkline 4
 		db 0
-		edup
 								; last line								
-		dup 2
+		mkline 2
 		db 0
-		edup
+		
 		mkbyte 6,7 
-		dup 6
+		mkline 6
 		db 0
-		edup
+		
 		mkbyte 6,7 
-		dup 5
+		mkline 5
 		db 0
-		edup
+		
+		mscrend
 				
 ; --- end of scrbk7
 
