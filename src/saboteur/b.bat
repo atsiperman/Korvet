@@ -2,7 +2,7 @@
 mkdir out
 
 del /Y out\*.*
-..\..\tools\sjasmplus sabmain.asm  --lst=out/sabmain.lst
+..\..\tools\sjasmplus makefile  --lst=out/sabmain.lst
 
 @IF ERRORLEVEL 1 GOTO error
 
