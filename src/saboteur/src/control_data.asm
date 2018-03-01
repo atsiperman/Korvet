@@ -40,6 +40,10 @@ scrbuf:						; screen buffer
 			db 0
 			edup
 
+bufrows:	dup ROWNUM
+			dw 0
+			edup
+			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row

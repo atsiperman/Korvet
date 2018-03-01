@@ -12,6 +12,7 @@
 		include "screen_control.asm"
 		include "mem_utils.asm"
 		include "control_data.asm"
+		include "init.asm"
 		
 		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"
@@ -38,6 +39,8 @@
 		include "screens/screen_map.asm"		
 
 start:
+		call sabinit
+		
         call clrtscr
 		call drawfrmt	; draw frame in text ram 		
 

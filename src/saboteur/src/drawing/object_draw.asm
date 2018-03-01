@@ -24,6 +24,34 @@ copystat:
 		ret
 
 ; ----	clears object in the screen buffer
+; args: 
+;		HL - address of the object's control block
+;
+; result:
+;		DE - address(position) in the screen buffer
+;
+rdsprpos:
+		push hl
+		ldcursr			; load current row index
+		add a,a			; make address displacement
+		ld c,a
+		ld b,0
+		ld hl,bufrows
+		add hl,bc		; pointer to row address
+		load_de_hl
+		pop hl
+		push hl
+		ldcursc 
+		ex de,hl
+		ld c,a
+		ld b,0
+		add hl,bc
+		ex de,hl
+		pop hl
+		scurp
+		ret
+
+; ----	clears object in the screen buffer
 ; args: HL - address of the object's control block
 clrobjsb:
 		push hl				; save control block address
@@ -40,9 +68,13 @@ clrobjsb:
 drawobj:
 		push hl				; save control block address
 		
-		ldcurp				; load address of the current position
+		call rdsprpos		; load address of the current position into DE
+		
+		pop hl
+		push hl
+		
 		push de
-		load_de_hl			; load address of the current sprite
+		ldcurspr			; load address of the current sprite
 		pop hl				; restore address of the current position
 		
 		call putspr			; put sprite to screen buffer
