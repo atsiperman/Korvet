@@ -16,9 +16,9 @@ mkpause3:
 		ret
 		
 		macro mkpause
-		dup 35
-		call mkpause4
-		edup
+		;dup 35
+		;call mkpause4
+		;edup
 		endm
 		
 ; ---- main game logic

@@ -35,7 +35,8 @@ SABCLR:
 		DB (7 & ~CMAIN) << 1		; color register in plain mode
 		DB 4,56
 		dup 4*56
-		DB 255
+		;DB 255
+		db 0
 		edup
 		
 ; saboteur is falling down

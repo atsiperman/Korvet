@@ -11,7 +11,7 @@ copystat:
 		
 		inc hl
 		inc hl				; skip direction		
-		push hl
+		push hl				
 		inc hl
 		inc hl		
 		load_de_hl			; load address of the current position		
@@ -23,41 +23,29 @@ copystat:
 		
 		ret
 
+; ----	clears object in the screen buffer
+; args: HL - address of the object's control block
+clrobjsb:
+		push hl				; save control block address
+		ldprevp				; load previous position
+		ex de,hl
+		
+		ld de,SABCLR
+		call putspr
+		pop hl		
+		ret
+
 ; ----	draws object
 ; args: HL - address of the object's control block
 drawobj:
 		push hl				; save control block address
 		
-		inc hl				; skip object type
-		ld a,(hl)			; draw flag
-		inc hl
-		and 255
-		jp nz,drawobj1		
-							; state is not changed
-		pop hl				; clear stack
-		ret
-		
-drawobj1:			
-		inc hl				; skip state
-		inc hl				; skip direction
-		
-		load_de_hl			; load address of the previous position
-		
-		push hl		
-		
-		ld hl,SABCLR		
-		ex de,hl
-		
-		call drawspr		; clear old sprite		
-		
-		pop hl
-		
-		load_de_hl			; load address of the current position
+		ldcurp				; load address of the current position
 		push de
 		load_de_hl			; load address of the current sprite
-		pop hl		
+		pop hl				; restore address of the current position
 		
-		call drawspr		; hl keeps address of the current position
+		call putspr			; put sprite to screen buffer
 		
 		pop hl
 		call copystat

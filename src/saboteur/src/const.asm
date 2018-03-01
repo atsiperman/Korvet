@@ -44,11 +44,6 @@ CYELLOW		EQU 3
 CMAIN 		EQU 4			; color of the main character
 CRED		EQU 2
 
-SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
-ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
-SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboreur on the start screen
-SROWNUM 	EQU 1			; index of the start row
+BUFLEN		EQU ROWNUM * COLNUM * 8	; size of the screen buffer
 
-SBWI		EQU 4			; width of the saboteur sprite
-SBHI		EQU 6			; height of the saboteur sprite
 		

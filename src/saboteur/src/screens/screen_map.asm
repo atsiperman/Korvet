@@ -8,7 +8,6 @@ upscrd	 equ 6	; up screen
 downscrd equ 8	; bottom screen
 
 ; ---- map of screens
-scrmap:
 scrn1:
 scrn3:	mkscreen scrbk3, 0, scrn4, 0, 0
 scrn4:	mkscreen scrbk4, scrn3, scrn5, 0, 0

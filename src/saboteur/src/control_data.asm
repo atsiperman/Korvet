@@ -29,11 +29,25 @@ CMAINHI	EQU 0h				; hi byte of the main color
 ;
 curscr: 	dw scrn1		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
-
-shadscr:	dup	ROWNUM * COLNUM
+			
+shadscr:					; map of the current screen
+			dup	ROWNUM * COLNUM
 			db 0
 			edup
 
+scrbuf:						; screen buffer		
+			dup BUFLEN
+			db 0
+			edup
+
+SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
+ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
+SROWNUM 	EQU 1			; index of the start row
+SBWI		EQU 4			; width of the saboteur sprite
+SBHI		EQU 6			; height of the saboteur sprite
+
+;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
+SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
 			
 ; ----	saboteur control block			
 ;

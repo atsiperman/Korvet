@@ -10,16 +10,19 @@
         include "const.asm"
 		include "object_def.asm"
 		include "screen_control.asm"
+		include "mem_utils.asm"
+		include "control_data.asm"
 		
 		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"
 		
+		include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"
 		include "drawing/draw_frame.asm"		
 		include "drawing/screen_draw.asm"
         include "drawing/screen_utils.asm"		
 		
-		include "drawing/object_draw.asm"
+		include "drawing/object_draw.asm"		
 		
 		include "keyboard.asm"
 		include "game.asm"
@@ -33,8 +36,6 @@
 		include "screens/screens-11.asm"
 		include "screens/screens-23.asm"		
 		include "screens/screen_map.asm"		
-		
-		include "control_data.asm"
 
 start:
         call clrtscr
@@ -48,6 +49,8 @@ start:
         GRMODON
 		call lutsetup
 
+		call clrsbuf		; clear buffer
+		
         ld a,80h 
         call fillscr	; clear screen with black
 

@@ -329,9 +329,9 @@ sbdolad2:
 		dec hl
 		ld e,(hl)
 		ld d,0
-		ld hl,SCRADDR
+		ld hl,scrbuf
 		add hl,de			; new address in screen memory for current column
-		ld bc,(ROWNUM-(SBHI+1))*8*64
+		ld bc,(ROWNUM-(SBHI+1))*8*COLNUM
 		add hl,bc
 		ex de,hl
 		pop hl
@@ -353,7 +353,7 @@ sbdolad3:
 		dec hl
 		ld e,(hl)
 		ld d,0
-		ld hl,SCRADDR
+		ld hl,scrbuf
 		add hl,de			; new address in screen memory in top row
 		ex de,hl
 

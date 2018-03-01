@@ -115,6 +115,13 @@ decmprs4:
 		inc hl				; move to the next data byte
 		jp decmprs1			; continue
 		
+
+; ----- removes objects from screen buffer
+;
+rmobjsb:
+		ld hl,sbctrlb
+		call clrobjsb
+		ret
 		
 ; ----- draws current screen	
 ;
@@ -136,9 +143,14 @@ drawscr:
 		
 drawobjs:					; draw all objects
 
+		call rmobjsb		; remove objects from screen buffer
+		
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
+
+		;ret
+		call showscr		; show buffer on the screen
 		
 		ret
 			

@@ -92,6 +92,15 @@ odcbend EQU 13		; end of the control block
 		ld a,(hl)		
 		endm
 
+; ----  loads previous position in screen memory into DE
+; args: HL - address of control block 
+; 				
+		macro ldprevp
+		ld bc,odprevp
+		add hl,bc		
+		load_de_hl
+		endm
+
 ; ----  loads current position in screen memory into DE
 ; args: HL - address of control block 
 ; 				
@@ -100,7 +109,7 @@ odcbend EQU 13		; end of the control block
 		add hl,bc		
 		load_de_hl
 		endm
-
+		
 ; ----  loads current sprite index into A
 ; args: HL - address of control block 
 ; 				
