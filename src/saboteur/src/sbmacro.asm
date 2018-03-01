@@ -70,24 +70,7 @@
 		ld (hl),b
 		inc hl
 	endm
-	
-	; ---- moves to the next screen
-	; args:	disp - displacement from the beginning of the screen map to the next screen pointer
-	; result: A - 0 if screen not changed
-	macro nextscreen disp
-		ld hl,(curscr)	; load block of the current screen
-		ld de,disp
-		add hl,de		; pointer to next screen address
-		load_de_hl
-		ld a,e
-		or d			
-		ret z			; do nothing if address is zero
-		ex de,hl
-		ld (curscr),hl	; save address of the next screen block
-		ld a,1
-		ret	
-	endm
-	
+		
 	macro setcolor color	
 		ld a,80h + (color<< 1)
 		ld hl,COLRREG
