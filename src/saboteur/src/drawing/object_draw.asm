@@ -29,7 +29,7 @@ copystat:
 ;
 ; result:
 ;		DE - address(position) in the screen buffer
-;
+;		
 rdsprpos:
 		push hl
 		ldcursr			; load current row index
@@ -76,8 +76,15 @@ drawobj:
 		push de
 		ldcurspr			; load address of the current sprite
 		pop hl				; restore address of the current position
+		push de				; save sprite address
 		
 		call putspr			; put sprite to screen buffer
+		
+		pop de				; restore sprite address
+		pop hl				; restore object control block
+		push hl
+		
+		call updtilem		; update tile map
 		
 		pop hl
 		call copystat

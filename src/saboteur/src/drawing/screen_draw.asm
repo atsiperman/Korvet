@@ -141,15 +141,20 @@ drawscr:
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 		
+		call clrtilem		; clear tile map
+		
+		jp drawobj1			; skip saving old tile map
+		
 drawobjs:					; draw all objects
-
+		call savetilm
+		
+drawobj1:					
 		call rmobjsb		; remove objects from screen buffer
 		
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
 
-		;ret
 		call showscr		; show buffer on the screen
 		
 		ret

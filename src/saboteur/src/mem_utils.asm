@@ -27,5 +27,26 @@ copymem:
         or c
         jp nz,copymem
 		ret		
+
+; ---- multiplies two numbers
+; args: 
+;		HL - multiplicand
+; 		A - multiplier
+; result:
+;		HL - result
+;
+multpl:	
+		ld b,h
+		ld c,l
+		ld hl,0
+		
+		or a			; return 0 if multiplier is 0
+		ret z
+		
+multpl2:		
+		add hl,bc
+		dec a		
+		ret z
+		jp multpl2
 		
 		

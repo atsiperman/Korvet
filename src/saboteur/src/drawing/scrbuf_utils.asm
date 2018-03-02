@@ -8,6 +8,7 @@ clrsbuf:
 		ret
 
 ; ----- puts sprite on the screen buffer
+;		
 ; args: 
 ;		hl - address on the screen
 ;		de - address of the sprite
@@ -18,7 +19,8 @@ putspr:
 		ld c,(hl)		; sprite width
 		inc hl
 		ld b,(hl)		; sprite height
-		ex de,hl
+		ex de,hl		; DE - pointer to sprite data
+		
 		push bc		
 		
 putspr1:
@@ -50,55 +52,128 @@ putspr1:
 putspr_:
 		pop bc			; clear stack
 		ret
-		
+				
 ; ----- copies screen buffer to video memory
 ; 
-showscr:
-		;ld hl,COLRREG				; set color to clear		
-		;ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
-		
+showscr:		
 		ld hl,SCRADDR
-		ld de,scrbuf		
-		ld bc,((ROWNUM*8) << 8) | COLNUM ; set counters
+		ld (curtile),hl			; init address of the current tile in video memory
 		
-		;jp showscr1
+		ld hl,tilemap		
+		ld de,scrbuf
+		ld bc,(ROWNUM << 8) + COLNUM
 		
-showscr1:
-		ld a,(de)		
+		push bc
+		
+showsc1:			
+		ld a,(hl)
+		or a
+		jp z, showsc2			; tile not changed
+		
+		push hl
 		push de
-		push hl			
+		push bc
+		
+		call copytile
+		
+		pop bc
 		pop de
+		pop hl
+		
+showsc2:
+		inc hl					; next tile in map
+		dec c
+		jp z, showsc3			; next row
+		
+		push hl
+		
+		ld hl,(curtile)			; move to the next column in video memory
+		inc hl
+		ld (curtile),hl
+		
+		pop hl		
+		
+		inc de					; move to the next column in buffer	
+		jp showsc1
+		
+showsc3:		
+		dec b
+		jp z,showsc_			; end
+		
+		ld a,b					; save B counter
+		pop bc					; restore C counter
+		ld b,a
+		push bc					; save new counters
+				
+		push hl
+		
+		ld bc,64*8 - COLNUM + 1
+		ld hl,(curtile)			; move to the next row in video memory		
+		add hl,bc
+		ld (curtile),hl
+		
+		ex de,hl				; move to the next column in buffer	
+		ld bc,COLNUM*7 + 1
+		add hl,bc
+		ex de,hl
+		
+		pop hl
+		pop bc
+		push bc
+		jp showsc1
+		
+showsc_:
+		pop bc 					; clear stack
+		ret
+; ------ end of	showscr
+		
+		
+; ----	copy tile to video memory
+; args: 
+;		DE - source address in screen buffer
+;		
+copytile:
+		ld hl,(curtile)				; address of current tile in video memory
+				
+		dup 8
+		
+		ld a,(de)					; load data byte
+		
+		push de
+		ex de, hl					; save video address in DE
 		
 		ld hl,COLRREG				; set color to clear		
 		ld (hl), (7 & ~CMAIN) << 1
 		
-		ex de,hl		; HL - screen address
+		ex de,hl					; HL - screen address
 		cpl
-		ld (hl),a		; clear byte
-		ex de,hl		; HL - color reg	
+		ld (hl),a					; clear byte
+				
+		ex de,hl					; HL - color reg
 		
 		ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
-		ex de,hl		; HL - screen address
+		ex de,hl					; HL - screen address		
 		
-		pop de
-						
 		cpl
-		ld (hl),a		; move data byte
+		ld (hl),a					; move data byte
 		
-		inc hl
-		inc de
+		pop de						; restore address in buffer
+				
+		ld bc,64
+		add hl,bc					; move to the next video line
+		ex de,hl
+
+		ld bc,COLNUM				; move to the next line in buffer
+		add hl,bc					
+		ex de,hl
+
+		edup
 		
-		dec c
-		jp nz,showscr1 	; continue column cycle
-		
-		dec b
-		ret z			; finish
-		
-		ld c,COLNUM
-		
-		push bc			; move to the next video line
-		ld bc,64 - COLNUM
-		add hl,bc
-		pop bc
-		
-		jp showscr1
+		ret
+; ------ end of copytile
+
+
+
+
+
+

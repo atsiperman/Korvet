@@ -44,6 +44,15 @@ bufrows:	dup ROWNUM
 			dw 0
 			edup
 			
+TILMAPLN	EQU	ROWNUM * COLNUM
+
+tilemap:					; map of tiles, low half map - current state, hi half map - previous state
+			dup TILMAPLN
+			db 0
+			edup
+
+curtile:	dw 0			; address of the current tile in video memory
+			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row

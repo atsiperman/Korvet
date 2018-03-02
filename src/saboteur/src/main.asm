@@ -14,6 +14,7 @@
 		include "control_data.asm"
 		include "init.asm"
 		
+		include "tiles_control.asm"
 		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"
 		
