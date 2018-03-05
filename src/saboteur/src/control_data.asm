@@ -53,7 +53,6 @@ SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
 
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
-;SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
 			
 ; ----	saboteur control block			
 ;

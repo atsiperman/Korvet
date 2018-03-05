@@ -18,7 +18,6 @@
 		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"
 		
-		;include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"
 		include "drawing/draw_frame.asm"		
 		include "drawing/screen_draw.asm"
@@ -52,8 +51,6 @@ start:
 		
         GRMODON
 		call lutsetup
-
-		;call clrsbuf		; clear buffer
 		
         ld a,80h 
         call fillscr	; clear screen with black

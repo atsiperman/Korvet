@@ -23,69 +23,13 @@ copystat:
 		
 		ret
 
-; ----	clears object in the screen buffer
+; ----	draws object
 ; args: 
 ;		HL - address of the object's control block
 ;
-; result:
-;		DE - address(position) in the screen buffer
-;		
-;rdsprpos:
-		push hl
-		ldcursr			; load current row index
-		add a,a			; make address displacement
-		ld c,a
-		ld b,0
-		;ld hl,bufrows
-		add hl,bc		; pointer to row address
-		load_de_hl
-		pop hl
-		push hl
-		ldcursc 
-		ex de,hl
-		ld c,a
-		ld b,0
-		add hl,bc
-		ex de,hl
-		pop hl
-		scurp
-		ret
-
-; ----	clears object in the screen buffer
-; args: HL - address of the object's control block
-;clrobjsb:
-		push hl				; save control block address
-		ldprevp				; load previous position
-		ex de,hl
-		
-		ld de,SABCLR
-		;call putspr
-		pop hl		
-		ret
-
-; ----	draws object
-; args: HL - address of the object's control block
 drawobj:
 		push hl				; save control block address
 		
-		;call rdsprpos		; load address of the current position into DE
-		
-		;pop hl
-		;push hl
-		
-		;push de
-		;ldcurspr			; load address of the current sprite
-		;pop hl				; restore address of the current position
-		;push de				; save sprite address
-		
-		;call putspr			; put sprite to screen buffer
-		
-		;pop de				; restore sprite address
-		;pop hl				; restore object control block
-		;push hl
-		
-		;call updtilem		; update tile map
-
 		ldcurspr			; load address of the current sprite
 		pop hl				; restore address of the control block
 		push hl

@@ -234,8 +234,6 @@ redrtile:
 		
 		pop de			; restore video memory address
 		
-		;push bc
-						
 redrtil1:		
 		ld a,(hl)
 		
@@ -303,9 +301,7 @@ drwtlm1:
 		jp nz,drwtlm2	; no, go draw sprite tile
 		
 		push de
-		;ex de,hl
-		call clrtile	; clear tile
-		
+		call clrtile	; clear tile		
 		pop de
 		
 		jp drwtlm3
@@ -316,9 +312,6 @@ drwtlm2:				; redraw tile
 		
 		dec hl
 		dec hl
-		;ex de,hl		; HL - tile address
-		;pop de			; DE - video memory address		
-		;push de
 		
 		call redrtile
 		pop de

@@ -116,12 +116,6 @@ decmprs4:
 		jp decmprs1			; continue
 		
 
-; ----- removes objects from screen buffer
-;
-;rmobjsb:
-		ld hl,sbctrlb
-		;call clrobjsb
-		ret
 		
 ; ----- draws current screen	
 ;
