@@ -5,7 +5,7 @@
 copystat:	
 		inc hl				; skip object type
 		
-		ld (hl),0			; reset draw flag
+		;ld (hl),0			; reset draw flag
 		inc hl
 		
 		

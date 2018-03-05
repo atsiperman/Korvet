@@ -102,12 +102,12 @@ savsptm1:
 		ld a,(hl)		; load tile 
 		
 		or a			; check is empty
-		jp z,savsptm2		; write data if empty		
+		jp z,savsptm2	; write data if empty		
 		
 		cp TILECLR		; check is marked to be cleared
 		jp nz,savsptm3	; not a marker - occupied, then continue
 		
-savsptm2:					; save address of a sprite tile
+savsptm2:				; save address of a sprite tile
 		dec hl
 		dec hl
 		ld a,(savsptlm - 2)
@@ -117,7 +117,12 @@ savsptm2:					; save address of a sprite tile
 		inc hl	
 		ld (hl),d		
 		
-savsptm3:		
+		jp savsptm4		; continue
+		
+savsptm3:				; mark as occupied - tiles will be combined on draw
+		
+		
+savsptm4:
 		inc hl			; next tile in the map
 		
 		inc de			; move to the next sprite tile

@@ -67,8 +67,8 @@ decmrscr:
 		
 decmprs1:
 		ld a,(hl)			; load compressed byte into A			
-		cp SCREND
-		ret z				; marker of the end 
+		cp SCREND			; marker of the end 
+		jp z,decmprs5		; set pointer to the object list						
 		
 		and LINELEN			; clear low bits
 		cp LINELEN			; is line length ?
@@ -115,16 +115,21 @@ decmprs4:
 		inc hl				; move to the next data byte
 		jp decmprs1			; continue
 		
+decmprs5:
+		inc hl				; move to the object list
+		ex de,hl
+		ld hl,objlist
+		savem_hl_de			; save pointer in memory
+		ret
 
-		
 ; ----- draws current screen	
 ;
 drawscr:
 		call scrchngd		; screen changed ?
 		and a		
-		jp z,drawobjs		; do not draw if no
+		jp z,drawscr1		; do not draw if no
 		
-		ld a,80h
+		;ld a,80h
 		;call clrwscr
 		
 		call decmrscr
@@ -135,15 +140,35 @@ drawscr:
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 				
-drawobjs:					; draw all objects
+drawscr1:					; draw all objects
 				
 		call updatetm		; remove sprites from sprite map
 		
-drawobj1:							
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
+		
+		ld hl,objlist
+		load_de_hl
+		ex de,hl			; HL - address of the object list
+		ld a,(hl)			; number of objects
+		or a
+		jp z,drawscr_		; no objects
 
+		ld bc,objsize	
+		inc hl
+		
+drawscr2:		
+		push hl
+		push af
+		call drawobj
+		pop af
+		pop hl
+		add hl,bc
+		dec a
+		jp nz,drawscr2
+		
+drawscr_:		
 		call drawtlm		; redraw screen based on tile map
 		
 		ret

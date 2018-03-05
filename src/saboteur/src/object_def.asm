@@ -26,7 +26,6 @@ osabotr	EQU 1				; saboteur
 odog	EQU 2				; dog
 oguard	EQU 3				; guard
 
-
 ; ---- displacements from the beginning of the control block
 ;
 odtype	EQU 0		; 0, object type
@@ -41,12 +40,18 @@ odcursc	EQU 11      ; 11, index of the current column on the working screen, top
 odcursr	EQU 12      ; 12, index of the current row on the working screen, top-left corner
 odcbend EQU 13		; end of the control block
 
+objsize EQU	odcbend - odtype
+
 ; ----	makes control block for an object
 ;
 		macro mkctrlb otype,id,curstat,direct,prevpos,curpos,curspr,curspri,curscol,cursrow
 		db otype,id,curstat,direct
 		dw prevpos,curpos,curspr
 		db curspri,curscol,cursrow,0
+		endm
+
+		macro mkdog direct,curspr,curspri,curscol,cursrow
+		mkctrlb odog,2,sbmove,direct,0,0,curspr,curspri,curscol,cursrow
 		endm
 		
 ; ----  loads ldcurscb

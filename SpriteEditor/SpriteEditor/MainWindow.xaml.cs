@@ -147,12 +147,23 @@ namespace SpriteEditor
                 return;
             }
             var newModel = m_viewModel.LoadFromFile(d.FileName);
-            m_viewModel.New(newModel.VideoMemory);
-            m_viewModel.Colors = newModel.Palette;
+            m_viewModel.New(newModel);
             FireRedraw();
         }
 
         private void MenuItem_Save(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(m_viewModel.FilePath))
+            {
+                MenuItem_SaveAs(sender, e);
+            }
+            else
+            {
+                m_viewModel.SaveToFile(m_viewModel.FilePath);
+            }
+        }
+
+        private void MenuItem_SaveAs(object sender, RoutedEventArgs e)
         {
             var d = new SaveFileDialog();            
             d.Filter = FileFilter;

@@ -28,6 +28,7 @@
 		include "keyboard.asm"
 		include "game.asm"
 				
+		include "sprites/dog_sprites.asm"
         include "sprites/background_sprites.asm"				
 		include "sprites/saboteur_sprites.asm"				
 		include "sprites/frame_sprites.asm"				

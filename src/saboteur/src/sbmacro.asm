@@ -26,22 +26,23 @@
 	; all moving sprites are working in plain mode
 	;
 	macro sabsphd 
-		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
+		db CMAINREG			; color register for moving sprites
 		db 4, 48
 	endm
 
 	macro sbspldhd
-		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
+		db CMAINREG			; color register for moving sprites
 		db 2, 56
 	endm
 
 	macro sbduckhd
-		db ((7 & ~CMAIN) << 1) + 1	; color register for moving sprites
+		db CMAINREG			; color register for moving sprites
 		db 3, 32
 	endm
 
-
-
+	macro objhead
+		db CMAINREG			; color register for moving sprites
+	endm
 	
 	macro load_de_hl
 		ld e,(hl)

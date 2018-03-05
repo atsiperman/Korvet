@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ui="clr-namespace:SpriteEditor.UI"
         xmlns:se="clr-namespace:SpriteEditor"
-        Title="Sprite Editor" Height="600" Width="800" 
+        Title="{Binding Path=Title}" Height="600" Width="800" 
         MinHeight="200" MinWidth="300"
         WindowStartupLocation="CenterScreen" ResizeMode="CanResize">
     <Window.Resources>
@@ -16,6 +16,7 @@
                 <Separator></Separator>
                 <MenuItem Header="_Open" IsEnabled="True" Click="MenuItem_Open"></MenuItem>
                 <MenuItem Header="_Save" IsEnabled="True" Click="MenuItem_Save"></MenuItem>
+                <MenuItem Header="Save _As" IsEnabled="True" Click="MenuItem_SaveAs"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="E_xit" IsEnabled="True" Click="MenuItem_Exit"></MenuItem>
             </MenuItem>

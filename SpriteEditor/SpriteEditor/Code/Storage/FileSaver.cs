@@ -21,6 +21,7 @@ namespace SpriteEditor.Code
 
         public static void Save(EditorSettings editor, string path, uint nativeColor)
         {
+            editor.FilePath = path;
             var ext = Path.GetExtension(path);
             switch (ext)
             {
@@ -81,6 +82,8 @@ namespace SpriteEditor.Code
                     editor.VideoMemory.SetPixel(data.Data[h * data.Width + w], w, h);
                 }
             }
+
+            editor.FilePath = path;
             return editor;
         }
     }

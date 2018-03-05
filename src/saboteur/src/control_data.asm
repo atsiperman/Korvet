@@ -35,6 +35,8 @@ shadscr:					; map of the current screen
 			db 0
 			edup
 
+objlist:	dw 0			; pointer to the list of objects on the current screen
+
 TMELSIZE	EQU 3			; size of tile map element
 			
 tilemap:					; map of tiles
@@ -43,8 +45,7 @@ tilemap:					; map of tiles
 			dw 0			; 0 - empty, TILECLR - to be cleared,
 			edup
 
-curtile:				
-			dw 0			; address of the current tile in video memory	
+curtile:	dw 0			; address of the current tile in video memory	
 			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen

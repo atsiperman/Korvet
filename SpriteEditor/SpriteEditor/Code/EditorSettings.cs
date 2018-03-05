@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,16 @@ namespace SpriteEditor
         /// Gets or sets selected color.
         /// </summary>
         public SeColor Color { get; set; }
+
+        public string FileName
+        {
+            get
+            {
+                return string.IsNullOrEmpty(FilePath) ? string.Empty : Path.GetFileNameWithoutExtension(FilePath);
+            }
+        }
+
+        public string FilePath { get; set; }
 
         #endregion Public properties
     }
