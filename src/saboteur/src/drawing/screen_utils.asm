@@ -86,7 +86,7 @@ lutset2:
 ; -----  fills screen with color mode in A
 ; args: A - color mode
 
-fillscr:
+fillvram:
         ld hl,COLRREG    ; color reg address
         ld (hl),a       ; switch to color mode
 
@@ -100,29 +100,6 @@ fsloop:
         ld a,b
         or c
         jp nz,fsloop
-        ret
-
-; -----  fills working screen with color mode in A
-; args: A - color mode
-
-clrwscr:
-        ld hl,COLRREG    ; color reg address
-        ld (hl),a       ; switch to color mode
-
-		ld de,64 - COLNUM
-        ld hl,SCRADDR
-        ld bc,(ROWNUM*8 << 8) + COLNUM 	; B=ROWNUM*8 lines on screen
-										; C=COLNUM sprites in line
-		ld a,255
-cwsloop:
-        ld (hl),a
-        inc hl
-        dec c
-        jp nz,cwsloop
-		ld c,COLNUM
-		add hl,de
-		dec b
-		jp nz,cwsloop
         ret
 
 ; ----- draws background for current screen
@@ -148,17 +125,36 @@ startdrw:
         inc hl
         ld d,(hl)
 		
-        ld hl,COLRREG   ; set sprite color
-        ld a,(de)
-        ld (hl),a
+        ;ld hl,COLRREG   ; set sprite color
+        ld a,(de)		; read color
+        ld b,a			
 		inc de
 		inc de			; skip header
 		
-        pop hl          ; restore screen address
+        pop hl          ; restore screen address		
         ld c,8
 sprloop:
         ld a,(de)
-        ld (hl),a
+		
+		push de						; save data addre
+	
+		ex de,hl					; DE - screen address		
+		
+		ld hl,COLRREG				; set color to clear		
+		ld (hl),80h
+			
+		ex de,hl					; HL - screen address
+		ld (hl),255					; clear byte
+				
+		ex de,hl					; HL - color reg
+		
+		ld (hl),b					; set main color
+		
+		ex de,hl					; HL - screen address				
+		ld (hl),a					; move data byte
+				
+		pop de						; restore data address
+		
         inc de          ; next byte from sprite
         dec c           ; sprite counter
         jp z,sprend

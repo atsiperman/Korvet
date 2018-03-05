@@ -125,7 +125,7 @@ drawscr:
 		jp z,drawobjs		; do not draw if no
 		
 		ld a,80h
-		call clrwscr
+		;call clrwscr
 		
 		call decmrscr
 		

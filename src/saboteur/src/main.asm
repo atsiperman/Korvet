@@ -53,7 +53,7 @@ start:
 		call lutsetup
 		
         ld a,80h 
-        call fillscr	; clear screen with black
+        call fillvram	; clear screen with black
 
 		call drawfrm	; draw frame
 		
