@@ -2,14 +2,14 @@
 ; ----- initializes data
 ;
 sabinit:
-		call initbuf
+		;call initbuf
 		ret
 		
 ; ----- makes initialization of screen buffer and vars
 ;
 initbuf:
-		ld hl,scrbuf	; address of screen buffer
-		ld de,bufrows	; array of addresses of rows in buffer
+		;ld hl,scrbuf	; address of screen buffer
+		;ld de,bufrows	; array of addresses of rows in buffer
 		ld bc,COLNUM*8	; size of one row
 		ld a,ROWNUM
 

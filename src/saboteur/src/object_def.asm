@@ -30,7 +30,7 @@ oguard	EQU 3				; guard
 ; ---- displacements from the beginning of the control block
 ;
 odtype	EQU 0		; 0, object type
-oddraw	EQU 1       ; 1, draw sprite if not 0
+odid	EQU 1       ; 1, sprite ID
 odcurst EQU 2       ; 2, current state 
 oddir	EQU 3       ; 3, direction
 odprevp EQU 4       ; 4, previous position in screen memory
@@ -43,8 +43,8 @@ odcbend EQU 13		; end of the control block
 
 ; ----	makes control block for an object
 ;
-		macro mkctrlb otype,fdraw,curstat,direct,prevpos,curpos,curspr,curspri,curscol,cursrow
-		db otype,fdraw,curstat,direct
+		macro mkctrlb otype,id,curstat,direct,prevpos,curpos,curspr,curspri,curscol,cursrow
+		db otype,id,curstat,direct
 		dw prevpos,curpos,curspr
 		db curspri,curscol,cursrow,0
 		endm
@@ -54,6 +54,14 @@ odcbend EQU 13		; end of the control block
 		macro ldcurscb
 		ld c,(hl)
 		dec hl
+		endm
+
+; ----  loads sprite ID into A
+; args: HL - address of control block 
+; 
+		macro ldspid
+		inc hl
+		ld a,(hl)
 		endm
 		
 ; ----  loads current screen column into A

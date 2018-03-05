@@ -118,9 +118,9 @@ decmprs4:
 
 ; ----- removes objects from screen buffer
 ;
-rmobjsb:
+;rmobjsb:
 		ld hl,sbctrlb
-		call clrobjsb
+		;call clrobjsb
 		ret
 		
 ; ----- draws current screen	
@@ -140,22 +140,17 @@ drawscr:
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
-		
-		call clrtilem		; clear tile map
-		
-		jp drawobj1			; skip saving old tile map
-		
+				
 drawobjs:					; draw all objects
-		call savetilm
+				
+		call updatetm		; remove sprites from sprite map
 		
-drawobj1:					
-		call rmobjsb		; remove objects from screen buffer
-		
+drawobj1:							
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
 
-		call showscr		; show buffer on the screen
+		call drawtlm		; redraw screen based on tile map
 		
 		ret
 			

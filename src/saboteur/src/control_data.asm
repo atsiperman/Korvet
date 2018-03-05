@@ -35,23 +35,16 @@ shadscr:					; map of the current screen
 			db 0
 			edup
 
-scrbuf:						; screen buffer		
-			dup BUFLEN
-			db 0
-			edup
-
-bufrows:	dup ROWNUM
-			dw 0
-			edup
+TMELSIZE	EQU 3			; size of tile map element
 			
-TILMAPLN	EQU	ROWNUM * COLNUM
-
-tilemap:					; map of tiles, low half map - current state, hi half map - previous state
-			dup TILMAPLN
-			db 0
+tilemap:					; map of tiles
+			dup TILMAPLN	; each element - address of a sprite tile to be drawn
+			db 0			; width of the sprite
+			dw 0			; 0 - empty, TILECLR - to be cleared,
 			edup
 
-curtile:	dw 0			; address of the current tile in video memory
+curtile:				
+			dw 0			; address of the current tile in video memory	
 			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
@@ -59,8 +52,8 @@ SROWNUM 	EQU 1			; index of the start row
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
 
-;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
-SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
+SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
+;SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
 			
 ; ----	saboteur control block			
 ;

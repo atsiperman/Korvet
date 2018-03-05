@@ -188,5 +188,166 @@ nextline:
         jp nz,startdrw
 
         ret
-    
+
+; ----- clears tile in video memory
+; args: 
+;		DE - address of the tile in video memory
+clrtile:
+		push hl
+		push bc
+
+		ld c,8
+
+        ld hl,COLRREG    	; color reg address
+        ld (hl),COLORCLR	; switch to color mode		
+		ld a,255
+		ex de,hl
+		ld de,64
+clrtil1:			
+		ld (hl),a
+		add hl,de
+		dec c
+		jp nz,clrtil1
+		
+		pop bc
+		pop hl
+		ret
+
+; ----- redraws tile in the video memory
+; args: 
+;		HL - tile address in the map
+;		DE - video memory address of the tile
+
+redrtile:		
+		push bc
+		push de
+		
+		ld a,(hl)		; load sprite width
+		ld b,a
+		ld c,8
 	
+		inc hl			; load sprite address to DE
+		ld e,(hl)
+		inc hl
+		ld d,(hl)
+		ex de,hl		; HL - sprite tile address
+		
+		pop de			; restore video memory address
+		
+		;push bc
+						
+redrtil1:		
+		ld a,(hl)
+		
+		push hl						; save sprite address
+			
+		ld hl,COLRREG				; set color to clear		
+		ld (hl),COLORCLR
+	
+		ex de,hl					; HL - screen address	
+		cpl		
+		ld (hl),a					; clear byte
+				
+		ex de,hl					; HL - color reg
+		
+		ld (hl),CMAINREG			; set main color
+		
+		ex de,hl					; HL - screen address				
+		cpl
+		ld (hl),a					; move data byte
+		
+		ex de,hl					; DE - screen address				
+		
+		pop hl						; restore sprite address
+				
+		dec c
+		jp z,redrtil_
+		
+		push bc
+		
+		ld c,b						; go to the next line in sprite
+		ld b,0		
+		add hl,bc
+				
+		ld c,64
+		ex de,hl
+		add hl,bc					; go to the next screen line in video memory
+		ex de,hl
+		
+		pop bc
+		jp redrtil1
+		
+redrtil_:		
+		pop bc
+		ret
+
+; ----- draws tile map
+;		
+drawtlm:
+		
+		ld hl,tilemap
+		ld bc,(ROWNUM << 8) + COLNUM
+		ld de,SCRADDR
+		
+		push bc			; save counter from C
+				
+drwtlm1:		
+		inc hl
+		inc hl			; move to hi byte
+		ld a,(hl)		; load tile 
+		
+		or a			; check is empty
+		jp z,drwtlm3	; do nothing
+						
+		cp TILECLR		; check is marked to be cleared
+		jp nz,drwtlm2	; no, go draw sprite tile
+		
+		push de
+		;ex de,hl
+		call clrtile	; clear tile
+		
+		pop de
+		
+		jp drwtlm3
+		
+drwtlm2:				; redraw tile
+		push hl
+		push de
+		
+		dec hl
+		dec hl
+		;ex de,hl		; HL - tile address
+		;pop de			; DE - video memory address		
+		;push de
+		
+		call redrtile
+		pop de
+		pop hl
+				
+drwtlm3:
+		inc hl
+		inc de
+		dec c
+		jp nz,drwtlm1
+
+		dec b
+		jp z,drwtlm_
+				
+		ex de,hl
+		push bc
+		ld bc,64*8 - COLNUM
+		add hl,bc
+		ex de,hl
+		pop bc
+		
+		ld a,b			; restore counter in C
+		pop bc
+		ld b,a
+		push bc
+		
+		jp drwtlm1
+		
+drwtlm_:
+		pop bc			; clear stack
+		ret
+			

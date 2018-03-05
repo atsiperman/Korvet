@@ -44,6 +44,15 @@ CYELLOW		EQU 3
 CMAIN 		EQU 4			; color of the main character
 CRED		EQU 2
 
+COLORCLR	EQU (7 & ~CMAIN) << 1	; color to clear working screen
+CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
+
 BUFLEN		EQU ROWNUM * COLNUM * 8	; size of the screen buffer
+
+; --------- tile map constants
+; ---------
+TILMAPLN	EQU	ROWNUM * COLNUM
+TILEFREE	EQU 0			; empty tile
+TILECLR		EQU 255			; tile to be cleared
 
 		
