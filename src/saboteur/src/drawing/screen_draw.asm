@@ -121,16 +121,70 @@ decmprs5:
 		ld hl,objlist
 		savem_hl_de			; save pointer in memory
 		ret
+		
+; ----- removes objects from screen buffer
+;
+rmobjsb:
+		ld hl,sbctrlb
+		call clrobjsb
+				
+		ld hl,objlist
+		load_de_hl
+		ex de,hl			; HL - address of the object list
+		ld a,(hl)			; number of objects
+		or a
+		ret z				; no objects		
+		
+		ld bc,objsize	
+		inc hl				; set to the first object
+		
+rmobjsb1:		
+		push hl
+		push af
+		call clrobjsb
+		pop af
+		pop hl
+		add hl,bc
+		dec a
+		jp nz,rmobjsb1		
+		
+		ret
 
+; ----- draws all objects on the current screen	
+;		
+drawobjs:		
+							; draw saboteur
+		ld hl,sbctrlb
+		call drawobj
+
+		ld hl,objlist
+		load_de_hl
+		ex de,hl			; HL - address of the object list
+		ld a,(hl)			; number of objects
+		or a
+		ret z				; no objects
+
+		ld bc,objsize	
+		inc hl				; set to the first object
+		
+drwobjs1:		
+		push hl
+		push af
+		call drawobj
+		pop af
+		pop hl
+		add hl,bc
+		dec a
+		jp nz,drwobjs1
+		
+		ret
+		
 ; ----- draws current screen	
 ;
 drawscr:
 		call scrchngd		; screen changed ?
 		and a		
-		jp z,drawscr1		; do not draw if no
-		
-		;ld a,80h
-		;call clrwscr
+		jp z,drawobj1		; do not draw if no
 		
 		call decmrscr
 		
@@ -140,36 +194,19 @@ drawscr:
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 				
-drawscr1:					; draw all objects
+		call clrtilem		; clear tile map
+		
+		jp drawobj1			; skip saving old tile map
+		
+drawobj1:					; draw all objects
+		call savetilm
+		
+drawobj2:					
+		call rmobjsb		; remove objects from screen buffer
 				
-		call updatetm		; remove sprites from sprite map
+		call drawobjs
 		
-							; draw saboteur
-		ld hl,sbctrlb
-		call drawobj
-		
-		ld hl,objlist
-		load_de_hl
-		ex de,hl			; HL - address of the object list
-		ld a,(hl)			; number of objects
-		or a
-		jp z,drawscr_		; no objects
-
-		ld bc,objsize	
-		inc hl
-		
-drawscr2:		
-		push hl
-		push af
-		call drawobj
-		pop af
-		pop hl
-		add hl,bc
-		dec a
-		jp nz,drawscr2
-		
-drawscr_:		
-		call drawtlm		; redraw screen based on tile map
+		call showscr		; show buffer on the screen
 		
 		ret
 			

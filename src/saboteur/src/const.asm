@@ -49,10 +49,6 @@ CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 BUFLEN		EQU ROWNUM * COLNUM * 8	; size of the screen buffer
 
-; --------- tile map constants
-; ---------
-TILMAPLN	EQU	ROWNUM * COLNUM
-TILEFREE	EQU 0			; empty tile
-TILECLR		EQU 255			; tile to be cleared
+
 
 		
