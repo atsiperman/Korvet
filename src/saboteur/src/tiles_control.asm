@@ -48,8 +48,17 @@ stilm1:
 ;		HL - address of the object's control block
 ;		DE - address of the sprite
 
-updtilem:	
+updobjid:
+		db 0			; object Id
+		
+updtilem:			
 		push de
+		
+		inc hl			; skip object type		
+		ld a,(hl)			
+		ld (updobjid),a ; save object id		
+		
+		dec hl		
 		ldcursc			; A - current sprite column		
 		ld e,a
 		ld d,0
@@ -82,10 +91,20 @@ updtilem:
 		ex de,hl
 		
 		push bc			; save width in C
-uptlm1:
-		ld a,(hl)		; load tile state
-		or 0Fh			; set state
-		ld (hl),a
+		
+uptlm1:		
+		push bc
+		ld a,(hl)		; load tile state		
+		ld b,a			; save state
+		and 0Fh			; leave object id
+		jp nz,uptlm2	; if occupied, do nothing
+		
+						; free, save obj id				
+		ld a,(updobjid)	
+		or b
+		ld (hl),a		
+uptlm2:			
+		pop bc
 		inc hl
 		dec c
 		jp nz,uptlm1	; next column

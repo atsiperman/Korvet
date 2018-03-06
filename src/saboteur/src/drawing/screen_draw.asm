@@ -169,11 +169,13 @@ drawobjs:
 		inc hl				; set to the first object
 		
 drwobjs1:		
+		push bc
 		push hl
 		push af
 		call drawobj
 		pop af
 		pop hl
+		pop bc
 		add hl,bc
 		dec a
 		jp nz,drwobjs1
@@ -183,6 +185,13 @@ drwobjs1:
 ; ----- draws current screen	
 ;
 drawscr:
+		ld a,(prevscr)
+		or a
+		jp z,scrch1_		; initial render, skip screen clearance 
+		
+		call rmobjsb		; remove objects from screen buffer
+		
+scrch1_:		
 		call scrchngd		; screen changed ?
 		and a		
 		jp z,drawobj1		; do not draw if no
@@ -195,15 +204,14 @@ drawscr:
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 				
-		call clrtilem		; clear tile map
+		;call clrtilem		; clear tile map
 		
-		jp drawobj1			; skip saving old tile map
+		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
 		call savetilm
 		
-drawobj2:					
-		call rmobjsb		; remove objects from screen buffer
+drawobj2:
 				
 		call drawobjs
 		

@@ -306,7 +306,7 @@ sbdolad1:					; go down
 		pop hl
 		push hl
 		ldcurp				; address in screen memory in DE
-		ld a,d				; move one row up
+		ld a,d				; move one row down
 		add 2
 		ld d,a
 		dec hl

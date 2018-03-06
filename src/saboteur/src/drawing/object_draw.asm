@@ -4,30 +4,20 @@
 ; args: HL - address of the object's control block
 copystat:	
 		push hl
-		inc hl				; skip object type
+
+		ldcurp				; load address of the current position		
 		
-		ld (hl),0			; reset draw flag
-		inc hl		
-		
-		inc hl
-		inc hl				; skip direction		
-		push hl				
-		inc hl
-		inc hl		
-		load_de_hl			; load address of the current position		
-		
-		pop hl				
+		pop hl	
+		push hl
 							; save to previous position		
-		ld (hl),e
-		inc hl
-		ld (hl),d		
+		sprevp
 		
 		pop hl
 		push hl
 		
 		ldcurspr			; load current sprite address
 		pop hl
-		sprvsp				; save as previous sprite address
+		sprvspr				; save as previous sprite address
 		ret
 
 ; ----	reads address of the object in the screen buffer

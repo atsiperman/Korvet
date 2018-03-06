@@ -202,6 +202,18 @@ objsize EQU	odcbend - odtype
 ; ----  set current position
 ; args: HL - address of control block 
 ; 		DE - new position
+		macro sprevp	
+		ld bc,odprevp
+		add hl,bc
+		ld (hl),e
+		inc hl
+		ld (hl),d
+		inc hl
+		endm
+		
+; ----  set current position
+; args: HL - address of control block 
+; 		DE - new position
 		macro scurp	
 		ld bc,odcurp
 		add hl,bc
@@ -242,7 +254,7 @@ objsize EQU	odcbend - odtype
 ; ----  set previous sprite address 
 ; args: HL - address of control block 
 ;		DE - sprite address 				
-		macro sprvsp
+		macro sprvspr
 		ld bc,odprvsp
 		add hl,bc		
 		savem_hl_de
