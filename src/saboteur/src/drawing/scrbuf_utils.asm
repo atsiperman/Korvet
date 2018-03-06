@@ -24,7 +24,7 @@ clrspr1:
 		dec b
 		jp z,clrspr_
 		
-		ld d,b			; save counter B in A
+		ld d,b			; save counter B in D
 		pop bc			; restore counter in C
 		ld b,d			; restore counter B
 		push bc			; save new counters

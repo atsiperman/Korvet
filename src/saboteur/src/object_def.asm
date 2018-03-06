@@ -38,20 +38,22 @@ odcursp	EQU 8       ; 8, address of the current sprite to be drawn
 odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
 odcursc	EQU 11      ; 11, index of the current column on the working screen, top-left corner
 odcursr	EQU 12      ; 12, index of the current row on the working screen, top-left corner
-odcbend EQU 13		; end of the control block
+odprvsp	EQU 13 		; 13, address of the previous sprite 
+odcbend EQU 15		; end of the control block
 
 objsize EQU	odcbend - odtype
 
 ; ----	makes control block for an object
 ;
-		macro mkctrlb otype,id,curstat,direct,prevpos,curpos,curspr,curspri,curscol,cursrow
+		macro mkctrlb otype,id,curstat,direct,curpos,curspr,curspri,curscol,cursrow
 		db otype,id,curstat,direct
-		dw prevpos,curpos,curspr
-		db curspri,curscol,cursrow,0
+		dw curpos,curpos,curspr
+		db curspri,curscol,cursrow
+		dw curspr	; previous sprite address					
 		endm
 
 		macro mkdog direct,curspr,curspri,curscol,cursrow
-		mkctrlb odog,2,sbmove,direct,0,0,curspr,curspri,curscol,cursrow
+		mkctrlb odog,2,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
 		endm
 		
 ; ----  loads ldcurscb
@@ -141,6 +143,15 @@ objsize EQU	odcbend - odtype
 		ld a,(hl)
 		endm
 		
+; ----  loads previous sprite address into DE
+; args: HL - address of control block 
+; 				
+		macro ldprvsp
+		ld bc,odprvsp
+		add hl,bc		
+		load_de_hl
+		endm		
+		
 		
 		
 ;	------------------------------------
@@ -228,6 +239,14 @@ objsize EQU	odcbend - odtype
 		ld (hl),a
 		endm
 
+; ----  set previous sprite address 
+; args: HL - address of control block 
+;		DE - sprite address 				
+		macro sprvsp
+		ld bc,odprvsp
+		add hl,bc		
+		savem_hl_de
+		endm		
 
 ; ---- set new state of the object
 ; args: HL - address of control block
@@ -239,7 +258,7 @@ objsize EQU	odcbend - odtype
 		ld c,spridx
 		ld (hl),c
 		endm
-		
+				
 ; ---- calculate and save new sprite address from sprite table
 ; args: HL - address to save new value
 ;		A  - current sprite index

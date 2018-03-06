@@ -3,11 +3,11 @@
 ; ----  copies current state to the previous
 ; args: HL - address of the object's control block
 copystat:	
+		push hl
 		inc hl				; skip object type
 		
 		ld (hl),0			; reset draw flag
-		inc hl
-		
+		inc hl		
 		
 		inc hl
 		inc hl				; skip direction		
@@ -16,11 +16,18 @@ copystat:
 		inc hl		
 		load_de_hl			; load address of the current position		
 		
-		pop hl				; save to previous position
+		pop hl				
+							; save to previous position		
 		ld (hl),e
 		inc hl
 		ld (hl),d		
 		
+		pop hl
+		push hl
+		
+		ldcurspr			; load current sprite address
+		pop hl
+		sprvsp				; save as previous sprite address
 		ret
 
 ; ----	reads address of the object in the screen buffer
@@ -52,15 +59,27 @@ rdsprpos:
 		
 ; ----	clears object in the screen buffer
 ; args: HL - address of the object's control block
+;
 clrobjsb:
 		push hl				; save control block address
+		
+		ldprvsp				; load previous sprite address
+		ex de,hl
+		
+		inc hl				; skip color
+		ld c,(hl)			; load width 
+		inc hl
+		ld b,(hl)			; load height
+								
+		pop hl	
+		push bc
+		
 		ldprevp				; load previous position
 		ex de,hl
-				
-		ld bc,(7 << 8) + 5
+		
+		pop bc
 		
 		call clrspr
-		pop hl		
 		ret
 
 ; ----	draws object

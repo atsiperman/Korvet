@@ -126,7 +126,7 @@ decmprs5:
 ;
 rmobjsb:
 		ld hl,sbctrlb
-		call clrobjsb
+		call clrobjsb		
 				
 		ld hl,objlist
 		load_de_hl
@@ -141,6 +141,7 @@ rmobjsb:
 rmobjsb1:		
 		push hl
 		push af
+				
 		call clrobjsb
 		pop af
 		pop hl
