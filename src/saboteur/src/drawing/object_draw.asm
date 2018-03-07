@@ -76,6 +76,7 @@ clrobjsb:
 ; args: HL - address of the object's control block
 drawobj:
 		push hl				; save control block address		
+		
 		call rdsprpos		; load address of the current position into DE	
 		pop hl
 		

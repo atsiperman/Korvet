@@ -29,24 +29,26 @@ oguard	EQU 3				; guard
 ; ---- displacements from the beginning of the control block
 ;
 odtype	EQU 0		; 0, object type
-odproc	EQU 1       ; 1, control proc
-odcurst EQU 2       ; 2, current state 
-oddir	EQU 3       ; 3, direction
-odprevp EQU 4       ; 4, previous position in screen memory
-odcurp	EQU 6       ; 6, current position in screen memory, top left corner
-odcursp	EQU 8       ; 8, address of the current sprite to be drawn
-odcursi	EQU 10      ; 10, index of the current sprite to be drawn (if any)
-odcursc	EQU 11      ; 11, index of the current column on the working screen, top-left corner
-odcursr	EQU 12      ; 12, index of the current row on the working screen, top-left corner
-odprvsp	EQU 13 		; 13, address of the previous sprite 
-odcbend EQU 15		; end of the control block
+odproc	EQU 1       ; 1, control procedure
+odcurst EQU 3       ; 2, current state 
+oddir	EQU 4       ; 3, direction
+odprevp EQU 5       ; 4, previous position in screen memory
+odcurp	EQU 7       ; 6, current position in screen memory, top left corner
+odcursp	EQU 9       ; 8, address of the current sprite to be drawn
+odcursi	EQU 11      ; 10, index of the current sprite to be drawn (if any)
+odcursc	EQU 12      ; 11, index of the current column on the working screen, top-left corner
+odcursr	EQU 13      ; 12, index of the current row on the working screen, top-left corner
+odprvsp	EQU 14 		; 13, address of the previous sprite 
+odcbend EQU 16		; end of the control block
 
 objsize EQU	odcbend - odtype
 
 ; ----	makes control block for an object
 ;
-		macro mkctrlb otype,id,curstat,direct,curpos,curspr,curspri,curscol,cursrow
-		db otype,id,curstat,direct
+		macro mkctrlb otype,oproc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		db otype
+		dw oproc
+		db curstat,direct
 		dw curpos,curpos,curspr
 		db curspri,curscol,cursrow
 		dw curspr	; previous sprite address					

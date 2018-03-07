@@ -46,6 +46,7 @@ clrspr_:
 ; args: 
 ;		hl - address on the screen
 ;		de - address of the sprite
+;
 putspr:
 		ex de,hl
 				
@@ -58,10 +59,14 @@ putspr:
 		push bc		
 		
 putspr1:
+		push bc
 		inc de
-		ld a,(de)
-		ld (hl),a
+		ld a,(de)		; load byte from sprite`
+		ld b,(hl)		; load existing data, if any
+		or b			; combine them
+		ld (hl),a		; save new image
 		inc hl
+		pop bc
 		dec c
 		jp nz,putspr1
 		
