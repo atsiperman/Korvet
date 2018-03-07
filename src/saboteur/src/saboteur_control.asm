@@ -59,9 +59,6 @@ sbnoact2:
 
 sbnoacte:		
 		pop hl
-		push hl
-		sdrawf 1
-		pop hl
 		scurst sbstay		; is staying now
 		ret
 		
@@ -94,9 +91,6 @@ sbstmv2:
 
 sbstmve:
 		pop hl
-		push hl		
-		sdrawf 1
-		pop hl		
 							; set new state
 		pop bc		
 		ld de,odcurst
@@ -165,11 +159,9 @@ sbdomove1:
 		cp dirlt
 		jp nz,esbdomov
 		call sbgolt		; moving left
-		jp esbdomov
 		
 esbdomov:
 		pop hl
-		sdrawf 1
 
 		ret
 ;

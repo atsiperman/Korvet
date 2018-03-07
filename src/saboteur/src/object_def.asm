@@ -29,7 +29,7 @@ oguard	EQU 3				; guard
 ; ---- displacements from the beginning of the control block
 ;
 odtype	EQU 0		; 0, object type
-odid	EQU 1       ; 1, sprite ID
+odproc	EQU 1       ; 1, control proc
 odcurst EQU 2       ; 2, current state 
 oddir	EQU 3       ; 3, direction
 odprevp EQU 4       ; 4, previous position in screen memory
@@ -53,7 +53,7 @@ objsize EQU	odcbend - odtype
 		endm
 
 		macro mkdog direct,curspr,curspri,curscol,cursrow
-		mkctrlb odog,2,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
+		mkctrlb odog,0,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
 		endm
 		
 ; ----  loads ldcurscb
@@ -171,14 +171,6 @@ objsize EQU	odcbend - odtype
 		inc hl
 		ld (hl),d
 		inc hl
-		endm
-
-; ----  set draw flag 
-; args: HL - address of control block 
-; 		
-		macro sdrawf	drawf
-		inc hl
-		ld (hl),drawf
 		endm
 
 ; ----  set current state

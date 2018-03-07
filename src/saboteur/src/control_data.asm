@@ -66,5 +66,5 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-			mkctrlb osabotr,1,sbstay,dirlt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+			mkctrlb osabotr,0,sbstay,dirlt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
 

@@ -120,8 +120,6 @@ gkstkick:
 		
 gkupe:
 		pop hl
-		inc hl
-		ld (hl),1			; set draw flag
 		ret
 		;nextscreen upscrd
 		
@@ -174,8 +172,6 @@ gkduck:
 		
 gkdne:
 		pop hl
-		inc hl
-		ld (hl),1			; set draw flag
 		ret
 		;nextscreen downscrd
 		

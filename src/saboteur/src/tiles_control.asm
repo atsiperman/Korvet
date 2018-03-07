@@ -49,16 +49,14 @@ stilm1:
 ;		DE - address of the sprite
 
 updobjid:
-		db 0			; object Id
+		db 0			; object type
 		
 updtilem:			
 		push de
 		
-		inc hl			; skip object type		
 		ld a,(hl)			
-		ld (updobjid),a ; save object id		
+		ld (updobjid),a ; save object type
 		
-		dec hl		
 		ldcursc			; A - current sprite column		
 		ld e,a
 		ld d,0
