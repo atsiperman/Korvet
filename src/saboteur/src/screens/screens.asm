@@ -100,7 +100,7 @@ smap3e:
 		
 		mscrend
 		db 1				; number of objects
-scr3d1:	mkdog dirlt,dogspml1,0,15,4,1,20
+scr3d1:	mkdog dirlt,dogspml1,0,20,4,1,24
 
 ; --- end of scrbk3
 	

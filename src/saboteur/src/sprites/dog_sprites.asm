@@ -7,8 +7,12 @@ dogmvrtb:
 		db (dogmvrte - dogmvrtb - 1) / 2
 		dw dogspmr1,dogspmr2,dogspmr3,dogspmr4
 dogmvrte:										
+
+
+; number of sprites for a moving dog
 ;
-; end of table
+DOGSPRN	EQU (dogmvrte - dogmvrtb - 1) / 2
+
 
 ; table of addresses of dog sprites when moving left
 ;
@@ -16,9 +20,21 @@ dogmvltb:
 		db (dogmvlte - dogmvltb - 1) / 2
 		dw dogspml1,dogspml2,dogspml3,dogspml4
 dogmvlte:		
-;								
-; end of table
 		
+
+; table of addresses of dog sprites when turning left
+;
+dogtnltb:										
+		db (dogtnlte - dogtnltb - 1) / 2
+		dw dogsptn1,dogsptn2
+dogtnlte:		
+
+; table of addresses of dog sprites when turning right
+;
+dogtnrtb:										
+		db (dogtnrte - dogtnrtb - 1) / 2
+		dw dogsptn2,dogsptn1
+dogtnrte:		
 		
 ; dog moving right
 dogspmr1:
@@ -247,3 +263,61 @@ dogspml4:
 		DB 0,76,192,0
 		DB 0,0,128,0
 				
+				
+; dog turning 
+dogsptn1:
+		objhead
+		DB 4,24
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,14,0,0
+		DB 0,127,110,0
+		DB 0,127,95,128
+		DB 0,255,109,128
+		DB 0,255,114,128
+		DB 0,247,182,0
+		DB 0,247,190,0
+		DB 0,235,210,0
+		DB 0,237,237,0
+		DB 0,196,242,0
+		DB 1,132,198,0
+		DB 1,132,198,0
+		DB 1,140,66,0
+		DB 0,204,66,0
+		DB 0,196,98,0
+		DB 0,102,102,0
+		DB 0,102,102,0
+		
+; dog turning 
+dogsptn2:
+		objhead
+		DB 4,24
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,112,0
+		DB 0,118,254,0
+		DB 1,250,254,0
+		DB 1,182,255,0
+		DB 1,78,255,0
+		DB 0,109,239,0
+		DB 0,125,239,0
+		DB 0,75,215,0
+		DB 0,183,183,0
+		DB 0,79,35,0
+		DB 0,99,33,128
+		DB 0,99,33,128
+		DB 0,66,49,128
+		DB 0,66,51,0
+		DB 0,70,35,0
+		DB 0,102,102,0
+		DB 0,102,102,0

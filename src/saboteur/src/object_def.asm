@@ -9,6 +9,13 @@ sbfall	EQU 16				; falling down
 sbladr	EQU 32				; moving on the ladder
 sbdead	EQU 64				; dead
 
+; ---- saboteur state
+;
+dogstay	EQU 1				; staying 
+dogmove	EQU 2				; moving 
+dogtrn  EQU 4				; turning
+dogdead	EQU 64				; dead
+
 ; ---- directions
 ;
 dirrt	EQU 1				
@@ -58,7 +65,7 @@ objsize EQU	odcbend - odtype
 		endm
 
 		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
-		mkctrlb odog,dogact,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
+		mkctrlb odog,dogact,dogmove,direct,scrbuf,curspr,curspri,curscol,cursrow
 		db mincol,maxcol
 		endm
 		
@@ -306,4 +313,18 @@ objsize EQU	odcbend - odtype
 		ld (hl),d
 		
 		endm
+		
+; ---- calculate and save new sprite address from sprite table
+; args: HL - address of object control block
+;		A  - current sprite index
+;		
+		macro snewspa2 sprtab
+		
+		ld bc,odcursp
+		add hl,bc
+		snewspa sprtab
+		
+		endm
+		
+		
 		

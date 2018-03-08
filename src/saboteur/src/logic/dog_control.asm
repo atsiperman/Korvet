@@ -1,27 +1,3 @@
-; ----	dog changes direction
-; args: 
-;		HL - address of the object's control block
-;		DE - sprite tab
-;		A  - direction
-;
-dogchdir:
-		push hl	
-		ld bc,oddir
-		add hl,bc
-		ld (hl),a		; save new direction
-
-		inc de			; pointer to the first sprite address
-		ex de,hl
-		load_de_hl		; read sprite address in DE
-		
-		pop hl
-		push hl
-		scurspr			; set new sprite address
-		
-		pop hl			
-		scurspi			; set new sprite index
-		ret
-		
 ; ----	implements logic of dog object
 ; args: 
 ;		DE - address of the object's control block
@@ -33,21 +9,28 @@ dogact:
 		ldstate 		; load state
 		pop hl
 		
-		cp sbdead		
+		cp dogdead		
 		ret z			; dead - do nothing
 				
+		cp dogtrn
+		jp nz,dogact2	; dog is moving
+		
+		call dogturn	; dog is turning
+		ret				
+						
+dogact2:		
 		push hl
 		lddir			; load direction		
 				
 		pop hl
 		cp dirrt
-		jp nz,dogact2	; move left
+		jp nz,dogact3	; move left
 		call dogmvrt	; else move right
 		ret
-dogact2:		
+dogact3:		
 		call dogmvlt	; move left
 		ret
-		
+				
 ; ----	dog is moving right
 ; args: 
 ;		HL - address of the object's control block
@@ -88,16 +71,14 @@ dogmvrt2:
 		scurspi
 		
 		pop hl
-		ld bc,odcursp
-		add hl,bc
-		snewspa dogmvrtb
+		snewspa2 dogmvrtb
 			
 		ret
 						
 dogmvrt3:				; change direction
 		pop hl
 		ld a,dirlt
-		ld de,dogmvltb
+		ld de,dogtnltb
 		call dogchdir
 		ret
 		
@@ -141,15 +122,109 @@ dogmvlt2:
 		scurspi
 		
 		pop hl
-		ld bc,odcursp
-		add hl,bc
-		snewspa dogmvltb
+		snewspa2 dogmvltb
 			
 		ret
 						
 dogmvlt3:				; change direction
 		pop hl
 		ld a,dirrt
-		ld de,dogmvrtb
+		ld de,dogtnrtb
 		call dogchdir
 		ret
+
+; ----	dog changes direction
+; args: 
+;		HL - address of the object's control block
+;		DE - sprite tab
+;		A  - direction
+;
+dogchdir:
+		push hl	
+		
+		ld bc,oddir
+		add hl,bc
+		ld (hl),a		; save new direction
+				
+		ex de,hl
+		inc hl
+		load_de_hl		; read sprite address in DE
+
+		pop hl
+		push hl
+		scurspr			; set new sprite address
+		
+		pop hl			
+		push hl
+		xor a
+		scurspi			; set new sprite index
+		
+		pop hl
+		scurst dogtrn
+		ret
+		
+; ----	dog is turning back
+; args: 
+;		HL - address of the object's control block
+dogturn:
+		push hl
+		ldcurspi		; load current sprite index
+		or a
+		jp nz,dogturn3  ; finished, switch to moving state
+		
+		pop hl
+		push hl
+		inc a
+		scurspi
+		
+		pop hl
+		push hl
+		lddir
+		
+		cp dirrt
+		jp nz,dogturn2		; if not right dir - go to set left 
+		
+		pop hl				; set next sprite for right direction
+		push hl
+		ldcurspi			; load sprite index
+		pop hl
+		snewspa2 dogtnrtb
+		ret
+		
+dogturn2:					; set next sprite for left direction
+		pop hl
+		push hl
+		ldcurspi				; load sprite index
+		pop hl		
+		snewspa2 dogtnltb
+		ret		
+				
+dogturn3:	
+		pop hl
+		push hl
+		scurst dogmove
+		
+		pop hl
+		push hl
+		ld a,DOGSPRN - 1	; set max sprite index to make it to start form the first one		
+		xor a
+		scurspi
+		
+		pop hl
+		push hl
+		lddir
+		
+		pop hl
+		cp dirrt
+		jp nz,dogturn_
+				
+		call dogmvrt
+		ret
+		
+dogturn_:		
+		call dogmvlt
+		ret
+		
+		
+		
+		
