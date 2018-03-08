@@ -25,6 +25,54 @@ mkpause3:
 ; result: A - 0 to continue
 
 gmain:
+		call gaction
+		
+		call sbmain
+		ret
+
+; ---- calls action logic for other objects
+;				
+gaction:
+		ld hl,objlist
+		load_de_hl
+		ex de,hl			; HL - address of the object list
+		ld a,(hl)			; number of objects
+		or a
+		ret z				; no objects
+
+		ld bc,objsize	
+		inc hl				; set to the first object
+		
+gaction1:		
+		push bc
+		push hl
+		push af
+
+		ld de,gaction2
+		push de				; put next instruction address on stack
+		
+		push hl				; save control block
+		inc hl
+		load_de_hl			; load address of object action procedure
+		ex de,hl
+		pop de				; load control block to DE
+		jp (hl)				; call object action procedure
+		
+gaction2:		
+		pop af
+		pop hl
+		pop bc
+		
+		add hl,bc
+		dec a
+		jp nz,gaction1
+
+		ret
+		
+; ---- main logic for saboteur
+; result: A - 0 to continue
+;		
+sbmain:		
 		call chkfalng
 		or a
 		jp z,gend		; exit if is falling down

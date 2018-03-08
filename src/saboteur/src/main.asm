@@ -14,6 +14,8 @@
 		include "control_data.asm"
 		include "init.asm"
 		
+		include "logic/dog_control.asm"
+		
 		include "tiles_control.asm"
 		include "saboteur_ladder.asm"
 		include "saboteur_control.asm"

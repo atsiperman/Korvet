@@ -7,6 +7,7 @@ sbkick	EQU 4				; kicking
 sbjump	EQU 8				; jumping
 sbfall	EQU 16				; falling down
 sbladr	EQU 32				; moving on the ladder
+sbdead	EQU 64				; dead
 
 ; ---- directions
 ;
@@ -39,7 +40,9 @@ odcursi	EQU 11      ; 10, index of the current sprite to be drawn (if any)
 odcursc	EQU 12      ; 11, index of the current column on the working screen, top-left corner
 odcursr	EQU 13      ; 12, index of the current row on the working screen, top-left corner
 odprvsp	EQU 14 		; 13, address of the previous sprite 
-odcbend EQU 16		; end of the control block
+odminc	EQU 16		; 16, min column
+odmaxc	EQU 17		; 17, max column
+odcbend EQU 18		; end of the control block
 
 objsize EQU	odcbend - odtype
 
@@ -54,8 +57,9 @@ objsize EQU	odcbend - odtype
 		dw curspr	; previous sprite address					
 		endm
 
-		macro mkdog direct,curspr,curspri,curscol,cursrow
-		mkctrlb odog,0,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
+		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
+		mkctrlb odog,dogact,sbmove,direct,scrbuf,curspr,curspri,curscol,cursrow
+		db mincol,maxcol
 		endm
 		
 ; ----  loads ldcurscb
@@ -154,7 +158,23 @@ objsize EQU	odcbend - odtype
 		load_de_hl
 		endm		
 		
+; ----  loads min column into A
+; args: HL - address of control block 
+; 				
+		macro ldminc
+		ld bc,odminc
+		add hl,bc
+		ld a,(hl)
+		endm
 		
+; ----  loads max column into A
+; args: HL - address of control block 
+; 				
+		macro ldmaxc
+		ld bc,odmaxc
+		add hl,bc
+		ld a,(hl)
+		endm
 		
 ;	------------------------------------
 ;
