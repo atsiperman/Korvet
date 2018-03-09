@@ -217,6 +217,8 @@ drawobj2:
 		
 		call showscr		; show buffer on the screen
 		
+		call hldraw			; draw health bar
+		
 		ret
 			
 			

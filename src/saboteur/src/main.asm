@@ -17,8 +17,9 @@
 		include "logic/dog_control.asm"
 		
 		include "tiles_control.asm"
-		include "saboteur_ladder.asm"
-		include "saboteur_control.asm"
+		include "logic/saboteur_ladder.asm"
+		include "logic/saboteur_control.asm"
+		include "logic/health.asm"
 		
 		include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"
