@@ -49,4 +49,26 @@ multpl2:
 		ret z
 		jp multpl2
 		
+; ---- rounds number to the low degree of 8
+; args: 
+; 		A - number
+;
+; result:
+;		A - result
+;		B - incoming value divided by 8
+;	
+floorbyt:				; divide by 8
+		rra
+		rra
+		rra 
+		and 31
+		
+		ld b,a
+		
+		rla
+		rla
+		rla 
+		and ~7			; multiply by 8	
+		ret
+		
 		

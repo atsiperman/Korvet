@@ -15,7 +15,9 @@ sbnoactn:
 									
 		pop hl
 		
-		call hlinc			; update health 
+		;call hlinc			; update health 
+		ld a,3
+		call hldec
 
 		ret
 

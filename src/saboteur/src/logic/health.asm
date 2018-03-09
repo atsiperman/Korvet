@@ -12,14 +12,7 @@ hlinc:
 		
 		ld e,a				
 		
-		rra
-		rra
-		rra 
-		and 31				
-		rla
-		rla
-		rla 
-		and ~7				; number of dots in full bytes		
+		call floorbyt		; number of dots in full bytes		
 		
 		ld d,a
 		ld a,e
@@ -33,6 +26,50 @@ hlinc:
 		inc hl
 		ld (hl),a			; save increment
 		
+		ret
+
+; ---- decrease health
+; args:
+;		A - amount to decrease by 
+hldec:	
+		ld e,a				; save decrement in E	
+
+		ld hl,sbhealth
+		ld a,(hl)			; load old value		
+		or a
+		ret z				; do nothing if zero
+				
+		ld d,a				; save old value in D
+		sub e				; decrease value
+		jp nc,hldec2		; normal way
+
+		xor a				; less than zero, set to zero
+		
+hldec2:		
+		ld (hl),a			; save new value
+		ld c,a				; and in C	
+		
+							; calculate decrement
+		ld a,d				; get old value
+		call floorbyt		; get number of dots in full bytes		
+		ld b,a				; save it in B				
+		ld a,d				
+		sub b
+		jp nz,hldec3		; there were extra dots, needs to be aligned to the full byte
+		
+		ld a,d				; restore old value
+		jp hldec4
+hldec3:
+		ld a,b
+		add 8				; round to the full byte
+		
+hldec4:				
+		sub c				; calculate decrement 
+		
+		inc hl
+		ld (hl),HLBDECR		; save change type
+		inc hl
+		ld (hl),a			; save decrement
 		ret
 		
 ; ---- draws health bar
@@ -50,19 +87,9 @@ hldraw:
 		ret z				; no changes
 		
 		ld e,a				; save it in E
-		
-		rra
-		rra
-		rra 
-		and 31				; number of full bytes to be drawn
-		
-		ld b,a				; save it in B
-		
-		rla
-		rla
-		rla 
-		and ~7				; number of dots in full bytes
-		
+
+		call floorbyt		; number of full bytes to be drawn in B
+				
 		ld c,a
 		ld a,e
 		sub c				; number of dots in incomplete byte
@@ -71,14 +98,7 @@ hldraw:
 		
 		ld a,(sbhealth + 1)
 		
-		cp HLBINCR
-		jp nz,hldraw2		; decrement
-		
-		call hlbincr
-		jp hldraw_
-		
-hldraw2:		
-		call hlbclear		; draw decrement
+		call hlbincr		; do change	
 		
 hldraw_:	
 		ld a,0				; clear change type
@@ -87,11 +107,37 @@ hldraw_:
 		
 ; ---- increases health bar
 ; args:
+;		A - change type, HLBINCR | HLBDECR
 ;		B - number of full bytes 
 ;		C - number of dots in the last incomplete byte
 ;
 hlbincr:
+		ld e,a
+		
+		cp HLBINCR			; check change type
+		jp nz,hlbincr22		
+							; increment
 		setcolor HLCOLRON
+		ld a,1Fh
+		ld (hlincr41),a  	; set code RRA
+		ld a,128
+		ld (hlincr42 + 1),a
+		ld a,23h			
+		ld (hlincr24),a		; set code INC HL
+		jp hlbincr23
+		
+hlbincr22:		
+		setcolor HLCOLRRM
+		ld a,17h
+		ld (hlincr41),a  	; set code RRA
+		ld a,1
+		ld (hlincr42 + 1),a
+		ld a,2bh
+		ld (hlincr24),a		; set code DEC HL
+		jp hlbincr23		
+
+hlbincr23:		
+		ld a,e
 		
 		ld hl,sbhealth + 3	; load current position of the right border
 		load_de_hl			
@@ -109,7 +155,9 @@ hlincr2:					; draw full bytes
 		call hldrwcol
 		pop hl
 		
+hlincr24:
 		inc hl				; next byte in the top row
+		
 		dec b
 		jp hlincr2
 				
@@ -122,8 +170,13 @@ hlincr4:					; create data for extra dots
 		jp z,hlincr5		; draw result
 		
 		ld a,e
+		
+hlincr41:
 		rra
+		
+hlincr42:
 		or 128
+
 		ld e,a				; save result in E
 		dec c
 		jp hlincr4
@@ -143,15 +196,7 @@ hlincr6:
 		ld hl,sbhealth + 3
 		savem_hl_de
 		ret
-		
-; ---- reduces health bar
-; args:
-;		B - number of full bytes 
-;		C - number of dots in the last incomplete byte
-;
-hlbclear:
-		ret
-		
+						
 		
 ; ---- draw healh bar column
 ; args:
