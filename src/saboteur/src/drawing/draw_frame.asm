@@ -109,7 +109,13 @@ drawfrm:
 		ld hl,FRMADDR + (FRMHIGT-6)*8*64 + 1
 		ld de,frmbotm
 		call drwfrm2
-		
+
+		; health bar delimiter
+		ld b,15
+		ld hl,FRMADDR + (FRMHIGT-4)*8*64 + 6
+		ld de,frmbotm
+		call drwfrm2
+
 		; left column
 		ld b,FRMHIGT - 2
 		ld hl,FRMADDR + 64*8
@@ -155,54 +161,73 @@ drawfrmt:
 		
 		ld de,64
 		
-		ld a,0
-		
+		ld a,0		
 								; left frame column
-drfrmt1:		
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmt1
+		call drfrmtv
 
+								; top frame row
+		ld hl,FRMADRT + 1
+		ld b,COLNUM
+		call drfrmth
 		
 								; right frame column
 		ld hl,FRMADRT + COLNUM + 1
 		ld b,FRMHIGT/2
-drfrmt2:		
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmt2
+		call drfrmtv
 
-
-								; right frame column
+								; first bottom frame column 
 		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 5
 		ld b,3
-drfrmt3:		
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmt3
-			
-								; right frame column
+		call drfrmtv			
+		
+								; second bottom frame column 
 		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 21
 		ld b,3
-drfrmt4:		
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmt4
-
-								; right frame column
+		call drfrmtv
+		
+								; ; third bottom frame column 
 		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 26
 		ld b,3
-drfrmt5:
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmt5
+		call drfrmtv
+		
+								; health bar 
+		ld hl,FRMADRT + (FRMHIGT/2 - 2) * 64 + 6
+		ld b,COLNUM
+		call drfrmth
+		ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 6
+		ld b,COLNUM
+		call drfrmth
+		
+
+								; middle frame row 
+		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 1
+		ld b,COLNUM
+		call drfrmth
+		
+								; bottom frame row 
+		ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 1
+		ld b,COLNUM
+		call drfrmth
 		
 		ld hl,TVIREG
 		ld (hl),ATRRES			; turn off inversion
 		ret 
+		
+; ----- draws vertical part of the frame
+;			
+drfrmtv:
+		ld (hl),a
+		add hl,de
+		dec b
+		jp nz,drfrmtv
+		ret
+		
+; ----- draws horizontal part of the frame
+;			
+drfrmth:
+		ld (hl),a
+		inc hl
+		dec b
+		jp nz,drfrmth
+		ret
 		

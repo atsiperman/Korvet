@@ -1,25 +1,3 @@
-; ----- make a pause
-;
-mkpause2:
-		ld c,255
-mkpause1:
-		nop
-		dec c
-		jp nz,mkpause1
-		ret
-
-mkpause4:
-		ld b,255
-mkpause3:
-		call mkpause2
-		jp nz,mkpause3
-		ret
-		
-		macro mkpause
-		;dup 35
-		;call mkpause4
-		;edup
-		endm
 		
 ; ---- main game logic
 ; result: A - 0 to continue
@@ -111,7 +89,6 @@ gifdown:
 		jp gend		
 
 gend:		
-		mkpause
 		xor a				
 		ret
 

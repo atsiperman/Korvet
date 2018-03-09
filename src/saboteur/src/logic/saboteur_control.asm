@@ -12,7 +12,11 @@ sbnoactn:
 		cp sbstay
 		jp nz,sbnoact3
 							; player is staying, no action
+									
 		pop hl
+		
+		call hlinc			; update health 
+
 		ret
 
 sbnoact3:		

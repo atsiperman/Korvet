@@ -2,6 +2,39 @@
 ;	this file contains logic for health bar 
 ;
 
+; ---- increase health
+;
+hlinc:
+		ld hl,sbhealth
+		ld a,(hl)
+		cp HEALMAX
+		ret z				; do nothing
+		
+		ld e,a				
+		
+		rra
+		rra
+		rra 
+		and 31				
+		rla
+		rla
+		rla 
+		and ~7				; number of dots in full bytes		
+		
+		ld d,a
+		ld a,e
+		inc a				; increase health
+		ld (hl),a			; save new value
+		
+		sub d				; calculate increment relative to the last full byte
+		
+		inc hl
+		ld (hl),HLBINCR		; save change type
+		inc hl
+		ld (hl),a			; save increment
+		
+		ret
+		
 ; ---- draws health bar
 ;
 hldraw:
@@ -13,6 +46,9 @@ hldraw:
 		inc hl		
 				
 		ld a,(hl)			; load number of dots to draw
+		or a
+		ret z				; no changes
+		
 		ld e,a				; save it in E
 		
 		rra
@@ -35,26 +71,26 @@ hldraw:
 		
 		ld a,(sbhealth + 1)
 		
-		cp HLINCR
+		cp HLBINCR
 		jp nz,hldraw2		; decrement
 		
-		call hlincr
+		call hlbincr
 		jp hldraw_
 		
 hldraw2:		
-		call hlclear		; draw decrement
+		call hlbclear		; draw decrement
 		
 hldraw_:	
-		ld a,0
+		ld a,0				; clear change type
 		ld (sbhealth + 1),a
 		ret
 		
-; ---- reduces health bar
+; ---- increases health bar
 ; args:
 ;		B - number of full bytes 
 ;		C - number of dots in the last incomplete byte
 ;
-hlincr:
+hlbincr:
 		setcolor HLCOLRON
 		
 		ld hl,sbhealth + 3	; load current position of the right border
@@ -62,7 +98,9 @@ hlincr:
 		ex de,hl
 				
 		ld e,255
-hlincr2:
+		push bc
+		
+hlincr2:					; draw full bytes
 		xor a
 		or b
 		jp z,hlincr3		; no more full bytes
@@ -74,11 +112,36 @@ hlincr2:
 		inc hl				; next byte in the top row
 		dec b
 		jp hlincr2
+				
+hlincr3:				
+		ld e,0
 		
-hlincr3:
-			
-hlincr4:
+hlincr4:					; create data for extra dots	
+		xor a
+		or c
+		jp z,hlincr5		; draw result
 		
+		ld a,e
+		rra
+		or 128
+		ld e,a				; save result in E
+		dec c
+		jp hlincr4
+		
+hlincr5:						
+		ld a,e
+		or a
+		jp z,hlincr6		; no extra dots to draw
+		
+		push hl
+		call hldrwcol
+		pop hl
+		
+hlincr6:
+		pop bc		
+		ex de,hl
+		ld hl,sbhealth + 3
+		savem_hl_de
 		ret
 		
 ; ---- reduces health bar
@@ -86,7 +149,7 @@ hlincr4:
 ;		B - number of full bytes 
 ;		C - number of dots in the last incomplete byte
 ;
-hlclear:
+hlbclear:
 		ret
 		
 		

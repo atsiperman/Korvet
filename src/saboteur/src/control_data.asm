@@ -64,8 +64,9 @@ HLCOLRON	EQU	CRED  ; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
-HLDECR		EQU 1
-HLINCR		EQU 2
+HLBDECR		EQU 1
+HLBINCR		EQU 2
+HEALMAX		EQU 120			; max value of health
 
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
@@ -78,9 +79,9 @@ sbctrlb:
 ; ----	saboteur health
 ;			
 sbhealth:
-			db 120			; current health
-			db HLINCR		; health change type, 0 - no change, 1 - decrease, 2 - increase
-			db 120			; number of dots to draw/remove
+			db 5			; current health
+			db HLBINCR		; health change type, 0 - no change, 1 - decrease, 2 - increase
+			db 5			; number of dots to draw/remove
 			dw HLSCRADR		; current address of the right border of the health line
 			
 			
