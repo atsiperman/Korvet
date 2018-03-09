@@ -124,24 +124,38 @@ hlbincr:
 		ld (hlincr42 + 1),a
 		ld a,23h			
 		ld (hlincr24),a		; set code INC HL
-		jp hlbincr23
+		jp hlbincr28
 		
-hlbincr22:		
-		setcolor HLCOLRRM
+hlbincr22:					; decrement
+		setcolor HLCOLRRM	
 		ld a,17h
 		ld (hlincr41),a  	; set code RRA
 		ld a,1
 		ld (hlincr42 + 1),a
 		ld a,2bh
 		ld (hlincr24),a		; set code DEC HL
-		jp hlbincr23		
+		
+		ld hl,(sbhealth + 3) ; load current address
+		push bc				 ; check it is not exceeded
+		ld bc,HLSCRADR + 15
+		ld a,h
+		cp b
+		jp nz,hlbincr2_
+		ld a,l
+		cp c
+		jp nz,hlbincr2_
+		ld hl,(sbhealth + 3)	; decrease current address
+		dec hl
+		ld (sbhealth + 3),hl	; and save
 
-hlbincr23:		
+hlbincr2_:
+		pop bc
+		jp hlbincr28		
+
+hlbincr28:		
 		ld a,e
 		
-		ld hl,sbhealth + 3	; load current position of the right border
-		load_de_hl			
-		ex de,hl
+		ld hl,(sbhealth + 3)	; load current position of the right border
 				
 		ld e,255
 		push bc

@@ -83,6 +83,7 @@ sbhealth:
 			db HLBINCR			; health change type, 0 - no change, 1 - decrease, 2 - increase
 			db HEALMAX			; number of dots to draw/remove
 			dw HLSCRADR			; current address of the right border of the health line
+			db 0				; flag, current byte is incomplete
 			
 			; db 2			; current health
 			; db HLBINCR		; health change type, 0 - no change, 1 - decrease, 2 - increase
