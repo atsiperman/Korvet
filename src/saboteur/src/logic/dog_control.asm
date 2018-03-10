@@ -184,12 +184,7 @@ dogturn:
 		ldcurspi		; load current sprite index
 		or a
 		jp nz,dogturn3  ; finished, switch to moving state
-		
-		pop hl
-		push hl
-		inc a
-		scurspi
-		
+				
 		pop hl
 		push hl
 		lddir
@@ -200,16 +195,25 @@ dogturn:
 		pop hl				; set next sprite for right direction
 		push hl
 		ldcurspi			; load sprite index
+		inc a
 		pop hl
+		push hl
 		snewspa2 dogtnrtb
+		pop hl
+		scurspi
+		
 		ret
 		
 dogturn2:					; set next sprite for left direction
 		pop hl
 		push hl
 		ldcurspi				; load sprite index
+		inc a
 		pop hl		
+		push hl
 		snewspa2 dogtnltb
+		pop hl
+		scurspi
 		ret		
 				
 dogturn3:	
@@ -219,7 +223,7 @@ dogturn3:
 		
 		pop hl
 		push hl
-		ld a,DOGSPRN - 1	; set max sprite index to make it to start form the first one		
+		ld a,0					; set max sprite index to make it to start form the first one		
 		xor a
 		scurspi
 		

@@ -38,9 +38,10 @@
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		
+		include "screens/object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
-		include "screens/screens-23.asm"		
+		include "screens/screens-23.asm"				
 		include "screens/screen_map.asm"		
 
 start:

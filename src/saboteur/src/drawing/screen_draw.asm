@@ -116,24 +116,27 @@ decmprs4:
 		jp decmprs1			; continue
 		
 decmprs5:
-		inc hl				; move to the object list
+		ld hl,(curscr)		; pointer to screen control block
+		ld bc,objmapd
+		add hl,bc
+		load_de_hl			; load object map address
 		ex de,hl
-		ld hl,objlist
-		savem_hl_de			; save pointer in memory
+		
+		ld (objlist),hl
 		ret
 		
 ; ----- removes objects from screen buffer
 ;
 rmobjsb:
-		ld hl,sbctrlb
+		ld hl,sbctrlb		
 		call clrobjsb		
 				
-		ld hl,objlist
-		load_de_hl
-		ex de,hl			; HL - address of the object list
-		ld a,(hl)			; number of objects
-		or a
-		ret z				; no objects		
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
 		
 		ld bc,objsize	
 		inc hl				; set to the first object
@@ -158,12 +161,12 @@ drawobjs:
 		ld hl,sbctrlb
 		call drawobj
 
-		ld hl,objlist
-		load_de_hl
-		ex de,hl			; HL - address of the object list
-		ld a,(hl)			; number of objects
-		or a
-		ret z				; no objects
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
 
 		ld bc,objsize	
 		inc hl				; set to the first object

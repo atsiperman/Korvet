@@ -11,15 +11,15 @@ gmain:
 ; ---- calls action logic for other objects
 ;				
 gaction:
-		ld hl,objlist
-		load_de_hl
-		ex de,hl			; HL - address of the object list
-		ld a,(hl)			; number of objects
-		or a
-		ret z				; no objects
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
 
-		ld bc,objsize	
+		ld a,(hl)			; load number of objects
 		inc hl				; set to the first object
+		
+		ld bc,objsize			
 		
 gaction1:		
 		push bc

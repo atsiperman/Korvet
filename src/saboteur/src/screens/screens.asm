@@ -99,8 +99,6 @@ smap3e:
 		mkbyte 1,1	
 		
 		mscrend
-		db 1				; number of objects
-scr3d1:	mkdog dirlt,dogspml1,0,20,4,1,24
 
 ; --- end of scrbk3
 	
@@ -220,7 +218,6 @@ smap4e:
 		db 0
 		
 		mscrend
-		db 0				; number of objects
 ; --- end of scrbk4
 
 
