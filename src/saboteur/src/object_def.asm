@@ -16,6 +16,11 @@ dogmove	EQU 2				; moving
 dogtrn  EQU 4				; turning
 dogdead	EQU 64				; dead
 
+gdstay	EQU 1				; staying 
+gdmove	EQU 2				; moving 
+gdkick	EQU 4				; kicking
+gddead	EQU 64				; dead
+
 ; ---- directions
 ;
 dirrt	EQU 1				
@@ -64,6 +69,11 @@ objsize EQU	odcbend - odtype
 		dw curspr	; previous sprite address					
 		endm
 
+		macro mkguard curstat,direct,curpos,curspr,curspri,curscol,cursrow,mincol,maxcol
+		mkctrlb oguard,guardact,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		db mincol,maxcol
+		endm 
+		
 		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
 		mkctrlb odog,dogact,dogmove,direct,scrbuf,curspr,curspri,curscol,cursrow
 		db mincol,maxcol

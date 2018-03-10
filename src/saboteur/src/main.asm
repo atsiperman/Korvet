@@ -15,6 +15,7 @@
 		include "init.asm"
 		
 		include "logic/dog_control.asm"
+		include "logic/guard_control.asm"
 		
 		include "tiles_control.asm"
 		include "logic/saboteur_ladder.asm"
@@ -37,6 +38,7 @@
 		include "sprites/saboteur_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
+		include "sprites/guard_sprites.asm"
 		
 		include "screens/object_map.asm"
         include "screens/screens.asm"

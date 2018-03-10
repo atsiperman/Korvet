@@ -223,7 +223,7 @@ dogturn3:
 		
 		pop hl
 		push hl
-		ld a,0					; set max sprite index to make it to start form the first one		
+		ld a,DOGSPRN - 1	; set max sprite index to make it to start form the first one		
 		xor a
 		scurspi
 		

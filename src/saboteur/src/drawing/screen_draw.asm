@@ -137,8 +137,7 @@ rmobjsb:
 		ret z				; address is zero - exit
 
 		ld a,(hl)			; load number of objects
-		
-		ld bc,objsize	
+				
 		inc hl				; set to the first object
 		
 rmobjsb1:		
@@ -148,7 +147,10 @@ rmobjsb1:
 		call clrobjsb
 		pop af
 		pop hl
+		
+		ld bc,objsize
 		add hl,bc
+		
 		dec a
 		jp nz,rmobjsb1		
 		
@@ -167,19 +169,19 @@ drawobjs:
 		ret z				; address is zero - exit
 
 		ld a,(hl)			; load number of objects
-
-		ld bc,objsize	
+		
 		inc hl				; set to the first object
 		
 drwobjs1:		
-		push bc
 		push hl
 		push af
 		call drawobj
 		pop af
 		pop hl
-		pop bc
+		
+		ld bc,objsize	
 		add hl,bc
+		
 		dec a
 		jp nz,drwobjs1
 		

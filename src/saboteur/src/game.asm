@@ -18,11 +18,8 @@ gaction:
 
 		ld a,(hl)			; load number of objects
 		inc hl				; set to the first object
-		
-		ld bc,objsize			
-		
+				
 gaction1:		
-		push bc
 		push hl
 		push af
 
@@ -39,9 +36,10 @@ gaction1:
 gaction2:		
 		pop af
 		pop hl
-		pop bc
 		
+		ld bc,objsize					
 		add hl,bc
+		
 		dec a
 		jp nz,gaction1
 
