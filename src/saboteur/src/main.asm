@@ -75,7 +75,7 @@ main:					; main cycle
 		
 		call gmain		; test keyboard 
 		or a		
-		jp nz,main		; continue if zero
+		jp nz,main		; continue if not zero
 
 						; exit to cp/m
         ld hl,(OLDSTK)

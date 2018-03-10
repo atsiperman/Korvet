@@ -243,17 +243,28 @@ dogturn_:
 ; ----	check if dog is biting saboteur
 ; args: 
 ;		HL - address of the object's control block
+;
 dogbite:				
+		push hl
+		
+		call dogbitev		
+		pop hl		
+		or a
+		ret z						; return if no vertical crossing
+		
+dogbite1:		
 		push hl
 		ldcurspr					; load sprite address		
 		ex de,hl
+		inc hl
 		ld d,(hl)					; load width
 				
 		pop hl
 		push hl
 		ldcursc						; load dog's column
 		ld e,a
-		add d						
+		add d
+		dec a
 		ld d,a						; E - left column, D - right column
 				
 		push de
@@ -262,8 +273,10 @@ dogbite:
 		ld e,a						; save saboteur column
 					
 		ld hl,(sbctrlb + odcursp)	; load sprite address
+		inc hl
 		ld a,(hl)					; and sprite width
 		add e
+		dec a
 		ld d,a						; E - left column, D - right column
 		
 		pop bc		
@@ -307,3 +320,55 @@ dogbites:
 dogbite_:
 		ret
 		
+		
+; ----	check if dog is on the same level with saboteur
+; args: 
+;		HL - address of the object's control block
+;
+; result:
+;		A - 0 if not on the same level
+;
+dogbitev:				
+		push hl
+		ldcurspr					; load sprite address		
+		ex de,hl
+		inc hl						; skip color
+		inc hl						; and width
+		ld a,(hl)					; load height
+		call dvd8
+		ld d,a						; number of rows	
+		
+		pop hl
+		ldcursr						; load dog's row
+		ld e,a
+		add d				
+		dec a
+		ld d,a						; dog: E - top row, D - bottom row
+								
+		ld a,(sbctrlb + odcursr)
+		ld c,a						; save saboteur top row
+					
+		ld hl,(sbctrlb + odcursp)	; load sprite address, pointer to height		
+		inc hl						; skip color
+		inc hl						; and width		
+		ld a,(hl)					; load sprite height
+		call dvd8
+		add c
+		dec a
+		ld b,a						; saboteur: C - top row, B - bottom row
+				
+					; ----------- do check 
+		ld a,d						; if bottom dog row is
+		cp c						; less than top saboteur row
+		jp c,dogbitv_				; then no hit (D < C)
+
+		ld a,b						; if bottom saboteur row is
+		cp e						; less than top dog row
+		jp c,dogbitv_				; then no hit (B < E)
+		
+		ld a,1
+		ret
+		
+dogbitv_:
+		xor a			; no hit		
+		ret		

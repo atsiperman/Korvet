@@ -53,7 +53,7 @@ gaction2:
 sbmain:		
 		call hlalive
 		or a
-		;ret z
+		;ret z			; stop if dead
 		
 		call chkfalng
 		or a

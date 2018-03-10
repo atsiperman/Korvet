@@ -70,5 +70,16 @@ floorbyt:				; divide by 8
 		rla 
 		and ~7			; multiply by 8	
 		ret
-		
-		
+
+; ---- divides number by 8
+; args: 
+; 		A - number
+;
+; result:
+;		A - result		
+dvd8:
+		rra
+		rra
+		rra 
+		and 31
+		ret
