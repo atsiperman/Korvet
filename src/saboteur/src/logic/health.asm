@@ -2,6 +2,14 @@
 ;	this file contains logic for health bar 
 ;
 
+; ---- checks if saboteur is alive
+; result:
+;		A - 0 is dead
+
+hlalive:
+		ld a,(sbhealth)
+		ret
+
 ; ---- increase health
 ;
 hlinc:
@@ -12,9 +20,11 @@ hlinc:
 		ret nz				; do nothing if already changed
 		dec hl				; go back to the health value
 		
-		ld a,(hl)
+		ld a,(hl)			; load health value
 		cp HEALMAX
-		ret z				; do nothing
+		ret z				; do nothing if max
+		or a
+		ret z				; do nothing if zero (dead)
 		
 		ld e,a				
 		

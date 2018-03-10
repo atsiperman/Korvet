@@ -1,6 +1,6 @@
 		
 ; ---- main game logic
-; result: A - 0 to continue
+; result: A - 0 to stop
 
 gmain:
 		call gaction
@@ -48,9 +48,13 @@ gaction2:
 		ret
 		
 ; ---- main logic for saboteur
-; result: A - 0 to continue
+; result: A - 0 to stop
 ;		
 sbmain:		
+		call hlalive
+		or a
+		;ret z
+		
 		call chkfalng
 		or a
 		jp z,gend		; exit if is falling down
@@ -63,8 +67,11 @@ sbmain:
 				
 gkifesc:		
 		cp KESC
+		jp nz,giflt
+		xor a
 		ret z			; exit button - end game	
 		
+giflt:		
 		cp KLEFT
 		jp nz,gifrt
 		call gkleft
@@ -89,7 +96,7 @@ gifdown:
 		jp gend		
 
 gend:		
-		xor a				
+		ld a,1
 		ret
 
 ; ----- move up

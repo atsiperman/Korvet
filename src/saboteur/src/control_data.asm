@@ -84,12 +84,6 @@ sbhealth:
 			db HLBINCR			; 1, health change type, 0 - no change, 1 - decrease, 2 - increase
 			db HEALMAX			; 2, number of dots to draw/remove
 			dw HLSCRADR			; 3, current address of the right border of the health line
-			
-			; db 2			; current health
-			; db HLBINCR		; health change type, 0 - no change, 1 - decrease, 2 - increase
-			; db 2			; number of dots to draw/remove
-			; dw HLSCRADR		; current address of the right border of the health line
-			
 
 			
 

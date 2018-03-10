@@ -74,14 +74,16 @@ main:					; main cycle
         GRMODOFF
 		
 		call gmain		; test keyboard 
-		and a		
-		jp z,main		; continue if zero
+		or a		
+		jp nz,main		; continue if zero
 
 						; exit to cp/m
         ld hl,(OLDSTK)
         ld sp,hl
 		ei
-        ret
+		
+		jp 0			; soft reset
+
 
 ;END 100h
 
