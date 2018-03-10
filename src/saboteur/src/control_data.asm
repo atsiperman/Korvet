@@ -64,8 +64,6 @@ HLCOLRON	EQU	CRED  ; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
-HLBDECR		EQU 1
-HLBINCR		EQU 2
 HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 4			; hit by the dog
 
@@ -81,9 +79,7 @@ sbctrlb:
 ;			
 sbhealth:
 			db HEALMAX			; 0, current health
-			db HLBINCR			; 1, health change type, 0 - no change, 1 - decrease, 2 - increase
-			db HEALMAX			; 2, number of dots to draw/remove
-			dw HLSCRADR			; 3, current address of the right border of the health line
-
+			db 0				; 1, old value
+			
 			
 
