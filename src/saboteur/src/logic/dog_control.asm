@@ -11,24 +11,37 @@ dogact:
 		
 		cp dogdead		
 		ret z			; dead - do nothing
-				
+		
+		push hl		
+		
 		cp dogtrn
 		jp nz,dogact2	; dog is moving
 		
+		pop hl
 		call dogturn	; dog is turning
-		ret				
-						
-dogact2:		
 		push hl
+		jp dogact_
+						
+dogact2:				
 		lddir			; load direction		
 				
 		pop hl
+		
 		cp dirrt
 		jp nz,dogact3	; move left
+		push hl
 		call dogmvrt	; else move right
-		ret
+		
+		jp dogact_
+		
 dogact3:		
+		push hl
 		call dogmvlt	; move left
+		
+dogact_:		
+		pop hl
+		call dogbite	; check if dog is biting saboteur
+		
 		ret
 				
 ; ----	dog is moving right
@@ -227,4 +240,70 @@ dogturn_:
 		
 		
 		
+; ----	check if dog is biting saboteur
+; args: 
+;		HL - address of the object's control block
+dogbite:				
+		push hl
+		ldcurspr					; load sprite address		
+		ex de,hl
+		ld d,(hl)					; load width
+				
+		pop hl
+		push hl
+		ldcursc						; load dog's column
+		ld e,a
+		add d						
+		ld d,a						; E - left column, D - right column
+				
+		push de
+				
+		ld a,(sbctrlb + odcursc)
+		ld e,a						; save saboteur column
+					
+		ld hl,(sbctrlb + odcursp)	; load sprite address
+		ld a,(hl)					; and sprite width
+		add e
+		ld d,a						; E - left column, D - right column
+		
+		pop bc		
+		pop hl
+		
+		push de						; saboteur data
+		push bc						; dog data
+				
+		lddir						; load direction
+		
+					; ----------- do check 
+		pop bc
+		pop de
+		
+		cp dirrt					
+		jp nz,dogbite2
+									; check right direction (right column)
+		ld a,b						; if right dog column is
+		cp e						; less than left saboteur column
+		jp c,dogbite_				; then no hit (B < E)
+		
+		ld a,d						; if right saboteur column is
+		cp b						; less than right dog column
+		jp c,dogbite_				; then no hit (D < B)
+		
+		jp dogbites
+		
+dogbite2:							; check left direction		
+		ld a,d						; if right saboteur column is
+		cp c						; less than left dog column
+		jp c,dogbite_				; than no hit (D < C)
+		
+		ld a,c						; if left dog column is
+		cp e						; less than left saboteur column
+		jp c,dogbite_				; than no hit (C < E)
+		
+dogbites:
+		ld a,HLDOGHIT				; set health hit
+		call hldec
+
+dogbite_:
+		ret
 		

@@ -6,6 +6,12 @@
 ;
 hlinc:
 		ld hl,sbhealth
+		inc hl				; check increment type
+		ld a,(hl)			
+		or a				
+		ret nz				; do nothing if already changed
+		dec hl				; go back to the health value
+		
 		ld a,(hl)
 		cp HEALMAX
 		ret z				; do nothing
@@ -84,7 +90,7 @@ hldraw:
 				
 		ld a,(hl)			; load number of dots to draw
 		or a
-		ret z				; no changes
+		jp z,hldraw_		; no changes
 		
 		ld e,a				; save it in E
 
@@ -101,61 +107,69 @@ hldraw:
 		call hlbincr		; do change	
 		
 hldraw_:	
-		ld a,0				; clear change type
+		xor a				; clear change type
 		ld (sbhealth + 1),a
 		ret
 		
 ; ---- increases health bar
 ; args:
-;		A - change type, HLBINCR | HLBDECR
+;		A - change type, HLBINCR / HLBDECR
 ;		B - number of full bytes 
 ;		C - number of dots in the last incomplete byte
 ;
 hlbincr:
 		ld e,a
 		
-		cp HLBINCR			; check change type
+		push bc
+		
+		cp HLBINCR				; check change type
 		jp nz,hlbincr22		
-							; increment
+								; increment
 		setcolor HLCOLRON
 		ld a,1Fh
-		ld (hlincr41),a  	; set code RRA
+		ld (hlincr41),a  		; set code RRA
 		ld a,128
 		ld (hlincr42 + 1),a
 		ld a,23h			
-		ld (hlincr24),a		; set code INC HL
+		ld (hlincr24),a			; set code INC HL
+		
+		ld hl,(sbhealth + 3) 	; load current address
+								; check it is not exceeded
+		ld bc,HLSCRADR - 1
+		ld a,h
+		cp b
+		jp nz,hlbincr28
+		ld a,l
+		cp c
+		jp nz,hlbincr28
+		inc hl
+		
 		jp hlbincr28
 		
-hlbincr22:					; decrement
+hlbincr22:						; decrement
 		setcolor HLCOLRRM	
 		ld a,17h
-		ld (hlincr41),a  	; set code RRA
+		ld (hlincr41),a  		; set code RRA
 		ld a,1
 		ld (hlincr42 + 1),a
 		ld a,2bh
-		ld (hlincr24),a		; set code DEC HL
+		ld (hlincr24),a			; set code DEC HL
 		
-		ld hl,(sbhealth + 3) ; load current address
-		push bc				 ; check it is not exceeded
+		ld hl,(sbhealth + 3) 	; load current address
+								; check it is not exceeded
 		ld bc,HLSCRADR + 15
 		ld a,h
 		cp b
-		jp nz,hlbincr2_
+		jp nz,hlbincr28
 		ld a,l
 		cp c
-		jp nz,hlbincr2_
-		ld hl,(sbhealth + 3)	; decrease current address
+		jp nz,hlbincr28
 		dec hl
-		ld (sbhealth + 3),hl	; and save
-
-hlbincr2_:
-		pop bc
-		jp hlbincr28		
 
 hlbincr28:		
+								; HL contains current address in screen memory
+		pop bc
 		ld a,e
-		
-		ld hl,(sbhealth + 3)	; load current position of the right border
 				
 		ld e,255
 		push bc
@@ -212,7 +226,7 @@ hlincr6:
 		ret
 						
 		
-; ---- draw healh bar column
+; ---- draw health bar column
 ; args:
 ;		HL - screen address of the top byte
 ;		E  - byte to be drawn

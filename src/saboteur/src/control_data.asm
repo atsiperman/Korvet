@@ -67,6 +67,7 @@ HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HLBDECR		EQU 1
 HLBINCR		EQU 2
 HEALMAX		EQU 120			; max value of health
+HLDOGHIT	EQU 4			; hit by the dog
 
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
@@ -79,11 +80,10 @@ sbctrlb:
 ; ----	saboteur health
 ;			
 sbhealth:
-			db HEALMAX			; current health
-			db HLBINCR			; health change type, 0 - no change, 1 - decrease, 2 - increase
-			db HEALMAX			; number of dots to draw/remove
-			dw HLSCRADR			; current address of the right border of the health line
-			db 0				; flag, current byte is incomplete
+			db HEALMAX			; 0, current health
+			db HLBINCR			; 1, health change type, 0 - no change, 1 - decrease, 2 - increase
+			db HEALMAX			; 2, number of dots to draw/remove
+			dw HLSCRADR			; 3, current address of the right border of the health line
 			
 			; db 2			; current health
 			; db HLBINCR		; health change type, 0 - no change, 1 - decrease, 2 - increase
