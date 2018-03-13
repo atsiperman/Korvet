@@ -1,5 +1,20 @@
+; ---- decrease saboteur row
+; args: HL - address of control block
+;
+sbdecrow:		
+		ldcursr
+		dec a
+		ld (hl),a
+		ret
 
-
+; ---- increase saboteur row
+; args: HL - address of control block
+;
+sbincrow:
+		ldcursr
+		inc a
+		ld (hl),a
+		ret
 
 ; ---- logic when no button pressed
 ;
@@ -26,7 +41,7 @@ sbnoact3:
 		pop hl		
 		ret
 		
-sbnoact1:
+sbnoact1:		
 		pop hl
 		push hl
 		lddir
@@ -63,7 +78,12 @@ sbnoact2:
 
 sbnoacte:		
 		pop hl
+		push hl
 		scurst sbstay		; is staying now
+		
+		pop hl
+		call sbdecrow		; decrease row 
+		
 		ret
 		
 ; ---- start move
@@ -75,52 +95,85 @@ sbstmove:
 		push bc
 		
 		ld hl,sbctrlb
+		call sbincrow		; sprite for moving object has less height, so move it down
+		
+		pop bc
+		push bc
+		
+		ld hl,sbctrlb
 		push hl
 							; check right dir
 		ld a,dirrt
 		cp c
 		jp nz,sbstmv1
 		call sbstgort		
-		jp sbstmve
+		or a
+		jp z,sbstmve
+		jp sbstmv2
 		
 sbstmv1:				
-							; check left dir
-		ld a,dirlt
-		cp c
-		jp nz,sbstmv2
 		call sbstgolt
-		jp sbstmve
+		or a
+		jp z,sbstmve
 		
-sbstmv2:		
-
-sbstmve:
-		pop hl
+sbstmv2:				
 							; set new state
+		pop hl
 		pop bc		
 		ld de,odcurst
 		add hl,de
 		ld (hl),b
+		ret
+		
+sbstmve:
+		pop hl
+		pop bc
+		scurst sbstopm		; stop moving
 		ret
 ;
 ; ----	end of sbstmove:
 ;
 
 ; ---- saboteur starts going right
-; args: HL - address of control block
+; args: 
+;		HL - address of control block
 ;
+; result:
+;		A - zero if no movement
+;		
 sbstgort:
 		push hl
-		scurdir dirrt		
-		;ld hl,sbmvrttb		; number of sprites
-		;ld a,(hl)			; set first sprite
-		;dec a				; index of last sprite
-		pop hl
-		;push hl
+				
 		xor a
-		scurspi
+		snewspa2 sbmvrttb		; save new sprite address
+		inc hl		
+		ld (hl),a				; save new sprite index
+		
+		pop hl
+		push hl
+		
+		ld bc,odcursc
+		add hl,bc
+		ld d,(hl)		; load current screen column
+		
+		inc hl
+		ld e,(hl)		; load screen row
+		pop hl
+		push hl
+		
+		ld a,d
+		add a,SBWI
+		ld d,a
+				
+		call sbchknpr
+		pop hl
+		or a
+		ret z
 
-		;pop hl
-		;call sbgort			; start movement
+		push hl
+		scurdir dirrt		
+		pop hl
+		or c			; anything not zero
 		ret		
 
 ; ---- saboteur starts going left
@@ -128,17 +181,37 @@ sbstgort:
 ;
 sbstgolt:
 		push hl
-		scurdir dirlt
-		;ld hl,sbmvlttb		; number of sprites
-		;ld a,(hl)			; set first sprite
-		;dec a				; index of last sprite
+		
+		xor a
+		snewspa2 sbmvlttb		; save new sprite address
+		inc hl		
+		ld (hl),a				; save new sprite index
+		
 		pop hl
-		;push hl
+		push hl
+		
+		ld bc,odcursc
+		add hl,bc
+		ld d,(hl)		; load current screen column
+		
+		inc hl
+		ld e,(hl)		; load screen row
+		pop hl
+		push hl
+		
+		dec d		
+		
+		call sbchknpl
+		pop hl
+		or a
+		ret z
+
+		push hl
+		scurdir dirlt
+		pop hl
 		xor a
 		scurspi
-
-		;pop hl
-		;call sbgolt			; start movement
+		or c			; anything not zero
 		ret		
 
 
@@ -218,7 +291,6 @@ sbgort3:
 		ld bc,odcursc
 		add hl,bc
 		ld (hl),a		; save column index
-		push af			; save column index on stack
 
 		dec hl
 		ld a,(hl)		; cur sprite index in A
@@ -250,30 +322,6 @@ sbgort1:
 		ld (hl),d
 		dec hl
 		ld (hl),e
-
-		dec hl				; load position in screen memory
-		ld d,(hl)
-		dec hl
-		ld e,(hl)
-		
-		pop af
-		ld c,SCOLNUM
-		cp c
-		jp z,sbgort4
-		inc de			; increase position
-		jp sbgorte
-		
-sbgort4:				; set first column on the same row
-		ld a,e
-		ld c,ECOLNUM - SCOLNUM
-		sub c
-		ld e,a
-		ld a,d
-		sbc 0
-		ld d,a		
-		
-sbgorte:		
-		savem_hl_de		; set new position
 
 		ret
 		
@@ -394,6 +442,22 @@ sbgolte:
 ;
 sbchknpr:		
 		push hl
+		push de
+		
+		ldcurspr
+		ex de,hl
+		inc hl 				; skip color
+		inc hl				; skip width
+		ld a,(hl)			; load height
+		call dvd8			; get row count
+		
+		sub 4				; repeat from the top point to the 3 blocks above the floor
+		ld c,a
+		
+		pop de
+		pop hl
+		push hl
+		push bc				; save C
 		
 		ld hl,shadscr
 		
@@ -410,8 +474,8 @@ sbchkn1:
 		dec c
 		jp nz,sbchkn1
 		
-		
-		ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
+		pop bc						
+		;ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
 sbchkn2:		
 							; X, Y - top-left or top-right point BEFORE the saboteur
 		push hl				
@@ -513,6 +577,22 @@ sbchke0:
 ;
 sbchknpl:		
 		push hl
+		push de
+		
+		ldcurspr
+		ex de,hl
+		inc hl 				; skip color
+		inc hl				; skip width
+		ld a,(hl)			; load height
+		call dvd8			; get row count
+		
+		sub 4				; repeat from the top point to the 3 blocks above the floor
+		ld c,a
+		
+		pop de
+		pop hl
+		push hl
+		push bc				; save C
 		
 		ld hl,shadscr
 		
@@ -529,8 +609,8 @@ sbchkln1:
 		dec c
 		jp nz,sbchkln1
 		
-		
-		ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
+		pop bc
+		;ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
 sbchkln2:		
 							; X, Y - top-left or top-right point BEFORE the saboteur
 		push hl				

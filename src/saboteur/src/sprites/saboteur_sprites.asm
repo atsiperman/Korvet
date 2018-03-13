@@ -303,10 +303,7 @@ sabsprt:
 
 ; saboteur sprite moving to the right, phase 1
 sabspmr1:	
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 0,0,0,240
 		DB 0,0,1,248
 		DB 0,0,1,248
@@ -350,10 +347,7 @@ sabspmr1:
 
 ; saboteur sprite moving to the right, phase 2
 sabspmr2:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 0,0,0,240
 		DB 0,0,1,248
 		DB 0,0,1,248
@@ -397,10 +391,7 @@ sabspmr2:
 
 ; saboteur sprite moving to the right, phase 3
 sabspmr3:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 0,0,0,240
 		DB 0,0,1,248
 		DB 0,0,1,248
@@ -444,10 +435,7 @@ sabspmr3:
 
 ; saboteur sprite moving to the right, phase 4
 sabspmr4:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 0,0,0,240
 		DB 0,0,1,248
 		DB 0,0,1,248
@@ -542,10 +530,7 @@ sabsplt:
 		DB 127,0,62,0
 
 sabspml1:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 15,0,0,0
 		DB 31,128,0,0
 		DB 31,128,0,0
@@ -588,10 +573,7 @@ sabspml1:
 		DB 0,0,124,0
 
 sabspml2:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 15,0,0,0
 		DB 31,128,0,0
 		DB 31,128,0,0
@@ -634,10 +616,7 @@ sabspml2:
 		DB 0,0,0,112
 
 sabspml3:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 15,0,0,0
 		DB 31,128,0,0
 		DB 31,128,0,0
@@ -680,10 +659,7 @@ sabspml3:
 		DB 124,0,0,3
 
 sabspml4:
-		sabsphd
-		dup 4*8
-		db 0
-		edup		
+		sbspmvhd
 		DB 15,0,0,0
 		DB 31,128,0,0
 		DB 31,128,0,0

@@ -29,18 +29,23 @@
 	;
 	; all moving sprites are working in plain mode
 	;
-	macro sabsphd 
+	macro sabsphd 			; header for saboteur when staying
 		db CMAINREG			; color register for moving sprites
 		db 4, 48
 	endm
 
-	macro sbspldhd
-		db CMAINREG			; color register for moving sprites
+	macro sbspmvhd			; header for saboteur when moving
+		db CMAINREG			
+		db 4, 40
+	endm
+	
+	macro sbspldhd			; header for saboteur on the ladder
+		db CMAINREG			
 		db 2, 56
 	endm
 
 	macro sbduckhd
-		db CMAINREG			; color register for moving sprites
+		db CMAINREG			
 		db 3, 32
 	endm
 

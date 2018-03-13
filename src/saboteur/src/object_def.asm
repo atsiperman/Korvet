@@ -3,23 +3,25 @@
 ;
 sbstay	EQU 1				; staying 
 sbmove	EQU 2				; moving 
-sbkick	EQU 4				; kicking
-sbjump	EQU 8				; jumping
-sbfall	EQU 16				; falling down
-sbladr	EQU 32				; moving on the ladder
-sbdead	EQU 64				; dead
+sbkick	EQU 3				; kicking
+sbjump	EQU 4				; jumping
+sbfall	EQU 5				; falling down
+sbladr	EQU 6				; moving on the ladder
+sbdead	EQU 7				; dead
+sbstrtm EQU 8				; start moving
+sbstopm EQU 9				; stop moving
 
 ; ---- saboteur state
 ;
 dogstay	EQU 1				; staying 
 dogmove	EQU 2				; moving 
-dogtrn  EQU 4				; turning
-dogdead	EQU 64				; dead
+dogtrn  EQU 3				; turning
+dogdead	EQU 4				; dead
 
 gdstay	EQU 1				; staying 
 gdmove	EQU 2				; moving 
-gdkick	EQU 4				; kicking
-gddead	EQU 64				; dead
+gdkick	EQU 3				; kicking
+gddead	EQU 4				; dead
 
 ; ---- directions
 ;
