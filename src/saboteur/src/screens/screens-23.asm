@@ -102,18 +102,20 @@ smap23e:
 		edup
 				
 		db 0
-		mkline 3
+		dup 3
 		mkbyte 5,0
 		db 0
+		edup
 
 		mkline 8
 		db 0
 
 		dup 2
 			db 0
-			mkline 3
+			dup 3
 			mkbyte 6,0
 			db 0
+			edup
 			
 			mkline 8	
 			db 0

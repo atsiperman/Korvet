@@ -28,11 +28,11 @@ chkfalng:
 		
 		call shscradr		; get address of the sprites' index
 		ldsprt
-		call isfloor
+		call isfloor		; is floor reached down
 		pop hl
 		pop de
 		or a
-		jp z,contfall
+		jp z,contfall		; no, continue falling
 		
 		push hl
 		dec d				; decrease column
@@ -44,15 +44,7 @@ chkfalng:
 		scurst sbstay		; set new state
 
 		pop hl
-		push hl
-		ldcurp
-		dec de				; decrease screen address
-		dec hl
-		dec hl
-		savem_hl_de			
 		
-		pop hl
-		push hl
 		ld a,0
 		scurspi				; sprite index
 		dec hl	
@@ -60,9 +52,6 @@ chkfalng:
 		ld de,sabsprt		; sprite for staying 
 		savem_hl_de
 		
-		pop hl
-		inc hl
-		ld (hl),1			; redraw
 		ret
 		
 contfall:		
@@ -72,7 +61,7 @@ contfall:
 		scursr			
 		
 		pop hl
-		push hl
+		
 		ldcurp		
 							; increase row
 		ld a,d
@@ -81,9 +70,6 @@ contfall:
 		dec hl
 		dec hl
 		savem_hl_de
-		pop hl
-		inc hl
-		ld (hl),1			; redraw
 		xor a		
 		ret
 ;
