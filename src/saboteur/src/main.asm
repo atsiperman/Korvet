@@ -19,6 +19,7 @@
 		
 		include "tiles_control.asm"
 		include "logic/saboteur_ladder.asm"
+		include "logic/saboteur_action.asm"
 		include "logic/saboteur_control.asm"
 		include "logic/health.asm"
 		

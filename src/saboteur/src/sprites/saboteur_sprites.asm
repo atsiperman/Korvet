@@ -93,8 +93,8 @@ sabfall:
 		
 
 ; saboteur is squatting
-sabduck:
-		sbduckhd
+sabsquat:
+		sbsqthd
 		DB 0,0,0
 		DB 0,0,0
 		DB 0,0,0

@@ -380,10 +380,4 @@ sbdolade:
 ; --- end of sbdoladr
 ;
 		
-sbstkick:
-		ret
-		
-		
-sbdokick:
-		ret
 		

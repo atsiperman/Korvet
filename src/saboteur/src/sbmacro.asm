@@ -44,7 +44,7 @@
 		db 2, 56
 	endm
 
-	macro sbduckhd
+	macro sbsqthd
 		db CMAINREG			
 		db 3, 32
 	endm

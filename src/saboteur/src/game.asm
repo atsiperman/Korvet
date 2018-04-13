@@ -188,17 +188,18 @@ gkdn3:
 		pop bc
 		pop hl		
 		or a
-		jp z,gkduck			; duck if can't go
+		jp z,gksquat		; squat if can't go
 
 		pop hl
 		push hl		
 		call sbstladr		; start moving on the ladder
 		jp gkdne
 				
-gkduck:
+gksquat:
 		pop hl
 		push hl		
-		call sbstkick		; duck
+		cp sbsquat		
+		call nz,sbdosquat	; squat if is not squatting already
 		
 gkdne:
 		pop hl

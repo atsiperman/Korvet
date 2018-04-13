@@ -8,16 +8,18 @@ sbjump	EQU 4				; jumping
 sbfall	EQU 5				; falling down
 sbladr	EQU 6				; moving on the ladder
 sbdead	EQU 7				; dead
-sbstrtm EQU 8				; start moving
-sbstopm EQU 9				; stop moving
+sbstopm EQU 8				; stop moving
+sbsquat EQU 9				; squatting
 
-; ---- saboteur state
+; ---- dog state
 ;
 dogstay	EQU 1				; staying 
 dogmove	EQU 2				; moving 
 dogtrn  EQU 3				; turning
 dogdead	EQU 4				; dead
 
+; ---- guard state
+;
 gdstay	EQU 1				; staying 
 gdmove	EQU 2				; moving 
 gdkick	EQU 3				; kicking
@@ -79,7 +81,7 @@ objsize EQU	odcbend - odtype
 		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
 		mkctrlb odog,dogact,dogmove,direct,scrbuf,curspr,curspri,curscol,cursrow
 		db mincol,maxcol
-		endm
+		endm		
 		
 ; ----  loads ldcurscb
 ; args: HL - address of the current column index

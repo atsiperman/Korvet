@@ -61,3 +61,17 @@ dvd8:
 		rra 
 		and 31
 		ret
+
+; ---- loads sprite height in tiles
+; args: 
+; 		DE - sprite address
+;
+; result:
+;		A - result
+;
+ldsprht:
+		inc de			; skip color
+		inc de			; skip width
+		ld a,(de)
+		call dvd8
+		ret

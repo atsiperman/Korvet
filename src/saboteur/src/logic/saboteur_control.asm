@@ -25,68 +25,73 @@ sbnoactn:
 		ldstate
 		
 		cp sbstay
-		jp nz,sbnoact3
-							; player is staying, no action
-									
-		pop hl
-		
+		jp nz,sbnoact1
+							; player is staying, no action									
+		pop hl		
 		call hlinc			; update health 
-
 		ret
 
-sbnoact3:		
+sbnoact1:		
 		cp sbladr			
-		jp nz,sbnoact1		
+		jp nz,sbnoact2
 							; player is on the ladder, no action
 		pop hl		
 		ret
 		
-sbnoact1:		
+sbnoact2:		
+		cp sbmove
+		jp z,sbnoact3		; player is moving, now stop and stay
+		cp sbsquat
+		jp nz,sbnoact5		
+							; player is squatting, now stand up									
+sbnoact3:
 		pop hl
 		push hl
 		lddir
 		cp dirrt
-		jp nz,sbnoact2
+		jp nz,sbnoact4
 							; was moving right
 		ld de,sabsprt 
 		pop hl
 		push hl		
-		scurspr  			; stop, look at right
+		scurspr  			; stop, look at right		
+		jp sbststop
 		
-		pop hl
-		push hl
-		scurdir dirrt
-		
-		jp sbnoacte
-		
-sbnoact2:		
-		pop hl
-		push hl
-		lddir
-		cp dirlt
-		jp nz,sbnoacte
+sbnoact4:
 							; was moving left
 		ld de,sabsplt
 		pop hl
 		push hl
 		scurspr 			; stop, look at left
-		
-		pop hl
-		push hl
-		scurdir dirlt
 
+sbnoact5:
 
-sbnoacte:		
+sbststop:
 		pop hl
 		push hl
 		scurst sbstay		; is staying now
 		
 		pop hl
-		call sbdecrow		; decrease row 
+
+		ldprvsp		
+		call ldsprht
+		push af				; save prev height
 		
+		sblcursp			; load cur sprite 
+		call ldsprht		; current height
+		pop bc
+		sub b				; current is always bigger than previous
+		ld c,a				; save the difference
+		sblcursr
+		sub c				; increase height 
+		sbscursr
 		ret
 		
-; ---- start move
+sbnoacte:		
+		pop hl		
+		ret
+		
+; ---- start to move
 ; args: 
 ;		B  - new state
 ;		C  - direction to move
@@ -384,7 +389,7 @@ sbgolt3:
 		inc a
 		cp e	
 		jp nz,sbgolt1
-		ld a,0
+		xor a
 		
 sbgolt1:
 		pop hl

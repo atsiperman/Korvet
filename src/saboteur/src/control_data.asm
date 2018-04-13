@@ -78,8 +78,37 @@ sbctrlb:
 ; ----	saboteur health
 ;			
 sbhealth:
-			db HEALMAX			; 0, current health
-			db 0				; 1, old value
+		db HEALMAX			; 0, current health
+		db 0				; 1, old value
 			
+		macro sbscurst newstate
+		ld hl,sbctrlb + odcurst
+		ld a,newstate
+		ld (hl),a
+		endm
 			
-
+		macro sbscursp
+		ld hl,sbctrlb + odcursp
+		ld (hl),e
+		inc hl
+		ld (hl),d
+		endm
+	
+		macro sblcursp
+		ld hl,sbctrlb + odcursp
+		load_de_hl
+		endm
+		
+		macro sblprvsp
+		ld hl,sbctrlb + odprvsp
+		load_de_hl
+		endm
+		
+		macro sblcursr
+		ld a,(sbctrlb + odcursr)
+		endm
+		
+		macro sbscursr
+		ld (sbctrlb + odcursr),a
+		endm
+		

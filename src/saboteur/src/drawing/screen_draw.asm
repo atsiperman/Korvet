@@ -201,7 +201,7 @@ scrch1_:
 		and a		
 		jp z,drawobj1		; do not draw if no
 		
-		call decmrscr
+		call decmrscr		; decompress new screen map
 		
 		ld de,shadscr		; address of the shadow screen
         call drawbkgr		; draw background
