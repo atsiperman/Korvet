@@ -112,3 +112,11 @@ sbhealth:
 		ld (sbctrlb + odcursr),a
 		endm
 		
+		macro sblddir
+		ld a,(sbctrlb + oddir)
+		endm
+		
+		macro sbsdir
+		ld (sbctrlb + oddir),a
+		endm
+		

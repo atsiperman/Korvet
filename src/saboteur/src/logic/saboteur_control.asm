@@ -41,39 +41,40 @@ sbnoact1:
 sbnoact2:		
 		cp sbmove
 		jp z,sbnoact3		; player is moving, now stop and stay
-		cp sbsquat
-		jp nz,sbnoact5		
-							; player is squatting, now stand up									
+		
 sbnoact3:
 		pop hl
 		push hl
 		lddir
-		cp dirrt
-		jp nz,sbnoact4
-							; was moving right
-		ld de,sabsprt 
 		pop hl
-		push hl		
-		scurspr  			; stop, look at right		
+		cp dirrt
+		jp nz,sbnoact5
+							; was moving right
+		ldstate	
+		cp sbsquat
+		jp nz,sbnoact4
+							; player is squatting, now stand up									
+							
+							; player is looking right, decrease column
+		ld hl,sbctrlb + odcursc	
+		ld a,(hl)			; load column
+		dec a
+		ld (hl),a
+		
+sbnoact4:							
+		ld de,sabsprt 
+		sbscursp			; stop, look at right		
 		jp sbststop
 		
-sbnoact4:
+sbnoact5:
 							; was moving left
 		ld de,sabsplt
-		pop hl
-		push hl
-		scurspr 			; stop, look at left
-
-sbnoact5:
+		sbscursp			; stop, look at left
 
 sbststop:
-		pop hl
-		push hl
-		scurst sbstay		; is staying now
+		sbscurst sbstay		; is staying now
 		
-		pop hl
-
-		ldprvsp		
+		sblprvsp		
 		call ldsprht
 		push af				; save prev height
 		
