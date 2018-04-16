@@ -92,8 +92,8 @@ sabfall:
 		
 		
 
-; saboteur is squatting
-sabsquat:
+; saboteur is squatting from left direction
+sabsqtlt:
 		sbsqthd
 		DB 0,0,0
 		DB 0,0,0
@@ -128,6 +128,41 @@ sabsquat:
 		DB 27,192,246
 		DB 29,192,246
 		
+; saboteur is squatting from right direction		
+sabsqtrt:
+		sbsqthd		
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,124,0
+		DB 0,254,0
+		DB 0,254,0
+		DB 0,254,0
+		DB 0,171,192
+		DB 6,146,224
+		DB 15,254,224
+		DB 31,127,224
+		DB 29,159,224
+		DB 61,254,240
+		DB 56,254,240
+		DB 55,254,240
+		DB 47,195,112
+		DB 111,255,112
+		DB 111,255,176
+		DB 111,255,184
+		DB 107,207,184
+		DB 109,3,184
+		DB 55,3,184
+		DB 55,3,216
+		DB 55,3,216
+		DB 55,3,216
+		DB 55,3,216
+		DB 111,3,216
+		DB 111,3,184
 
 ; saboteur moving on the ladder 1
 sablad1:
