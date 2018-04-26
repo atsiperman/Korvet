@@ -98,7 +98,19 @@ sbhealth:
 		ld hl,sbctrlb + odcursp
 		load_de_hl
 		endm
+
+		macro sblcurst
+		ld a,(sbctrlb + odcurst)
+		endm
+				
+		macro sblcursi
+		ld a,(sbctrlb + odcursi)
+		endm
 		
+		macro sbscursi
+		ld (sbctrlb + odcursi),a
+		endm
+
 		macro sblprvsp
 		ld hl,sbctrlb + odprvsp
 		load_de_hl

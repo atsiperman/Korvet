@@ -57,6 +57,13 @@ sbmain:
 		or a
 		jp z,gend		; exit if is falling down
 
+		sblcurst		
+		cp sbkick		; if is kicking		
+		jp nz,sbmain1
+		call sbdokick	; continue kicking
+		jp gend
+		
+sbmain1:		
         call kbread
 		and 255
 		jp nz,gkifesc
@@ -68,8 +75,8 @@ gkifesc:
 		jp nz,giflt
 		xor a
 		ret z			; exit button - end game	
-		
-giflt:		
+						
+giflt:
 		cp KLEFT
 		jp nz,gifrt
 		call gkleft

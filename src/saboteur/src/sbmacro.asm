@@ -43,8 +43,8 @@
 		db CMAINREG			
 		db 2, 56
 	endm
-
-	macro sbsqthd
+	
+	macro sbsqthd			; header for saboteur when squatting
 		db CMAINREG			
 		db 3, 32
 	endm

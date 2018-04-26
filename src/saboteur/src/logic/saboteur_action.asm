@@ -58,9 +58,53 @@ sbdsqt4:
 ;	saboteur starts kicking
 ;		
 sbstkick:
+		sblddir
+		cp dirrt
+		jp nz,sbstkck1
+							; kick in right direction
+		ld hl,sabkckrb + 1
+		load_de_hl
+		sbscursp			; set first sprite
+		
+		xor a	
+		sbscursi			; set sprite index		
+		jp sbstkcke
+		
+sbstkck1:		
 		ret
 		
+sbstkcke:
+		sbscurst sbkick		; set new state		
+		ret		
 		
+
+;
+;	saboteur is kicking
+;				
 sbdokick:
+		ld a,(sabkckrb)		; load number of sprites		
+		ld c,a				; save in C
+		
+		sblcursi			; load sprite index
+		inc a
+		cp c
+		jp z,sbdokcke		; last sprite, stop kicking
+
+		sbscursi			; set next sprite index
+		
+		ld c,a				; save sprite index
+		sblddir				; load direction
+		cp dirrt
+		jp nz,sbdokck1		; left direction
+		
+		ld a,c
+		ld hl,sbctrlb + odcursp	
+		snewspa sabkckrb			; set address of the next sprite (index in A)
+		ret
+		
+sbdokck1:
+		
+sbdokcke:
+		call sbstopst		; stop and stay
 		ret
 	

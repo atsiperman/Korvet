@@ -16,6 +16,24 @@ sbincrow:
 		ld (hl),a
 		ret
 
+; ---- stop and stay
+;
+sbstopst:
+		sblddir
+		cp dirrt
+		jp nz,sbstpst1
+		ld de, sabsprt
+		sbscursp
+		jp sbstpste
+		
+sbstpst1:
+		ld de,sabsplt
+		sbscursp
+		
+sbstpste:
+		sbscurst sbstay
+		ret
+
 ; ---- logic when no button pressed
 ;
 sbnoactn:
@@ -39,8 +57,8 @@ sbnoact1:
 		ret
 		
 sbnoact2:		
-		cp sbmove
-		jp z,sbnoact3		; player is moving, now stop and stay
+		;cp sbmove
+		;jp z,sbnoact3		; player is moving, now stop and stay
 		
 sbnoact3:
 		pop hl

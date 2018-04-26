@@ -7,8 +7,6 @@ sbmvrttb:
 		db (sbmvrtte - sbmvrttb - 1) / 2
 		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
 sbmvrtte:										
-;
-; end of table
 
 ; table of addresses of saboteur sprites when moving left
 ;
@@ -16,8 +14,6 @@ sbmvlttb:
 		db (sbmvltte - sbmvlttb - 1) / 2
 		dw sabspml1,sabspml2,sabspml3,sabspml4
 sbmvltte:		
-;								
-; end of table
 
 
 ; table of addresses of saboteur sprites when moving on the ladder
@@ -26,9 +22,103 @@ sbladtb:
 		db (sbladtbe - sbladtb - 1) / 2
 		dw sablad1,sablad2
 sbladtbe:
-;								
-; end of table		
+
+; table of addresses of saboteur sprites when kicking
+;		
+sabkckrb:
+		db (sabkckre - sabkckrb - 1) / 2
+		dw sabkckr1, sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1, sabkckr1, sabkckr1
+sabkckre:
+
+
+; saboteur is kicking in right direction
+sabkckr1:		
+		db CMAINREG			
+		db 3, 40
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,56
+		DB 0,0,60
+		DB 0,0,60
+		DB 0,120,28
+		DB 0,252,28
+		DB 0,254,24
+		DB 0,234,28
+		DB 0,228,28
+		DB 0,254,28
+		DB 0,254,60
+		DB 0,126,124
+		DB 6,253,252
+		DB 12,255,248
+		DB 11,255,224
+		DB 7,251,224
+		DB 7,251,224
+		DB 7,255,128
+		DB 15,223,112
+		DB 15,190,248
+		DB 15,142,248
+		DB 15,118,248
+		DB 15,247,72
+		DB 15,241,120
+		DB 7,238,248
+		DB 0,31,116
+		DB 1,191,172
+		DB 0,223,188
+		DB 0,28,184
+		DB 0,11,128
+		DB 0,15,128
+		DB 0,15,128
+		DB 0,7,128
+		DB 0,7,128
+		DB 0,7,64
+		DB 0,2,192
+		DB 0,3,192
+		DB 0,3,128
 		
+sabkckr2:
+		db CMAINREG			
+		db 6, 40
+		DB 0,0,0,0,0,0
+		DB 0,0,0,56,0,0
+		DB 0,0,0,124,0,0
+		DB 0,0,0,252,0,0
+		DB 0,0,1,248,0,0
+		DB 0,0,3,192,0,0
+		DB 0,0,7,192,0,0
+		DB 0,0,31,128,0,0
+		DB 1,240,63,0,0,0
+		DB 3,248,126,0,0,0
+		DB 3,168,252,0,0,0
+		DB 3,145,248,0,0,0
+		DB 3,251,240,0,0,0
+		DB 3,255,224,0,0,0
+		DB 1,255,208,0,0,0
+		DB 1,255,232,0,0,0
+		DB 2,254,232,0,0,0
+		DB 2,255,116,0,0,0
+		DB 3,127,244,0,0,0
+		DB 2,199,248,0,0,0
+		DB 2,187,251,255,159,135
+		DB 0,187,255,255,254,251
+		DB 0,221,251,255,254,251
+		DB 0,93,247,255,255,255
+		DB 0,110,231,255,30,0
+		DB 0,47,79,252,0,0
+		DB 0,55,95,192,0,0
+		DB 0,31,126,7,240,0
+		DB 0,14,127,7,240,0
+		DB 0,0,63,15,224,0
+		DB 0,0,63,159,0,0
+		DB 0,0,31,174,0,0
+		DB 0,0,15,232,0,0
+		DB 0,0,7,232,0,0
+		DB 0,0,3,240,0,0
+		DB 0,0,1,224,0,0
+		DB 0,0,0,192,0,0
+		DB 0,0,0,0,0,0
+		DB 0,0,0,0,0,0
+		DB 0,0,0,0,0,0
 		
 ; saboteur is falling down
 sabfall:
