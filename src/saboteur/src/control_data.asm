@@ -80,13 +80,19 @@ sbctrlb:
 sbhealth:
 		db HEALMAX			; 0, current health
 		db 0				; 1, old value
-			
+
+		; ---- current state
+		macro sblcurst
+		ld a,(sbctrlb + odcurst)
+		endm
+
 		macro sbscurst newstate
 		ld hl,sbctrlb + odcurst
 		ld a,newstate
 		ld (hl),a
 		endm
 			
+		; ---- current sprite 
 		macro sbscursp
 		ld hl,sbctrlb + odcursp
 		ld (hl),e
@@ -98,11 +104,8 @@ sbhealth:
 		ld hl,sbctrlb + odcursp
 		load_de_hl
 		endm
-
-		macro sblcurst
-		ld a,(sbctrlb + odcurst)
-		endm
 				
+		; ---- current sprite index
 		macro sblcursi
 		ld a,(sbctrlb + odcursi)
 		endm
@@ -111,11 +114,13 @@ sbhealth:
 		ld (sbctrlb + odcursi),a
 		endm
 
+		; ---- previous sprite
 		macro sblprvsp
 		ld hl,sbctrlb + odprvsp
 		load_de_hl
 		endm
 		
+		; ---- current screen row
 		macro sblcursr
 		ld a,(sbctrlb + odcursr)
 		endm
@@ -123,7 +128,17 @@ sbhealth:
 		macro sbscursr
 		ld (sbctrlb + odcursr),a
 		endm
+
+		; ---- current screen column
+		macro sblcursc
+		ld a,(sbctrlb + odcursc)
+		endm
 		
+		macro sbscursc
+		ld (sbctrlb + odcursc),a
+		endm
+
+		; ---- direction
 		macro sblddir
 		ld a,(sbctrlb + oddir)
 		endm

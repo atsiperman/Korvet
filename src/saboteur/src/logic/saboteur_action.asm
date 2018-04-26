@@ -63,18 +63,21 @@ sbstkick:
 		jp nz,sbstkck1
 							; kick in right direction
 		ld hl,sabkckrb + 1
-		load_de_hl
-		sbscursp			; set first sprite
-		
-		xor a	
-		sbscursi			; set sprite index		
 		jp sbstkcke
 		
 sbstkck1:		
-		ret
+		ld hl,sabkcklb + 1
 		
-sbstkcke:
+sbstkcke:		
+		load_de_hl
+		sbscursp			; set first sprite		
+		xor a	
+		sbscursi			; set sprite index
 		sbscurst sbkick		; set new state		
+		
+		sblcursr			; move him up to show the jump
+		dec a
+		sbscursr
 		ret		
 		
 
@@ -100,11 +103,41 @@ sbdokick:
 		ld a,c
 		ld hl,sbctrlb + odcursp	
 		snewspa sabkckrb			; set address of the next sprite (index in A)
+
+		ld c,a				; save sprite index
+		cp 6				; back to initial position
+		jp z,sbdokck3		; correct X position
+		cp 2
+		jp z,sbdokck2		; phase change, correct X position
 		ret
 		
 sbdokck1:
+		ld a,c
+		ld hl,sbctrlb + odcursp	
+		snewspa sabkcklb			; set address of the next sprite (index in A)
+
+		ld c,a				; save sprite index
+		cp 6				; back to initial position
+		jp z,sbdokck3		; correct X position
+		cp 2
+		ret nz
+
+sbdokck2:		
+		sblcursc			; correct X position, move sprite to the left
+		dec a
+		sbscursc
+		ret
 		
-sbdokcke:
+sbdokck3:		
+		sblcursc			; correct X position, move sprite to the right
+		inc a
+		sbscursc
+		ret
+		
+sbdokcke:	
+		sblcursr			; move him down after jump
+		inc a
+		sbscursr
 		call sbstopst		; stop and stay
 		ret
 	

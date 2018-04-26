@@ -23,14 +23,110 @@ sbladtb:
 		dw sablad1,sablad2
 sbladtbe:
 
-; table of addresses of saboteur sprites when kicking
+; table of addresses of saboteur sprites when kicking right
 ;		
 sabkckrb:
 		db (sabkckre - sabkckrb - 1) / 2
-		dw sabkckr1, sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1, sabkckr1, sabkckr1
+		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
 sabkckre:
 
+; table of addresses of saboteur sprites when kicking left
+;		
+sabkcklb:
+		db (sabkckle - sabkcklb - 1) / 2
+		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
+sabkckle:
 
+; saboteur is kicking in left direction
+sabkckl1:		
+		db CMAINREG			
+		db 3, 40
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,0,0
+		DB 28,0,0
+		DB 60,0,0
+		DB 60,0,0
+		DB 56,30,0
+		DB 56,63,0
+		DB 24,127,0
+		DB 56,87,0
+		DB 56,39,0
+		DB 56,127,0
+		DB 60,127,0
+		DB 62,126,0
+		DB 63,191,96
+		DB 31,255,48
+		DB 7,255,208
+		DB 7,223,224
+		DB 7,223,224
+		DB 1,255,224
+		DB 14,251,240
+		DB 31,125,240
+		DB 31,113,240
+		DB 31,110,240
+		DB 18,239,240
+		DB 30,143,240
+		DB 31,119,224
+		DB 46,248,0
+		DB 53,253,128
+		DB 61,251,0
+		DB 29,56,0
+		DB 1,208,0
+		DB 1,240,0
+		DB 1,240,0
+		DB 1,224,0
+		DB 1,224,0
+		DB 2,224,0
+		DB 3,64,0
+		DB 3,192,0
+		DB 1,192,0
+
+
+sabkckl2:
+		db CMAINREG			
+		db 6, 40
+		DB 0,0,0,0,0,0
+		DB 0,0,28,0,0,0
+		DB 0,0,62,0,0,0
+		DB 0,0,63,0,0,0
+		DB 0,0,31,128,0,0
+		DB 0,0,3,192,0,0
+		DB 0,0,3,224,0,0
+		DB 0,0,1,248,0,0
+		DB 0,0,0,252,15,128
+		DB 0,0,0,126,31,192
+		DB 0,0,0,63,21,192
+		DB 0,0,0,31,137,192
+		DB 0,0,0,15,223,192
+		DB 0,0,0,7,255,192
+		DB 0,0,0,11,255,128
+		DB 0,0,0,23,255,128
+		DB 0,0,0,23,127,64
+		DB 0,0,0,46,255,64
+		DB 0,0,0,47,254,192
+		DB 0,0,0,31,227,64
+		DB 225,249,255,223,221,64
+		DB 223,127,255,255,221,0
+		DB 223,127,255,223,187,0
+		DB 255,255,255,239,186,0
+		DB 0,120,255,231,118,0
+		DB 0,0,63,242,244,0
+		DB 0,0,3,250,236,0
+		DB 0,15,224,126,248,0
+		DB 0,15,224,254,112,0
+		DB 0,7,240,252,0,0
+		DB 0,0,249,252,0,0
+		DB 0,0,117,248,0,0
+		DB 0,0,23,240,0,0
+		DB 0,0,23,224,0,0
+		DB 0,0,15,192,0,0
+		DB 0,0,7,128,0,0
+		DB 0,0,3,0,0,0
+		DB 0,0,0,0,0,0
+		DB 0,0,0,0,0,0
+		DB 0,0,0,0,0,0
+		
 ; saboteur is kicking in right direction
 sabkckr1:		
 		db CMAINREG			
