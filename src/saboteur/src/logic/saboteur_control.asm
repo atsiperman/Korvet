@@ -152,7 +152,6 @@ sbstmv2:
 sbstmve:
 		pop hl
 		pop bc
-		scurst sbstopm		; stop moving
 		ret
 ;
 ; ----	end of sbstmove:

@@ -8,8 +8,8 @@ sbjump	EQU 4				; jumping
 sbfall	EQU 5				; falling down
 sbladr	EQU 6				; moving on the ladder
 sbdead	EQU 7				; dead
-sbstopm EQU 8				; stop moving
-sbsquat EQU 9				; squatting
+sbsquat EQU 8				; squatting
+sbshjmp EQU 9				; short jump
 
 ; ---- dog state
 ;

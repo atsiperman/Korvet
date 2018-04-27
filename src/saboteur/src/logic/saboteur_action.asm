@@ -66,6 +66,9 @@ sbstkick:
 		jp sbstkcke
 		
 sbstkck1:		
+		sblcursc			; correct X position when kicking in left direction, move sprite to the right
+		inc a
+		sbscursc
 		ld hl,sabkcklb + 1
 		
 sbstkcke:		
@@ -105,9 +108,9 @@ sbdokick:
 		snewspa sabkckrb			; set address of the next sprite (index in A)
 
 		ld c,a				; save sprite index
-		cp 6				; back to initial position
+		cp SBKCKI2			; back to initial position
 		jp z,sbdokck3		; correct X position
-		cp 2
+		cp SBKCKI1
 		jp z,sbdokck2		; phase change, correct X position
 		ret
 		
@@ -115,12 +118,13 @@ sbdokck1:
 		ld a,c
 		ld hl,sbctrlb + odcursp	
 		snewspa sabkcklb			; set address of the next sprite (index in A)
-
+		
 		ld c,a				; save sprite index
-		cp 6				; back to initial position
-		jp z,sbdokck3		; correct X position
-		cp 2
-		ret nz
+		cp SBKCKI1
+		jp z,sbdokck4		; correct X position when first phase is changed		
+		cp SBKCKI2			; back to initial position
+		jp z,sbdokck5		; correct X position
+		ret
 
 sbdokck2:		
 		sblcursc			; correct X position, move sprite to the left
@@ -133,11 +137,29 @@ sbdokck3:
 		inc a
 		sbscursc
 		ret
+
+sbdokck4:
+		sblcursc			; correct X position, move sprite to the left on two columns
+		dec a
+		dec a
+		sbscursc
+		ret
+
+sbdokck5:
+		sblcursc			; correct X position, move sprite to the left on two columns
+		inc a
+		inc a
+		sbscursc
+		ret
 		
 sbdokcke:	
 		sblcursr			; move him down after jump
 		inc a
 		sbscursr
 		call sbstopst		; stop and stay
-		ret
+		
+		sblddir				; load direction
+		cp dirrt
+		ret z
+		jp sbdokck2			; go to initial column
 	

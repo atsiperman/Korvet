@@ -37,6 +37,98 @@ sabkcklb:
 		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
 sabkckle:
 
+SBKCKI1 EQU 2		; index of the sprite when 1-st phase changes 
+SBKCKI2 EQU 6		; index of the sprite when 2-nd phase changes 
+
+; table of addresses of saboteur sprites when jumping right
+;		
+sabjmprb:
+		db (sabjmpre - sabjmprb - 1) / 2
+		dw sabjmpr1, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr1
+sabjmpre:
+
+; saboteur is jumpin in right direction
+sabjmpr1:		
+		db CMAINREG			
+		db 4, 48
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,0,0,0
+		DB 0,3,192,0
+		DB 0,7,224,0
+		DB 0,7,224,0
+		DB 0,6,0,0
+		DB 0,7,0,0
+		DB 0,55,224,0
+		DB 0,207,192,0
+		DB 1,191,176,0
+		DB 3,127,248,0
+		DB 2,255,252,0
+		DB 1,255,254,0
+		DB 3,255,223,0
+		DB 7,239,223,128
+		DB 7,159,183,192
+		DB 15,127,227,192
+		DB 15,127,225,224
+		DB 14,255,224,240
+		DB 15,127,192,112
+		DB 7,127,222,120
+		DB 11,159,255,56
+		DB 13,239,255,120
+		DB 14,247,255,120
+		DB 13,119,255,48
+		DB 1,143,254,0
+		DB 1,255,220,0
+		DB 1,251,60,0
+		DB 1,240,120,0
+		DB 3,240,112,0
+		DB 3,224,224,0
+		DB 3,193,192,0
+		DB 3,193,128,0
+		DB 7,193,128,0
+		DB 7,129,128,0
+		DB 7,129,0,0
+		DB 7,0,0,0
+		DB 15,0,0,0
+		DB 14,0,0,0
+		DB 14,0,0,0
+		DB 28,0,0,0
+		DB 28,0,0,0
+		DB 24,0,0,0
+		DB 56,0,0,0
+		DB 56,0,0,0
+		DB 120,0,0,0
+		DB 120,0,0,0
+
+sabjmpr2:
+		db CMAINREG			
+		db 3, 24
+		DB 0,0,0
+		DB 0,0,0
+		DB 0,1,224
+		DB 0,3,240
+		DB 0,3,112
+		DB 0,6,48
+		DB 0,15,16
+		DB 1,55,160
+		DB 1,123,192
+		DB 3,123,0
+		DB 3,251,192
+		DB 2,246,56
+		DB 2,237,156
+		DB 2,239,220
+		DB 0,247,250
+		DB 1,123,198
+		DB 1,188,54
+		DB 1,223,244
+		DB 1,199,224
+		DB 0,184,0
+		DB 0,125,128
+		DB 0,115,0
+		DB 0,102,0
+		DB 0,0,0
+		
+		
 ; saboteur is kicking in left direction
 sabkckl1:		
 		db CMAINREG			
