@@ -33,7 +33,7 @@ gaction1:
 		pop de				; load control block to DE
 		jp (hl)				; call object action procedure
 		
-gaction2:		
+gaction2:					; it will return on this line
 		pop af
 		pop hl
 		
@@ -95,40 +95,6 @@ gifdown:
 
 gend:		
 		ld a,1
-		ret
-
-; ---- checks if saboteur can do any actions
-; result: A - 0 no actions can be done (saboteur is currently falling, jumping etc.)
-;		
-sbcanact:
-		call chkfalng
-		or a
-		ret z			; exit if is falling down
-
-		sblcurst		
-		cp sbkick		; if is kicking		
-		jp nz,sbcnact1
-		call sbdokick	; continue kicking
-		jp sbcnactn
-		
-sbcnact1:
-		cp sbjump
-		jp nz,sbcnact2
-		; call sbdojp
-		jp sbcnactn
-		
-sbcnact2:
-		cp sbshjmp
-		jp nz, sbcnacty
-		; call sbdoshjp
-		jp sbcnactn
-
-sbcnacty:		
-		or 1			; exit with non zero to allow actions
-		ret
-		
-sbcnactn:		
-		xor a
 		ret
 		
 ; ----- move up
