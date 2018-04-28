@@ -260,26 +260,14 @@ sbdoladr:
 		
 		ld a,e
 		
-		cp dirup
-		jp nz,sbdolad1		; not up, go down	
+		cp dirdn
+		jp z,sbdolad1		; go down	
 				
 		ld a,c
 		or a
-		jp z,sbdolad2		; first row -> change screen
-		
+		jp z,sbdolad2		; first row -> change screen		
 		dec c				; go up
 		ld (hl),c			; save new row
-		
-		pop hl
-		push hl
-		ldcurp				; address in screen memory in DE
-		ld a,d				; move one row up
-		sub 2
-		ld d,a
-		dec hl
-		dec hl
-		savem_hl_de
-				
 		jp sbdolad4
 		
 sbdolad1:					; go down
@@ -287,22 +275,11 @@ sbdolad1:					; go down
 		ld a,ROWNUM - (SBHI+1)
 		cp a,c
 		jp z,sbdolad3		; last row -> change screen
-		ld (hl),c			; save new row
-
-		pop hl
-		push hl
-		ldcurp				; address in screen memory in DE
-		ld a,d				; move one row down
-		add 2
-		ld d,a
-		dec hl
-		dec hl
-		savem_hl_de
-		
+		ld (hl),c			; save new row		
 		jp sbdolad4
 		
-sbdolad2:		
-		call goscrnup		; change screen
+sbdolad2:					; change screen
+		call goscrnup		
 		or a
 		jp z,sbdolade		; screen not changed
 		
@@ -311,19 +288,7 @@ sbdolad2:
 		ld a,ROWNUM
 		sub SBHI+1		; row num on the new screen
 		scursr	
-		
-		dec hl
-		ld e,(hl)
-		ld d,0
-		ld hl,scrbuf
-		add hl,de			; new address in screen memory for current column
-		ld bc,(ROWNUM-(SBHI+1))*8*COLNUM
-		add hl,bc
-		ex de,hl
-		pop hl
-		push hl
-		scurp				
-				
+						
 		jp sbdolad4
 		
 sbdolad3:
@@ -336,18 +301,6 @@ sbdolad3:
 		xor a				; row num on the new screen				
 		scursr				
 		
-		dec hl
-		ld e,(hl)
-		ld d,0
-		ld hl,scrbuf
-		add hl,de			; new address in screen memory in top row
-		ex de,hl
-
-		pop hl
-		push hl
-		scurp				
-				
-
 sbdolad4:
 		pop hl
 		push hl
