@@ -1,3 +1,3 @@
-rem start E:\G\retropc\emu\EMU.exe
-start E:\G\retropc\Korvet\SPCKorvet.exe 
+rem start D:\G\retropc\emu\EMU.exe
+start D:\G\retropc\Korvet\SPCKorvet.exe 
 

@@ -270,7 +270,7 @@ gkdne:
 ; ----- move horizontally
 ; args:
 ;		A - direction to move
-;gkright:
+;
 gkmoveh:
 		ld c,a				; save direction in C
 		sblddir

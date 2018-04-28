@@ -19,14 +19,10 @@ sbstmove:
 		cp c
 		jp nz,sbstmv1
 		call sbstgort		
-		or a
-		jp z,sbstmve
 		jp sbstmv2
 		
 sbstmv1:				
 		call sbstgolt
-		or a
-		jp z,sbstmve
 		
 sbstmv2:				
 							; set new state
@@ -35,12 +31,7 @@ sbstmv2:
 		ld de,odcurst
 		add hl,de
 		ld (hl),b
-		ret
-		
-sbstmve:
-		pop hl
-		pop bc
-		ret
+		ret		
 ;
 ; ----	end of sbstmove:
 ;
@@ -374,10 +365,10 @@ sbchknpr:
 		
 		ld b,0
 		ld c,d
-		add hl,bc			; X + 1 position - right side + 1
+		add hl,bc			; X + 1 position (right side + 1)
 		
 		ld c,e
-		inc c
+		;inc c
 		ld de,COLNUM
 							; calculate Y + 1, head's row
 sbchkn1:					
@@ -402,7 +393,7 @@ sbchkn2:
 		dec c
 		jp nz,sbchkn2		
 		
-		ld c,2				; go down
+		ld c,3				; go down
 		ld de,COLNUM
 sbchkn3:		
 		add hl,de
@@ -512,16 +503,15 @@ sbchknpl:
 		add hl,bc			; X next position
 		
 		ld c,e
-		inc c				
+		;inc c				
 		ld de,COLNUM
-							; calculate Y + 1, head's row
-sbchkln1:					
+							
+sbchkln1:					; calculate Y, head's row	
 		add hl,de
 		dec c
 		jp nz,sbchkln1
 		
-		pop bc
-		;ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
+		pop bc				; repeat from the top point to the 3 blocks above the floor
 sbchkln2:		
 							; X, Y - top-left or top-right point BEFORE the saboteur
 		push hl				
@@ -537,7 +527,7 @@ sbchkln2:
 		dec c
 		jp nz,sbchkln2		
 		
-		ld c,2				; go down
+		ld c,3				; go down
 		ld de,COLNUM
 sbchkl3:		
 		add hl,de
@@ -550,7 +540,7 @@ sbchkl3:
 
 		ldsprt
 		and bwall
-		jp z,sbchkl1
+		jp z,sbchkl1		; not wall
 							; upstairs
 		pop hl
 		pop hl				; control block
