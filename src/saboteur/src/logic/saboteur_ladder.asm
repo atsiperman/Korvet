@@ -142,6 +142,7 @@ sbfalle:
 ;		C  - direction
 ; result:
 ;		A - 0 if not a ladder
+;			index of the left column of the ladder if success
 ;
 ;		The idea is to check tiles from left to right position according to current sprite width.
 ;       Success - if two tiles of ladder type found.
@@ -193,29 +194,42 @@ sbcanld2:
 		ld c,SBWI-1			; check width-1 for left direction (skip position behind)
 		sblddir
 		cp dirrt
-		jp z,sbcanld3_		
-		jp sbcanld3
-		
-sbcanld3_:		
+		jp nz,sbcanld3
+
+		inc e				; skip column
 		inc hl				; skip position behind (first column for right direction)
 		
 sbcanld3:
+		push de
+
+sbcanld4:
 		push hl				; check tile type in X,Y
 		ldsprt
 		pop hl
 		and bladder		
-		jp z,sbcanld4		; if not a ladder then continue
+		jp z,sbcanld7		; if not a ladder then continue
 							; else check if more than one tile discovered
 		rra					; bladder = 2, so shift it right
 		and b					
-		ret nz				; not zero if B already contains 1, then success
+		jp z,sbcanld5				
+							; not zero if B already contains 1, then success
+							; calculate left ladder column
+		pop de
+		ld a,SBWI-1
+		sub c
+		dec a
+		add e
+		ret
+		
+sbcanld5:		
 		inc b				; increase counter
 		
-sbcanld4:		
+sbcanld7:
 		inc hl				; next column
 		dec c
-		jp nz,sbcanld3		; continue check
+		jp nz,sbcanld4		; continue check
 		
+		pop de				; clear stack
 		xor a				
 		ret 
 ;
@@ -223,49 +237,34 @@ sbcanld4:
 ;
 
 ; ----- starts movement on the ladder
-; args: HL - address of control block
+; args: 
+;		A  - column index to start (from cangolad)
 ;		B  - new state
 ;		C  - direction
 ;		
 sbstladr:
-		push hl
-		ld de,odcurst		
-		add hl,de
+		sbscursc
 		
-		ld (hl),sbladr		; save state
+		sbscurst sbladr
 		
-		inc hl
-		ld (hl),c			; save direction
-				
-		inc hl				
-		inc hl				; skip prev position
-		inc hl				; current position
+		ld a,c
+		sbsdir				; save direction
+
+		ld hl,sbctrlb
 		
-		push hl				; address of the screen memory
-		load_de_hl
-		inc de				; one column right
-		ld a,d				; move one row up
-		sub 2
-		ld d,a		
-		pop hl
-		savem_hl_de			; save new position
+		cp dirup		
+		jp z,sbstlad1
+		call sbincrow
+		
+sbstlad1:
+		call sbdecrow
 		
 		ld de,sablad1		
-		savem_hl_de			; save address of the first sprite
+		sbscursp
 		
-		ld (hl),0			; index of the sprite
-		inc hl
-		
-		ld a,(hl)
-		inc a
-		ld (hl),a			; one column right
-		
-		inc hl
-		ld a,(hl)
-		dec a
-		ld (hl),a			; one row upper
-		
-		pop hl		
+		xor a
+		sbscursi			; index of the sprite
+				
 		ret		
 ;
 ; --- end of sbstladr

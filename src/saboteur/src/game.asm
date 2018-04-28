@@ -79,31 +79,37 @@ gifupdo:
 		jp gend
 		
 giflt:
-		cp KLEFT
-		jp nz,gifrt
+		ld c,a
+		and KLEFT
+		jp z,gifrt
 		ld a,dirlt
 		call gkmoveh
 		jp gend
 		
 gifrt:
-		cp KRIGHT
-		jp nz,gifup
+		ld a,c
+		and KRIGHT
+		jp z,gifup
 		ld a,dirrt
 		call gkmoveh
 		jp gend
 		
 gifup:
-		cp KUP
-		jp nz,gifdown
+		ld a,c
+		and KUP
+		jp z,gifdown
 		call gkup
 		jp gend		
 
 gifdown:
-		cp KDOWN
-		jp nz,gend
+		ld a,c
+		and KDOWN
+		jp z,gifspace
 		call gkdown
-		jp gend		
+		jp gend
 
+gifspace:
+		; action
 gend:		
 		ld a,1
 		ret
@@ -115,7 +121,7 @@ gend:
 ;
 gkupact:
 		and KLEFT
-		jp z,gkupact1
+		jp nz,gkupact1
 							; prepare code for right direction
 		ld a,dirrt
 		jp gkupact2		
