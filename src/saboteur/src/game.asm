@@ -273,31 +273,45 @@ gkdne:
 ;
 gkmoveh:
 		ld c,a				; save direction in C
-		sblddir
-		cp c		
-		jp z,gkright1		; continue, if correct direction
 
-		ld a,c
-		sbsdir
-		call sbstopst
-		ret
-		
-gkright1:		
-		ld hl,sbctrlb
+		;ld hl,sbctrlb
 		sblcurst			; load state to A
 		
 		cp sbladr
-		jp nz,gkmvstay		; not on the ladder, check next state
-		;call sbstplad		 ; test if can leave ladder
-		;or a
-		;jp nz,gkmvstay			
-		;call sbstmove		; leave ladder		
-		call sbstopst
-		ret
+		jp nz,gkright1		; not on the ladder, check next state
 		
-gkmvstay:				
+		push bc				; save direction
+		ld a,c
+		call sbstplad		; test if can leave ladder
+		pop bc				; restore direction / clear stack
+		or a
+		ret z				; can't move, return
+
+		
+		ld a,c				; switch to stay mode in required direction
+		sbsdir
+		push bc
+		call sbleavld		; make coordinates fix
+		pop bc
+		jp gkmvstmv
+
+gkright1:
+		
+		sblddir
+		cp c		
+		jp z,gkmvstay		; continue, if correct direction
+
+		ld a,c				; else switch direction and stay
+		sbsdir
+		call sbstopst
+		ret		
+		
+gkmvstay:
+		sblcurst
 		cp sbstay			
 		jp nz,gkrmove		; not staying, check next state
+
+gkmvstmv:					; start movement
 		ld b,sbmove			; B - state, C - direction
 		call sbstmove
 		ret

@@ -60,6 +60,9 @@ SROWNUM 	EQU 1			; index of the start row
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
 
+SBWILAD		EQU 2			; width of the saboteur sprite for ladder
+SBHILAD		EQU 7			; height of the saboteur sprite for ladder
+
 HLCOLRON	EQU	CRED  ; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
 

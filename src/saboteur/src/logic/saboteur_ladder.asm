@@ -380,4 +380,70 @@ sbdolade:
 ; --- end of sbdoladr
 ;
 		
+; ----- checks if it is possible to leave ladder
+; args:
+;		A - direction to move (left or right)
+; result:
+;		A - 0 if can not leave ladder
+;		
+sbstplad:
+		ld c,a				; save direction
+		sblcursr			; load current row
+		add SBHILAD	- 1		; get one level up from the floor 
+		
+		ld hl,shadscr		
+		ld de,COLNUM
+		
+sbstpld1:					; calculate Y for floor level
+		add hl,de
+		dec a
+		jp nz,sbstpld1
+		
+		sblcursc			; load current column		
+		dec a
+		ld e,a		
+							; calculate X - 1
+		add hl,de
+		
+		sblddir
+		cp dirlt
+		jp z,sbstpld3
+		ld de,SBWILAD + 1
+		add hl,de			; calculate X position for right direction
+		
+sbstpld3:		
+		push hl
+		ldsprt				; Y - 1
+		pop hl
+		and bwall
+		jp nz,sbstpldn		; wall above the floor, can't move there		
+		
+		ld de,COLNUM
+		add hl,de			; Y = Y + 1
+		ldsprt				
+		and bwall
+		ret nz				; wall on the floor, can move
+		
+sbstpldn:
+		xor a
+		ret
+		
+; ----- swicthes to staying position from ladder 
+; args:
+;		A - direction to move (left or right)
+;		
+sbleavld:
+		cp dirrt
+		jp z,sblavld1
+		
+		sblcursc			; shift 1 col left for left direction
+		dec a
+		sbscursc
+
+sblavld1:
+		ld hl,sbctrlb
+		call sbincrow		; sprite has less height	
+		ret
+		
+		
 		
