@@ -184,8 +184,12 @@ gkup2:
 		pop bc
 		pop hl		
 		or a
-		jp z,gkup3			; can not continue movement
+		jp z,gkup2_			; can not continue movement
 		call sbdoladr		; continue movement
+		jp gkupe
+		
+gkup2_:	
+		call sbstplna
 		jp gkupe		
 			
 gkup3:		
@@ -274,7 +278,6 @@ gkdne:
 gkmoveh:
 		ld c,a				; save direction in C
 
-		;ld hl,sbctrlb
 		sblcurst			; load state to A
 		
 		cp sbladr

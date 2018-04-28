@@ -75,27 +75,22 @@ sbnoactn:
 		push hl
 		
 		ldstate
+		pop hl
 		
 		cp sbstay
 		jp nz,sbnoact1
 							; player is staying, no action									
-		pop hl		
 		call hlinc			; update health 
 		ret
 
 sbnoact1:		
 		cp sbladr			
 		jp nz,sbnoact2
-							; player is on the ladder, no action
-		pop hl		
+							; player is on the ladder
+		call sbstplna		
 		ret
 		
 sbnoact2:		
-		;cp sbmove
-		;jp z,sbnoact3		; player is moving, now stop and stay
-		
-sbnoact3:
-		pop hl
 		push hl
 		lddir
 		pop hl
@@ -144,6 +139,16 @@ sbnoacte:
 		pop hl		
 		ret
 		
-		
-		
-		
+
+; ---- check if can not move on the ladder up and stop if not
+;		
+sbstplna:			
+		ld a,dirrt
+		call sbstplad		; can leave ladder ?
+		or a
+		ret z
+		;jp z,gkupe			; no
+		sblddir
+		call sbleavld		; if yes - stop and stay
+		call sbstopst
+		ret

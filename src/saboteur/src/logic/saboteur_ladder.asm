@@ -143,57 +143,81 @@ sbfalle:
 ; result:
 ;		A - 0 if not a ladder
 ;
+;		The idea is to check tiles from left to right position according to current sprite width.
+;       Success - if two tiles of ladder type found.
+; 		Skip left column if he's looking in right direction or right column if looking on the left side.
 cangolad:
-		push bc				; save direction
+		sblcurst
+		ld b,a
 		
-		ldcursc
-		ld e,a				; E - column
-		inc e				; next column	
-		inc hl
-		ld a,(hl)			; A - row
+		push bc				; save state and direction
+		sblcursp			; DE - sprite address
+		call ldsprht		; load sprite height
+		ld e,a				; save height in E
 		
-		ld hl,shadscr
-		
-		ld d,0
-		add hl,de			; X next position
+		sblcursr
+		add e				; Y + 1 from bottom position (for down direction by default)
+		;inc a				; Y = Y + 1 for down direction
+		ld b,a				; save Y in B
 				
-		add a,SBHI-1		; add height to reach floor top
-		
-		pop bc				; pop direction
-		
-		ld e,a				; save counter
-		
-		ld a,dirdn
-		cp c		
-		jp nz,sbcanld1		; if not down start calculation
-
-		inc e 				; if down then check floor level
+		ld a,c
+		cp dirdn
+		jp z,sbcanld1
+							; moving up
+		dec b				; Y = Y - 1 (feet level)
 		
 sbcanld1:
+		ld hl,shadscr
+		ld de,COLNUM
+
+sbcanld2:
+		add hl,de
+		dec b
+		jp nz,sbcanld2		; calculate address of Y position
+				
+		sblcursc			; load column
+		ld e,a
+		add hl,de			; calculate X position
 		
-		ld a,sbladr			
-		cp b
-		jp nz,sbcanld2
+		pop bc				; restore state and direction
+		ld a,b				; save state
 		
-		inc e 				; if already moving then height is bigger		
+		ld b,0				; B will keep counter of ladder tiles found
 		
-sbcanld2:		
-		ld bc,COLNUM
-							; calculate Y 
-sbcanld3:	
-		add hl,bc
-		dec e
-		jp nz,sbcanld3
+		ld c,SBWILAD		; width on the ladder by default
+		cp sbladr
+		jp z,sbcanld3		; we're on the ladder, 
 		
-		push hl
+							; check width if not on the ladder yet
+							
+		ld c,SBWI-1			; check width-1 for left direction (skip position behind)
+		sblddir
+		cp dirrt
+		jp z,sbcanld3_		
+		jp sbcanld3
+		
+sbcanld3_:		
+		inc hl				; skip position behind (first column for right direction)
+		
+sbcanld3:
+		push hl				; check tile type in X,Y
 		ldsprt
 		pop hl
-		and bladder
-		ret nz
-				
-		xor a
-		ret 		
+		and bladder		
+		jp z,sbcanld4		; if not a ladder then continue
+							; else check if more than one tile discovered
+		rra					; bladder = 2, so shift it right
+		and b					
+		ret nz				; not zero if B already contains 1, then success
+		inc b				; increase counter
 		
+sbcanld4:		
+		inc hl				; next column
+		dec c
+		jp nz,sbcanld3		; continue check
+		
+		xor a				
+		ret 
 ;
 ; --- end of sbcanlad
 ;
@@ -381,7 +405,7 @@ sbstpldn:
 		xor a
 		ret
 		
-; ----- swicthes to staying position from ladder 
+; ----- switches to staying position from ladder 
 ; args:
 ;		A - direction to move (left or right)
 ;		
