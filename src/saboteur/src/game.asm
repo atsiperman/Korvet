@@ -3,9 +3,8 @@
 ; result: A - 0 to stop
 
 gmain:
-		call gaction
-		
-		call sbmain
+		call gaction		; process objects		
+		call sbmain			; process saboteur
 		ret
 
 ; ---- calls action logic for other objects
@@ -65,20 +64,32 @@ sbmain:
 				
 gkifesc:		
 		cp KESC
-		jp nz,giflt
+		jp nz,gifrtup
 		xor a
 		ret z			; exit button - end game	
 						
+gifrtup:				
+		cp KRIGHT + KUP	; right + up
+		jp z,gifupdo
+		cp KLEFT + KUP	; left + up
+		jp nz,giflt
+		
+gifupdo:
+		call gkupact
+		jp gend
+		
 giflt:
 		cp KLEFT
 		jp nz,gifrt
-		call gkleft
+		ld a,dirlt
+		call gkmoveh
 		jp gend
 		
 gifrt:
 		cp KRIGHT
 		jp nz,gifup
-		call gkright
+		ld a,dirrt
+		call gkmoveh
 		jp gend
 		
 gifup:
@@ -96,7 +107,57 @@ gifdown:
 gend:		
 		ld a,1
 		ret
+
+; ----- up and right or left
+;
+; args: 
+;		A - keys pressed
+;
+gkupact:
+		and KLEFT
+		jp z,gkupact1
+							; prepare code for right direction
+		ld a,dirrt
+		jp gkupact2		
 		
+gkupact1:					; prepare code for left direction
+		ld a,dirlt
+							; main logic
+gkupact2:
+		ld (gkupact3+1),a		; set arguments for further calls
+		ld (gkupact22 + 1),a
+
+		sblcurst
+		cp sbmove
+		jp nz,gkupact4		; not moving, check another state
+							
+							; else start jumping in required direction
+		sblddir
+		
+gkupact3:		
+		cp dirrt			; direction is set on entry
+		jp nz,gkupact22		; if not correct direction then just process right/left button		
+		;call sbstjmp		 ; start jumping
+		ret
+
+gkupact4:
+		cp sbstay
+		jp nz,gkupact5		; not staying, check another state
+		;call sbstshjp		 ; start short jump
+		ret
+		
+gkupact5:
+		cp sbladr
+		jp nz,gkupact22		; if not moving on the ladder, process right direction 		
+		call gkup			; else process up if yes
+		ret
+		
+gkupact22:					; process right button in case of invalid key for current state
+		ld a,dirrt			; direction is set on entry
+		call gkmoveh
+		ret
+				
+			
 ; ----- move up
 ;
 gkup:
@@ -204,62 +265,47 @@ gksquat:
 gkdne:
 		pop hl
 		ret
-		;nextscreen downscrd
 		
-; ----- move left
-;
-gkleft:	
-		ld hl,sbctrlb
-		ldstate				; load state to A
 
-		ld bc,(sbmove << 8) + dirlt
-		
-		cp sbstay			; start movement if is staying
-		jp nz, gklmove
-		call sbstmove
-		jp gklefte
-		
-gklmove:
-		cp sbmove
-		jp nz,gkllad
-		call sbdomove		; continue movement
-		jp gklefte
+; ----- move horizontally
+; args:
+;		A - direction to move
+;gkright:
+gkmoveh:
+		ld c,a				; save direction in C
+		sblddir
+		cp c		
+		jp z,gkright1		; continue, if correct direction
 
-gkllad:
-		cp sbladr
-		jp nz,gklefte
-		call sbstmove		; leave ladder
-		jp gklefte
-		
-gklefte:		
+		ld a,c
+		sbsdir
+		call sbstopst
 		ret
-
-; ----- move right
-; 
-gkright:
-		ld hl,sbctrlb
-		ldstate				; load state to A
-
-		ld bc,(sbmove << 8) + dirrt
 		
+gkright1:		
+		ld hl,sbctrlb
+		sblcurst			; load state to A
+		
+		cp sbladr
+		jp nz,gkmvstay		; not on the ladder, check next state
+		;call sbstplad		 ; test if can leave ladder
+		;or a
+		;jp nz,gkmvstay			
+		;call sbstmove		; leave ladder		
+		call sbstopst
+		ret
+		
+gkmvstay:				
 		cp sbstay			
-		jp nz, gkrmove
+		jp nz,gkrmove		; not staying, check next state
+		ld b,sbmove			; B - state, C - direction
 		call sbstmove
-		jp gkrighte
+		ret
 		
 gkrmove:
 		cp sbmove
-		jp nz,gkrlad
-		call sbdomove		; continue movement
-		jp gkrighte
-
-gkrlad:
-		cp sbladr
-		jp nz,gkrighte
-		call sbstmove		; leave ladder		
-		jp gkrighte
-		
-gkrighte:
+		call z,sbdomove		; continue movement
 		ret
 		
-		
+; ---- end of gkmoveh
+

@@ -73,7 +73,7 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-			mkctrlb osabotr,0,sbstay,dirlt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+			mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
 			
 ; ----	saboteur health
 ;			
@@ -86,10 +86,13 @@ sbhealth:
 		ld a,(sbctrlb + odcurst)
 		endm
 
+		macro sbsetst 
+		ld (sbctrlb + odcurst),a
+		endm
+		
 		macro sbscurst newstate
-		ld hl,sbctrlb + odcurst
 		ld a,newstate
-		ld (hl),a
+		ld (sbctrlb + odcurst),a
 		endm
 			
 		; ---- current sprite 
