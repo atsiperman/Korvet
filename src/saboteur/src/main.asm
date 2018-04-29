@@ -36,6 +36,7 @@
 		include "logic/saboteur_action.asm"
 		include "logic/saboteur_control.asm"
 		include "logic/saboteur_movements.asm"
+		include "logic/saboteur_jump.asm"
 		include "logic/health.asm"
 		
 		include "drawing/scrbuf_utils.asm"

@@ -143,13 +143,13 @@ gkupact2:
 gkupact3:		
 		cp dirrt			; direction is set on entry
 		jp nz,gkupact22		; if not correct direction then just process right/left button		
-		;call sbstjmp		 ; start jumping
+		call sbstjmp		; start jumping
 		ret
 
 gkupact4:
 		cp sbstay
 		jp nz,gkupact5		; not staying, check another state
-		;call sbstshjp		 ; start short jump
+		call sbstshjp		; start short jump
 		ret
 		
 gkupact5:
@@ -195,7 +195,7 @@ gkup2:
 		jp gkupe
 		
 gkup2_:	
-		call sbstplna
+		call sbstplna		; stop and stay 
 		jp gkupe		
 			
 gkup3:		
@@ -304,8 +304,7 @@ gkmoveh:
 		pop bc
 		jp gkmvstmv
 
-gkright1:
-		
+gkright1:		
 		sblddir
 		cp c		
 		jp z,gkmvstay		; continue, if correct direction

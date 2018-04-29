@@ -47,7 +47,7 @@ sabjmprb:
 		dw sabjmpr1, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr1
 sabjmpre:
 
-; saboteur is jumpin in right direction
+; saboteur is jumping in right direction
 sabjmpr1:		
 		db CMAINREG			
 		db 4, 48

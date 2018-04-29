@@ -165,20 +165,11 @@ cangolad:
 		cp dirdn
 		jp z,sbcanld1
 							; moving up
-		dec b				; Y = Y - 1 (feet level)
+		dec b				; Y = Y - 1 (feet level)				
 		
 sbcanld1:
-		ld hl,shadscr
-		ld de,COLNUM
-
-sbcanld2:
-		add hl,de
-		dec b
-		jp nz,sbcanld2		; calculate address of Y position
-				
-		sblcursc			; load column
-		ld e,a
-		add hl,de			; calculate X position
+		ld a,b		
+		call scadrlt
 		
 		pop bc				; restore state and direction
 		ld a,b				; save state
@@ -408,15 +399,11 @@ sbstpldn:
 ; args:
 ;		A - direction to move (left or right)
 ;		
-sbleavld:
-		cp dirrt
-		jp z,sblavld1
-		
+sbleavld:	
 		sblcursc			; shift 1 col left for left direction
 		dec a
 		sbscursc
 
-sblavld1:
 		ld hl,sbctrlb
 		call sbincrow		; sprite has less height	
 		ret

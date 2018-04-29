@@ -16,6 +16,26 @@ sbincrow:
 		ld (hl),a
 		ret
 
+; ---- calculates address of the left corner in shadow screen (X,Y) = (CURRENT COLUMN, A)
+; args:
+;			A - row number
+; result:			
+;			HL - address
+scadrlt:
+		ld hl,shadscr
+		ld de,COLNUM
+		
+scadrt1:		
+		add hl,de
+		dec a
+		jp nz,scadrt1
+		
+		sblcursc
+		ld e,a
+		add hl,de
+		
+		ret
+		
 ; ---- stop and stay
 ;
 sbstopst:
@@ -51,13 +71,13 @@ sbcanact:
 sbcnact1:
 		cp sbjump
 		jp nz,sbcnact2
-		; call sbdojp
+		call sbdojp
 		jp sbcnactn
 		
 sbcnact2:
 		cp sbshjmp
 		jp nz, sbcnacty
-		; call sbdoshjp
+		call sbdoshjp
 		jp sbcnactn
 
 sbcnacty:		
@@ -147,8 +167,8 @@ sbstplna:
 		call sbstplad		; can leave ladder ?
 		or a
 		ret z
-		;jp z,gkupe			; no
-		sblddir
+		
+		sbsdir
 		call sbleavld		; if yes - stop and stay
 		call sbstopst
 		ret
