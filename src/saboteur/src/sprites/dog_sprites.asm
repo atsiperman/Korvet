@@ -4,6 +4,7 @@
 ; table of addresses of dog sprites when moving right
 ;
 dogmvrtb:										
+dogmvltb:
 		db (dogmvrte - dogmvrtb - 1) / 2
 		dw dogspmr1,dogspmr2,dogspmr3,dogspmr4
 dogmvrte:										
@@ -12,14 +13,6 @@ dogmvrte:
 ; number of sprites for a moving dog
 ;
 DOGSPRN	EQU (dogmvrte - dogmvrtb - 1) / 2
-
-
-; table of addresses of dog sprites when moving left
-;
-dogmvltb:										
-		db (dogmvlte - dogmvltb - 1) / 2
-		dw dogspmr1,dogspmr2,dogspmr3,dogspmr4
-dogmvlte:		
 		
 
 ; table of addresses of dog sprites when turning left
@@ -31,13 +24,14 @@ dogtnlte:
 
 ; table of addresses of dog sprites when turning right
 ;
-dogtnrtb:										
+dogtnrtb:
 		db (dogtnrte - dogtnrtb - 1) / 2
 		dw dogsptn2,dogsptn1
 dogtnrte:		
 		
 ; dog moving right
 dogspmr1:
+dogspml1:
 		objhead
 		DB 4,24
 		DB 0,0,0,0
@@ -147,122 +141,7 @@ dogspmr4:
 		DB 0,5,128,128
 		DB 0,6,97,0
 		DB 0,3,50,0
-		DB 0,1,0,0
-		
-		
-; dog moving left
-dogspml1:
-		objhead
-		DB 4,24
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 1,0,0,0
-		DB 31,128,0,0
-		DB 47,128,0,0
-		DB 124,192,0,0
-		DB 255,127,128,0
-		DB 30,239,255,240
-		DB 125,247,255,232
-		DB 3,247,255,247
-		DB 1,239,255,240
-		DB 1,255,247,248
-		DB 3,255,239,248
-		DB 7,191,47,176
-		DB 15,64,15,112
-		DB 12,0,7,112
-		DB 26,0,6,56
-		DB 52,0,3,12
-		DB 236,0,3,6
-		DB 192,0,1,2
-		DB 0,0,3,6
-		DB 0,0,14,4
-		
-dogspml2:
-		objhead
-		DB 4,24		
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 14,0,0,0
-		DB 63,7,248,0
-		DB 111,255,252,0
-		DB 254,255,255,128
-		DB 253,255,255,64
-		DB 59,255,255,160
-		DB 3,254,63,158
-		DB 3,248,7,0
-		DB 0,224,3,160
-		DB 7,112,3,184
-		DB 6,48,1,196
-		DB 12,16,0,112
-		DB 8,24,0,30
-		DB 24,8,0,3
-		DB 240,12,0,0
-		DB 224,12,0,0
-		DB 0,24,0,0
-				
-dogspml3:
-		objhead
-		DB 4,24		
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 14,0,0,0
-		DB 55,0,240,0
-		DB 126,255,252,0
-		DB 125,247,254,0
-		DB 23,247,255,128
-		DB 97,255,254,192
-		DB 1,255,127,32
-		DB 1,254,254,17
-		DB 0,254,240,14
-		DB 0,7,96,0
-		DB 0,6,96,0
-		DB 0,12,176,0
-		DB 0,8,48,0
-		DB 0,24,160,0
-		DB 0,240,96,0
-		DB 0,224,192,0
-		DB 0,0,128,0
-				
-dogspml4:
-		objhead
-		DB 4,24		
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 0,0,0,0
-		DB 14,0,0,0
-		DB 55,0,240,0
-		DB 126,255,252,0
-		DB 125,247,254,0
-		DB 23,247,255,128
-		DB 97,255,254,192
-		DB 1,255,127,32
-		DB 1,254,254,17
-		DB 0,254,240,14
-		DB 0,61,96,0
-		DB 0,97,96,0
-		DB 0,206,176,0
-		DB 1,131,48,0
-		DB 1,1,160,0
-		DB 0,134,96,0
-		DB 0,76,192,0
-		DB 0,0,128,0
-				
+		DB 0,1,0,0				
 				
 ; dog turning 
 dogsptn1:

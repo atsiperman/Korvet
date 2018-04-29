@@ -88,7 +88,7 @@ drawobj:
 		
 		push de
 		ldcurspr			; load address of the current sprite
-		;pop hl				; restore address of the current position
+
 		pop bc
 		
 		pop hl				; load control block address

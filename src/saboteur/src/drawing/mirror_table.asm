@@ -1,7 +1,7 @@
 
 ; --------------------------
 ;
-; table with bytes mirrored to its original value
+; table with bytes mirrored to their original values
 
 mirtable:
 		db 0, 128, 64, 192, 32, 160, 96, 224, 16, 144, 80, 208, 48, 176, 112, 240

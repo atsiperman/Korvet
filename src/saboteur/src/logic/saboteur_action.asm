@@ -13,7 +13,7 @@ sbdosquat:
 		inc de				; skip width		
 		ld a,(de)			; old sprite height		
 		
-		ld hl,sabsqtlt + 2	; new sprite, skip color
+		ld hl,sabsqtrt + 2	; new sprite, skip color
 		ld b,(hl)			; new sprite height
 		cp b
 		jp c,sbdsqt2		; if old h < new h
@@ -34,24 +34,22 @@ sbdsqt3:
 		ld b,(hl)			; load row
 		add b				; add to increment		
 		ld (hl),a			; save new row
-		
+
+		ld de,sabsqtrt		; set new sprite 
+		sbscursp		
+
 		sblddir
 		cp dirlt
 		jp nz,sbdsqt4
 
-		ld de,sabsqtlt		; set new sprite (left)
-		sbscursp		
 		ret
 		
 sbdsqt4:
-		ld de,sabsqtrt		; set new sprite (right)
-		sbscursp
-		
 		ld hl,sbctrlb + odcursc
 		ld a,(hl)			; load column
 		inc a
 		ld (hl),a
-
+		
 		ret
 
 ;
