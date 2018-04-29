@@ -163,12 +163,14 @@ sbnoacte:
 ; ---- check if can not move on the ladder up and stop if not
 ;		
 sbstplna:			
-		ld a,dirrt
+		;ld a,dirrt
+		sblddir
 		call sbstplad		; can leave ladder ?
 		or a
 		ret z
 		
-		sbsdir
+		;sbsdir
+		sblddir
 		call sbleavld		; if yes - stop and stay
 		call sbstopst
 		ret

@@ -139,7 +139,7 @@ sbfalle:
 ; ----- check, if saboteur can go upstairs or downstairs
 ; args: HL - address of control block
 ;		B  - state
-;		C  - direction
+;		C  - vertical direction
 ; result:
 ;		A - 0 if not a ladder
 ;			index of the left column of the ladder if success
@@ -158,7 +158,6 @@ cangolad:
 		
 		sblcursr
 		add e				; Y + 1 from bottom position (for down direction by default)
-		;inc a				; Y = Y + 1 for down direction
 		ld b,a				; save Y in B
 				
 		ld a,c
@@ -231,15 +230,13 @@ sbcanld7:
 ; args: 
 ;		A  - column index to start (from cangolad)
 ;		B  - new state
-;		C  - direction
+;		C  - vertical direction
 ;		
 sbstladr:
-		sbscursc
-		
+		sbscursc		
 		sbscurst sbladr
 		
 		ld a,c
-		sbsdir				; save direction
 
 		ld hl,sbctrlb
 		
@@ -264,7 +261,7 @@ sbstlad1:
 		
 ; ----- do movement on the ladder
 ; args: HL - address of control block
-;		C  - direction
+;		C  - vertical direction
 ;				
 sbdoladr:
 		push hl		

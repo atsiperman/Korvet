@@ -47,15 +47,17 @@ oguard	EQU 3				; guard
 ;
 odtype	EQU 0		; 0, object type
 odproc	EQU 1       ; 1, control procedure
-odcurst EQU 3       ; 2, current state 
-oddir	EQU 4       ; 3, direction
-odprevp EQU 5       ; 4, previous position in screen memory
-odcurp	EQU 7       ; 6, current position in screen memory, top left corner
-odcursp	EQU 9       ; 8, address of the current sprite to be drawn
-odcursi	EQU 11      ; 10, index of the current sprite to be drawn (if any)
-odcursc	EQU 12      ; 11, index of the current column on the working screen, top-left corner
-odcursr	EQU 13      ; 12, index of the current row on the working screen, top-left corner
-odprvsp	EQU 14 		; 13, address of the previous sprite 
+odcurst EQU 3       ; 3, current state 
+oddir	EQU 4       ; 4, direction
+odprevp EQU 5       ; 5, previous position in screen memory
+odcurp	EQU 7       ; 7, current position in screen memory, top left corner
+odcursp	EQU 9       ; 9, address of the current sprite to be drawn
+odcursi	EQU 11      ; 11, index of the current sprite to be drawn (if any)
+odcursc	EQU 12      ; 12, index of the current column on the working screen, top-left corner
+odcursr	EQU 13      ; 13, index of the current row on the working screen, top-left corner
+odprvsp	EQU 14 		; 14, address of the previous sprite 
+
+; ---- not used by saboteur, for other objects only
 odminc	EQU 16		; 16, min column
 odmaxc	EQU 17		; 17, max column
 odcbend EQU 18		; end of the control block
@@ -70,7 +72,7 @@ objsize EQU	odcbend - odtype
 		db curstat,direct
 		dw curpos,curpos,curspr
 		db curspri,curscol,cursrow
-		dw curspr	; previous sprite address					
+		dw curspr	; previous sprite address
 		endm
 
 		macro mkguard curstat,direct,curpos,curspr,curspri,curscol,cursrow,mincol,maxcol

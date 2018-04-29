@@ -153,3 +153,11 @@ sbhealth:
 		ld (sbctrlb + oddir),a
 		endm
 		
+		; ---- vertical direction
+		macro sbldvdir
+		ld a,(sbctrlb + odvdir)
+		endm
+		
+		macro sbsvdir
+		ld (sbctrlb + odvdir),a
+		endm		
