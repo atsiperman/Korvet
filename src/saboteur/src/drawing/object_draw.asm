@@ -88,8 +88,20 @@ drawobj:
 		
 		push de
 		ldcurspr			; load address of the current sprite
-		pop hl				; restore address of the current position
+		;pop hl				; restore address of the current position
+		pop bc
+		
+		pop hl				; load control block address
+		push hl
+		push bc
+		
 		push de				; save sprite address
+				
+		call mirrspr		; possibly new sprite address if left direction
+
+		pop bc				; load original sprite address
+		pop hl				; load current position
+		push bc
 		
 		call putspr			; put sprite to screen buffer
 		
@@ -103,3 +115,83 @@ drawobj:
 		call copystat
 		
 		ret
+
+; ----	mirrors sprite if direction is left
+;
+		macro MIRSPCPY
+		ld a,(hl)
+		ld (de),a
+		inc hl
+		inc de		
+		endm
+		
+; args: 
+;		HL - address of the object's control block	
+;		DE - sprite address
+;
+; result:
+;		DE - address of a sprite to be drawn 
+;			 original address for right direction 
+;			 sprite buffer for left direction
+;
+		
+mirrspr:
+		push de
+		push hl
+		;lddir
+		;cp dirrt
+		;pop de
+		
+		;;ret z				; nothing to do for right direction
+		
+		ex de,hl			; sprite address in HL
+		ld de,sprtbuf
+		
+		MIRSPCPY			; copy color
+		
+		MIRSPCPY			; copy width
+		ld c,a				; save width in C
+		MIRSPCPY			; copy height
+				
+		dec hl
+		ld b,0
+		add hl,bc			; HL points to the last byte in the first line
+		push bc				; save width only
+		
+		ld b,a 				; save height in B
+		
+mirrspr1:
+		ld a,(hl)
+		MIRRBYTE
+		ld (de),a
+				
+		dec hl
+		inc de		
+		
+		dec c
+		jp nz,mirrspr1
+		
+		dec b
+		jp z,mirrspr_		; finish
+
+		ld a,b				; save height
+		pop bc				; restore width
+		push bc
+		
+		add hl,bc
+		add hl,bc			; set to the end of the next line
+		ld b,a				; restore height counter
+		jp mirrspr1
+		
+mirrspr_:
+		pop bc
+		
+		pop hl
+		lddir
+		cp dirrt
+		pop de
+		ret z
+		
+		ld de,sprtbuf
+		ret
+

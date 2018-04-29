@@ -9,6 +9,7 @@
 		include "sbmacro.asm"		
         include "const.asm"
 		include "object_def.asm"
+		include "drawing/mirror_table.asm"
 		
 		include "sprites/dog_sprites.asm"
         include "sprites/background_sprites.asm"				

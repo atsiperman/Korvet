@@ -18,7 +18,7 @@ DOGSPRN	EQU (dogmvrte - dogmvrtb - 1) / 2
 ;
 dogmvltb:										
 		db (dogmvlte - dogmvltb - 1) / 2
-		dw dogspml1,dogspml2,dogspml3,dogspml4
+		dw dogspmr1,dogspmr2,dogspmr3,dogspmr4
 dogmvlte:		
 		
 
@@ -26,7 +26,7 @@ dogmvlte:
 ;
 dogtnltb:										
 		db (dogtnlte - dogtnltb - 1) / 2
-		dw dogsptn1,dogsptn2
+		dw dogsptn2,dogsptn1
 dogtnlte:		
 
 ; table of addresses of dog sprites when turning right

@@ -54,6 +54,10 @@ tilemap:					; map of tiles, low half map - current state, hi half map - previou
 
 curtile:	dw 0			; address of the current tile in video memory	
 			
+sprtbuf:	dup 256
+			db 0
+			edup
+			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row

@@ -12,7 +12,7 @@ sbmvrtte:
 ;
 sbmvlttb:										
 		db (sbmvltte - sbmvlttb - 1) / 2
-		dw sabspml1,sabspml2,sabspml3,sabspml4
+		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
 sbmvltte:		
 
 
@@ -564,6 +564,7 @@ sablad2:
 
 ; ----	saboteur right 1 
 sabsprt:
+sabsplt:
 		sabsphd
 		DB 0,0,0,0
 		DB 0,0,0,0
@@ -791,7 +792,7 @@ sabspmr4:
 		DB 0,0,62,0
 
 ; ----	saboteur left 1 
-sabsplt:
+sabsplt__:
 		sabsphd
 		DB 0,0,0,0
 		DB 0,0,0,0

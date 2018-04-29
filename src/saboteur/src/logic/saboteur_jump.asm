@@ -4,16 +4,16 @@
 
 ; ---- starts long jump
 ; 
-sbstjmp:
-		
+sbstjmp:		
 		sbscurst sbjump 
+		;sbscursp 
 		ret
 		
 
 ; ---- starts short jump
 ; 		
 sbstshjp:	
-		sbscurst sbshjmp
+		;sbscurst sbshjmp
 		ret
 
 ; ---- do jump
