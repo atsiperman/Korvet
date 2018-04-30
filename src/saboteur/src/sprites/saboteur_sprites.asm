@@ -30,9 +30,21 @@ SBKCKI2 EQU 6		; index of the sprite when 2-nd phase changes
 ; table of addresses of saboteur sprites when jumping right
 ;		
 sabjmprb:
-		db (sabjmpre - sabjmprb - 1) / 2
+		db (sabjmpre - sabjmprb - 1) / 2 
 		dw sabjmpr1, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr1
 sabjmpre:
+
+SBJPSPN	EQU (sabjmpre - sabjmprb - 1) / 2  
+
+
+; table of addresses of saboteur sprites when jumping right
+;		
+sabjpshb:
+		db (sabjpshe - sabjpshb - 1) / 2 
+		dw sabjmpr1, sabjmpr2, sabjmpr1
+sabjpshe:
+
+SBSJPSPN EQU (sabjpshe - sabjpshb - 1) / 2  
 
 ; saboteur is jumping in right direction
 sabjmpr1:		

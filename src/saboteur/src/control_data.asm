@@ -111,8 +111,9 @@ sbhealth:
 		endm
 	
 		macro sblcursp
-		ld hl,sbctrlb + odcursp
-		load_de_hl
+		ld hl,(sbctrlb + odcursp)
+		ex de,hl
+		;load_de_hl
 		endm
 				
 		; ---- current sprite index

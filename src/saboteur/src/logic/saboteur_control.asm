@@ -1,21 +1,35 @@
 ; ---- decrease saboteur row
-; args: HL - address of control block
 ;
 sbdecrow:		
-		ldcursr
+		sblcursr
 		dec a
-		ld (hl),a
+		sbscursr
 		ret
 
 ; ---- increase saboteur row
-; args: HL - address of control block
 ;
 sbincrow:
-		ldcursr
+		sblcursr
 		inc a
-		ld (hl),a
+		sbscursr				
+		ret
+		
+; ---- increase saboteur column
+;
+sbinccol:
+		sblcursc
+		inc a
+		sbscursc
 		ret
 
+; ---- decrease saboteur column
+;		
+sbdeccol:
+		sblcursc
+		dec a
+		sbscursc
+		ret
+		
 ; ---- calculates address of the left corner in shadow screen (X,Y) = (CURRENT COLUMN, A)
 ; args:
 ;			A - row number
@@ -25,16 +39,37 @@ scadrlt:
 		ld hl,shadscr
 		ld de,COLNUM
 		
-scadrt1:		
+scadrt1:	
+		or a 
+		jp z,scadrt2
 		add hl,de
 		dec a
 		jp nz,scadrt1
 		
+scadrt2:		
 		sblcursc
 		ld e,a
 		add hl,de
 		
 		ret
+
+; ---- calculates address of the right corner in shadow screen (X + WIDTH,Y) = (CURRENT COLUMN + WIDTH, A)
+; args:
+;			A - row number
+; result:			
+;			HL - address
+scadrrt:
+		call scadrlt
+		push hl
+		sblcursp
+		inc de 					; skip color		
+		ld a,(de)				; read width
+		ld b,0
+		ld c,a
+		pop hl
+		add hl,bc				; get right column
+		ret
+		
 		
 ; ---- stop and stay
 ;
@@ -71,7 +106,7 @@ sbcanact:
 sbcnact1:
 		cp sbjump
 		jp nz,sbcnact2
-		call sbdojp
+		call sblongjp
 		jp sbcnactn
 		
 sbcnact2:

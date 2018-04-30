@@ -96,8 +96,8 @@
 		load_de_hl			; in DE
 
 		inc de				; sprite type
-		ex de,hl
-		ld a,(hl)				
+		;ex de,hl
+		ld a,(de)
 	endm
 ;	
 ;	macro ldscrst			; loads start of the screen into HL
