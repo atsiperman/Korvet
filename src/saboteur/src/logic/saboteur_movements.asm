@@ -153,6 +153,43 @@ esbdomov:
 ;		
 sbgort:
 		push hl
+		ld hl,sbchknpr
+		ld (sbmoveh2 + 1),hl
+		ld a,ECOLNUM
+		ld (sbmoveh3 + 1),a
+		ld hl,goscrnrt
+		ld (sbmoveh4 + 1),hl
+		ld a,SCOLNUM
+		ld (sbmoveh5 + 1),a
+		ld a,0x3C				; inc a
+		ld (sbmoveh6),a
+		pop hl
+		jp sbmoveh
+		
+; ---- saboteur is going left
+; args: HL - address of control block
+;		
+sbgolt:
+		push hl
+		ld hl,sbchknpl
+		ld (sbmoveh2 + 1),hl
+		ld a,SCOLNUM
+		ld (sbmoveh3 + 1),a
+		ld hl,goscrnlt
+		ld (sbmoveh4 + 1),hl
+		ld a,ECOLNUM
+		ld (sbmoveh5 + 1),a
+		ld a,0x3D				; dec a
+		ld (sbmoveh6),a		
+		pop hl
+		jp sbmoveh
+				
+; ---- saboteur is moving horizontally
+;
+; args: HL - address of control block
+;		
+sbmoveh:
+		push hl		
 		ld bc,odcursc
 		add hl,bc
 		ld d,(hl)		; load current screen column
@@ -163,10 +200,18 @@ sbgort:
 		push de
 		push hl
 		
+		sblddir
+		cp dirrt
+		jp z,sbmoveh1
+		dec d
+		jp z,sbmoveh2
+		
+sbmoveh1:		
 		ld a,d
 		add a,SBWI
 		ld d,a
-				
+
+sbmoveh2:
 		call sbchknpr
 		pop hl
 		pop de
@@ -174,22 +219,26 @@ sbgort:
 		ret z
 				
 		ld a,d
+		
+sbmoveh3:		
 		ld c,ECOLNUM
 		cp c			; staying on the right border
-		jp nz,sbgort2
+		jp nz,sbmoveh6
 		push hl
+sbmoveh4:		
 		call goscrnrt	; switch screen
 		pop hl
 		or a
 		ret z			; return if screen not changed
 		
+sbmoveh5:		
 		ld a,SCOLNUM 	; index of the first column 
-		jp sbgort3
+		jp sbmoveh7
 		
-sbgort2:
+sbmoveh6:
 		inc a			; next column
 
-sbgort3:
+sbmoveh7:
 		ld bc,odcursc
 		add hl,bc
 		ld (hl),a		; save column index
@@ -203,10 +252,10 @@ sbgort3:
 		ld e,(hl)		; total sprite count		
 		inc a
 		cp e	
-		jp nz,sbgort1
+		jp nz,sbmoveh8
 		ld a,0
 		
-sbgort1:
+sbmoveh8:
 		pop hl
 		ld (hl),a		; save sprite index
 		
@@ -227,112 +276,9 @@ sbgort1:
 
 		ret
 		
-; ---- end of sbgort
+; ---- end of sbmoveh
 ;
 
-; ---- saboteur is going left
-; args: HL - address of control block
-;		
-sbgolt:
-		push hl
-		ld bc,odcursc
-		add hl,bc
-		ld d,(hl)		; load current screen column
-		
-		inc hl
-		ld e,(hl)		; load screen row
-		pop hl
-		push de
-		push hl
-		
-		dec d		
-		
-		call sbchknpl
-		pop hl
-		pop de
-		or a
-		ret z
-				
-		ld a,d
-		
-		ld c,SCOLNUM
-		cp c			; staying on the left border
-		jp nz,sbgolt2
-		push hl
-		call goscrnlt	; switch screen
-		pop hl
-		or a
-		ret z			; return if screen not changed
-		
-		ld a,ECOLNUM 	; index of the last column 
-		jp sbgolt3
-		
-sbgolt2:
-		dec a			; next column
-
-sbgolt3:		
-		ld bc,odcursc
-		add hl,bc
-		ld (hl),a		; save column index
-		push af			; save column index on stack
-
-		dec hl
-		ld a,(hl)		; cur sprite index in A
-		
-		push hl
-		
-		ld hl,sbmvlttb
-		ld e,(hl)		; total sprite count		
-		inc a
-		cp e	
-		jp nz,sbgolt1
-		xor a
-		
-sbgolt1:
-		pop hl
-		ld (hl),a		; save sprite index
-		
-		push hl
-		
-		ld hl,sbmvlttb + 1  ; sprite table
-		ld b,0
-		ld c,a
-		add hl,bc
-		add hl,bc			; 
-		load_de_hl			; load sprite address
-		
-		pop hl				; save new sprite addr
-		dec hl
-		ld (hl),d
-		dec hl
-		ld (hl),e
-
-		dec hl
-		ld d,(hl)
-		dec hl
-		ld e,(hl)
-		
-		pop af
-		ld c,ECOLNUM
-		cp c
-		jp z,sbgolt4
-		dec de			; change position
-		jp sbgolte
-		
-sbgolt4:				; set first column on the same row
-		push hl
-		ld hl,ECOLNUM - SCOLNUM
-		add hl,de
-		ld d,h
-		ld e,l
-		pop hl
-sbgolte:		
-		savem_hl_de		; set new position
-
-		ret
-
-; ---- end of sbgolt
-;
 
 ; ---- checks next position on right
 ; args: HL - address of control block

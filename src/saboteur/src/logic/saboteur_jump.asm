@@ -15,15 +15,36 @@ canjmp:
 		sblddir
 		cp dirrt
 		jp z,canjmp1
+		
+		sblcursc
+		cp SCOLNUM			; is first column
+		jp nz,canjmp1_
+		call goscrnlt		; switch screen
+		or a
+		jp z,canjmpn2		; return if screen not changed
+		ld a,ECOLNUM 		; index of the first column 
+		sbscursc
+		
+canjmp1_:		
 		pop af
 		call scadrlt		; get top left position
-		jp canjmp2
+		jp canjmp5
 		
 canjmp1:		
+		sblcursc
+		cp ECOLNUM			; is last column
+		jp nz,canjmp2
+		call goscrnrt		; switch screen
+		or a
+		jp z,canjmpn2		; return if screen not changed
+		ld a,SCOLNUM 		; index of the first column 
+		sbscursc
+		
+canjmp2:	
 		pop af
 		call scadrrt		; get top right position 
 		
-canjmp2:				
+canjmp5:
 		push hl
 		
 		ldsprt
@@ -44,6 +65,11 @@ canjmpn:
 		xor a
 		ret
 
+canjmpn2:
+		pop af
+		xor a
+		ret
+		
 ; ---- switches next sprite for actions (jump, fight, etc.)
 ; 		moves to the next sprite if available
 ; args:
