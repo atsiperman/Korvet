@@ -41,8 +41,11 @@ canjmp1:
 		sbscursc
 		
 canjmp2:	
+		add SBWI			; check right position for sprite in stay mode
+		ld d,a				; save column number
 		pop af
-		call scadrrt		; get top right position 
+		ld e,a				; save row number
+		call shscradr		; get top right position 
 		
 canjmp5:
 		push hl		
