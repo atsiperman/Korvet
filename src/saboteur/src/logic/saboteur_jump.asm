@@ -132,6 +132,9 @@ sbdojp:
 		ld c,(hl)			; load number of sprites
 		sblcursi			; load sprite index
 		inc a 
+		ld b,a
+		push bc
+		
 		cp c
 		jp z,sbdojpe
 
@@ -155,9 +158,8 @@ sbdojp4:
 		call canjmp
 		or a
 		jp z,sbdojpe
-
-		sblcursi
 		
+		sblcursi
 		ld hl,sabjmprb + 1
 		ld b,0
 		ld c,a
@@ -165,6 +167,13 @@ sbdojp4:
 		add hl,bc
 		load_de_hl
 		sbscursp
+
+		pop bc				; restore current sprite index and number of sprites
+		ld a,b			
+		cp 2				; skip column change for first jump
+		ret z
+		cp c			
+		ret z				; skip column change for last sprite
 		
 		sblddir
 		cp dirrt
@@ -177,6 +186,7 @@ sbdojp9:
 		ret
 		
 sbdojpe:
+		pop bc
 		call sbstopjp
 		ret
 				
