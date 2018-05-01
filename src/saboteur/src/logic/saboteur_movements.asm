@@ -204,7 +204,7 @@ sbmoveh:
 		cp dirrt
 		jp z,sbmoveh1
 		dec d
-		jp z,sbmoveh2
+		jp sbmoveh2
 		
 sbmoveh1:		
 		ld a,d

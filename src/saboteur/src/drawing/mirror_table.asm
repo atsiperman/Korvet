@@ -31,7 +31,7 @@ mirtable:
 		push de
 		push hl
 		
-		ld hl,mirtable		; find mirrored byte by 
+		ld hl,mirtable		
 		ld d,0
 		ld e,a
 		add hl,de

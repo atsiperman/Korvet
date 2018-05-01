@@ -1,75 +1,3 @@
-; ---- decrease saboteur row
-;
-sbdecrow:		
-		sblcursr
-		dec a
-		sbscursr
-		ret
-
-; ---- increase saboteur row
-;
-sbincrow:
-		sblcursr
-		inc a
-		sbscursr				
-		ret
-		
-; ---- increase saboteur column
-;
-sbinccol:
-		sblcursc
-		inc a
-		sbscursc
-		ret
-
-; ---- decrease saboteur column
-;		
-sbdeccol:
-		sblcursc
-		dec a
-		sbscursc
-		ret
-		
-; ---- calculates address of the left corner in shadow screen (X,Y) = (CURRENT COLUMN, A)
-; args:
-;			A - row number
-; result:			
-;			HL - address
-scadrlt:
-		ld hl,shadscr
-		ld de,COLNUM
-		
-scadrt1:	
-		or a 
-		jp z,scadrt2
-		add hl,de
-		dec a
-		jp nz,scadrt1
-		
-scadrt2:		
-		sblcursc
-		ld e,a
-		add hl,de
-		
-		ret
-
-; ---- calculates address of the right corner in shadow screen (X + WIDTH,Y) = (CURRENT COLUMN + WIDTH, A)
-; args:
-;			A - row number
-; result:			
-;			HL - address
-scadrrt:
-		call scadrlt
-		push hl
-		sblcursp
-		inc de 					; skip color		
-		ld a,(de)				; read width
-		ld b,0
-		ld c,a
-		pop hl
-		add hl,bc				; get right column
-		ret
-		
 		
 ; ---- stop and stay
 ;
@@ -90,7 +18,9 @@ sbstpste:
 		ret
 
 ; ---- checks if saboteur can do any actions
-; result: A - 0 no actions can be done (saboteur is currently falling, jumping etc.)
+;
+; result: 
+;		A - 0 no actions can be done (saboteur is currently falling, jumping etc.)
 ;		
 sbcanact:
 		call chkfalng
@@ -104,18 +34,29 @@ sbcanact:
 		jp sbcnactn
 		
 sbcnact1:
-		cp sbjump
+		cp sbjump		; jumping
 		jp nz,sbcnact2
 		call sblongjp
 		jp sbcnactn
 		
 sbcnact2:
-		cp sbshjmp
-		jp nz, sbcnacty
+		cp sbshjmp		; short jump
+		jp nz, sbcnact3
 		call sbdoshjp
 		jp sbcnactn
 
-sbcnacty:		
+sbcnact3:				; check if he must fall down	
+		call sbcanfal
+		or a
+		jp z,sbcnacty
+						; start falling down
+		ld hl,sbctrlb
+		ld a,dirlt
+		call sbstfall
+						
+		jp sbcnactn
+
+sbcnacty:
 		or 1			; exit with non zero to allow actions
 		ret
 		
@@ -198,13 +139,11 @@ sbnoacte:
 ; ---- check if can not move on the ladder up and stop if not
 ;		
 sbstplna:			
-		;ld a,dirrt
 		sblddir
 		call sbstplad		; can leave ladder ?
 		or a
 		ret z
 		
-		;sbsdir
 		sblddir
 		call sbleavld		; if yes - stop and stay
 		call sbstopst

@@ -20,11 +20,15 @@ shscradr:
 		ld c,d
 		add hl,bc			; X position
 		
-		ld bc,COLNUM
+		ld c,COLNUM
+		ld a,e
 							; calculate Y 
-spadrcr1:					
+		or a
+		ret z
+
+spadrcr1:				
 		add hl,bc
-		dec e
+		dec a
 		jp nz,spadrcr1
 		
 		ret

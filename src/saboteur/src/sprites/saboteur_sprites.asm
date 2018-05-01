@@ -21,13 +21,13 @@ sbladtbe:
 sabkckrb:
 sabkcklb:
 		db (sabkckre - sabkckrb - 1) / 2
-		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
+		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
 sabkckre:
 
 SBKCKI1 EQU 2		; index of the sprite when 1-st phase changes 
-SBKCKI2 EQU 6		; index of the sprite when 2-nd phase changes 
+SBKCKI2 EQU 7		; index of the sprite when 2-nd phase changes 
 
-; table of addresses of saboteur sprites when jumping right
+; table of addresses of saboteur sprites for long jump
 ;		
 sabjmprb:
 		db (sabjmpre - sabjmprb - 1) / 2 
@@ -37,11 +37,11 @@ sabjmpre:
 SBJPSPN	EQU (sabjmpre - sabjmprb - 1) / 2  
 
 
-; table of addresses of saboteur sprites when jumping right
+; table of addresses of saboteur sprites for short jump
 ;		
 sabjpshb:
 		db (sabjpshe - sabjpshb - 1) / 2 
-		dw sabjmpr1, sabjmpr2, sabjmpr1
+		dw sabjmpr1, sabjmpr2, sabjmpr2, sabjmpr2, sabjmpr1
 sabjpshe:
 
 SBSJPSPN EQU (sabjpshe - sabjpshb - 1) / 2  

@@ -45,8 +45,7 @@ canjmp2:
 		call scadrrt		; get top right position 
 		
 canjmp5:
-		push hl
-		
+		push hl		
 		ldsprt
 		pop hl
 		and bwall
@@ -70,31 +69,6 @@ canjmpn2:
 		xor a
 		ret
 		
-; ---- switches next sprite for actions (jump, fight, etc.)
-; 		moves to the next sprite if available
-; args:
-;			HL - sprite table
-; result:
-;			A - 0 if no more sprite to draw
-;		
-; sbnxspra:
-		; ld c,(hl)			; load number of sprite 
-		; sblcursi			; load sprite index
-		; inc a 
-		; cp a
-		; jp z,sbnxspae
-		; sbscursi
-		; inc hl
-		; ld b,0
-		; ld c,a
-		; add hl,bc
-		; add hl,bc
-		; load_de_hl
-		; sbscursp
-		
-; sbnxspae:
-		; xor a				; no more sprites, stop moving
-		; ret
 		
 ; ---- starts long jump
 ; 
@@ -114,6 +88,21 @@ sbstjmp:
 		call sbdecrow
 		ret
 		
+; ---- starts short jump
+; 		
+sbstshjp:	
+		sblcursr			; load row
+		dec a
+		call canjmp
+		or a
+		ret z
+		
+		sbscurst sbshjmp
+		ld de,sabjmpr1
+		sbscursp
+		xor a
+		sbscursi
+		ret
 
 ; ---- do short jump
 ; 				
@@ -131,6 +120,7 @@ sblongjp:
 		ld (sbdojp1+1),a
 		ld hl,sabjmprb
 		ld (sbdojp + 1),hl
+		jp sbdojp
 		
 ; ---- do jump
 ; 				
@@ -184,30 +174,50 @@ sbdojp9:
 		ret
 		
 sbdojpe:
-		call sbincrow
-		
-		call sbstopst
+		call sbstopjp
 		ret
 				
 ; ---- stop jump
 ;		
-sbstopjp:
-		ret
+;
+		macro SBSTJTST exitlabl
+		push hl
+		ldsprt
+		pop hl
+		and bwall
+		jp nz,exitlabl		; wall, no way
+		inc hl
+		endm
 		
-; ---- starts short jump
-; 		
-sbstshjp:	
-		sblcursr			; load row
+sbstopjp:		
+		call sbcurrh		; load height in rows
+		ld d,a
+		sblcursr
+		inc a
+		push af
+		call scadrlt		; get bottom left position under feet		
+		
+		SBSTJTST sbstopj4
+		SBSTJTST sbstopj4
+		SBSTJTST sbstopj4
+		SBSTJTST sbstopj4
+		
+		jp sbstopj8			; no floor - fall down
+		
+sbstopj4:		
+		call sbstopst
+		
+		call sbcurrh		; load height in rows
+		ld d,a
+		pop af				; restore bottom row		
+		sub d	
 		dec a
-		call canjmp
-		or a
-		ret z
-		
-		sbscurst sbshjmp
-		ld de,sabjmpr1
-		sbscursp
-		xor a
-		sbscursi
+		sbscursr
 		ret
-				
+		
+sbstopj8:		
+		pop af
+		call sbstopst
+		ret
+						
 		
