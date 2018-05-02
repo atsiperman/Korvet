@@ -238,15 +238,7 @@ gkdown:
 
 gkdn2:
 		cp sbladr			; if is moving on the ladder
-		jp nz,gkdn3
-		push hl
-		push bc
-		call cangolad
-		pop bc
-		pop hl		
-		or a
-		jp z,gkdn3			; can not continue movement
-		
+		jp nz,gkdn3		
 		call sbdoladr		; continue movement
 		jp gkdne		
 			

@@ -102,9 +102,7 @@ sbfalle:
 ;
 ; --- end of sbstfall
 ;
-
-
-
+		
 ; ----- check, if saboteur can go upstairs or downstairs
 ; args: HL - address of control block
 ;		;;;B  - state
@@ -126,16 +124,21 @@ cangolad:
 		ld e,a				; save height in E
 		
 		sblcursr
-		add e				; Y + 1 from bottom position (for down direction by default)
+		add e				; Y + 1 from bottom position (under feet, for down direction by default)
 		ld b,a				; save Y in B
 				
 		ld a,c
-		cp dirdn
+		cp dirup
 		jp z,sbcanld1
-							; moving up
-		dec b				; Y = Y - 1 (feet level)				
 		
-sbcanld1:
+		ld a,ROWNUM 		; is bottom line ?
+		cp b
+		jp nz,sbcanld2		; check level under feet if no		
+		
+sbcanld1:				
+		dec b				; Y = Y - 1 (feet level)
+		
+sbcanld2:
 		ld a,b		
 		call scadrlt
 		
@@ -211,27 +214,23 @@ sbstladr:
 		
 		ld a,c
 
-		ld hl,sbctrlb
-		
-		cp dirup		
-		jp z,sbstlad1
-		call sbincrow
-		
-sbstlad1:
+		cp dirdn
+		jp z,sbstlad2
 		call sbdecrow
 		
+sbstlad2:		
 		ld de,sablad1		
 		sbscursp
 		
 		xor a
-		sbscursi			; index of the sprite
-				
+		sbscursi			
+
 		ret		
 ;
 ; --- end of sbstladr
 ;
 		
-		
+
 ; ----- do movement on the ladder
 ; args: HL - address of control block
 ;		C  - vertical direction
@@ -250,19 +249,37 @@ sbdoladr:
 		ld a,c
 		or a
 		jp z,sbdolad2		; first row -> change screen		
+		
+		push bc
+		ld c,e
+		call cangolad
+		pop bc
+		or a
+		jp z,sbdolade		
+		
 		dec c				; go up
-		ld (hl),c			; save new row
+		ld a,c
+		sbscursr
 		jp sbdolad4
 		
 sbdolad1:					; go down
-		inc c
-		ld a,ROWNUM - (SBHI+1)
-		cp a,c
+		ld a,ROWNUM - SBHILAD
+		cp c
 		jp z,sbdolad3		; last row -> change screen
-		ld (hl),c			; save new row		
+		
+		push bc
+		ld c,e
+		call cangolad
+		pop bc
+		or a
+		jp z,sbdolade		
+		
+		inc c
+		ld a,c
+		sbscursr
 		jp sbdolad4
 		
-sbdolad2:					; change screen
+sbdolad2:					; change screen UP
 		call goscrnup		
 		or a
 		jp z,sbdolade		; screen not changed
@@ -270,13 +287,13 @@ sbdolad2:					; change screen
 		pop hl
 		push hl
 		ld a,ROWNUM
-		sub SBHI+1		; row num on the new screen
+		sub SBHILAD 		; row num on the new screen
 		scursr	
 						
 		jp sbdolad4
 		
-sbdolad3:
-		call goscrndn
+sbdolad3:					; change screen DOWN
+		call goscrndn	
 		or a
 		jp z,sbdolade		; screen not changed
 		

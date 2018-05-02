@@ -45,8 +45,11 @@ sbcnact2:
 		call sbdoshjp
 		jp sbcnactn
 
-sbcnact3:				; check if he must fall down	
-		call sbcanfal
+sbcnact3:			
+		cp sbstay
+		jp nz,sbcnacty	; not staying, should not fall since is not falling already
+								
+		call sbcanfal	; check if he must fall down	
 		or a
 		jp z,sbcnacty
 						; start falling down
@@ -136,13 +139,14 @@ sbnoacte:
 		ret
 		
 
-; ---- check if can not move on the ladder up and stop if not
+; ---- check if can move on the ladder up and stop if not
 ;		
 sbstplna:			
-		sblddir
-		call sbstplad		; can leave ladder ?
+		ld hl,sbctrlb
+		ld c,dirup
+		call cangolad
 		or a
-		ret z
+		ret nz
 		
 		sblddir
 		call sbleavld		; if yes - stop and stay

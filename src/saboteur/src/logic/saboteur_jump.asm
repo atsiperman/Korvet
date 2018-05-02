@@ -192,16 +192,7 @@ sbdojpe:
 				
 ; ---- stop jump
 ;		
-;
-		macro SBSTJTST exitlabl
-		push hl
-		ldsprt
-		pop hl
-		and bwall
-		jp nz,exitlabl		; wall, no way
-		inc hl
-		endm
-		
+;		
 sbstopjp:		
 		call sbcurrh		; load height in rows
 		ld d,a
@@ -210,12 +201,21 @@ sbstopjp:
 		push af
 		call scadrlt		; get bottom left position under feet		
 		
-		SBSTJTST sbstopj4
-		SBSTJTST sbstopj4
-		SBSTJTST sbstopj4
-		SBSTJTST sbstopj4
+		ld c,4
 		
-		jp sbstopj8			; no floor - fall down
+sbstopj2:		
+		push hl
+		ldsprt
+		pop hl
+		and bwall
+		jp nz,sbstopj4		; wall, no way
+		inc hl
+		dec c
+		jp nz,sbstopj2
+							; no floor - fall down
+		pop af
+		call sbstopst
+		ret
 		
 sbstopj4:		
 		call sbstopst
@@ -226,11 +226,6 @@ sbstopj4:
 		sub d	
 		dec a
 		sbscursr
-		ret
-		
-sbstopj8:		
-		pop af
-		call sbstopst
 		ret
 						
 		
