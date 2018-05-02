@@ -30,6 +30,7 @@ BK22ADDR:	DW BK22DATA
 BK23ADDR:	DW BK23DATA
 BK24ADDR:	DW BK24DATA
 BK25ADDR:	DW BK25DATA
+BK26ADDR:	DW BK26DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -104,6 +105,9 @@ BK24DATA:	bksh2 CYELLOW,bladder						; yellow ladder left
 			
 BK25DATA:	bksh2 CYELLOW,bladder						; yellow ladder right
 			DB 9,205,205,13,13,205,201,15
+
+BK26DATA:	bksh CRED									; cyan vertical tube
+			DB 102,70,70,102,98,102,102,102
 
 
 

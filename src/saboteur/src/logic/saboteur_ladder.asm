@@ -24,7 +24,23 @@ chkfalng:
 		
 		add SBHILAD			; add height of the saboteur to get floor level
 		ld e,a				; row in E		
-			
+		cp ROWNUM	
+		jp nz,chkfal1
+		
+		call goscrndn	
+		pop hl
+		pop de		
+		or a
+		jp nz,chkfal_1
+		ld a,1				; screen not changed, stop falling
+		ret
+		
+chkfal_1:
+		xor a				; row num on the new screen				
+		sbscursr
+		ret
+		
+chkfal1:		
 		call shscradr		; get address of the sprites' index
 		push hl
 		ldsprt
@@ -50,7 +66,7 @@ chkfalng:
 		xor a
 		ret
 		
-chkfal2:		
+chkfal2:
 		pop hl
 		pop de
 
