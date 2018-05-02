@@ -81,6 +81,7 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ;
 sbctrlb:	
 			mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+			;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,8,7
 			
 ; ----	saboteur health
 ;			
