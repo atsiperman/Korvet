@@ -550,3 +550,138 @@ smap55e:
 		mscrend
 		
 ; --- end of scrbk55
+
+
+scrbk56:
+		spmaplen smap56b,smap56e
+smap56b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK1ADDR		; 1, yellow L
+smap56e:
+		mkline 14
+		db 0
+		db 0
+		
+		mkline 10			; 2
+		db 0
+		mkline 5
+		mkbyte 1,1
+
+		mkline 9			; 3
+		db 0
+		mkbyte 0,1
+		mkline 5
+		mkbyte 1,1
+		
+		mkline 9			; 4
+		db 0
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 8			; 5
+		db 0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 4			; 6
+		db 0
+		mkline 8
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+
+		mkline 3			; 7
+		db 0
+		mkbyte 0,1
+		mkline 8
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+
+		mkline 3			; 8
+		db 0
+		mkline 8
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		
+		mkline 5			; 9
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,0
+		db 0
+		db 0
+		
+		mkline 5			; 10
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		db 0
+
+		mkline 4			; 11
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,0
+		mkline 3
+		db 0
+
+		mkline 4			; 12
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 4
+		db 0
+
+		mkline 4			; 13
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 9
+		db 0
+
+		mkline 4			; 14
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,0
+		mkline 9
+		db 0
+		
+		mkline 4			; 15
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 10
+		db 0
+		
+		mkdup 2
+			mkline 15
+			db 0
+		;edup 
+		
+		mscrend
+		
+; --- end of scrbk56
