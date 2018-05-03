@@ -1,5 +1,6 @@
 SCREND	EQU 255
 LINELEN EQU 15 << 4
+DUPLEN	EQU 14 << 4
 
 		; sprite map length
 		macro spmaplen	bmap, emap
@@ -17,6 +18,11 @@ LINELEN EQU 15 << 4
 		macro mkline len
 		db LINELEN | len
 		endm
+		
+		macro mkdup len
+		db DUPLEN | len
+		endm
+		
 scrbk1:
 scrbk2:
 
@@ -49,7 +55,7 @@ smap3e:
 		mkline 4
 		mkbyte 2,2
 	
-		dup 5				; yellow door
+		mkdup 5				; yellow door
 			mkline 10
 			db	0
 				
@@ -57,7 +63,7 @@ smap3e:
 			
 			mkline 4
 			mkbyte 2,2
-		edup
+		;edup
 							; ladder 							
 		mkline 5
 		mkbyte 1,1
@@ -83,20 +89,19 @@ smap3e:
 		mkline 9
 		mkbyte 9,9
 		
-		dup 6
+		mkdup 6
 			mkline 4
 			mkbyte 1,1
-			
 			mkbyte 1,10
 			mkbyte 5,6
-			
 			mkline 9
 			mkbyte 10,10
-		edup
+		;edup
 
-		mkline 14
+		mkline 13
 		mkbyte 1,1	
 		mkbyte 1,1	
+		mkbyte 1,1
 		
 		mscrend
 
@@ -136,16 +141,15 @@ smap4e:
 		mkline 10
 		mkbyte 6,6		
 
-		dup 5				; next 5 lines
+		mkdup 5				; next 5 lines
 			mkline 2				
 			mkbyte 1,1
-			
 			mkbyte 3,6
 			mkbyte 6,6
 			mkbyte 4,5
 			mkline 10
 			mkbyte 6,6
-		edup
+		;edup
 		
 		mkline 2				; ladder begins
 		mkbyte 0,0
@@ -213,7 +217,8 @@ smap4e:
 		mkline 9				
 		mkbyte 0,0		
 		
-		mkline 14
+		mkline 13
+		db 0
 		db 0
 		db 0
 		
@@ -244,15 +249,13 @@ smap5e:
 		mkline 12
 		mkbyte 4,4	
 
-		dup 7
+		mkdup 7
 			mkline 2
 			mkbyte 3,3
-			
 			mkbyte 3,2
-			
 			mkline 12
 			mkbyte 4,4		
-		edup
+		;edup
 
 		mkline 7
 		mkbyte 0,0
@@ -290,11 +293,12 @@ smap5e:
 		mkline 5		
 		mkbyte 4,4
 		
-		dup 3
-			mkline 14
+		mkdup 3
+			mkline 13
 			db 0
 			db 0
-		edup
+			db 0
+		;edup
 		
 		mscrend
 		
@@ -314,19 +318,16 @@ smap6b:
 		bkindex BK9ADDR		; 8, blue ladder bottom right
 smap6e:				
 
-		dup 14
+		mkdup 14
 			mkline 7
 			mkbyte 2,2
-			
 			mkbyte 3,4
-			
 			mkline 7
 			mkbyte 2,2			
-		edup
+		;edup
 		
 		mkline 4
 		db 0
-		
 		mkbyte 5,6			; ladder		
 		mkline 5
 		db 0		
@@ -334,19 +335,16 @@ smap6e:
 		mkbyte 2,2
 		
 		mkline 4
-		db 0
-		
+		db 0		
 		mkbyte 7,8			; ladder
 		mkline 5
-		db 0
-		
+		db 0		
 		mkbyte 0,2
 		mkline 4
 		mkbyte 2,2		
 		
 		mkline 4
-		db 0			
-		
+		db 0					
 		mkbyte 7,8			; ladder		
 		mkline 10
 		db 0
@@ -367,94 +365,76 @@ smap7b:
 		bkindex BK11ADDR	; 6, blue ladder top left
 		bkindex BK12ADDR	; 7, blue ladder top right		
 smap7e:				
-		dup 5
+		mkdup 5
 			mkline 5
 			db 0
-			
 			mkbyte 0,2
 			mkbyte 3,0
 			mkline 8
 			db 0			
-		edup
+		;edup
 							; ladder with door
 		mkline 5
 		db 0
 							; ladder
 		mkbyte 0,2
-		mkbyte 3,0
-		
+		mkbyte 3,0		
 		mkline 8
 		db 0
 							;
 		mkline 5
 		mkbyte 1,1
-
 		mkbyte 1,2
-		mkbyte 3,1
-		
+		mkbyte 3,1		
 		mkline 7
 		mkbyte 1,1
-
 		mkbyte 4,1		
 							;
-		dup 6		
+		mkdup 6		
 			mkline 5
 			mkbyte 1,1
-			
 			mkbyte 1,2
 			mkbyte 3,1
-			
 			mkline 7
 			mkbyte 1,1
-
 			mkbyte 5,1		
-		edup
+		;edup
 		
 								; stairs	
 		mkline 5
 		mkbyte 1,1
-		
 		mkbyte 1,2
 		mkbyte 3,1
-		
 		mkline 5
 		mkbyte 1,1
-		
 		mkline 3
 		db 0
 
 								; stairs	
 		mkline 5
 		mkbyte 1,1
-		
 		mkbyte 1,2
 		mkbyte 3,1
-		
 		mkline 4
 		mkbyte 1,1
-		
 		mkbyte 1,0
 		mkline 3
 		db 0	
 								; stairs	
 		mkline 5
 		mkbyte 1,1
-		
 		mkbyte 1,2
 		mkbyte 3,1		
 		mkline 4
 		mkbyte 1,1
-		
 		mkline 4
 		db 0
 								; last line								
 		mkline 2
 		db 0
-		
 		mkbyte 6,7 
 		mkline 6
 		db 0
-		
 		mkbyte 6,7 
 		mkline 5
 		db 0
@@ -477,18 +457,16 @@ smap8b:
 		bkindex BK8ADDR		; 8, blue ladder bottom left
 		bkindex BK9ADDR		; 9, blue ladder bottom right		
 smap8e:				
-		dup 6
+		mkdup 6
 			mkline 2
 			db 0
-			
 			mkbyte 0,2
 			mkbyte 3,1
 			mkline 9
 			mkbyte 1,1
-			
 			mkbyte 1,0
 			db 0
-		edup
+		;edup
 		
 		mkbyte 1,4
 		mkbyte 1,1
@@ -500,42 +478,37 @@ smap8e:
 		mkbyte 1,0
 		db 0
 
-		dup 6
+		mkdup 6
 			mkbyte 1,5
 			mkbyte 1,1
 			mkbyte 1,2
 			mkbyte 3,1
 			mkline 9
 			mkbyte 1,1
-			
 			mkbyte 1,0
 			db 0
-		edup
+		;edup
 
 		mkline 4
 		db 0
-		
 		mkbyte 6,7
 		mkline 5
 		db 0
-		
 		mkbyte 6,7		
 		mkline 4
 		db 0
 		
 
-		dup 3
+		mkdup 3
 			mkline 4
 			db 0
-			
 			mkbyte 8,9
 			mkline 5
 			db 0
-			
 			mkbyte 8,9
 			mkline 4
 			db 0			
-		edup
+		;edup
 		
 		mscrend
 		
@@ -562,7 +535,6 @@ smap9e:
 		mkbyte 2,3
 		mkline 8
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -571,10 +543,8 @@ smap9e:
 		mkbyte 2,3
 		mkline 4
 		mkbyte 1,1
-		
 		mkline 4
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -584,11 +554,9 @@ smap9e:
 		mkbyte 2,3
 		mkline 4
 		mkbyte 1,1
-		
 		mkbyte 1,0
 		mkline 3
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -598,10 +566,8 @@ smap9e:
 		mkbyte 2,3
 		mkline 5
 		mkbyte 1,1
-		
 		mkline 3
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -611,11 +577,9 @@ smap9e:
 		mkbyte 2,3
 		mkline 5
 		mkbyte 1,1
-		
 		mkbyte 1,0
 		mkline 2
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -624,10 +588,8 @@ smap9e:
 		mkbyte 2,3
 		mkline 6
 		mkbyte 1,1
-		
 		mkline 2
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0		
@@ -636,64 +598,55 @@ smap9e:
 		mkbyte 2,3
 		mkline 6
 		mkbyte 1,1
-		
 		mkbyte 1,0
 		db 0
 		mkbyte 2,3
 		mkline 2
-		db 0
-		
+		db 0		
 		mkbyte 10,0				; door	
 		db 0
 	
-		dup 6
+		mkdup 6
 			db 0
 			mkbyte 2,3
 			mkline 8
 			mkbyte 1,1
-			
 			mkbyte 2,3
 			mkline 4
 			mkbyte 1,1
-		edup
+		;edup
 
 		mkline 4
-		db 0
-		
+		db 0		
 		mkline 6
-		mkbyte 1,1
-		
+		mkbyte 1,1		
 		mkbyte 2,3
 		mkline 4
 		mkbyte 1,1
-
-		mkline 5
-		db 0
 		
+		mkline 5
+		db 0		
 		mkbyte 6,7
 		db 0
 		mkbyte 11,0				; pipe top
 		mkline 3
-		db 0
-		
+		db 0		
 		mkbyte 0,11				; pipe top
 		mkline 3
 		db 0
 					
-		dup 2
+		mkdup 2
 			mkline 5
 			db 0
-			
 			mkbyte 8,9
 			db 0
 			mkbyte 12,0 		; pipe
 			mkline 3
 			db 0
-			
 			mkbyte 0,12 		; pipe
 			mkline 3
 			db 0
-		edup
+		;edup
 		
 		mscrend
 ; --- end of scrbk9
@@ -709,48 +662,44 @@ smap10b:
 		bkindex BK9ADDR		; 5, blue ladder bottom right		
 		bkindex BK3ADDR		; 6, door
 smap10e:		
-		dup 6
-			mkline 14
+		mkdup 6
+			mkline 13
 			db 0
 			db 0
-		edup
+			db 0	
+		;edup
 		
 		db 0
 		mkbyte 6,0			; door
 		mkline 13
 		db 0
 				
-		dup 7
+		mkdup 7
 			mkline 13
 			mkbyte 1,1
-			
 			mkbyte 1,0
 			db 0
-		edup
+		;edup
 
 		mkline 2
 		db 0
-		
 		mkbyte 2,3
 		mkline 7
 		db 0
-		
 		mkbyte 2,3
 		mkline 4
 		db 0
 		
-		dup 2
+		mkdup 2
 			mkline 2
 			db 0
-			
 			mkbyte 4,5 
 			mkline 7
 			db 0
-			
 			mkbyte 4,5
 			mkline 4
 			db 0	
-		edup
+		;edup
 		
 		mscrend
 		

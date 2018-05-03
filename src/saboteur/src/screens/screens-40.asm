@@ -6,7 +6,7 @@ smap40b:
 		bkindex BK24ADDR	; 2, yellow ladder left
 		bkindex BK25ADDR	; 3, yellow ladder right
 smap40e:
-		dup 9
+		mkdup 9
 			db 0
 			db 0
 			mkline 5
@@ -14,7 +14,7 @@ smap40e:
 			mkbyte 2,3
 			mkline 7
 			mkbyte 1,1
-		edup
+		;edup
 		
 		mkline 3
 		db 0
@@ -101,19 +101,19 @@ smap41b:
 		bkindex BK26ADDR    ; 4, cyan vertical tube
 		bkindex BK23ADDR	; 5, red beam
 smap41e:
-		dup 5
+		mkdup 5
 			mkline 7
 			mkbyte 1,1
 			mkline 8
 			db 0
-		edup
+		;edup
 		
-		dup 9
+		mkdup 9
 			mkline 13
 			mkbyte 1,1
 			mkbyte 4,1
 			mkbyte 1,1
-		edup
+		;edup
 		
 		mkline 6
 		db 0
@@ -157,12 +157,12 @@ smap42b:
 		bkindex BK26ADDR    ; 2, cyan vertical tube
 		bkindex BK23ADDR	; 3, red beam
 smap42e:
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
 			db 0
 			db 0
-		edup
+		;edup
 		
 		mkbyte 1,2			; 6
 		mkbyte 1,1
@@ -257,14 +257,14 @@ smap43b:
 		bkindex BK26ADDR    ; 2, cyan vertical tube
 		bkindex BK23ADDR	; 3, red beam
 smap43e:
-		dup 7
+		mkdup 7
 			mkbyte 1,2
 			mkline 6
 			mkbyte 1,1
 			mkbyte 1,0
 			mkline 7
 			db 0
-		edup
+		;edup
 
 		mkbyte 1,2
 		mkbyte 1,1
@@ -285,7 +285,7 @@ smap43e:
 		mkline 7
 		db 0
 
-		dup 8
+		mkdup 8
 			mkbyte 1,2
 			mkbyte 1,1
 			mkbyte 1,1
@@ -295,7 +295,7 @@ smap43e:
 			mkbyte 1,0
 			mkline 7
 			db 0			
-		edup
+		;edup
 		
 		mscrend
 		
@@ -311,7 +311,7 @@ smap44b:
 		bkindex BK26ADDR    ; 4, cyan vertical tube
 		bkindex BK23ADDR	; 5, red beam
 smap44e:
-		dup 8
+		mkdup 8
 			mkline 5
 			db 0
 			mkbyte 0,1
@@ -320,7 +320,7 @@ smap44e:
 			mkbyte 1,1
 			mkbyte 4,1
 			mkbyte 1,1
-		edup
+		;edup
 		
 		mkline 5
 		db 0
@@ -331,7 +331,7 @@ smap44e:
 		mkline 4
 		mkbyte 5,5
 
-		dup 8
+		mkdup 8
 			mkline 5
 			db 0
 			mkbyte 0,1
@@ -340,7 +340,7 @@ smap44e:
 			mkbyte 1,1
 			mkbyte 4,1
 			mkbyte 1,1
-		edup
+		;edup
 		
 		mscrend
 		
@@ -380,7 +380,7 @@ smap45e:
 		mkbyte 3,1
 		db 0
 		
-		dup 2
+		mkdup 2
 			mkbyte 5,5
 			mkbyte 5,5
 			mkbyte 5,5
@@ -392,7 +392,7 @@ smap45e:
 			mkbyte 1,2
 			mkbyte 3,1
 			db 0		
-		edup 
+		;edup 
 
 		mkbyte 5,5			; 5 
 		mkbyte 5,5
@@ -442,7 +442,7 @@ smap45e:
 		mkbyte 3,1
 		db 0
 
-		dup 2
+		mkdup 2
 			mkbyte 5,5		; 9,10
 			mkbyte 5,5
 			mkbyte 5,5
@@ -454,7 +454,7 @@ smap45e:
 			mkbyte 1,2
 			mkbyte 3,1
 			db 0		
-		edup
+		;edup
 
 		mkbyte 5,5			; 11
 		mkbyte 5,5

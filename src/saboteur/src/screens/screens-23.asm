@@ -11,10 +11,9 @@ smap23b:
 		bkindex BK10ADDR	; 7, blue small bricks
 		bkindex BK4ADDR		; 8, blue bricks
 		bkindex BK20ADDR	; 9, water blue ladder
-		bkindex BK21ADDR	; A, water green ladder
-		
+		bkindex BK21ADDR	; A, water green ladder		
 smap23e:
-		dup 7
+		mkdup 7
 			db 0
 			db 0
 			mkbyte 1,2
@@ -30,7 +29,7 @@ smap23e:
 			mkbyte 0,6
 			mkline 2
 			db 0
-		edup
+		;edup
 
 		mkbyte 7,7
 		mkbyte 7,7
@@ -48,13 +47,12 @@ smap23e:
 		mkbyte 7,0
 		db 0
 
-		dup 3
+		mkdup 3
 			mkline 2
 			mkbyte 8,8
 			mkbyte 1,2
 			mkline 3
 			mkbyte 8,8
-
 			mkline 2
 			db 0
 			mkline 2
@@ -64,7 +62,7 @@ smap23e:
 			mkbyte 8,8
 			mkbyte 8,0
 			db 0
-		edup
+		;edup
 
 		mkline 2
 		mkbyte 8,8
@@ -82,16 +80,14 @@ smap23e:
 		mkbyte 3,0
 		db 0
 
-		dup 2
+		mkdup 2
 			mkline 2
 			mkbyte 8,8
 			mkbyte 1,2
 			mkline 3
 			mkbyte 8,8
-			
 			mkline 2
 			db 0
-			
 			mkline 2
 			mkbyte 4,4
 			mkbyte 10,10
@@ -99,7 +95,7 @@ smap23e:
 			mkbyte 4,4
 			mkbyte 4,0
 			db 0		
-		edup
+		;edup
 				
 		db 0
 		dup 3
@@ -110,16 +106,15 @@ smap23e:
 		mkline 8
 		db 0
 
-		dup 2
+		mkdup 2
 			db 0
 			dup 3
-			mkbyte 6,0
-			db 0
+				mkbyte 6,0
+				db 0
 			edup
-			
 			mkline 8	
 			db 0
-		edup
+		;edup
 
 		mscrend
 		
@@ -137,22 +132,19 @@ smap24b:
 		bkindex BK4ADDR		; 6, blue bricks
 		bkindex BK22ADDR	; 7, solid white
 smap24e:
-		dup 5
+		mkdup 5
 			mkline 3
 			db 0
-			
 			mkbyte 1,2
 			mkline 3
 			db 0
-
 			mkbyte 4,0
 			mkline 3
 			db 0
-
 			mkbyte 0,4
 			mkline 3
 			db 0
-		edup
+		;edup
 		
 		db 0
 		mkbyte 0,6
@@ -188,14 +180,13 @@ smap24e:
 		mkline 2
 		mkbyte 5,5
 		
-		dup 5
+		mkdup 5
 			mkline 3
 			mkbyte 6,6
-
 			mkbyte 1,2
 			mkline 11
 			mkbyte 6,6
-		edup
+		;edup
 		
 		mkline 2
 		mkbyte 7,7
@@ -223,18 +214,16 @@ smap24e:
 		mkline 3
 		db 0
 		
-		dup 2
+		mkdup 2
 			mkline 7
 			db 0
-
 			mkbyte 4,0
 			mkline 3
 			db 0
-
 			mkbyte 0,4
 			mkline 3
 			db 0
-		edup
+		;edup
 		
 		mscrend
 		
@@ -249,13 +238,12 @@ smap25b:
 		bkindex BK4ADDR		; 2, blue bricks
 		bkindex BK22ADDR	; 3, solid white
 smap25e:
-		dup 7
+		mkdup 7
 			mkline 13
 			db 0
-			
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mkline 13
 		mkbyte 1,1
@@ -263,29 +251,26 @@ smap25e:
 		mkline 2
 		mkbyte 1,1
 		
-		dup 5
+		mkdup 5
 			mkline 13
 			mkbyte 2,2
-			
 			mkline 2
 			mkbyte 2,2
-		edup
+		;edup
 		
-		dup 2
+		mkdup 2
 			mkline 13
 			mkbyte 3,3
-			
 			mkline 2
 			mkbyte 3,3
-		edup
+		;edup
 
-		dup 2
+		mkdup 2
 			mkline 13
 			db 0
-			
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mscrend
 ; --- end of scrbk25
@@ -297,12 +282,12 @@ smap26b:
 		bkindex BK4ADDR		; 1, blue bricks
 		bkindex BK22ADDR	; 2, solid white
 smap26e:
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mkline 11
 		mkbyte 1,1
@@ -317,12 +302,12 @@ smap26e:
 		mkline 3
 		db 0
 		
-		dup 5
+		mkdup 5
 			mkline 13
 			mkbyte 1,1
 			mkline 2
 			mkbyte 1,1
-		edup
+		;edup
 		
 		mkline 10
 		db 0
@@ -344,12 +329,12 @@ smap26e:
 		mkline 3
 		mkbyte 2,2
 		
-		dup 2
+		mkdup 2
 			mkline 13
 			db 0
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mscrend
 ; --- end of scrbk26
@@ -363,13 +348,12 @@ smap27b:
 		bkindex BK6ADDR		; 3, 2 yellow bricks 
 		bkindex BK7ADDR		; 4, big yellow brick
 smap27e:
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
-			
 			mkline 2
 			db 0
-		edup
+		;edup
 	
 		mkline 13
 		mkbyte 1,1
@@ -377,20 +361,19 @@ smap27e:
 		mkbyte 1,3
 		mkbyte 2,2
 		
-		dup 6
+		mkdup 6
 			mkline 13
 			mkbyte 1,1
-
 			mkbyte 1,4
 			mkbyte 2,2
-		edup
+		;edup
 		
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mscrend
 ; --- end of scrbk27
@@ -402,19 +385,19 @@ smap28b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK23ADDR	; 2, red beam
 smap28e:
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
 			mkline 2
 			db 0
-		edup
+		;edup
 
-		dup 7
+		mkdup 7
 			mkline 13
 			mkbyte 1,1
 			mkline 2
 			mkbyte 1,1
-		edup
+		;edup
 	
 		mkline 10
 		mkbyte 1,1
@@ -429,13 +412,12 @@ smap28e:
 		mkline 7
 		db 0
 		
-		dup 3
+		mkdup 3
 			mkline 7
 			mkbyte 1,1
-
 			mkline 8
 			db 0
-		edup
+		;edup
 
 		mscrend
 ; --- end of scrbk28
@@ -450,12 +432,12 @@ smap29b:
 		bkindex BK24ADDR	; 3, yellow ladder left
 		bkindex BK25ADDR	; 4, yellow ladder right
 smap29e:
-		dup 5
+		mkdup 5
 			mkline 13
 			db 0
 			mkline 2
 			db 0
-		edup
+		;edup
 		
 		mkline 5
 		db 0
@@ -486,18 +468,16 @@ smap29e:
 		mkline 7
 		mkbyte 1,1
 
-		dup 5
+		mkdup 5
 			mkline 3
 			db 0
-			
 			mkbyte 0,1
 			mkline 3
 			mkbyte 1,1
-
 			mkbyte 3,4
 			mkline 7
 			mkbyte 1,1
-		edup
+		;edup
 				
 		mkline 7
 		db 0

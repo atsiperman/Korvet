@@ -18,16 +18,13 @@ scrchng2:
 		ld a,1
 		ret
 
-decmcnt:
-		db 0		; counter of bytes in compressed screen
-		
 
 ; ------ puts byte into shadow screen
 ; args: 
 ;		A  - index of a sprite in the local sprite table
-;		HL - address of the local sprite table
+;		BC - address of the local sprite table
 ;		DE - current address in the shadow screen
-		macro putbsc_
+		macro PUTBSC_
 
 		and 15				; index of the first sprite in A
 		push hl
@@ -45,6 +42,26 @@ decmcnt:
 		ex de,hl
 		pop hl				; restore pointer to the next byte
 		
+		endm
+
+; ----- decompresses byte 		
+		macro DCMPBYT_
+		ld a,(hl)
+							; get index from hi half
+		rra					
+		rra
+		rra
+		rra		
+		
+		PUTBSC_				;  put first compressed byte to the shadow screen
+		
+		inc de				; next byte of shadow screen
+
+		ld a,(hl)			; restore compressed byte		
+		
+		PUTBSC_				;  put second compressed byte to the shadow screen
+
+		inc de				; next byte in shadow screen		
 		endm
 		
 ; ----- decompresses current screen into shadow area
@@ -71,48 +88,13 @@ decmprs1:
 		jp z,decmprs5		; set pointer to the object list						
 		
 		and LINELEN			; clear low bits
-		cp LINELEN			; is line length ?
-		jp nz, decmprs2		; no, start writing data
+		cp DUPLEN			; is dup length ?
+		jp nz,decmps1_		; no, check line length
+		call decmpdup
+		jp decmprs1
 		
-		ld a,(hl)			; yes, reload line length
-		and 15				; leave counter only
-		push af				; and save
-		
-		inc hl				; move to data byte
-		jp decmprs3
-		
-decmprs2:
-		ld a,1				; set counter to 1
-		push af
-		ld a,(hl)			; reload data byte
-		
-decmprs3:		
-		ld a,(hl)
-
-		rra
-		rra
-		rra
-		rra		
-		
-		putbsc_
-		
-		inc de				; next byte of shadow screen
-
-		ld a,(hl)			; restore compressed byte		
-		
-		putbsc_
-
-		inc de				; next byte in shadow screen
-
-		pop af				; restore counter
-		dec a				
-		jp z, decmprs4		; end, continue global cycle
-		
-		push af				; continue line
-		jp decmprs3			
-
-decmprs4:
-		inc hl				; move to the next data byte
+decmps1_:
+		call decmpln_
 		jp decmprs1			; continue
 		
 decmprs5:
@@ -123,6 +105,91 @@ decmprs5:
 		ex de,hl
 		
 		ld (objlist),hl
+		ret
+				
+		
+linecnt_:
+		db 0
+bytecnt_:
+		db 0
+cmlinadr:
+		dw 0
+		
+; ----- decompresses duplicated lines
+; 		
+decmpdup:
+		ld a,(hl)			; reload line marker
+		and 15				; get number of lines
+		ld (linecnt_),a		; save line counter
+		inc hl
+		ld (cmlinadr),hl		
+		
+decmpdp2:		
+		ld hl,(cmlinadr)
+		xor a
+		ld (bytecnt_),a		; init byte counter		
+		
+decmpdp3:		
+		
+		ld a,(hl)			; load compressed byte
+		and LINELEN
+
+		call decmpln_
+		ld a,(bytecnt_)
+		cp 15
+		jp nz,decmpdp3
+		
+decmpdp6:		
+		ld a,(linecnt_)
+		dec a
+		ret z
+		ld (linecnt_),a
+		jp decmpdp2
+
+; ----- decompresses a pack of bytes
+; 		
+		macro INCBCNT
+		push hl
+		ld h,a				; save byte counter
+		ld a,(bytecnt_)
+		add h				; increase byte counter
+		ld (bytecnt_),a		
+		ld a,h
+		pop hl
+		endm
+		
+decmpln_:
+		cp LINELEN			; is line length ?
+		jp nz, decmprs2		; no, start writing data
+		
+		ld a,(hl)			; yes, reload line length
+		and 15				; leave counter only
+		push af				; and save
+		
+		INCBCNT
+		
+		inc hl				; move to data byte
+		jp decmprs3
+		
+decmprs2:
+		ld a,1				; set counter to 1
+		INCBCNT
+		push af
+		ld a,(hl)			; reload data byte
+		
+decmprs3:		
+		DCMPBYT_
+		
+		pop af				; restore counter
+		dec a				
+		jp z,decmprs4		; end, continue global cycle
+		
+		push af				; continue line
+		jp decmprs3			
+
+decmprs4:
+		inc hl				; move to the next data byte		
+
 		ret
 		
 ; ----- removes objects from screen buffer
