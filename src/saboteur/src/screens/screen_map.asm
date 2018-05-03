@@ -46,5 +46,7 @@ scrn44:	mkscreen scrbk44, 0,scrn43, scrn41,scrn52, 0
 scrn45:	mkscreen scrbk45, 0,0, scrn40,scrn51, 0
 
 scrn51:	mkscreen scrbk51, 0,scrn52, scrn45,0, s51objm
-scrn52:	mkscreen scrbk52, scrn51,scrn53, scrn44,0, s52objm
+scrn52:	mkscreen scrbk52, scrn51,scrn53, scrn44,scrn55, s52objm
 scrn53:	mkscreen scrbk53, scrn52,0, scrn43,0, 0
+scrn54:	mkscreen scrbk54, scrn55,0, 0,0, s54objm
+scrn55:	mkscreen scrbk55, 0,scrn54, scrn52,0, 0

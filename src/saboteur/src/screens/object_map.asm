@@ -24,3 +24,7 @@ s52objm:
 		db 1		
 		mkdog dirlt,dogspml1,0,7,13,5,19
 		
+s54objm:
+		db 1
+		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
+		

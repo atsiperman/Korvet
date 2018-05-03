@@ -27,7 +27,7 @@ CMAINHI	EQU 0h				; hi byte of the main color
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn1		; pointer to current screen
+curscr: 	dw scrn51		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 			
 shadscr:					; map of the current screen
@@ -80,8 +80,8 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,8,8
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,10
 			
 ; ----	saboteur health
 ;			
