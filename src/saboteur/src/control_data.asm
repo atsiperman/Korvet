@@ -24,11 +24,6 @@ CMAINHI	EQU 0h				; hi byte of the main color
 		db CMAINHI + 0eh	; CMAIN     0000 1110
 		db CMAINHI + 0fh	; CMAIN     0000 1111		
 				
-
-; ---- screen control block
-;
-curscr: 	dw scrn51		; pointer to current screen
-prevscr:	dw 0			; pointer to previous screen
 			
 shadscr:					; map of the current screen
 			dup	ROWNUM * COLNUM
@@ -57,6 +52,12 @@ curtile:	dw 0			; address of the current tile in video memory
 sprtbuf:	dup 256
 			db 0
 			edup
+
+; ---- screen control block
+;
+curscr: 	dw scrn61		; pointer to current screen
+prevscr:	dw 0			; pointer to previous screen
+			
 			
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
@@ -81,7 +82,7 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,10
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,9
 			
 ; ----	saboteur health
 ;			

@@ -685,3 +685,82 @@ smap56e:
 		mscrend
 		
 ; --- end of scrbk56
+
+scrbk57:
+		spmaplen smap57b,smap57e
+smap57b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK1ADDR		; 1, yellow L
+smap57e:
+		mkdup 8
+			mkline 14
+			db 0
+			db 0
+		;edup
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkline 6
+		mkbyte 1,1
+		mkbyte 1,0
+		mkbyte 0,0
+		mkbyte 0,1
+		mkline 6
+		mkbyte 1,1
+		
+		mkdup 2
+		mkline 14
+			db 0
+			db 0
+		;edup
+
+		mscrend
+		
+; --- end of scrbk57

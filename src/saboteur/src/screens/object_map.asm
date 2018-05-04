@@ -28,3 +28,6 @@ s54objm:
 		db 1
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
 		
+s62objm:
+		db 1		
+		mkdog dirlt,dogspml1,0,3,8,3,15
