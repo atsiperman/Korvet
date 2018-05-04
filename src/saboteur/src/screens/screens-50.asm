@@ -1,3 +1,144 @@
+scrbk50:
+		spmaplen smap50b,smap50e
+smap50b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK24ADDR	; 2, yellow ladder left
+		bkindex BK25ADDR	; 3, yellow ladder right
+		bkindex BK26ADDR    ; 4, cyan vertical tube
+		bkindex BK23ADDR	; 5, red beam
+smap50e:
+		mkdup 7
+			db 0
+			mkline 7
+			mkbyte 1,1
+			mkbyte 4,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			db 0
+			db 0
+		;edup
+		
+		db 0
+		mkline 6 
+		mkbyte 1,1
+		mkline 6
+		mkbyte 5,5
+		mkbyte 5,0
+		db 0
+		
+							; 9
+		mkline 2
+		db 0
+		mkbyte 0,1
+		mkline 5
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+
+							; 10
+		mkline 3
+		db 0
+		mkline 5
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+
+							; 11
+		mkline 3
+		db 0
+		mkbyte 0,1
+		mkline 4
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+							; 12
+		mkline 4
+		db 0
+		mkline 4
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+							; 13
+		mkline 4
+		db 0
+		mkbyte 0,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+							; 14
+		mkline 5
+		db 0
+		mkline 3
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+							; 15
+		mkline 5
+		db 0
+		mkbyte 0,1
+		mkline 2
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+		
+		mkline 10
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 3
+		db 0
+
+		mkline 10
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 3
+		db 0
+		
+		mscrend
+		
+; --- end of scrbk50
+
+
 scrbk51:
 		spmaplen smap51b,smap51e
 smap51b:
@@ -764,3 +905,96 @@ smap57e:
 		mscrend
 		
 ; --- end of scrbk57
+
+
+scrbk58:
+		spmaplen smap58b,smap58e
+smap58b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK7ADDR     ; 2, big yellow brick		
+		bkindex BK6ADDR		; 3, 2 yellow bricks 
+		bkindex BK24ADDR	; 4, yellow ladder left
+		bkindex BK25ADDR	; 5, yellow ladder right
+smap58e:
+		mkbyte 1,0
+		mkline 4
+		db 0
+		mkbyte 0,1
+		mkline 4
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		db 0
+		db 0
+		
+		mkdup 7
+			mkline 10
+			mkbyte 1,1
+			mkbyte 1,4
+			mkbyte 5,1
+			mkbyte 1,1
+			db 0
+			db 0
+		;edup
+		
+		mkline 10
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		mkbyte 3,1
+		mkbyte 1,1
+
+		mkdup 2
+			mkline 10
+			mkbyte 1,1
+			mkbyte 1,4
+			mkbyte 5,1
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1
+		;edup
+		
+		mkline 10
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 10
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 10
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 10
+		mkbyte 1,1
+		mkbyte 1,4
+		mkbyte 5,1
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkdup 2
+		mkline 14
+			db 0
+			db 0
+		;edup
+		
+		mscrend
+		
+; --- end of scrbk58

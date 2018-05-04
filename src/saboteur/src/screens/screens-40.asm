@@ -545,3 +545,85 @@ smap45e:
 		mscrend
 		
 ; --- end of scrbk45
+
+scrbk46:
+		spmaplen smap46b,smap46e
+smap46b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK24ADDR	; 2, yellow ladder left
+		bkindex BK25ADDR	; 3, yellow ladder right
+		bkindex BK26ADDR    ; 4, cyan vertical tube
+		bkindex BK23ADDR	; 5, red beam
+smap46e:
+		mkdup 9
+			db 0
+			mkline 7
+			mkbyte 1,1
+			mkbyte 4,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			db 0
+			db 0
+		;edup
+		
+		db 0
+		mkline 7
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+	
+		db 0
+		mkline 7
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+	
+		db 0
+		mkline 7
+		mkbyte 1,1
+		mkbyte 4,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		db 0
+
+		mkbyte 0,5
+		mkline 9
+		mkbyte 5,5
+		mkbyte 5,2
+		mkbyte 3,5
+		mkbyte 5,5
+		mkbyte 5,0
+		db 0
+		
+		mkdup 4
+			db 0
+			mkline 7
+			mkbyte 1,1
+			mkbyte 4,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			db 0
+			db 0
+		;edup
+		
+		mscrend
+		
+; --- end of scrbk46
