@@ -38,8 +38,16 @@ scrn27:	mkscreen scrbk27, scrn28,scrn26, 0,0, 0
 scrn28:	mkscreen scrbk28, scrn29,scrn27, 0,0, 0
 scrn29:	mkscreen scrbk29, 0,scrn28, 0,scrn40, 0 
 
-scrn38:	mkscreen scrbk38, 0,scrn39, 0,scrn46, 0
-scrn39:	mkscreen scrbk39, scrn38,0, 0,0, s39objm
+scrn30:	mkscreen scrbk30, 0,0, 0,scrn39, 0
+scrn31:	mkscreen scrbk31, scrn32,0, 0,scrn38, 0
+scrn32:	mkscreen scrbk32, scrn33,scrn31, 0,0, s32objm
+scrn33:	mkscreen scrbk32, scrn34,scrn32, 0,0, 0
+scrn34:	mkscreen scrbk34, 0,scrn33, 0,scrn35, 0
+scrn35:	mkscreen scrbk35, 0,scrn36, scrn34,scrn48, s35objm
+scrn36:	mkscreen scrbk36, scrn35,scrn37, 0,0, s36objm
+scrn37:	mkscreen scrbk37, scrn36,0, 0,0, 0
+scrn38:	mkscreen scrbk38, 0,scrn39, scrn31,scrn46, 0
+scrn39:	mkscreen scrbk39, scrn38,0, scrn30,0, s39objm
 
 scrn40:	mkscreen scrbk40, 0,scrn41, scrn29,scrn45, 0
 scrn41:	mkscreen scrbk41, scrn40,scrn42, 0,scrn44, 0
@@ -48,6 +56,8 @@ scrn43:	mkscreen scrbk43, scrn44,0, scrn42,scrn53, 0
 scrn44:	mkscreen scrbk44, 0,scrn43, scrn41,scrn52, 0
 scrn45:	mkscreen scrbk45, 0,0, scrn40,scrn51, 0
 scrn46:	mkscreen scrbk46, 0,0, scrn38,scrn50, s46objm
+scrn48:	mkscreen scrbk48, 0,0, scrn35,scrn49, s48objm
+scrn49:	mkscreen scrbk49, 0,0, scrn48,scrn62, s49objm
 
 scrn50:	mkscreen scrbk50, 0,0, scrn46,scrn58, 0
 scrn51:	mkscreen scrbk51, 0,scrn52, scrn45,0, s51objm
@@ -61,7 +71,7 @@ scrn58:	mkscreen scrbk58, scrn60,scrn57, scrn50,0, 0
 
 scrn60:	mkscreen scrbk60, scrn61,scrn58, 0,0, s60objm
 scrn61:	mkscreen scrbk61, scrn62,scrn60, 0,0, 0
-scrn62:	mkscreen scrbk62, 0,scrn61, 0,scrn63, s62objm
+scrn62:	mkscreen scrbk62, 0,scrn61, scrn49,scrn63, s62objm
 scrn63:	mkscreen scrbk63, 0,scrn64, scrn62,0, 0
 scrn64:	mkscreen scrbk64, scrn63,scrn65, 0,0, 0
 scrn65:	mkscreen scrbk65, scrn64,0, scrn54,0, 0

@@ -627,3 +627,162 @@ smap46e:
 		mscrend
 		
 ; --- end of scrbk46
+
+
+scrbk48:
+		spmaplen smap48b,smap48e
+smap48b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK24ADDR	; 2, yellow ladder left
+		bkindex BK25ADDR	; 3, yellow ladder right
+smap48e:
+		mkdup 8
+			db 0
+			db 0
+			mkline 9
+			mkbyte 1,1
+			mkbyte 2,3
+			mkbyte 1,1
+			mkbyte 1,1
+			db 0
+		;edup
+		
+		mkline 5
+		db 0
+		mkbyte 2,3
+		mkline 9
+		db 0
+		
+		mkdup 7
+			db 0
+			mkline 4
+			mkbyte 1,1
+			mkbyte 2,3
+			mkline 8
+			mkbyte 1,1
+			db 0
+		;edup
+		
+		mkline 10
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 3
+		db 0
+		
+		mscrend
+		
+; --- end of scrbk48
+
+
+scrbk49:
+		spmaplen smap49b,smap49e
+smap49b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK24ADDR	; 2, yellow ladder left
+		bkindex BK25ADDR	; 3, yellow ladder right
+		bkindex BK7ADDR     ; 4, big yellow brick
+smap49e:
+		mkdup 7
+			db 0
+			mkline 9
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			mkbyte 1,1
+			db 0
+		;edup
+
+		mkdup 3
+			db 0
+			mkline 9
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			mkbyte 1,1
+			mkbyte 4,1			
+		;edup
+		
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
+		
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
+
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
+
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
+
+		mkline 4
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 9
+		db 0
+
+		mkdup 2
+			mkline 4
+			db 0
+			mkbyte 0,2
+			mkbyte 3,0
+			mkline 9
+			db 0
+		;edup
+		
+		mscrend
+		
+; --- end of scrbk49
