@@ -152,7 +152,7 @@ drawfrm:
 ; ----
 ; ----	draws part of the frame's color which is in the text RAM
 ;
-drawfrmt:
+drawfrmt:		
 		ld hl,TVIREG
 		ld (hl),ATRSET			; turn on inversion
 		

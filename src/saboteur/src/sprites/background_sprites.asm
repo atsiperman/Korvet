@@ -113,10 +113,10 @@ BK25DATA:	bksh2 CYELLOW,bladder						; yellow ladder right
 BK26DATA:	bksh CRED									; cyan vertical tube
 			DB 102,70,70,102,98,102,102,102
 			
-BK27DATA:	bksh CRED									; red left top edge
+BK27DATA:	bksh3 CYELLOW,CRED,bwall					; red left top edge
 			DB 15, 31, 63, 127, 255, 255, 255, 255
 
-BK28DATA:	bksh2 CRED, bwall							; red left bottom edge
+BK28DATA:	bksh3 CYELLOW,CRED,bwall					; red left bottom edge
 			DB 255, 255, 255, 255, 127, 63, 31, 15			
 
 BK29DATA:	bksh2 CRED, bwall							; solid red 

@@ -3,7 +3,7 @@
 ; result: A - 0 to stop
 
 gmain:
-		call gaction		; process objects		
+		;;call gaction		; process objects		
 		call sbmain			; process saboteur
 		ret
 

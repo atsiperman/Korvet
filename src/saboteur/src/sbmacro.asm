@@ -4,25 +4,39 @@
 	endm
 
 	macro mkcolor color
-	DB (80h + (color << 1)) 	; color register
+	db (80h + (color << 1)) 	; color register
 	endm 
 	
 	; background sprite header
 	macro bksh color
-		DB (80h + (color << 1)) 	; color register
+		db 80h						; black color for background by default
+		db (80h + (color << 1)) 	; color register
+		db 0						; background is a texture
+	endm
+
+	macro bksh_b bkcolor, color
+		db (80h + (bkcolor << 1))	; black color for background by default
+		db (80h + (color << 1)) 	; color register
 		db 0						; background is a texture
 	endm
 	
 	macro bksh2 color,btype
-		DB (80h + (color << 1)) 	; color register
+		db 80h						; black color for background by default
+		db (80h + (color << 1)) 	; color register
 		db btype					; sprite type
 	endm
-		
+
+	macro bksh3 bkcolor,color,btype
+		db (80h + (bkcolor << 1))	; black color for background by default
+		db (80h + (color << 1)) 	; color register
+		db btype					; sprite type
+	endm
+	
 	; header of a generic sprite
 	macro sprhead color,wi,hi
-		DB (80h + (color << 1)) 	; color register
-		DB wi
-		DB hi
+		db (80h + (color << 1)) 	; color register
+		db wi
+		db hi
 	endm
 	
 	; ---- header of moving sprites
@@ -95,8 +109,9 @@
 		add hl,de			; address of the current sprite
 		load_de_hl			; in DE
 
-		inc de				; sprite type
-		ld a,(de)
+		inc de				; skip back color
+		inc de				; skip color 
+		ld a,(de)			; sprite type
 	endm
 ;	
 ;	macro ldscrst			; loads start of the screen into HL

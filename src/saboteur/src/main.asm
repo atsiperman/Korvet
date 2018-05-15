@@ -60,7 +60,7 @@ start:
 		call sabinit
 		
         call clrtscr
-		call drawfrmt	; draw frame in text ram 		
+		;call drawfrmt	; draw frame in text ram 		
 
         ld hl,0
         add hl,sp

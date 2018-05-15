@@ -109,6 +109,9 @@ fsloop:
 ; ----- draws background for current screen
 ; args: DE - address of the screen model
 
+_bkcolr:
+		db 0
+
 drawbkgr:
         ld hl,SCRADDR
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
@@ -130,7 +133,11 @@ startdrw:
         ld d,(hl)
 		
         ;ld hl,COLRREG   ; set sprite color
-        ld a,(de)		; read color
+		ld a,(de)		; read back color
+		ld (_bkcolr),a	; save it 		
+		inc de
+		
+        ld a,(de)		; read foreground color
         ld b,a			
 		inc de
 		inc de			; skip header
@@ -138,26 +145,35 @@ startdrw:
         pop hl          ; restore screen address		
         ld c,8
 sprloop:
-        ld a,(de)
+        ld a,(de)		; load data byte	
 		
-		push de						; save data addre
+		push de			; save data address
 	
-		ex de,hl					; DE - screen address		
+		ex de,hl		; DE - screen address		
 		
-		ld hl,COLRREG				; set color to clear		
-		ld (hl),80h
+		push bc
+		ld hl,_bkcolr
+		ld b,(hl)
+		
+		ld hl,COLRREG	; set color to clear		
+		;ld (hl),80h
+		ld (hl),b
+		pop bc	
 			
-		ex de,hl					; HL - screen address
-		ld (hl),255					; clear byte
+		ex de,hl		; HL - screen address
+		;ld (hl),255		; clear byte
+		cpl
+		ld (hl),a
+		cpl
 				
-		ex de,hl					; HL - color reg
+		ex de,hl		; HL - color reg
 		
-		ld (hl),b					; set main color
+		ld (hl),b		; set main color
 		
-		ex de,hl					; HL - screen address				
-		ld (hl),a					; move data byte
+		ex de,hl		; HL - screen address				
+		ld (hl),a		; move data byte
 				
-		pop de						; restore data address
+		pop de			; restore data address
 		
         inc de          ; next byte from sprite
         dec c           ; sprite counter

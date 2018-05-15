@@ -261,7 +261,7 @@ drawscr:
 		or a
 		jp z,scrch1_		; initial render, skip screen clearance 
 		
-		call rmobjsb		; remove objects from screen buffer
+		;call rmobjsb		; remove objects from screen buffer
 		
 scrch1_:		
 		call scrchngd		; screen changed ?
@@ -285,9 +285,9 @@ drawobj1:					; draw all objects
 		
 drawobj2:
 				
-		call drawobjs
+		;call drawobjs
 		
-		call showscr		; show buffer on the screen
+		;call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar
 		
