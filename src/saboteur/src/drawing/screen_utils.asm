@@ -92,7 +92,7 @@ lutset2:
 
 fillvram:
         ld hl,COLRREG    ; color reg address
-        ld (hl),a       ; switch to color mode
+        ld (hl),a       ; switch color mode
 
         ld hl,GRAM
         ld bc,GRAMLEN
@@ -156,15 +156,17 @@ sprloop:
 		ld b,(hl)
 		
 		ld hl,COLRREG	; set color to clear		
-		;ld (hl),80h
-		ld (hl),b
+		;;ld (hl),80h
+		ld (hl),b		; set background color
 		pop bc	
 			
 		ex de,hl		; HL - screen address
-		;ld (hl),255		; clear byte
-		cpl
-		ld (hl),a
-		cpl
+		
+		;;ld (hl),255		; clear byte
+		
+		cpl				; get bits to be drawn as background
+		ld (hl),a		; draw background`
+		cpl				; get bits to be drawn as foreground
 				
 		ex de,hl		; HL - color reg
 		

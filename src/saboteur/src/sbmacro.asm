@@ -4,30 +4,30 @@
 	endm
 
 	macro mkcolor color
-	db (80h + (color << 1)) 	; color register
+	db (80h + (color << 1)) 	; color register in LAYER mode
 	endm 
 	
 	; background sprite header
 	macro bksh color
-		db 80h						; black color for background by default
-		db (80h + (color << 1)) 	; color register
+		db 80h + (CBLACK << 1)		; black color for background by default
+		db 80h + (color << 1)		; color register
 		db 0						; background is a texture
 	endm
 
 	macro bksh_b bkcolor, color
-		db (80h + (bkcolor << 1))	; black color for background by default
+		db (80h + (bkcolor << 1))	; background color 
 		db (80h + (color << 1)) 	; color register
 		db 0						; background is a texture
 	endm
 	
 	macro bksh2 color,btype
-		db 80h						; black color for background by default
+		db 80h + (CBLACK << 1)		; black color for background by default
 		db (80h + (color << 1)) 	; color register
 		db btype					; sprite type
 	endm
 
 	macro bksh3 bkcolor,color,btype
-		db (80h + (bkcolor << 1))	; black color for background by default
+		db (80h + (bkcolor << 1))	; background color 
 		db (80h + (color << 1)) 	; color register
 		db btype					; sprite type
 	endm

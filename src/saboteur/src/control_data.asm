@@ -4,48 +4,27 @@ tmpstk: dw 0				; to save stack for some operations
 	
 ; ---- LUT 
 LUTVAL:
-		db 0				; black		
-		db 11h				; CBLUE		0001 0001
-		db 22h				; CGREEN    0010 0010
-		db 43h				; CRED		0100 0011
-		db 64h				; CYELLOW   0110 0100
-		db 06bh				;           0000 0101
-		db 08h				;     		0000 0110
-
-		
-CMAINHI	EQU 0h				; hi byte of the main color
-		
-		db CMAINHI + 07h	; CMAIN     0000 0111
-		db CMAINHI + 08h	; CMAIN     0000 1000
-		db CMAINHI + 09h	; CMAIN     0000 1001
-		db CMAINHI + 0Ah	; CMAIN     0000 1010
-		db CMAINHI + 0Bh	; CMAIN     0000 1011
-		db CMAINHI + 0Ch	; CMAIN     0000 1100
-		db CMAINHI + 0Dh	; CMAIN     0000 1101
-		db CMAINHI + 0Eh	; CMAIN     0000 1110		
-		db CMAINHI + 0Fh	; CMAIN     0000 1111
-
-		; db 0				; black		
-		; db 11h				; CBLUE		0001 0001
-		; db 19h				;           0001 1001
-		; db 0a2h				; CGREEN	1010 0010
- 		; db 04ah				; red       1100 1010
-		; db 0e3h				; CYELLOW   1110 0011
-		; db 06bh				;           0110 1011
-		; db 08h				;     		0000 1000
-
-		
-; CMAINHI	EQU 0h				; hi byte of the main color
-		
-		; db CMAINHI + 04h	; CMAIN     0000 0100
-		; db CMAINHI + 05h	; CMAIN     0000 0101
-		; db CMAINHI + 06h	; CMAIN     0000 0110
-		; db CMAINHI + 07h	; CMAIN     0000 0111		
-		; db CMAINHI + 0ch	; CMAIN     0000 1100
-		; db CMAINHI + 0dh	; CMAIN     0000 1101
-		; db CMAINHI + 0eh	; CMAIN     0000 1110
-		; db CMAINHI + 0fh	; CMAIN     0000 1111		
+		db 00010000b	; CBLUE		0001 0001
+		db 00100001b	; CGREEN    0010 0010
+		db 01000010b	; CRED		0100 0011
+		db 01100011b    ; CYELLOW   0110 0100
 				
+		db 10011000b	; CBLUE		0001 0001
+		db 10101001b	; CGREEN    0010 0010
+		db 11001010b	; CRED		0100 0011
+		db 11101011b    ; CYELLOW   0110 0100
+
+		; black color		
+		db 00000100b
+		db 00000101b
+		db 00000110b
+		db 00000111b
+
+		db 00001100b
+		db 00001101b
+		db 00001110b
+		db 00001111b
+		
 			
 shadscr:					; map of the current screen
 			dup	ROWNUM * COLNUM
@@ -103,8 +82,8 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,2,9
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,2,9
 			
 ; ----	saboteur health
 ;			

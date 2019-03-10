@@ -37,16 +37,18 @@ SCRADDR 	EQU GRAM + 17 + 64*32 + 64*8 	; start of the working screen
 NEWSTK  	EQU 0beffh		; new address of stack
 
 							; logical colors
-CBLACK		EQU 0
-CBLUE		EQU 1
-CGREEN		EQU 2
-CRED		EQU 3
-CYELLOW		EQU 4
+CBLUE		EQU 0
+CGREEN		EQU 1
+CRED		EQU 2
+CYELLOW		EQU 3
+
+CBLACK		EQU 4
 
 
-CMAIN 		EQU 0			; color of the main character
+CMAIN 		EQU CBLACK			; color of the main character
 
-COLORCLR	EQU (7 & ~CMAIN) << 1	; color to clear working screen
+;COLORCLR	EQU 80h + ((7 & CMAIN) << 1)	; color to clear working screen
+COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 BUFLEN		EQU ROWNUM * COLNUM * 8	; size of the screen buffer

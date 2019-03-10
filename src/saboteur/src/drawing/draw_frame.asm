@@ -152,82 +152,82 @@ drawfrm:
 ; ----
 ; ----	draws part of the frame's color which is in the text RAM
 ;
-drawfrmt:		
-		ld hl,TVIREG
-		ld (hl),ATRSET			; turn on inversion
+; drawfrmt:		
+		; ld hl,TVIREG
+		; ld (hl),ATRSET			; turn on inversion
 		
-		ld hl,FRMADRT
-		ld b,FRMHIGT/2
+		; ld hl,FRMADRT
+		; ld b,FRMHIGT/2
 		
-		ld de,64
+		; ld de,64
 		
-		ld a,0		
-								; left frame column
-		call drfrmtv
+		; ld a,0		
+								; ; left frame column
+		; call drfrmtv
 
-								; top frame row
-		ld hl,FRMADRT + 1
-		ld b,COLNUM
-		call drfrmth
+								; ; top frame row
+		; ld hl,FRMADRT + 1
+		; ld b,COLNUM
+		; call drfrmth
 		
-								; right frame column
-		ld hl,FRMADRT + COLNUM + 1
-		ld b,FRMHIGT/2
-		call drfrmtv
+								; ; right frame column
+		; ld hl,FRMADRT + COLNUM + 1
+		; ld b,FRMHIGT/2
+		; call drfrmtv
 
-								; first bottom frame column 
-		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 5
-		ld b,3
-		call drfrmtv			
+								; ; first bottom frame column 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 5
+		; ld b,3
+		; call drfrmtv			
 		
-								; second bottom frame column 
-		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 21
-		ld b,3
-		call drfrmtv
+								; ; second bottom frame column 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 21
+		; ld b,3
+		; call drfrmtv
 		
-								; ; third bottom frame column 
-		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 26
-		ld b,3
-		call drfrmtv
+								; ; ; third bottom frame column 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 26
+		; ld b,3
+		; call drfrmtv
 		
-								; health bar 
-		ld hl,FRMADRT + (FRMHIGT/2 - 2) * 64 + 6
-		ld b,COLNUM
-		call drfrmth
-		ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 6
-		ld b,COLNUM
-		call drfrmth
+								; ; health bar 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 2) * 64 + 6
+		; ld b,COLNUM
+		; call drfrmth
+		; ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 6
+		; ld b,COLNUM
+		; call drfrmth
 		
 
-								; middle frame row 
-		ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 1
-		ld b,COLNUM
-		call drfrmth
+								; ; middle frame row 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 3) * 64 + 1
+		; ld b,COLNUM
+		; call drfrmth
 		
-								; bottom frame row 
-		ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 1
-		ld b,COLNUM
-		call drfrmth
+								; ; bottom frame row 
+		; ld hl,FRMADRT + (FRMHIGT/2 - 1) * 64 + 1
+		; ld b,COLNUM
+		; call drfrmth
 		
-		ld hl,TVIREG
-		ld (hl),ATRRES			; turn off inversion
-		ret 
+		; ld hl,TVIREG
+		; ld (hl),ATRRES			; turn off inversion
+		; ret 
 		
-; ----- draws vertical part of the frame
-;			
-drfrmtv:
-		ld (hl),a
-		add hl,de
-		dec b
-		jp nz,drfrmtv
-		ret
+; ; ----- draws vertical part of the frame
+; ;			
+; drfrmtv:
+		; ld (hl),a
+		; add hl,de
+		; dec b
+		; jp nz,drfrmtv
+		; ret
 		
-; ----- draws horizontal part of the frame
-;			
-drfrmth:
-		ld (hl),a
-		inc hl
-		dec b
-		jp nz,drfrmth
-		ret
+; ; ----- draws horizontal part of the frame
+; ;			
+; drfrmth:
+		; ld (hl),a
+		; inc hl
+		; dec b
+		; jp nz,drfrmth
+		; ret
 		

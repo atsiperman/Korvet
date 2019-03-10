@@ -72,7 +72,7 @@ start:
 
 		call clrsbuf		; clear buffer
 		
-        ld a,80h 
+        ld a,COLORCLR 
         call fillvram	; clear screen with black
 
 		call drawfrm	; draw frame
