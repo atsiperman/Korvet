@@ -467,3 +467,123 @@ smap65e:
 		
 ; --- end of scrbk65
 
+
+
+scrbk66:
+		spmaplen smap66b,smap66e
+smap66b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR     ; 1, green squares
+		bkindex BK31ADDR    ; 2, black and white dots
+smap66e:
+
+		db 0
+		db 0
+		mkline 13
+		db 0
+
+		mkdup 15
+			mkbyte 1,1
+			mkline 13
+			mkbyte 1,1
+			mkbyte 2,1
+		;edup
+		
+		db 0
+		db 0
+		mkline 13
+		db 0
+		
+		mscrend
+		
+; --- end of scrbk66
+
+scrbk67:
+		spmaplen smap67b,smap67e
+smap67b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR     ; 1, green squares
+		bkindex BK13ADDR    ; 2, green ladder bottom left
+		bkindex BK14ADDR    ; 3, green ladder bottom right
+smap67e:
+		db 0
+		db 0
+		mkline 13
+		db 0
+		
+		mkdup 15
+			mkbyte 1,1
+			mkbyte 1,1
+			mkline 13
+			mkbyte 1,1
+		;edup
+		
+		db 0
+		mkbyte 2,3
+		mkline 8
+		db 0
+		mkbyte 2,3
+		mkline 4
+		db 0
+		
+		mscrend
+		
+; --- end of scrbk67
+
+scrbk68:
+		spmaplen smap68b,smap68e
+smap68b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK3ADDR     ; 1, green squares
+		bkindex BK13ADDR    ; 2, green ladder bottom left
+		bkindex BK14ADDR    ; 3, green ladder bottom right
+		bkindex BK31ADDR    ; 4, black and white dots
+smap68e:
+		mkline 4
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkbyte 2,3
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 6
+		db 0
+		
+		mkdup 3
+			db 0
+			mkbyte 0,1
+			mkbyte 1,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 2,3
+			mkbyte 1,2
+			mkbyte 3,1
+			mkline 6
+			mkbyte 1,1
+		;edup
+
+		mkdup 12
+			mkbyte 1,4
+			mkbyte 1,1
+			mkbyte 1,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 2,3
+			mkbyte 1,2
+			mkbyte 3,1
+			mkline 6
+			mkbyte 1,1
+		;edup
+
+		db 0
+		db 0
+		mkbyte 0,2
+		mkbyte 3,0
+		mkline 11
+		db 0
+		
+		mscrend
+		
+; --- end of scrbk68

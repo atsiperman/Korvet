@@ -229,6 +229,7 @@ drawobjs:
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
+		;ret					;;;;; remove this after debug
 
 		ld hl,(objlist)		; HL - address of the object list
 		ld a,h
@@ -261,7 +262,8 @@ drawscr:
 		or a
 		jp z,scrch1_		; initial render, skip screen clearance 
 		
-		;call rmobjsb		; remove objects from screen buffer
+		;;
+		call rmobjsb		; remove objects from screen buffer
 		
 scrch1_:		
 		call scrchngd		; screen changed ?
@@ -275,19 +277,22 @@ scrch1_:
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
-				
-		;call clrtilem		; clear tile map
+		
+		;;
+		call clrtilem		; clear tile map
 		
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
+		;;
 		call savetilm
 		
 drawobj2:
 				
-		;call drawobjs
+		call drawobjs
 		
-		;call showscr		; show buffer on the screen
+		;;
+		call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar
 		

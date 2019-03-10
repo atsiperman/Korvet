@@ -35,6 +35,7 @@ BK27ADDR:	DW BK27DATA
 BK28ADDR:	DW BK28DATA
 BK29ADDR:	DW BK29DATA
 BK30ADDR:	DW BK30DATA
+BK31ADDR:	DW BK31DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -125,5 +126,6 @@ BK29DATA:	bksh2 CRED, bwall							; solid red
 BK30DATA:	bksh CGREEN									; solid green
 			DB 255,255,255,255,255,255,255,255
 
-			
+BK31DATA:	bksh2 CRED,bwall							; black and white dots
+			DB 50,46,123,38,50,46,123,38 
 			

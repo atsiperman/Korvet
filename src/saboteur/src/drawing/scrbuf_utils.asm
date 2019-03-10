@@ -174,40 +174,50 @@ showsc_:
 copytile:
 		ld hl,(curtile)				; address of current tile in video memory
 				
-		dup 8
-		
-		ld a,(de)					; load data byte
-		
-		push de
-		ex de, hl					; save video address in DE
-		
-		ld hl,COLRREG				; set color to clear		
-		ld (hl), (7 & ~CMAIN) << 1
-		
-		ex de,hl					; HL - screen address
-		cpl
-		ld (hl),a					; clear byte
-				
-		ex de,hl					; HL - color reg
-		
-		ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
-		ex de,hl					; HL - screen address		
-		
-		cpl
-		ld (hl),a					; move data byte
-		
-		pop de						; restore address in buffer
-				
-		ld bc,64
-		add hl,bc					; move to the next video line
-		ex de,hl
+		push bc
+		ld b,8
+		;dup 8
+		push bc
 
-		ld bc,COLNUM				; move to the next line in buffer
-		add hl,bc					
-		ex de,hl
+cptile2:
+			ld a,(de)					; load data byte
+			
+			push de
+			ex de, hl					; save video address in DE
+			
+			ld hl,COLRREG				; 
+			ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
+			
+			ex de,hl					; HL - screen address
 
-		edup
+			ld (hl),a					; set data bits
+					
+			ex de,hl					; HL - color reg
+			
+			ld (hl), ((7 & ~CMAIN) << 1)	; set color to clear		
+			ex de,hl					; HL - screen address			
+			cpl							; get bits to clear
+			ld (hl),a					; move data byte`
+			
+			pop de						; restore address in buffer
+					
+			ld bc,64
+			add hl,bc					; move to the next video line
+			ex de,hl
+
+			ld bc,COLNUM				; move to the next line in buffer
+			add hl,bc					
+			ex de,hl
+
+		pop bc
+		dec  b
+		jp z, cptile_
+		push bc
+		jp cptile2
+;		edup
 		
+cptile_:
+		pop bc
 		ret
 ; ------ end of copytile
 

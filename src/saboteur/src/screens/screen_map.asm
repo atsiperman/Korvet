@@ -11,12 +11,12 @@ objmapd	 equ 10 ; object map
 ; ---- map of screens
 scrn1:
 scrn3:	mkscreen scrbk3, 0, scrn4, 0, 0, s3objm
-scrn4:	mkscreen scrbk4, scrn3, scrn5, 0, 0, 0
+scrn4:	mkscreen scrbk4, scrn3, scrn5, scrn72, 0, 0
 scrn5:	mkscreen scrbk5, scrn4, scrn6, 0, 0, 0
-scrn6:	mkscreen scrbk6, scrn5, scrn7, 0, scrn11, 0
+scrn6:	mkscreen scrbk6, scrn5, scrn7, scrn70, scrn11, 0
 scrn7:	mkscreen scrbk7, scrn6, scrn8, 0, scrn12, 0
-scrn8:	mkscreen scrbk8, scrn7, 0, 0, scrn13, s8objm
-scrn9:	mkscreen scrbk9, 0, scrn10,0, scrn14, 0
+scrn8:	mkscreen scrbk8, scrn7, 0, scrn68, scrn13, s8objm
+scrn9:	mkscreen scrbk9, 0, scrn10,scrn67, scrn14, 0
 scrn10:	mkscreen scrbk10, scrn9,0,0,scrn15, s10objm
 scrn11:	mkscreen scrbk11, 0,0,scrn6,scrn16, 0
 scrn12:	mkscreen scrbk12, 0,0,scrn7,scrn17, 0
@@ -75,3 +75,21 @@ scrn62:	mkscreen scrbk62, 0,scrn61, scrn49,scrn63, s62objm
 scrn63:	mkscreen scrbk63, 0,scrn64, scrn62,0, 0
 scrn64:	mkscreen scrbk64, scrn63,scrn65, 0,0, 0
 scrn65:	mkscreen scrbk65, scrn64,0, scrn54,0, 0
+scrn66:	mkscreen scrbk66, scrn67,0, 0,0, 0
+scrn67:	mkscreen scrbk67, scrn68,scrn66, 0,scrn9, 0
+scrn68:	mkscreen scrbk68, 0,scrn67, scrn77,scrn8, 0
+
+scrn70:	mkscreen scrbk70, scrn71,0, scrn75, scrn6, 0
+scrn71:	mkscreen scrbk71, scrn72,scrn70, 0, scrn6, 0
+scrn72:	mkscreen scrbk72, 0,scrn71, scrn73, scrn4, 0
+scrn73:	mkscreen scrbk73, 0,scrn74, 0, scrn72, 0
+scrn74:	mkscreen scrbk74, scrn73,scrn75, 0, scrn71, 0
+scrn75:	mkscreen scrbk75, scrn74,0, 0, scrn70, 0
+
+scrn77:	mkscreen scrbk77, 0,scrn78, scrn82, scrn68, 0
+scrn78:	mkscreen scrbk78, scrn77,scrn79, 0, 0, 0
+scrn79:	mkscreen scrbk79, scrn78,0, 0, 0, 0
+
+scrn80:	mkscreen scrbk80, scrn81,0, 0, 0, 0
+scrn81:	mkscreen scrbk81, scrn82,scrn80, 0, 0, 0
+scrn82:	mkscreen scrbk82, 0,scrn81, scrn82, scrn77, 0

@@ -115,8 +115,13 @@ drawobj:
 		call copystat
 		
 		ret
-
+		
+		
+		
+;
 ; ----	mirrors sprite if direction is left
+;		always makes copy of the sprite into buffer in order to get equal movement speed in both directions
+;		returns original address of the sprite if this is right direction
 ;
 		macro MIRSPCPY
 		ld a,(hl)
@@ -138,12 +143,7 @@ drawobj:
 mirrspr:
 		push de
 		push hl
-		;lddir
-		;cp dirrt
-		;pop de
-		
-		;;ret z				; nothing to do for right direction
-		
+				
 		ex de,hl			; sprite address in HL
 		ld de,sprtbuf
 		
