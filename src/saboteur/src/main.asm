@@ -28,6 +28,8 @@
 		include "screens/screens-60.asm"
 		include "screens/screens-70.asm"
 		include "screens/screens-80.asm"
+		include "screens/screens-90.asm"
+		include "screens/screens-100.asm"
 		include "screens/screen_map.asm"		
 		
 		include "screen_control.asm"
