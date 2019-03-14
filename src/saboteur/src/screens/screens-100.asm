@@ -581,3 +581,266 @@ smap107e:
 		
 		mscrend
 ; --- end of scrbk107
+
+
+scrbk108:
+		spmaplen smap108b,smap108e
+smap108b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK26ADDR    ; 2, cyan vertical tube		
+		bkindex BK23ADDR    ; 3, red beam
+smap108e:
+		mkdup 9
+			mkbyte 1,2
+			mkline 3
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 1,1
+			mkbyte 2,1
+			mkline 7
+			mkbyte 1,1
+			db 0
+		;edup
+		
+		mkbyte 1,2
+		mkbyte 1,3
+		mkline 3
+		mkbyte 3,3
+		mkbyte 3,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,3
+		mkbyte 3,3
+		mkbyte 3,3
+		mkbyte 3,1
+		mkbyte 1,1
+		db 0
+		
+		mkdup 4
+			mkbyte 1,2			
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1			
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 1,1
+			mkbyte 1,1			
+			db 0			
+		;edup
+
+		mkbyte 1,2			
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1			
+		mkbyte 1,3
+		mkbyte 3,3
+		mkbyte 3,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,1			
+		db 0			
+
+		mkbyte 1,2			
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1			
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,1			
+		db 0			
+		
+		mkline 7
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 1,1
+		mkbyte 1,1
+		db 0
+		
+		mscrend
+; --- end of scrbk108
+
+
+scrbk109:
+		spmaplen smap109b,smap109e
+smap109b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+		bkindex BK26ADDR    ; 2, cyan vertical tube		
+		bkindex BK23ADDR    ; 3, red beam
+smap109e:
+		mkdup 3
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1
+		;edup
+
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 2,2
+		mkbyte 2,2
+		mkbyte 2,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1	
+		mkbyte 1,1
+		
+		mkdup 4
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkline 3
+			mkbyte 1,1
+			mkbyte 2,1
+			mkbyte 1,1
+		;edup
+		
+		db 0				; line 9
+		mkbyte 0,1
+		mkbyte 1,1
+		mkbyte 2,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkline 5
+		mkbyte 3,3
+		mkbyte 1,1
+		
+		db 0				; line 10
+		db 0
+		mkbyte 1,1
+		mkbyte 2,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		db 0				; line 11
+		db 0
+		mkbyte 0,1
+		mkbyte 2,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 3			; line 12
+		db 0
+		mkbyte 2,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 3			; line 13
+		db 0
+		mkbyte 0,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 4			; line 14
+		db 0
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 4			; line 15
+		db 0
+		mkbyte 0,1
+		mkline 2
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+
+		mkline 5			; line 16
+		db 0
+		mkline 2
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkline 3
+		mkbyte 1,1
+		mkbyte 2,1
+		mkbyte 1,1
+		
+		db 0
+		mkline 14
+		db 0
+		
+		mscrend
+; --- end of scrbk109

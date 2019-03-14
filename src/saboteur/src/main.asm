@@ -3,7 +3,6 @@
 ;        ASEG
 
         ORG 100h
-		di
         jp start
 
         include "const.asm"
@@ -31,6 +30,8 @@
 		include "screens/screens-80.asm"
 		include "screens/screens-90.asm"
 		include "screens/screens-100.asm"
+		include "screens/screens-110.asm"
+		
 		include "screens/screen_map.asm"		
 		
 		include "screen_control.asm"
@@ -62,6 +63,8 @@
 		include "game.asm"
 				
 start:
+		di
+		
 		call sabinit
 		
         call clrtscr
