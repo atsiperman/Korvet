@@ -104,7 +104,7 @@ scrn89:	mkscreen scrbk89, scrn88,0, scrn98,0, 0
 scrn91:	mkscreen scrbk91, 0,scrn92, 0,scrn82, 0
 scrn92:	mkscreen scrbk92, scrn91,scrn93, 0,0, 0
 scrn93:	mkscreen scrbk93, scrn92,0, scrn94,scrn80, 0
-scrn94:	mkscreen scrbk94, scrn95,0, 0,scrn93, 0
+scrn94:	mkscreen scrbk94, scrn95,0, scrn107,scrn93, 0
 scrn95:	mkscreen scrbk95, scrn96,scrn94, 0,scrn92, 0
 scrn96:	mkscreen scrbk96, scrn97,scrn95, 0,0, 0
 scrn97:	mkscreen scrbk97, 0,scrn96, 0,0, 0
@@ -115,3 +115,7 @@ scrn100:	mkscreen scrbk100, 0,scrn99, 0,scrn87, 0
 scrn101:	mkscreen scrbk101, 0,scrn102, 0,0, 0
 scrn102:	mkscreen scrbk102, scrn101,scrn103, 0,scrn99, 0
 scrn103:	mkscreen scrbk103, scrn102,0, 0,0, 0
+scrn104:	mkscreen scrbk104, 0,scrn105, 0,0, 0
+scrn105:	mkscreen scrbk105, scrn104,scrn106, 0,0, 0
+scrn106:	mkscreen scrbk106, scrn105,scrn107, 0,scrn95, 0
+scrn107:	mkscreen scrbk107, scrn106,0, 0,scrn94, 0
