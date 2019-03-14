@@ -6,8 +6,9 @@
 		di
         jp start
 
-		include "sbmacro.asm"		
         include "const.asm"
+		include "sbmacro.asm"		
+		
 		include "object_def.asm"
 		include "drawing/mirror_table.asm"
 		

@@ -132,7 +132,6 @@ startdrw:
         inc hl
         ld d,(hl)
 		
-        ;ld hl,COLRREG   ; set sprite color
 		ld a,(de)		; read back color
 		ld (_bkcolr),a	; save it 		
 		inc de
@@ -148,32 +147,49 @@ sprloop:
         ld a,(de)		; load data byte	
 		
 		push de			; save data address
-	
+		
 		ex de,hl		; DE - screen address		
 		
-		push bc
-		ld hl,_bkcolr
-		ld b,(hl)
+		push bc			; save foreground color and counter
 		
-		ld hl,COLRREG	; set color to clear		
-		;;ld (hl),80h
-		ld (hl),b		; set background color
-		pop bc	
-			
-		ex de,hl		; HL - screen address
-		
-		;;ld (hl),255		; clear byte
-		
-		cpl				; get bits to be drawn as background
-		ld (hl),a		; draw background`
-		cpl				; get bits to be drawn as foreground
-				
-		ex de,hl		; HL - color reg
-		
+		ld hl,COLRREG	; set color regiter		
 		ld (hl),b		; set main color
+		ex de,hl		; HL - screen address
+		ld (hl),255		; set main color by default
 		
-		ex de,hl		; HL - screen address				
+		ex de,hl		; DE - screen address				
+		ld hl,_bkcolr
+		ld b,(hl)		; get background color
+		ld hl,COLRREG	; set color register`
+		ld (hl),b		; set background color
+		
+		ex de,hl		; HL - screen address
+		cpl				; get bits to be drawn as background
 		ld (hl),a		; move data byte
+		pop bc
+		
+		; ; ; ld hl,_bkcolr
+		; ; ; ld b,(hl)
+		
+		; ; ; ld hl,COLRREG	; set color to clear		
+		; ; ; ;;ld (hl),80h
+		; ; ; ld (hl),b		; set background color
+		; ; ; pop bc	
+			
+		; ; ; ex de,hl		; HL - screen address
+		
+		; ; ; ld (hl),255		; clear byte
+		
+		; ; ; ;;cpl				; get bits to be drawn as background
+		; ; ; ;;ld (hl),a		; draw background`
+		; ; ; ;;cpl				; get bits to be drawn as foreground
+				
+		; ; ; ex de,hl		; HL - color reg
+		
+		; ; ; ld (hl),b		; set main color
+		
+		; ; ; ex de,hl		; HL - screen address				
+		; ; ; ld (hl),a		; move data byte
 				
 		pop de			; restore data address
 		

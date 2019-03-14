@@ -1,4 +1,6 @@
 
+DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
+
 	macro scrnhd
 	; screen header
 	endm
@@ -9,7 +11,8 @@
 	
 	; background sprite header
 	macro bksh color
-		db 80h + (CBLACK << 1)		; black color for background by default
+		;db 80h + (CBLACK << 1)		; black color for background by default
+		db DEFBLCK					; black color for background by default (in plain mode)
 		db 80h + (color << 1)		; color register
 		db 0						; background is a texture
 	endm
@@ -21,7 +24,7 @@
 	endm
 	
 	macro bksh2 color,btype
-		db 80h + (CBLACK << 1)		; black color for background by default
+		db DEFBLCK					; black color for background by default (in plain mode)
 		db (80h + (color << 1)) 	; color register
 		db btype					; sprite type
 	endm
