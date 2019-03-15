@@ -97,6 +97,8 @@ putspr_:
 showscr:		
 		ld hl,SCRADDR
 		ld (curtile),hl			; init address of the current tile in video memory
+		ld hl,shadscr	
+		ld (shcurtl),hl			; init current tile in shadow screen
 		
 		ld hl,tilemap		
 		ld de,scrbuf
@@ -113,14 +115,30 @@ showsc1:
 		push de
 		push bc
 		
-		call copytile
+		ld b,a
+		and 0fh					; get low bits - object ID
+		jp z,showsc8			; ID = 0 - tile was cleared up, go to restore background
 		
+		call copytile			; else - copy current tile to video memory
+		jp showsc9
+		
+showsc8:
+		call resttile			; restore background tile
+		
+showsc9:	
 		pop bc
 		pop de
 		pop hl
 		
 showsc2:
 		inc hl					; next tile in map
+		
+		push hl
+		ld hl,(shcurtl)			; move to the next column in shadow screen
+		inc hl
+		ld (shcurtl),hl
+		pop hl
+		
 		dec c
 		jp z, showsc3			; next row
 		
@@ -170,12 +188,13 @@ showsc_:
 ; ----	copy tile to video memory
 ; args: 
 ;		DE - source address in screen buffer
-;		
+;
 copytile:
 		ld hl,(curtile)				; address of current tile in video memory
 				
 		push bc
-		ld b,8
+		
+		ld b,8						; tile's height	
 		;dup 8
 		push bc
 
@@ -222,7 +241,19 @@ cptile_:
 ; ------ end of copytile
 
 
+; ----	restores tile in video memory
+; args: 
+;
+resttile:
+		ld hl,(shcurtl)				; load address of current tile in shadow screen
+		ex de,hl
+		ld b,0
+		ld c,1
+		ld hl,(curtile)
+		call drawbktl
+		ret
 
-
-
-
+		
+		
+		
+		

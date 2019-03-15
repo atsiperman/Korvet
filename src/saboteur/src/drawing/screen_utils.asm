@@ -107,7 +107,7 @@ fsloop:
         ret
 
 ; ----- draws background for current screen
-; args: DE - address of the screen model
+; args: DE - address of the shadow screen model
 
 _bkcolr:
 		db 0
@@ -117,6 +117,30 @@ drawbkgr:
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
 										; C=COLNUM sprites in line
 startdrw:
+		call drawbktl
+
+        push bc
+        ld bc,64-COLNUM+1
+        add hl,bc
+        pop bc
+        ld c,COLNUM     ; next line of sprites
+        dec b
+        jp nz,startdrw
+
+        ret
+
+
+		
+; ----- draws background tile in video memory
+; args: DE - address of the tile in shadow screen model
+;       HL - address in video memory
+;		C  - number of sprites to draw starting from the current one 
+; result:
+;		HL - address of the last byte written in video memory
+;		
+drawbktl:
+
+drawbkt1:
         push hl         ; out address
         push de         ; sprite pointer
         push bc         ; screen lines counter
@@ -167,30 +191,7 @@ sprloop:
 		cpl				; get bits to be drawn as background
 		ld (hl),a		; move data byte
 		pop bc
-		
-		; ; ; ld hl,_bkcolr
-		; ; ; ld b,(hl)
-		
-		; ; ; ld hl,COLRREG	; set color to clear		
-		; ; ; ;;ld (hl),80h
-		; ; ; ld (hl),b		; set background color
-		; ; ; pop bc	
-			
-		; ; ; ex de,hl		; HL - screen address
-		
-		; ; ; ld (hl),255		; clear byte
-		
-		; ; ; ;;cpl				; get bits to be drawn as background
-		; ; ; ;;ld (hl),a		; draw background`
-		; ; ; ;;cpl				; get bits to be drawn as foreground
-				
-		; ; ; ex de,hl		; HL - color reg
-		
-		; ; ; ld (hl),b		; set main color
-		
-		; ; ; ex de,hl		; HL - screen address				
-		; ; ; ld (hl),a		; move data byte
-				
+						
 		pop de			; restore data address
 		
         inc de          ; next byte from sprite
@@ -209,17 +210,9 @@ sprend: pop bc          ; sprite finished
         jp z,nextline   ; move to the next line of sprites
         pop hl          ; top of the next column on screen
         inc hl
-        jp startdrw
+        jp drawbkt1
 
 nextline:
         pop af          ; clear stack from prev hl
-        push bc
-        ld bc,64-COLNUM+1
-        add hl,bc
-        pop bc
-        ld c,COLNUM     ; next line of sprites
-        dec b
-        jp nz,startdrw
-
-        ret
-
+		ret	
+		
