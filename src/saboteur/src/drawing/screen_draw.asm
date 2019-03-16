@@ -284,13 +284,12 @@ scrch1_:
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
-		;;
 		call savetilm
 		
 drawobj2:
 				
 		call drawobjs
-		
+		call rsttiles
 		;;
 		call showscr		; show buffer on the screen
 		

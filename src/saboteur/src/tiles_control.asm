@@ -21,19 +21,21 @@ ctilm1:
 savetilm:
 		ld hl,tilemap
 		ld bc,TILMAPLN
-		
+				
 stilm1:
 		ld a,(hl)		; load byte
+		or a
+		jp z,stilm2		; not occupied - continue
 		
 		rla				; shift to hi half byte - old state
 		rla				
 		rla
 		rla
 		
-		and 0F0h		; clear current state
-		
+		and 0F0h		; clear current state		
 		ld (hl),a		; save byte
 		
+stilm2:
 		dec bc
 		ld a,b
 		or c
@@ -42,6 +44,74 @@ stilm1:
 		inc hl
 		jp stilm1
 
+; ----- restores tiles which were released by a sprite
+;		
+;		
+sbuftlc:		; tile counter in screen buffer
+		db 0
+		
+rsttiles:
+		ld hl,shadscr
+		ld (shcurtl),hl			; init current tile in shadow screen
+		ld de,scrbuf			; DE - screen buffer
+		
+		ld a,COLNUM
+		ld (sbuftlc),a
+		
+		ld hl,tilemap
+		ld bc,TILMAPLN
+				
+rsttile1:
+		ld a,(hl)		; load byte
+		push hl
+		
+		ld h,a			; save data byte
+				
+		and 0f0h		; check prev state
+		jp z,rsttile2		; continue if this tile was not occupied
+		
+		ld a,h		
+		and 0fh			; check if it is currently occupied
+		jp nz,rsttile2	; continue if yes - nothing to restore
+		
+						; restore background if state changed from occupied -> not occupied 
+		push hl
+		ld hl,(shcurtl)
+		
+		call rstbktl
+		
+		pop hl
+		
+rsttile2:	
+	
+		inc de			; move to the next tile in video memory
+		ld hl,(shcurtl)	; move to the next tile in shadow screen	
+		inc hl
+		ld (shcurtl),hl
+		
+		ld a,(sbuftlc)
+		dec a
+		jp nz,rsttile3
+		
+		ex de,hl
+		ld de,COLNUM*7
+		add hl,de
+		ex de,hl
+		ld a,COLNUM		
+		
+rsttile3:	
+		ld (sbuftlc),a
+		
+		pop hl
+						
+		dec bc
+		ld a,b
+		or c
+		ret z
+		
+		inc hl
+		jp rsttile1		
+		
 ; ----- updates tile map for sprite
 ;		
 ; args: 
@@ -98,7 +168,10 @@ uptlm1:
 		jp nz,uptlm2	; if occupied, do nothing
 		
 						; free, save obj id				
-		ld a,(updobjid)	
+		ld a,b
+		and 0f0h		; leave prev obj id
+		ld b,a
+		ld a,(updobjid)	; load new obj id
 		or b
 		ld (hl),a		
 uptlm2:			

@@ -97,8 +97,6 @@ putspr_:
 showscr:		
 		ld hl,SCRADDR
 		ld (curtile),hl			; init address of the current tile in video memory
-		ld hl,shadscr	
-		ld (shcurtl),hl			; init current tile in shadow screen
 		
 		ld hl,tilemap		
 		ld de,scrbuf
@@ -115,17 +113,8 @@ showsc1:
 		push de
 		push bc
 		
-		ld b,a
-		and 0fh					; get low bits - object ID
-		jp z,showsc8			; ID = 0 - tile was cleared up, go to restore background
+		call copytile			; copy current tile to video memory
 		
-		call copytile			; else - copy current tile to video memory
-		jp showsc9
-		
-showsc8:
-		call resttile			; restore background tile
-		
-showsc9:	
 		pop bc
 		pop de
 		pop hl
@@ -240,20 +229,53 @@ cptile_:
 		ret
 ; ------ end of copytile
 
+		
+		
+; ----- restores background tile in screen buffer
+; args: HL - address of the tile in shadow screen model
+;       DE - address in screen buffer
+;		
+rstbktl:
+        push hl         ; tile in shadow screen
+        push de         ; screen buffer address
+        push bc         
 
-; ----	restores tile in video memory
-; args: 
-;
-resttile:
-		ld hl,(shcurtl)				; load address of current tile in shadow screen
-		ex de,hl
+        ld b,0
+        ld c,(hl)
+        ld hl,BKSPRTAB
+        add hl,bc
+        add hl,bc       ; pointer to sprite's address
+		
+        push de         ; save screen address
+        ld e,(hl)
+        inc hl
+        ld d,(hl)		; back tile image address in DE
+		
+		inc de			; skip back color		
+		inc de			; skip foreground color
+		inc de			; skip header
+		
+        pop hl          ; restore screen address
+        ld bc,(8 << 8) + COLNUM		; load B - counter, C - increment in screen buffer
+rstbktl2:
+		;ld a,255
+        ld a,(de)		; load data byte	
+		cpl 			; get background bits
+		ld (hl),a
+		dec b
+		jp z,rstbktl_
+		
+		inc de
+		ld a,b			; save counter
 		ld b,0
-		ld c,1
-		ld hl,(curtile)
-		call drawbktl
-		ret
-
+		add hl,bc
+		ld b,a			; restore counter
+		jp rstbktl2
 		
+rstbktl_:
+		pop bc
+		pop de
+		pop hl
 		
-		
+		ret			
 		

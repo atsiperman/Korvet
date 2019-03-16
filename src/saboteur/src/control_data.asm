@@ -32,6 +32,7 @@ shadscr:					; map of the current screen
 			edup
 
 objlist:	dw 0			; pointer to the list of objects on the current screen
+
 scrbuf:						; screen buffer		
 			dup BUFLEN
 			db 0
