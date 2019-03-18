@@ -58,7 +58,7 @@ sprtbuf:	dup 256
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn39 		; pointer to current screen
+curscr: 	dw scrn116 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 			
 			
@@ -85,7 +85,7 @@ SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start sc
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,7
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,3,2
 			
 ; ----	saboteur health
 ;			

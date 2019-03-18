@@ -31,6 +31,7 @@
 		include "screens/screens-90.asm"
 		include "screens/screens-100.asm"
 		include "screens/screens-110.asm"
+		include "screens/screens-120.asm"
 		
 		include "screens/screen_map.asm"		
 		
