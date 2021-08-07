@@ -115,9 +115,9 @@ _bkcolr:
 drawbkgr:
         ld hl,SCRADDR
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
-										; C=COLNUM sprites in line
+					; C=COLNUM sprites in line
 startdrw:
-		call drawbktl
+        call drawbktl
 
         push bc
         ld bc,64-COLNUM+1
@@ -156,43 +156,43 @@ drawbkt1:
         inc hl
         ld d,(hl)
 		
-		ld a,(de)		; read back color
-		ld (_bkcolr),a	; save it 		
-		inc de
+        ld a,(de)	; read back color
+        ld (_bkcolr),a	; save it 		
+        inc de
 		
-        ld a,(de)		; read foreground color
+        ld a,(de)	; read foreground color
         ld b,a			
-		inc de
-		inc de			; skip header
+        inc de
+        inc de		; skip header
 		
         pop hl          ; restore screen address		
         ld c,8
 sprloop:
-        ld a,(de)		; load data byte	
+        ld a,(de)	; load data byte	
 		
-		push de			; save data address
-		
-		ex de,hl		; DE - screen address		
-		
-		push bc			; save foreground color and counter
-		
-		ld hl,COLRREG	; set color regiter		
-		ld (hl),b		; set main color
-		ex de,hl		; HL - screen address
-		ld (hl),255		; set main color by default
-		
-		ex de,hl		; DE - screen address				
-		ld hl,_bkcolr
-		ld b,(hl)		; get background color
-		ld hl,COLRREG	; set color register`
-		ld (hl),b		; set background color
-		
-		ex de,hl		; HL - screen address
-		cpl				; get bits to be drawn as background
-		ld (hl),a		; move data byte
-		pop bc
-						
-		pop de			; restore data address
+        push de		; save data address
+        
+        ex de,hl	; DE - screen address		
+        
+        push bc		; save foreground color and counter
+        
+        ld hl,COLRREG	; set color register		
+        ld (hl),b	; set main color
+        ex de,hl	; HL - screen address
+        ld (hl),255	; set main color by default
+        
+        ex de,hl	; DE - screen address				
+        ld hl,_bkcolr
+        ld b,(hl)	; get background color
+        ld hl,COLRREG	; set color register`
+        ld (hl),b	; set background color
+        
+        ex de,hl	; HL - screen address
+        cpl		; get bits to be drawn as background
+        ld (hl),a	; move data byte
+        pop bc
+                                        
+        pop de		; restore data address
 		
         inc de          ; next byte from sprite
         dec c           ; sprite counter
@@ -214,7 +214,7 @@ sprend: pop bc          ; sprite finished
 
 nextline:
         pop af          ; clear stack from prev hl
-		ret	
+	ret	
 		
 	
 				
