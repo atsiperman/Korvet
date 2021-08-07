@@ -61,7 +61,7 @@ putspr:
 putspr1:
 		push bc
 		inc de
-		ld a,(de)		; load byte from sprite`
+		ld a,(de)		; load byte from sprite
 		ld b,(hl)		; load existing data, if any
 		or b			; combine them
 		ld (hl),a		; save new image
@@ -205,7 +205,7 @@ cptile2:
 			ld (hl), ((7 & ~CMAIN) << 1)	; set color to clear		
 			ex de,hl					; HL - screen address			
 			cpl							; get bits to clear
-			ld (hl),a					; move data byte`
+			ld (hl),a					; move data byte
 			
 			pop de						; restore address in buffer
 					

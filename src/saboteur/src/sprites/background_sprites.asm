@@ -40,7 +40,8 @@ BK32ADDR:	DW BK32DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
-			DB 1, 125, 93, 93, 69, 125, 1, 255
+			DB 1, 125, 93, 93, 69, 125, 1, 255			
+			;;DB 127, 255, 255, 255, 255, 255, 255, 255
 			
 BK2DATA: 	bksh2 CBLUE,bwall	; blue dots
 			DB 32, 4, 32, 0, 8, 0, 32, 0

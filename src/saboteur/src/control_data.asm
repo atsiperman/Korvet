@@ -58,7 +58,7 @@ sprtbuf:	dup 256
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn116 		; pointer to current screen
+curscr: 	dw scrn1 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 			
 			

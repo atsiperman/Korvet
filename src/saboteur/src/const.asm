@@ -39,7 +39,7 @@ NEWSTK  	EQU 0beffh		; new address of stack
 							; logical colors
 CBLUE		EQU 0
 CGREEN		EQU 1
-CRED		EQU 2
+CRED        EQU 2
 CYELLOW		EQU 3
 
 CBLACK		EQU 4
