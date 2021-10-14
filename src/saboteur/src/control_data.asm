@@ -49,6 +49,25 @@ tilemap:					; map of tiles, low half map - current state, hi half map - previou
 			db 0
 			edup
 
+tilemapa:	dw tilemap
+			dw tilemap + COLNUM
+			dw tilemap + (COLNUM * 2)
+			dw tilemap + (COLNUM * 3)
+			dw tilemap + (COLNUM * 4)
+			dw tilemap + (COLNUM * 5)
+			dw tilemap + (COLNUM * 6)
+			dw tilemap + (COLNUM * 7)
+			dw tilemap + (COLNUM * 8)
+			dw tilemap + (COLNUM * 9)
+			dw tilemap + (COLNUM * 10)
+			dw tilemap + (COLNUM * 11)
+			dw tilemap + (COLNUM * 12)
+			dw tilemap + (COLNUM * 13)
+			dw tilemap + (COLNUM * 14)
+			dw tilemap + (COLNUM * 15)
+			dw tilemap + (COLNUM * 16)
+
+
 curtile:	dw 0			; address of the current tile in video memory	
 shcurtl:	dw 0			; current tile address in shadow screen
 			

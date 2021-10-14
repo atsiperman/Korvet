@@ -126,17 +126,35 @@ updtilem:
 		ldcursc			; A - current sprite column		
 		ld e,a
 		ld d,0
+
+; ----------------------------
+		push de
+
 		inc hl
-		ld a,(hl)		; A - current row	
+		ld e,(hl)		; A - current row	
 		
-		ld hl,COLNUM
-		call multpl		; HL - displacement of the tile of current row
-		add hl,de		; HL - displacement of column 		
+		ld hl, tilemapa	; load address table of tile map	
+		add hl, de		
+		add hl, de		; move to the required row
+		ld e,(hl)
+		inc hl
+		ld d,(hl)		; read address of the row into DE
+		ex de,hl		; move it to HL
+
+		pop de			; restore column index
+		add hl, de		; move to column address
+
+
+		;;ld hl,COLNUM
+		;;call multpl		; HL - displacement of the tile of current row		
+		;;add hl,de		; HL - displacement of column 		
 		
-		ld de,tilemap
-		ex de,hl
-		add hl,de		; HL - address of the tile 
+		;;ld de,tilemap
+		;;ex de,hl
+		;;add hl,de		; HL - address of the tile 
 			
+; ----------------------------
+
 		pop de
 		push hl			; save address of the tile
 		
