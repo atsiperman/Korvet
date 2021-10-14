@@ -184,7 +184,7 @@ sprloop:
         ex de,hl	; DE - screen address				
         ld hl,_bkcolr
         ld b,(hl)	; get background color
-        ld hl,COLRREG	; set color register`
+        ld hl,COLRREG	; set color register
         ld (hl),b	; set background color
         
         ex de,hl	; HL - screen address

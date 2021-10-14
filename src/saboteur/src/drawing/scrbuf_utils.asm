@@ -190,7 +190,7 @@ copytile:
 cptile2:
 			ld a,(de)					; load data byte
 			
-			push de
+			push de						; save address in screen buffer
 			ex de, hl					; save video address in DE
 			
 			ld hl,COLRREG				; 

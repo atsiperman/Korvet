@@ -28,11 +28,11 @@ stilm1:
 		jp z,stilm2		; not occupied - continue
 		
 		rla				; shift to hi half byte - old state
-		rla				
-		rla
-		rla
+		; ; rla				
+		; ; rla
+		; ; rla
 		
-		and 0F0h		; clear current state		
+		;; and 0F0h		; clear current state		
 		ld (hl),a		; save byte
 		
 stilm2:
@@ -44,7 +44,7 @@ stilm2:
 		inc hl
 		jp stilm1
 
-; ----- restores tiles which were released by a sprite
+; ----- restores tiles which were occupied by sprites
 ;		
 ;		
 sbuftlc:		; tile counter in screen buffer
@@ -67,14 +67,10 @@ rsttile1:
 		
 		ld h,a			; save data byte
 				
-		and 0f0h		; check prev state
-		jp z,rsttile2		; continue if this tile was not occupied
+		and a				; check state
+		jp z,rsttile2		; continue if this tile was/is not occupied
 		
-		ld a,h		
-		and 0fh			; check if it is currently occupied
-		jp nz,rsttile2	; continue if yes - nothing to restore
-		
-						; restore background if state changed from occupied -> not occupied 
+							; restore background otherwise
 		push hl
 		ld hl,(shcurtl)
 		
@@ -124,8 +120,8 @@ updobjid:
 updtilem:			
 		push de
 		
-		ld a,(hl)			
-		ld (updobjid),a ; save object type
+		; ; ld a,(hl)			
+		; ; ld (updobjid),a ; save object type
 		
 		ldcursc			; A - current sprite column		
 		ld e,a
@@ -163,17 +159,22 @@ updtilem:
 uptlm1:		
 		push bc
 		ld a,(hl)		; load tile state		
-		ld b,a			; save state
-		and 0Fh			; leave object id
-		jp nz,uptlm2	; if occupied, do nothing
+		or 8			; save 1000 bin
+		ld (hl),a
+		jp uptlm2
+
+		; ; ld b,a			; save state
+		; ; and 0Fh			; leave object id
+		; ; jp nz,uptlm2	; if occupied, do nothing
 		
-						; free, save obj id				
-		ld a,b
-		and 0f0h		; leave prev obj id
-		ld b,a
-		ld a,(updobjid)	; load new obj id
-		or b
-		ld (hl),a		
+		; ; 				; free, save obj id				
+		; ; ld a,b
+		; ; and 0f0h		; leave prev obj id
+		; ; ld b,a
+		; ; ld a,(updobjid)	; load new obj id
+		; ; or b
+		; ; ld (hl),a		
+		
 uptlm2:			
 		pop bc
 		inc hl
