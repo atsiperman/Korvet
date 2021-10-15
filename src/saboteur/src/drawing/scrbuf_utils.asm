@@ -178,6 +178,7 @@ showsc_:
 ; args: 
 ;		DE - source address in screen buffer
 ;
+
 copytile:
 		ld hl,(curtile)				; address of current tile in video memory
 				
@@ -228,6 +229,86 @@ cptile_:
 		pop bc
 		ret
 ; ------ end of copytile
+
+
+; ; ; copytile:
+; ; ; 		ld hl,(curtile)				; address of current tile in video memory
+; ; ; 		push bc
+
+; ; ; 		push hl
+; ; ; 		push de
+		
+; ; ; 		ld b,8						; tile's height	
+
+; ; ; ; ------------------
+
+; ; ; 		push de						; save address in screen buffer
+; ; ; 		ex de, hl					; save video address in DE
+; ; ; 		ld hl,COLRREG				; 
+; ; ; 		ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color		
+
+; ; ; 		ex de,hl					; HL - screen address
+; ; ; 		pop de						; restore tile address in screen buffer
+
+; ; ; cptile2:
+; ; ; 		push bc
+; ; ; 			ld a,(de)					; load data byte		
+; ; ; 			ld (hl),a					; set data bits
+				
+; ; ; 			ld bc,64
+; ; ; 			add hl,bc					; move to the next video line
+; ; ; 			ex de,hl
+
+; ; ; 			ld bc,COLNUM				; move to the next line in buffer
+; ; ; 			add hl,bc					
+; ; ; 			ex de,hl
+
+; ; ; 		pop bc
+; ; ; 		dec  b
+; ; ; 		jp nz, cptile2
+; ; ; ;		edup
+		
+; ; ; cptile_:
+; ; ; 		pop de
+; ; ; 		pop hl
+
+; ; ; 		ld b,8						; tile's height	
+
+; ; ; ; ------------------
+
+; ; ; 		push de						; save address in screen buffer
+; ; ; 		ex de, hl					; save video address in DE
+; ; ; 		ld hl,COLRREG				; 
+; ; ; 		ld (hl), ((7 & ~CMAIN) << 1) ; set color to clear
+
+; ; ; 		ex de,hl					; HL - screen address
+; ; ; 		pop de						; restore tile address in screen buffer
+
+; ; ; cptile3:
+; ; ; 		push bc
+; ; ; 			ld a,(de)				; load data byte
+; ; ; 			cpl						; get bits to clear
+; ; ; 			ld (hl),a				; set data bits
+				
+; ; ; 			ld bc,64
+; ; ; 			add hl,bc				; move to the next video line
+; ; ; 			ex de,hl
+
+; ; ; 			ld bc,COLNUM			; move to the next line in buffer
+; ; ; 			add hl,bc					
+; ; ; 			ex de,hl
+
+; ; ; 		pop bc
+; ; ; 		dec  b
+; ; ; 		jp nz, cptile3
+; ; ; ;		edup
+		
+; ; ; cptile4:
+
+; ; ; 		pop bc
+
+; ; ; 		ret
+; ; ; ; ------ end of copytile
 
 		
 		

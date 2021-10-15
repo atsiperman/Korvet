@@ -97,7 +97,7 @@ drawobj:
 		
 		push de				; save sprite address
 				
-		call mirrspr		; possibly new sprite address if left direction
+		;;call mirrspr		; possibly new sprite address if left direction
 
 		pop bc				; load original sprite address
 		pop hl				; load current position

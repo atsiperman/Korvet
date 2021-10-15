@@ -281,8 +281,9 @@ scrch1_:
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
+		call rmobjsb
 		call savetilm
-		call rsttiles
+		;;call rsttiles
 		
 drawobj2:
 				
