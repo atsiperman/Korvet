@@ -182,13 +182,13 @@ showsc_:
 copytile:
 		ld hl,(curtile)				; address of current tile in video memory
 				
-		push bc
+		;push bc
 		
-		ld b,8						; tile's height	
-		;dup 8
-		push bc
+		;ld b,8						; tile's height			
+		;push bc
 
-cptile2:
+		dup 8
+;cptile2:
 			ld a,(de)					; load data byte
 			
 			push de						; save address in screen buffer
@@ -217,16 +217,16 @@ cptile2:
 			ld bc,COLNUM				; move to the next line in buffer
 			add hl,bc					
 			ex de,hl
+		edup
 
-		pop bc
-		dec  b
-		jp z, cptile_
-		push bc
-		jp cptile2
-;		edup
+		;pop bc
+		;dec  b
+		;jp z, cptile_
+		;push bc
+		;jp cptile2
 		
-cptile_:
-		pop bc
+;cptile_:
+		;pop bc
 		ret
 ; ------ end of copytile
 
