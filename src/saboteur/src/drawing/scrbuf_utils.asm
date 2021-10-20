@@ -61,9 +61,15 @@ putspr:
 putspr1:
 		push bc
 		inc de
-		ld a,(de)		; load byte from sprite
+		ld a,(de)		; load mask from sprite
 		ld b,(hl)		; load existing data, if any
-		or b			; combine them
+		
+		and b			; clear points to be occupied by sprite		
+		ld b,a			; save background line
+		inc de
+		ld a,(de)		; load byte from sprite
+
+		or b			; combine with background
 		ld (hl),a		; save new image
 		inc hl
 		pop bc

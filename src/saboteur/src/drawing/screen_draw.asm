@@ -281,9 +281,11 @@ scrch1_:
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
-		call rmobjsb
+		;;call rmobjsb
 		call savetilm
-		;;call rsttiles
+		
+		
+		call rsttiles
 		
 drawobj2:
 				
@@ -291,7 +293,7 @@ drawobj2:
 		
 		call showscr		; show buffer on the screen
 		
-		call hldraw			; draw health bar
+		;;call hldraw			; draw health bar
 		
 		ret
 			

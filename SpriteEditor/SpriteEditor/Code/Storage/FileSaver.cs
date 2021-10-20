@@ -17,6 +17,7 @@ namespace SpriteEditor.Code
             public int Width { get; set; }
             public int Height { get; set; }
             public uint[] Data { get; set; }
+            public uint[] Mask { get; set; }
         }
 
         public static void Save(EditorSettings editor, string path, uint nativeColor)

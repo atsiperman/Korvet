@@ -181,5 +181,19 @@ namespace SpriteEditor
         {
             this.Close();
         }
+
+        private void m_btnMaskSpriteToggle_Click(object sender, RoutedEventArgs e)
+        {
+            if (m_editorView.Visibility != Visibility.Hidden)
+            {
+                m_editorView.Visibility = Visibility.Hidden;
+                m_maskView.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                m_editorView.Visibility = Visibility.Visible;
+                m_maskView.Visibility = Visibility.Hidden;
+            }
+        }
     }
 }

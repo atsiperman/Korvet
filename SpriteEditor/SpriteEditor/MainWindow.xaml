@@ -32,7 +32,10 @@
             
             <ScrollViewer Grid.Column="0" Grid.Row="0" Background="LightGray" VerticalScrollBarVisibility="Auto"
                           HorizontalScrollBarVisibility="Auto" Margin="0,2,0,-2" IsEnabled="{Binding IsViewEnabled}">
-                <ui:EditorView x:Name="m_editorView" Margin="5"></ui:EditorView>
+                <StackPanel>
+                    <ui:EditorView x:Name="m_editorView" Margin="5"></ui:EditorView>
+                    <ui:EditorView x:Name="m_maskView" Margin="5" Visibility="Hidden"></ui:EditorView>
+                </StackPanel>
             </ScrollViewer>
             <StackPanel Grid.Column="1" Grid.Row="0" MinWidth="200" Orientation="Vertical" Margin="5" IsEnabled="{Binding IsViewEnabled}">
                 <StackPanel Orientation="Horizontal">
@@ -77,6 +80,7 @@
                         Mirror &lt;- -&gt;
                     </Button>
                 </StackPanel>
+                <Button Name="m_btnMaskSpriteToggle" Margin="0 5 0 5" Padding="5 0 5 0" MinHeight="30" MinWidth="30" HorizontalAlignment="Left" Click="m_btnMaskSpriteToggle_Click">Mask / Sprite</Button>
             </StackPanel>
         </Grid>
     </DockPanel>

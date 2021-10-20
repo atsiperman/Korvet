@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 
 namespace SpriteEditor.Code.Storage
 {
@@ -23,11 +18,11 @@ namespace SpriteEditor.Code.Storage
                         {
                             stream.Write(",");
                         }
-                        stream.Write(mask);                        
+                        stream.Write(mask);
                     }
                     stream.WriteLine();
-                }                
-            }       
+                }
+            }
         }
     }
 }

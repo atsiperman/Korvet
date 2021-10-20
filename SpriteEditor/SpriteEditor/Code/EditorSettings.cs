@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteEditor
 {
@@ -27,7 +24,7 @@ namespace SpriteEditor
         /// <summary>
         /// Gets or sets current scale.
         /// </summary>
-        public int Scale { get; set; }        
+        public int Scale { get; set; }
 
         /// <summary>
         /// Returns true if the grid must be visible.
