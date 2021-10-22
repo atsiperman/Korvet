@@ -70,8 +70,13 @@ dvd8:
 ;		A - result
 ;
 ldsprht:
-		inc de			; skip color
-		inc de			; skip width
-		ld a,(de)
-		call dvd8
+		dec de 		; move to width
+		dec de		; skip width
+		ld a,(de)	; read height
 		ret
+		
+		; inc de			; skip color
+		; inc de			; skip width
+		; ld a,(de)
+		; call dvd8
+		; ret

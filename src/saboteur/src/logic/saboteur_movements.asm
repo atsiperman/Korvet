@@ -294,10 +294,10 @@ sbchknpr:
 		
 		ldcurspr
 		ex de,hl
-		inc hl 				; skip color
-		inc hl				; skip width
+		dec hl 				; move to width
+		dec hl				; skip width
 		ld a,(hl)			; load height
-		call dvd8			; get row count
+		;;call dvd8			; get row count
 		
 		sub 4				; repeat from the top point to the 3 blocks above the floor
 		ld c,a
@@ -429,10 +429,10 @@ sbchknpl:
 		
 		ldcurspr
 		ex de,hl
-		inc hl 				; skip color
-		inc hl				; skip width
+		dec hl 				; move to width
+		dec hl				; skip width
 		ld a,(hl)			; load height
-		call dvd8			; get row count
+		;;call dvd8			; get row count
 		
 		sub 4				; repeat from the top point to the 3 blocks above the floor
 		ld c,a

@@ -6,10 +6,9 @@
 ;
 sbcurrh:
 		sblcursp
-		inc de		; skip color
-		inc de		; skip width
-		ld a,(de)	; load height in bytes
-		call dvd8	; get height in rows
+		dec de 		; move to width
+		dec de		; skip width
+		ld a,(de)	; load height 
 		ret
 
 ; ---- decrease saboteur row
@@ -67,7 +66,7 @@ scadrrt:
 		call scadrlt
 		push hl
 		sblcursp
-		inc de 					; skip color		
+		dec de 					; move to width
 		ld a,(de)				; read width
 		ld b,0
 		ld c,a
