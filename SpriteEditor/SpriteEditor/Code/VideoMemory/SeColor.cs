@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
 
 namespace SpriteEditor
 {
@@ -39,7 +34,7 @@ namespace SpriteEditor
         public uint NativeColor { get; set; }
 
         [JsonIgnore]
-        public string Text { get { return string.Format("0x {0:X2} {1:X2} {2:X2}", A, R, G, B); } }
+        public string Text { get { return string.Format("0x {0:X2} {1:X2} {2:X2} {3:X2}", A, R, G, B); } }
  
         #endregion Public properties
     }

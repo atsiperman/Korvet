@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -20,7 +16,7 @@ namespace SpriteEditor
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             Color color = (Color)value;
-            uint argb = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | (uint)color.B;
+            uint argb = ((uint)color.A << 24) | ((uint)color.R << 16) | ((uint)color.G << 8) | ((uint)color.B);
             return argb;
         }
     }

@@ -1,16 +1,15 @@
 ﻿using SpriteEditor.Code;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Xml;
 
 namespace SpriteEditor.ViewModels
 {
     class MainWindowViewModel : BaseViewModel
     {
         #region Private members 
-       
+
+        const uint MaskNativeColor = 6;
+
         List<SeColor> m_colors;
         EditorSettings m_editorSettings;
 
@@ -127,14 +126,14 @@ namespace SpriteEditor.ViewModels
         {
             EditorSettings.FilePath = string.Empty;
             EditorSettings.VideoMemory = videoMemory;
-            EditorSettings.Scale = 1;
+            EditorSettings.Scale = 10;
             EditorSettings.Palette = videoMemory.Palette;
             if (EditorSettings.Palette.Any())
                 SelectedColor = EditorSettings.Palette.First();
 
-            Colors = videoMemory.Palette;            
+            Colors = videoMemory.Palette;
 
-            OnScaleChanged();            
+            OnScaleChanged();
         }
 
         public void SetScale(int scale)
@@ -166,7 +165,7 @@ namespace SpriteEditor.ViewModels
 
         public void SaveToFile(string file)
         {
-            FileSaver.Save(EditorSettings, file, SelectedColor.NativeColor);
+            FileSaver.Save(EditorSettings, file, SelectedColor.NativeColor, MaskNativeColor);
             FirePropertyChanged(nameof(Title));
         }
 

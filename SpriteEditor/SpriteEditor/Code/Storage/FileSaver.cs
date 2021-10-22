@@ -20,7 +20,7 @@ namespace SpriteEditor.Code
             public uint[] Mask { get; set; }
         }
 
-        public static void Save(EditorSettings editor, string path, uint nativeColor)
+        public static void Save(EditorSettings editor, string path, uint nativeColor, uint maskNativeColor)
         {
             editor.FilePath = path;
             var ext = Path.GetExtension(path);
@@ -31,7 +31,7 @@ namespace SpriteEditor.Code
                     break;
 
                 case ".msk":
-                    ExportMask.Save(path, editor.VideoMemory, nativeColor);
+                    ExportMask.Save(path, editor.VideoMemory, nativeColor, maskNativeColor);
                     break;
 
                 default:

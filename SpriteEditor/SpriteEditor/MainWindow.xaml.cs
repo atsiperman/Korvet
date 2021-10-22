@@ -1,21 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.Win32;
+using SpriteEditor.UI;
+using SpriteEditor.ViewModels;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-
-using SpriteEditor.ViewModels;
-using SpriteEditor.UI;
-using Microsoft.Win32;
 
 namespace SpriteEditor
 {
@@ -180,20 +168,6 @@ namespace SpriteEditor
         private void MenuItem_Exit(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void m_btnMaskSpriteToggle_Click(object sender, RoutedEventArgs e)
-        {
-            if (m_editorView.Visibility != Visibility.Hidden)
-            {
-                m_editorView.Visibility = Visibility.Hidden;
-                m_maskView.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                m_editorView.Visibility = Visibility.Visible;
-                m_maskView.Visibility = Visibility.Hidden;
-            }
         }
     }
 }
