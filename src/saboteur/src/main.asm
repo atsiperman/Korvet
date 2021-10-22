@@ -66,7 +66,7 @@
 start:
 		di
 		
-		call sabinit
+		;;;call sabinit
 		
         call clrtscr
 		;call drawfrmt	; draw frame in text ram 		
@@ -78,9 +78,7 @@ start:
 		
         GRMODON
 		call lutsetup
-
-		call clrsbuf		; clear buffer
-		
+	
         ld a,COLORCLR 
         call fillvram	; clear screen with black
 

@@ -230,7 +230,7 @@ drawobjs:
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
-		;ret					;;;;; remove this after debug
+		ret					;;;;; remove this after debug
 
 		ld hl,(objlist)		; HL - address of the object list
 		ld a,h
@@ -283,8 +283,7 @@ scrch1_:
 drawobj1:					; draw all objects
 		;;call rmobjsb
 		call savetilm
-		
-		
+				
 		call rsttiles
 		
 drawobj2:

@@ -1,11 +1,3 @@
-; ----- clears screen buffer
-clrsbuf:
-		xor a				
-		ld e,a
-		ld hl,scrbuf
-		ld bc,BUFLEN
-		call fillmem
-		ret
 
 ; ----- clears sprite on the screen buffer
 ;		
@@ -44,26 +36,27 @@ clrspr_:
 ; ----- puts sprite on the screen buffer
 ;		
 ; args: 
-;		hl - address on the screen
+;		hl - address on the screen buffer
 ;		de - address of the sprite
 ;
 putspr:
-		ex de,hl
+		ex de,hl        ; sprite address in HL
 				
 		inc hl			; skip color
 		ld c,(hl)		; sprite width
 		inc hl
 		ld b,(hl)		; sprite height
+		inc hl
 		ex de,hl		; DE - pointer to sprite data
 		
 		push bc		
 		
 putspr1:
 		push bc
-		inc de
+
 		ld a,(de)		; load mask from sprite
 		ld b,(hl)		; load existing data, if any
-		
+
 		and b			; clear points to be occupied by sprite		
 		ld b,a			; save background line
 		inc de
@@ -72,6 +65,7 @@ putspr1:
 		or b			; combine with background
 		ld (hl),a		; save new image
 		inc hl
+		inc de
 		pop bc
 		dec c
 		jp nz,putspr1
@@ -83,9 +77,9 @@ putspr1:
 		pop bc			; restore counter in C
 		ld b,a			; restore counter B
 		push bc			; save new counters
-		
+
 		push de			; move to the next screen line
-		ld a,COLNUM		
+		ld a,COLNUM*8
 		sub c			; restore initial X position
 		ld d,0
 		ld e,a
@@ -126,14 +120,18 @@ showsc1:
 		pop hl
 		
 showsc2:
-		inc hl					; next tile in map
+		inc hl					; next tile in tile map
 		
 		push hl
-		ld hl,(shcurtl)			; move to the next column in shadow screen
+		ld hl,(shcurtl)			; move to the next column in screen map
 		inc hl
 		ld (shcurtl),hl
 		pop hl
-		
+
+		dup 8
+			inc de					; move to the next column in buffer	
+		edup
+
 		dec c
 		jp z, showsc3			; next row
 		
@@ -145,7 +143,6 @@ showsc2:
 		
 		pop hl		
 		
-		inc de					; move to the next column in buffer	
 		jp showsc1
 		
 showsc3:		
@@ -164,10 +161,10 @@ showsc3:
 		add hl,bc
 		ld (curtile),hl
 		
-		ex de,hl				; move to the next column in buffer	
-		ld bc,COLNUM*7 + 1
-		add hl,bc
-		ex de,hl
+		; ; ex de,hl				; move to the next column in buffer	
+		; ; ld bc,COLNUM*7 + 1
+		; ; add hl,bc
+		; ; ex de,hl
 		
 		pop hl
 		pop bc
@@ -218,11 +215,11 @@ copytile:
 					
 			ld bc,64
 			add hl,bc					; move to the next video line
-			ex de,hl
-
-			ld bc,COLNUM				; move to the next line in buffer
-			add hl,bc					
-			ex de,hl
+			;;ex de,hl
+			inc de
+			;;ld bc,COLNUM				; move to the next line in buffer
+			;;add hl,bc					
+			;;ex de,hl
 		edup
 
 		;pop bc
@@ -343,21 +340,23 @@ rstbktl:
 		inc de			; skip header
 		
         pop hl          ; restore screen address
-        ld bc,(8 << 8) + COLNUM		; load B - counter, C - increment in screen buffer
+        ;;ld bc,(8 << 8) + COLNUM		; load B - counter, C - increment in screen buffer
 rstbktl2:
-		;ld a,255
-        ld a,(de)		; load data byte	
-		cpl 			; get background bits
-		ld (hl),a
-		dec b
-		jp z,rstbktl_
-		
-		inc de
-		ld a,b			; save counter
-		ld b,0
-		add hl,bc
-		ld b,a			; restore counter
-		jp rstbktl2
+		dup 8
+			ld a,(de)		; load data byte	
+			cpl 			; get background bits
+			ld (hl),a
+			;;dec b
+			;;jp z,rstbktl_
+			
+			inc de
+			inc hl
+			;;ld a,b			; save counter
+			;;ld b,0
+			;;add hl,bc
+			;;ld b,a			; restore counter
+		edup
+		;jp rstbktl2
 		
 rstbktl_:
 		pop bc

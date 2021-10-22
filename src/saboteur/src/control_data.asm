@@ -38,9 +38,25 @@ scrbuf:						; screen buffer
 			db 0
 			edup
 
-bufrows:	dup ROWNUM
-			dw 0
-			edup
+bufrows:	;;dup ROWNUM
+			dw scrbuf
+			dw scrbuf + (COLNUM * 8)
+			dw scrbuf + (COLNUM * 8 * 2)
+			dw scrbuf + (COLNUM * 8 * 3)
+			dw scrbuf + (COLNUM * 8 * 4)
+			dw scrbuf + (COLNUM * 8 * 5)
+			dw scrbuf + (COLNUM * 8 * 6)
+			dw scrbuf + (COLNUM * 8 * 7)
+			dw scrbuf + (COLNUM * 8 * 8)
+			dw scrbuf + (COLNUM * 8 * 9)
+			dw scrbuf + (COLNUM * 8 * 10)
+			dw scrbuf + (COLNUM * 8 * 11)
+			dw scrbuf + (COLNUM * 8 * 12)
+			dw scrbuf + (COLNUM * 8 * 13)
+			dw scrbuf + (COLNUM * 8 * 14)
+			dw scrbuf + (COLNUM * 8 * 15)
+			dw scrbuf + (COLNUM * 8 * 16)
+			;;edup
 			
 TILMAPLN	EQU	ROWNUM * COLNUM
 

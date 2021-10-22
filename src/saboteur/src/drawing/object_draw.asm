@@ -38,9 +38,17 @@ rdsprpos:
 		load_de_hl
 		pop hl
 		
-		ldcursc 
+		ldcursc 		; load column index into A
+
+		rla				
+		rla
+		rla				; multipy by 8 
+		; add c			; and add 9-th time to get number of bytes in one row
+
+		ld c,a			; save it in C
+
 		ex de,hl
-		ld c,a
+		
 		ld b,0
 		add hl,bc
 		ex de,hl
@@ -115,51 +123,6 @@ drawobj:
 		call copystat
 		
 		ret
-		
-
-; ----- puts sprite on the screen 
-;		
-; args: 
-;		hl - address on the screen
-;		de - address of the sprite
-;
-; ; ; putsprN:
-; ; ; 		ex de,hl				
-; ; ; 		inc hl			; skip color
-; ; ; 		ld c,(hl)		; sprite width
-; ; ; 		inc hl
-; ; ; 		ld b,(hl)		; sprite height
-; ; ; 		ex de,hl		; DE - pointer to sprite data
-
-; ; ; _psprN:
-; ; ; 		inc de			; skip mask
-; ; ; 		ld a,(de)					; load data byte
-; ; ; 		push de						; save address of sprite data
-
-; ; ; 		ex de,hl							; DE - video addr
-; ; ; 		ld hl,COLRREG
-; ; ; 		ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
-; ; ; 		ex de,hl							; HL - video address
-; ; ; 		ld (hl),a							; set data bits
-
-; ; ; 		ex de,hl						; DE - video addr
-; ; ; 		ld (hl), ((7 & ~CMAIN) << 1)	; set color to clear				
-; ; ; 		cpl								; get bits to clear
-; ; ; 		ld (hl),a						; move data byte
-
-; ; ; 		pop de		
-; ; ; 		dec c
-; ; ; 		jp z,_psprN		; move to the next video row
-
-; ; ; _psprN2:
-; ; ; 		dec b
-; ; ; 		jp z,_psprNe
-
-; ; ; 		push bc
-; ; ; 		jp _psprN
-
-; ; ; _psprNe:		
-; ; ; 		ret
 
 		
 ;

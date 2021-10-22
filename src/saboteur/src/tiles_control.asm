@@ -28,6 +28,7 @@ stilm1:
 		jp z,stilm2		; not occupied - continue
 		
 		rla				; shift to hi half byte - old state
+
 		; ; rla				
 		; ; rla
 		; ; rla
@@ -79,8 +80,10 @@ rsttile1:
 		pop hl
 		
 rsttile2:	
-	
-		inc de			; move to the next tile in video memory
+		dup 8
+			inc de			; move to the next tile in screen buffer
+		edup
+		
 		ld hl,(shcurtl)	; move to the next tile in shadow screen	
 		inc hl
 		ld (shcurtl),hl
@@ -89,10 +92,10 @@ rsttile2:
 		dec a
 		jp nz,rsttile3
 		
-		ex de,hl
-		ld de,COLNUM*7
-		add hl,de
-		ex de,hl
+		; ; ex de,hl
+		; ; ld de,COLNUM*7
+		; ; add hl,de
+		; ; ex de,hl
 		ld a,COLNUM		
 		
 rsttile3:	
@@ -128,14 +131,14 @@ updtilem:
 		ld d,0
 
 ; ----------------------------
-		push de
+		push de			; save column index
 
 		inc hl
-		ld e,(hl)		; A - current row	
+		ld e,(hl)		; A - current row
 		
 		ld hl, tilemapa	; load address table of tile map	
 		add hl, de		
-		add hl, de		; move to the required row
+		add hl, de		; pointer to the required row
 		ld e,(hl)
 		inc hl
 		ld d,(hl)		; read address of the row into DE
@@ -155,21 +158,27 @@ updtilem:
 			
 ; ----------------------------
 
-		pop de
+		pop de			; pop sprite address
 		push hl			; save address of the tile
 		
 		ex de,hl
-		inc hl
+		dec hl
 		ld c,(hl)		; load width
-		inc hl
+		dec hl
 		ld b,(hl)		; load height
+
+		; ; inc hl
+		; ; ld c,(hl)		; load width
+		; ; inc hl
+		; ; ld b,(hl)		; load height
 		
-		ld a,b			; divide height by 8 
-		rra			
-		rra
-		rra 
-		and 31			; A - height of sprite in rows
-		ld b,a
+		; ; ld a,b			; divide height by 8 
+		; ; rra			
+		; ; rra
+		; ; rra 
+		; ; and 31			; A - height of sprite in rows
+		; ; ld b,a
+
 		ex de,hl
 		
 		push bc			; save width in C
@@ -179,7 +188,7 @@ uptlm1:
 		ld a,(hl)		; load tile state		
 		or 8			; save 1000 bin
 		ld (hl),a
-		jp uptlm2
+		;;jp uptlm2
 
 		; ; ld b,a			; save state
 		; ; and 0Fh			; leave object id
@@ -193,7 +202,7 @@ uptlm1:
 		; ; or b
 		; ; ld (hl),a		
 		
-uptlm2:			
+;;uptlm2:			
 		pop bc
 		inc hl
 		dec c
