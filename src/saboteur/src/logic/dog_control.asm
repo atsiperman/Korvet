@@ -260,7 +260,7 @@ dogbite1:
 		push hl
 		ldcurspr					; load sprite address		
 		ex de,hl
-		inc hl
+		dec hl
 		ld d,(hl)					; load width
 				
 		pop hl
@@ -277,7 +277,7 @@ dogbite1:
 		ld e,a						; save saboteur column
 					
 		ld hl,(sbctrlb + odcursp)	; load sprite address
-		inc hl
+		dec hl
 		ld a,(hl)					; and sprite width
 		add e
 		dec a
@@ -344,6 +344,7 @@ dogbitev:
 		pop hl
 		ldcursr						; load dog's row
 		ld e,a
+		inc e						; inc row since visible dog height is less than sprite height
 		add d				
 		dec a
 		ld d,a						; dog: E - top row, D - bottom row
