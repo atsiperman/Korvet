@@ -55,30 +55,6 @@ rdsprpos:
 		
 		ret
 		
-; ----	clears object in the screen buffer
-; args: HL - address of the object's control block
-;
-clrobjsb:
-		push hl				; save control block address
-		
-		ldprvsp				; load previous sprite address
-		ex de,hl
-		
-		inc hl				; skip color
-		ld c,(hl)			; load width 
-		inc hl
-		ld b,(hl)			; load height
-								
-		pop hl	
-		push bc
-		
-		ldprevp				; load previous position
-		ex de,hl
-		
-		pop bc
-		
-		call clrspr
-		ret
 
 ; ----	draws object
 ; args: HL - address of the object's control block

@@ -1,37 +1,4 @@
 
-; ----- clears sprite on the screen buffer
-;		
-; args: 
-;		HL - address on the screen
-;		BC - height and width of the sprite
-clrspr:
-		push bc	
-clrspr1:
-		xor a
-		ld (hl),a
-		inc hl
-		dec c
-		jp nz,clrspr1
-		
-		dec b
-		jp z,clrspr_
-		
-		ld d,b			; save counter B in D
-		pop bc			; restore counter in C
-		ld b,d			; restore counter B
-		push bc			; save new counters
-		
-		ld a,COLNUM		
-		sub c			; restore initial X position
-		ld d,0
-		ld e,a
-		add hl,de		; get address of the next line
-		
-		jp clrspr1
-		
-clrspr_:
-		pop bc			; clear stack
-		ret
 
 ; ----- puts sprite on the screen buffer
 ;		

@@ -192,37 +192,6 @@ decmprs4:
 
 		ret
 		
-; ----- removes objects from screen buffer
-;	 UNUSED !!!
-;
-rmobjsb:
-		ld hl,sbctrlb		
-		call clrobjsb		
-				
-		ld hl,(objlist)		; HL - address of the object list
-		ld a,h
-		or l
-		ret z				; address is zero - exit
-
-		ld a,(hl)			; load number of objects
-				
-		inc hl				; set to the first object
-		
-rmobjsb1:		
-		push hl
-		push af
-				
-		call clrobjsb
-		pop af
-		pop hl
-		
-		ld bc,objsize
-		add hl,bc
-		
-		dec a
-		jp nz,rmobjsb1		
-		
-		ret
 
 ; ----- draws all objects on the current screen	
 ;		
