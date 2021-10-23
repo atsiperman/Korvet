@@ -250,12 +250,11 @@ scrch1_:
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
-		;;call rmobjsb
-		call savetilm
-				
-		call rsttiles
-		
+		call savetilm		; save old tiles state
+
 drawobj2:
+		call updobjs		; update objects state		
+		call rsttiles		; restore tiles background according to current objects location
 				
 		call drawobjs
 		

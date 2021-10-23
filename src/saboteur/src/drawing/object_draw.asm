@@ -1,7 +1,61 @@
 
+; ----- updates state of all the objects on the screen
+;       updates tile map according to sprites locations
+;
+updobjs:
+		ld hl,sbctrlb
+		call updobj
 
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
+		
+		inc hl				; set to the first object
+        
+updobjs1:		
+		push hl
+		push af
+		call updobj
+		pop af
+		pop hl
+		
+		ld bc,objsize	
+		add hl,bc
+		
+		dec a
+		jp nz,updobjs1
+		
+		ret
+
+; ----- updates state of the object provided
+; args:
+;		 HL - address of the object's control block 
+;
+updobj:
+		push hl				; save control block address		
+		
+		call rdsprpos		; load address of the current position into DE	
+		pop hl
+		
+		push hl
+		scurp		
+		pop hl
+
+		push hl
+		ldcurspr			; load address of the current sprite
+		pop hl				; load control block address
+
+		call updtilem
+
+		ret
+		
 ; ----  copies current state to the previous
-; args: HL - address of the object's control block
+; args:
+;		 HL - address of the object's control block
+;
 copystat:	
 		push hl
 
@@ -59,43 +113,20 @@ rdsprpos:
 ; ----	draws object
 ; args: HL - address of the object's control block
 drawobj:
-		push hl				; save control block address		
-		
-		call rdsprpos		; load address of the current position into DE	
-		pop hl
-		
 		push hl
-		scurp		
-		pop hl
-		
-		push hl
-		
-		push de
-		ldcurspr			; load address of the current sprite
-
-		pop bc
-		
+		ldcurp				; load current position in screen buffer to DE
 		pop hl				; load control block address
-		push hl
-		push bc
-		
-		push de				; save sprite address
-				
-		;;call mirrspr		; possibly new sprite address if left direction
 
-		pop bc				; load original sprite address
-		pop hl				; load current position
-		push bc
-		
+		push hl				; save control block
+		push de				; save current position 
+
+		ldcurspr			; load address of the current sprite into DE		
+
+		pop hl				; restore position in screen buffer
 		call putspr			; put sprite to screen buffer
-		
-		pop de				; restore sprite address
-		pop hl				; restore object control block
-		push hl
-		
-		call updtilem		; update tile map
-		
-		pop hl
+
+		pop hl				; load original sprite address
+				
 		call copystat
 		
 		ret
