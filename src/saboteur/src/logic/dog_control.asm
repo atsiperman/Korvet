@@ -336,10 +336,9 @@ dogbitev:
 		push hl
 		ldcurspr					; load sprite address		
 		ex de,hl
-		inc hl						; skip color
-		inc hl						; and width
+		dec hl						; move to width
+		dec hl						; skip width
 		ld a,(hl)					; load height
-		call dvd8
 		ld d,a						; number of rows	
 		
 		pop hl
@@ -352,11 +351,10 @@ dogbitev:
 		ld a,(sbctrlb + odcursr)
 		ld c,a						; save saboteur top row
 					
-		ld hl,(sbctrlb + odcursp)	; load sprite address, pointer to height		
-		inc hl						; skip color
-		inc hl						; and width		
+		ld hl,(sbctrlb + odcursp)	; load sprite address		
+		dec hl						; move to width
+		dec hl						; skip width		
 		ld a,(hl)					; load sprite height
-		call dvd8
 		add c
 		dec a
 		ld b,a						; saboteur: C - top row, B - bottom row
