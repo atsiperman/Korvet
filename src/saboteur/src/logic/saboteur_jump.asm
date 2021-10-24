@@ -194,7 +194,7 @@ sbdojpe:
 ;		
 ;		
 sbstopjp:		
-		call sbcurrh		; load height in rows
+		sbcurrh				; load height in rows
 		ld d,a
 		sblcursr
 		inc a
@@ -220,7 +220,7 @@ sbstopj2:
 sbstopj4:		
 		call sbstopst
 		
-		call sbcurrh		; load height in rows
+		sbcurrh				; load height in rows
 		ld d,a
 		pop af				; restore bottom row		
 		sub d	

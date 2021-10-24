@@ -13,13 +13,10 @@ putspr:
 
 		ex de,hl        ; sprite address in HL
 
-        dec hl          ; move to width
-        ld c,(hl)		; sprite width
-        inc hl
-
 		inc hl			; skip color
-		inc hl
 		ld b,(hl)		; sprite height
+        inc hl
+        ld c,(hl)		; sprite width        
 		inc hl
 		ex de,hl		; DE - pointer to sprite data
 		

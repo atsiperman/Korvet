@@ -128,4 +128,28 @@ DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
 ;		add hl,de
 ;	endm
 	
+; ---- calculates height in rows of the current sprite
+;
+; result:
+;			A - height in rows
+;
+	macro sbcurrh
+		sblcursp
+		inc de		; skip color
+		ld a,(de)	; load height 
+	endm
+
+
+; ---- loads sprite height in tiles
+; args: 
+; 		DE - sprite address
+;
+; result:
+;		A - result
+;
+	macro ldsprht
+		inc de		; skip color
+		ld a,(de)	; read height
+	endm
+
 	

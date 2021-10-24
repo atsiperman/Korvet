@@ -121,11 +121,11 @@ sbststop:
 		sbscurst sbstay		; is staying now
 		
 		sblprvsp		
-		call ldsprht
+		ldsprht
 		push af				; save prev height
 		
 		sblcursp			; load cur sprite 
-		call ldsprht		; current height
+		ldsprht		; current height
 		pop bc
 		sub b				; current is always bigger than previous
 		ld c,a				; save the difference

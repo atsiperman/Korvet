@@ -260,7 +260,7 @@ dogbite1:
 		push hl
 		ldcurspr					; load sprite address		
 		ex de,hl
-		dec hl
+		inc hl						; skip color
 		ld d,(hl)					; load width
 				
 		pop hl
@@ -277,7 +277,8 @@ dogbite1:
 		ld e,a						; save saboteur column
 					
 		ld hl,(sbctrlb + odcursp)	; load sprite address
-		dec hl
+		inc hl						; skip color
+		inc	hl						; skip height
 		ld a,(hl)					; and sprite width
 		add e
 		dec a
@@ -336,8 +337,7 @@ dogbitev:
 		push hl
 		ldcurspr					; load sprite address		
 		ex de,hl
-		dec hl						; move to width
-		dec hl						; skip width
+		inc hl						; skip color
 		ld a,(hl)					; load height
 		ld d,a						; number of rows	
 		
@@ -353,8 +353,7 @@ dogbitev:
 		ld c,a						; save saboteur top row
 					
 		ld hl,(sbctrlb + odcursp)	; load sprite address		
-		dec hl						; move to width
-		dec hl						; skip width		
+		inc hl						; skip color
 		ld a,(hl)					; load sprite height
 		add c
 		dec a

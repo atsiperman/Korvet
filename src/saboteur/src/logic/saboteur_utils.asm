@@ -1,16 +1,4 @@
 
-; ---- calculates height in rows of the current sprite
-;
-; result:
-;			A - height in rows
-;
-sbcurrh:
-		sblcursp
-		dec de 		; move to width
-		dec de		; skip width
-		ld a,(de)	; load height 
-		ret
-
 ; ---- decrease saboteur row
 ;
 sbdecrow:		
@@ -66,7 +54,8 @@ scadrrt:
 		call scadrlt
 		push hl
 		sblcursp
-		dec de 					; move to width
+		inc de					; skip color
+		inc de					; skip height
 		ld a,(de)				; read width
 		ld b,0
 		ld c,a
@@ -89,7 +78,7 @@ scadrrt:
 		endm
 		
 sbcanfal:
-		call sbcurrh	; get height
+		sbcurrh			; get height
 		ld d,a
 		sblcursr
 		add d			; level below feet

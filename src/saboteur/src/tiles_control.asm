@@ -93,10 +93,6 @@ rsttile2:
 		dec a
 		jp nz,rsttile3
 		
-		; ; ex de,hl
-		; ; ld de,COLNUM*7
-		; ; add hl,de
-		; ; ex de,hl
 		ld a,COLNUM		
 		
 rsttile3:	
@@ -155,10 +151,10 @@ updtilem:
 		push hl			; save address of the tile
 		
 		ex de,hl
-		dec hl
-		ld c,(hl)		; load width
-		dec hl
+		inc hl			; skip color
 		ld b,(hl)		; load height
+		inc hl
+		ld c,(hl)		; load width
 
 		ex de,hl
 		

@@ -294,10 +294,8 @@ sbchknpr:
 		
 		ldcurspr
 		ex de,hl
-		dec hl 				; move to width
-		dec hl				; skip width
+		inc hl				; skip color
 		ld a,(hl)			; load height
-		;;call dvd8			; get row count
 		
 		sub 4				; repeat from the top point to the 3 blocks above the floor
 		ld c,a
@@ -314,7 +312,6 @@ sbchknpr:
 		add hl,bc			; X + 1 position (right side + 1)
 		
 		ld c,e
-		;inc c
 		ld de,COLNUM
 							; calculate Y + 1, head's row
 sbchkn1:					
@@ -429,10 +426,8 @@ sbchknpl:
 		
 		ldcurspr
 		ex de,hl
-		dec hl 				; move to width
-		dec hl				; skip width
+		inc hl				; skip color
 		ld a,(hl)			; load height
-		;;call dvd8			; get row count
 		
 		sub 4				; repeat from the top point to the 3 blocks above the floor
 		ld c,a
@@ -449,7 +444,6 @@ sbchknpl:
 		add hl,bc			; X next position
 		
 		ld c,e
-		;inc c				
 		ld de,COLNUM
 							
 sbchkln1:					; calculate Y, head's row	

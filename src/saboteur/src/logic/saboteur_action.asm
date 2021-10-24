@@ -9,8 +9,7 @@ sbdosquat:
 		sbscurst sbsquat	; set new state
 		
 		sblcursp			; load old sprite
-		dec de 				; move to width
-		dec de				; skip width		
+		inc de				; skip color
 		ld a,(de)			; old sprite height		
 		
 		ld hl,sabsqtrt - 2	; new sprite, skip width
@@ -27,7 +26,6 @@ sbdsqt2:					; old h < new h
 		sub c						
 		
 sbdsqt3:
-		;;call dvd8 			; convert difference to rows
 		ld b,a
 				
 		ld hl,sbctrlb + odcursr

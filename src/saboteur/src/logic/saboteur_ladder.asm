@@ -136,7 +136,7 @@ cangolad:
 		
 		push bc				; save state and direction
 		sblcursp			; DE - sprite address
-		call ldsprht		; load sprite height
+		ldsprht		; load sprite height
 		ld e,a				; save height in E
 		
 		sblcursr
