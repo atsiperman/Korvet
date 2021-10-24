@@ -32,6 +32,9 @@ dirlt	EQU 2
 dirup	EQU 4
 dirdn	EQU 8
 
+; ---- 
+fgtile	EQU 128		; tile must be drawn above moving sprites
+
 ; ---- background type
 bwall   EQU 1
 bladder EQU 2 

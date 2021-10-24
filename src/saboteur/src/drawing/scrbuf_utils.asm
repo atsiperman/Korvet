@@ -154,9 +154,12 @@ showsc_:
 ;
 
 copytile:
-		ld hl,(curtile)				; address of current tile in video memory
-				
-		inc de		; skip attributes
+		ld a,(de)			; load attributes
+		and fgtile
+		ret nz				; do not copy if tile is foreground
+
+		inc de
+		ld hl,(curtile)		; address of current tile in video memory						
 
 		dup 8
 			ld a,(de)					; load data byte
@@ -208,12 +211,16 @@ rstbktl:
         inc hl
         ld d,(hl)		; back tile image address in DE
 		
+		pop hl          ; restore screen address in HL
+
 		inc de			; skip back color		
 		inc de			; skip foreground color
-		inc de			; skip header
-		
-        pop hl          ; restore screen address in HL
-		inc hl			; skip attributes
+
+	 	ld a,(de)		; read attributes
+ 		inc de			
+
+		ld (hl),a		; save attributes in screen buffer       
+		inc hl			
 		
 		dup 8
 			ld a,(de)		; load data byte	

@@ -43,7 +43,7 @@ BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
 			;;DB 127, 255, 255, 255, 255, 255, 255, 255
 			
-BK2DATA: 	bksh2 CBLUE,bwall	; blue dots
+BK2DATA: 	bksh2 CBLUE,fgtile + bwall	; blue dots
 			DB 32, 4, 32, 0, 8, 0, 32, 0
 			
 BK3DATA: 	bksh CGREEN			; green squares
@@ -55,10 +55,10 @@ BK4DATA:	bksh CBLUE			; blue bricks
 BK5DATA:	bksh CBLUE			; solid blue 
 			DB 255,255,255,255,255,255,255,255
 			
-BK6DATA:	bksh CYELLOW		; 2 yellow bricks 
+BK6DATA:	bksh2 CYELLOW,fgtile	; 2 yellow bricks 
 			DB 0,0,126,126,0,126,126,126
 			
-BK7DATA:	bksh CYELLOW		; big yellow brick
+BK7DATA:	bksh2 CYELLOW,fgtile	; big yellow brick
 			DB 0,126,126,126,126,126,126,126
 
 BK8DATA:	bksh2 CBLUE,bladder							; blue ladder left bottom
