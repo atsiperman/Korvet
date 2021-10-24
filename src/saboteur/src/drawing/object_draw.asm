@@ -169,25 +169,36 @@ mirrspr:
 		
 		MIRSPCPY			; copy color
 		
-		MIRSPCPY			; copy width
-		ld c,a				; save width in C
 		MIRSPCPY			; copy height
+		ld b,a				; save height in B
+		MIRSPCPY			; copy width
+
+		rla					; get width in bytes
+		rla
+		rla					
+
+		ld c,a				; save width in C
 				
-		dec hl
+		ld a,b				; save height in A			
 		ld b,0
 		add hl,bc			; HL points to the last byte in the first line
 		push bc				; save width only
-		
+
 		ld b,a 				; save height in B
 		
 mirrspr1:
 		ld a,(hl)
 		MIRRBYTE
-		ld (de),a
-				
+		ld (de),a				
 		dec hl
 		inc de		
-		
+
+		ld a,(hl)
+		MIRRBYTE
+		ld (de),a				
+		dec hl
+		inc de		
+
 		dec c
 		jp nz,mirrspr1
 		

@@ -37,6 +37,7 @@ BK29ADDR:	DW BK29DATA
 BK30ADDR:	DW BK30DATA
 BK31ADDR:	DW BK31DATA
 BK32ADDR:	DW BK32DATA
+BK33ADDR:	DW BK33DATA
 
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -133,3 +134,6 @@ BK31DATA:	bksh2 CRED,bwall							; black and white dots
 			
 BK32DATA:	bksh CGREEN									; green vertical `tube
 			DB 76,78,68,70,76,76,76,76
+
+BK33DATA:	bksh2 CBLUE, fgtile							; solid blue, foreground
+			DB 255,255,255,255,255,255,255,255

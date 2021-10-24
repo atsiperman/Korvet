@@ -358,7 +358,7 @@ smap36b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK27ADDR    ; 2, red left top edge
 		bkindex BK28ADDR    ; 3, red left bottom edge
-		bkindex BK5ADDR    	; 4, solid blue 
+		bkindex BK33ADDR   	; 4, solid blue 
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
 smap36e:
@@ -465,7 +465,7 @@ smap37b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK27ADDR    ; 2, red left top edge
 		bkindex BK28ADDR    ; 3, red left bottom edge
-		bkindex BK5ADDR    	; 4, solid blue 
+		bkindex BK33ADDR   	; 4, solid blue 
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
 smap37e:
