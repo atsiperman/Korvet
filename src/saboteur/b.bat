@@ -20,6 +20,8 @@ GOTO end
 :error
 echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+time /T
+exit 1
 
 :end
 time /T

@@ -85,26 +85,32 @@ rdsprpos:
 		push hl
 		ldcursr			; load current row index
 		add a,a			; make address displacement
-		ld c,a
+		ld c,a			
 		ld b,0
 		ld hl,bufrows
 		add hl,bc		; pointer to row address
-		load_de_hl
+		load_de_hl		; save row address in DE
 		pop hl
 		
 		ldcursc 		; load column index into A
+		ld c,a			; save column in C
 
 		rla				
 		rla
 		rla				; multipy by 8 
-		; add c			; and add 9-th time to get number of bytes in one row
+		ld l,a			; save it in L
 
-		ld c,a			; save it in C
-
-		ex de,hl
+		xor a
+		ld h,a			; zero to H
+						; L = column index * 8
+						;
+		ld b,a			; B - 0
+						; C - column index
 		
-		ld b,0
-		add hl,bc
+		add hl,bc		; add 9-th column index to get column offset in byte
+
+		add hl,de		; column address in HL
+		
 		ex de,hl
 		
 		ret

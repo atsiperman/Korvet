@@ -40,22 +40,22 @@ scrbuf:						; screen buffer
 
 bufrows:	;;dup ROWNUM
 			dw scrbuf
-			dw scrbuf + (COLNUM * 8)
-			dw scrbuf + (COLNUM * 8 * 2)
-			dw scrbuf + (COLNUM * 8 * 3)
-			dw scrbuf + (COLNUM * 8 * 4)
-			dw scrbuf + (COLNUM * 8 * 5)
-			dw scrbuf + (COLNUM * 8 * 6)
-			dw scrbuf + (COLNUM * 8 * 7)
-			dw scrbuf + (COLNUM * 8 * 8)
-			dw scrbuf + (COLNUM * 8 * 9)
-			dw scrbuf + (COLNUM * 8 * 10)
-			dw scrbuf + (COLNUM * 8 * 11)
-			dw scrbuf + (COLNUM * 8 * 12)
-			dw scrbuf + (COLNUM * 8 * 13)
-			dw scrbuf + (COLNUM * 8 * 14)
-			dw scrbuf + (COLNUM * 8 * 15)
-			dw scrbuf + (COLNUM * 8 * 16)
+			dw scrbuf + ROWWIDB
+			dw scrbuf + (ROWWIDB * 2)
+			dw scrbuf + (ROWWIDB * 3)
+			dw scrbuf + (ROWWIDB * 4)
+			dw scrbuf + (ROWWIDB * 5)
+			dw scrbuf + (ROWWIDB * 6)
+			dw scrbuf + (ROWWIDB * 7)
+			dw scrbuf + (ROWWIDB * 8)
+			dw scrbuf + (ROWWIDB * 9)
+			dw scrbuf + (ROWWIDB * 10)
+			dw scrbuf + (ROWWIDB * 11)
+			dw scrbuf + (ROWWIDB * 12)
+			dw scrbuf + (ROWWIDB * 13)
+			dw scrbuf + (ROWWIDB * 14)
+			dw scrbuf + (ROWWIDB * 15)
+			dw scrbuf + (ROWWIDB * 16)
 			;;edup
 			
 TILMAPLN	EQU	ROWNUM * COLNUM
@@ -114,13 +114,13 @@ HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 4			; hit by the dog
 
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
-SABSTADR	EQU scrbuf + COLNUM*8 + SCOLNUM 	; address for saboteur on the start screen
+SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 			
 ; ----	saboteur control block			
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,3,2
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,3,1
 			
 ; ----	saboteur health
 ;			

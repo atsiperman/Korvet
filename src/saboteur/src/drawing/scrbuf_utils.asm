@@ -6,11 +6,18 @@
 ;		hl - address on the screen buffer
 ;		de - address of the sprite
 ;
+_putsp_x: dw 0			; start X address of the last row
+
 putspr:
+ 		ld (_putsp_x),hl	; save start address of the first row
+
 		ex de,hl        ; sprite address in HL
-				
+
+        dec hl          ; move to width
+        ld c,(hl)		; sprite width
+        inc hl
+
 		inc hl			; skip color
-		ld c,(hl)		; sprite width
 		inc hl
 		ld b,(hl)		; sprite height
 		inc hl
@@ -21,18 +28,23 @@ putspr:
 putspr1:
 		push bc
 
-		ld a,(de)		; load mask from sprite
-		ld b,(hl)		; load existing data, if any
+        inc hl              ; skip attributes
 
-		and b			; clear points to be occupied by sprite		
-		ld b,a			; save background line
-		inc de
-		ld a,(de)		; load byte from sprite
+        dup 8
+            ld a,(de)		; load mask from sprite
+            ld b,(hl)		; load existing data, if any
 
-		or b			; combine with background
-		ld (hl),a		; save new image
-		inc hl
-		inc de
+            and b			; clear points to be occupied by sprite		
+            ld b,a			; save background line
+            inc de
+            ld a,(de)		; load byte from sprite
+
+            or b			; combine with background
+            ld (hl),a		; save new image
+            inc hl
+            inc de
+        edup
+
 		pop bc
 		dec c
 		jp nz,putspr1
@@ -45,12 +57,11 @@ putspr1:
 		ld b,a			; restore counter B
 		push bc			; save new counters
 
-		push de			; move to the next screen line
-		ld a,COLNUM*8
-		sub c			; restore initial X position
-		ld d,0
-		ld e,a
-		add hl,de		; get address of the next line
+		push de			; save pointer to sprite data
+		ld hl,(_putsp_x)	; restore initial X position
+		ld de, ROWWIDB
+		add hl,de			; get address of the next row in screen buffer
+		ld (_putsp_x),hl	; save it
 		pop de
 		
 		jp putspr1
@@ -58,6 +69,7 @@ putspr1:
 putspr_:
 		pop bc			; clear stack
 		ret
+
 				
 ; ----- copies screen buffer to video memory
 ; 
@@ -95,7 +107,7 @@ showsc2:
 		ld (shcurtl),hl
 		pop hl
 
-		dup 8
+		dup 9
 			inc de					; move to the next column in buffer	
 		edup
 
@@ -127,12 +139,7 @@ showsc3:
 		ld hl,(curtile)			; move to the next row in video memory		
 		add hl,bc
 		ld (curtile),hl
-		
-		; ; ex de,hl				; move to the next column in buffer	
-		; ; ld bc,COLNUM*7 + 1
-		; ; add hl,bc
-		; ; ex de,hl
-		
+				
 		pop hl
 		pop bc
 		push bc
@@ -152,13 +159,9 @@ showsc_:
 copytile:
 		ld hl,(curtile)				; address of current tile in video memory
 				
-		;push bc
-		
-		;ld b,8						; tile's height			
-		;push bc
+		inc de		; skip attributes
 
 		dup 8
-;cptile2:
 			ld a,(de)					; load data byte
 			
 			push de						; save address in screen buffer
@@ -182,104 +185,10 @@ copytile:
 					
 			ld bc,64
 			add hl,bc					; move to the next video line
-			;;ex de,hl
 			inc de
-			;;ld bc,COLNUM				; move to the next line in buffer
-			;;add hl,bc					
-			;;ex de,hl
 		edup
 
-		;pop bc
-		;dec  b
-		;jp z, cptile_
-		;push bc
-		;jp cptile2
-		
-;cptile_:
-		;pop bc
 		ret
-; ------ end of copytile
-
-
-; ; ; copytile:
-; ; ; 		ld hl,(curtile)				; address of current tile in video memory
-; ; ; 		push bc
-
-; ; ; 		push hl
-; ; ; 		push de
-		
-; ; ; 		ld b,8						; tile's height	
-
-; ; ; ; ------------------
-
-; ; ; 		push de						; save address in screen buffer
-; ; ; 		ex de, hl					; save video address in DE
-; ; ; 		ld hl,COLRREG				; 
-; ; ; 		ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color		
-
-; ; ; 		ex de,hl					; HL - screen address
-; ; ; 		pop de						; restore tile address in screen buffer
-
-; ; ; cptile2:
-; ; ; 		push bc
-; ; ; 			ld a,(de)					; load data byte		
-; ; ; 			ld (hl),a					; set data bits
-				
-; ; ; 			ld bc,64
-; ; ; 			add hl,bc					; move to the next video line
-; ; ; 			ex de,hl
-
-; ; ; 			ld bc,COLNUM				; move to the next line in buffer
-; ; ; 			add hl,bc					
-; ; ; 			ex de,hl
-
-; ; ; 		pop bc
-; ; ; 		dec  b
-; ; ; 		jp nz, cptile2
-; ; ; ;		edup
-		
-; ; ; cptile_:
-; ; ; 		pop de
-; ; ; 		pop hl
-
-; ; ; 		ld b,8						; tile's height	
-
-; ; ; ; ------------------
-
-; ; ; 		push de						; save address in screen buffer
-; ; ; 		ex de, hl					; save video address in DE
-; ; ; 		ld hl,COLRREG				; 
-; ; ; 		ld (hl), ((7 & ~CMAIN) << 1) ; set color to clear
-
-; ; ; 		ex de,hl					; HL - screen address
-; ; ; 		pop de						; restore tile address in screen buffer
-
-; ; ; cptile3:
-; ; ; 		push bc
-; ; ; 			ld a,(de)				; load data byte
-; ; ; 			cpl						; get bits to clear
-; ; ; 			ld (hl),a				; set data bits
-				
-; ; ; 			ld bc,64
-; ; ; 			add hl,bc				; move to the next video line
-; ; ; 			ex de,hl
-
-; ; ; 			ld bc,COLNUM			; move to the next line in buffer
-; ; ; 			add hl,bc					
-; ; ; 			ex de,hl
-
-; ; ; 		pop bc
-; ; ; 		dec  b
-; ; ; 		jp nz, cptile3
-; ; ; ;		edup
-		
-; ; ; cptile4:
-
-; ; ; 		pop bc
-
-; ; ; 		ret
-; ; ; ; ------ end of copytile
-
 		
 		
 ; ----- restores background tile in screen buffer
@@ -306,26 +215,17 @@ rstbktl:
 		inc de			; skip foreground color
 		inc de			; skip header
 		
-        pop hl          ; restore screen address
-        ;;ld bc,(8 << 8) + COLNUM		; load B - counter, C - increment in screen buffer
-rstbktl2:
+        pop hl          ; restore screen address in HL
+		inc hl			; skip attributes
+		
 		dup 8
 			ld a,(de)		; load data byte	
 			cpl 			; get background bits
-			ld (hl),a
-			;;dec b
-			;;jp z,rstbktl_
-			
+			ld (hl),a		
 			inc de
 			inc hl
-			;;ld a,b			; save counter
-			;;ld b,0
-			;;add hl,bc
-			;;ld b,a			; restore counter
 		edup
-		;jp rstbktl2
 		
-rstbktl_:
 		pop bc
 		pop de
 		pop hl

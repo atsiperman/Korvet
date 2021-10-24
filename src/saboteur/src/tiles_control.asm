@@ -81,7 +81,7 @@ rsttile1:
 		pop hl
 		
 rsttile2:	
-		dup 8
+		dup 9
 			inc de			; move to the next tile in screen buffer
 		edup
 		
@@ -148,14 +148,6 @@ updtilem:
 		pop de			; restore column index
 		add hl, de		; move to column address
 
-
-		;;ld hl,COLNUM
-		;;call multpl		; HL - displacement of the tile of current row		
-		;;add hl,de		; HL - displacement of column 		
-		
-		;;ld de,tilemap
-		;;ex de,hl
-		;;add hl,de		; HL - address of the tile 
 			
 ; ----------------------------
 
@@ -167,18 +159,6 @@ updtilem:
 		ld c,(hl)		; load width
 		dec hl
 		ld b,(hl)		; load height
-
-		; ; inc hl
-		; ; ld c,(hl)		; load width
-		; ; inc hl
-		; ; ld b,(hl)		; load height
-		
-		; ; ld a,b			; divide height by 8 
-		; ; rra			
-		; ; rra
-		; ; rra 
-		; ; and 31			; A - height of sprite in rows
-		; ; ld b,a
 
 		ex de,hl
 		
