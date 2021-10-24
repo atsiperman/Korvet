@@ -6,7 +6,8 @@
         jp start
 
         include "const.asm"
-		include "sbmacro.asm"		
+		include "sbmacro.asm"	
+		include "sound.asm"	
 		
 		include "object_def.asm"
 		include "drawing/mirror_table.asm"
@@ -87,12 +88,16 @@ start:
         GRMODOFF
 		
 main:					; main cycle
+		DISSND
+
         GRMODON
 
 		call drawscr
 				
         GRMODOFF
 		
+		call sbstsnd
+
 		call gmain		; test keyboard 
 		or a		
 		jp nz,main		; continue if not zero

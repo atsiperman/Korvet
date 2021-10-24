@@ -2,8 +2,8 @@
 ; ---- saboteur state
 ;
 sbstay	EQU 1				; staying 
-sbmove	EQU 2				; moving 
 sbkick	EQU 3				; kicking
+sbmove	EQU 2				; moving 
 sbjump	EQU 4				; jumping
 sbfall	EQU 5				; falling down
 sbladr	EQU 6				; moving on the ladder
