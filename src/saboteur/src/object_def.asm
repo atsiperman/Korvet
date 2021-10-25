@@ -42,9 +42,10 @@ bladder EQU 2
 
 ; ---- object types
 ;
-osabotr	EQU 1				; saboteur
-odog	EQU 2				; dog
-oguard	EQU 3				; guard
+osabotr	EQU 1		; saboteur
+odog	EQU 2		; dog
+oguard	EQU 3		; guard
+ogun	EQU 4		; gun
 
 ; ---- displacements from the beginning of the control block
 ;
@@ -88,6 +89,11 @@ objsize EQU	odcbend - odtype
 		db mincol,maxcol
 		endm		
 		
+		macro mkgun direct,curspr,curspri,curscol,cursrow
+		mkctrlb ogun,gunact,0,direct,scrbuf,curspr,curspri,curscol,cursrow
+		db 0,0
+		endm
+
 ; ----  loads ldcurscb
 ; args: HL - address of the current column index
 		macro ldcurscb

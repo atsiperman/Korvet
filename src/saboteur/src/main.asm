@@ -18,6 +18,7 @@
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
+		include "sprites/gun_sprites.asm"
 		
 		include "screens/object_map.asm"
         include "screens/screens.asm"
@@ -52,6 +53,7 @@
 		include "logic/saboteur_movements.asm"
 		include "logic/saboteur_jump.asm"
 		include "logic/health.asm"
+		include "logic/gun_logic.asm"
 		
 		include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"

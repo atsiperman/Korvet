@@ -6,15 +6,31 @@ s3objm:
 		db 1								; number of objects
 		mkdog dirlt,dogspml1,0,20,4,1,22
 
+s4objm:
+		db 1
+		mkgun dirlt,gunlt,0,17,1
+
+s7objm:
+		db 1
+		mkgun dirlt,gunlt,0,16,6
+
 s8objm:
 		db 2
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,4,7,4,20	
 		mkdog dirlt,dogspml1,0,23,10,3,22		
 
+s9objm:
+		db 1
+		mkgun dirlt,gunlt,0,9,1
+
 s10objm:
 		db 2
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,3,8,3,20	
 		mkdog dirlt,dogspml1,0,23,11,3,22		
+
+s28objm:
+		db 1
+		mkgun dirlt,gunlt,0,7,5
 
 s32objm:
 		db 1
@@ -32,6 +48,10 @@ s39objm:
 		db 1
 		mkguard gdstay,dirrt,scrbuf,gdsprt,0,6,7,6,22
 		
+s41objm:
+		db 1
+		mkgun dirlt,gunlt,0,16,5
+
 s46objm:
 		db 1
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,14,6,5,20

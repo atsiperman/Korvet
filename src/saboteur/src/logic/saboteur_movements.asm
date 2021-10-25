@@ -7,21 +7,30 @@ sbstmove:
 		push bc
 		
 		ld hl,sbctrlb
+		push hl
 		call sbincrow		; sprite for moving object has less height, so move it down
+		pop hl
 		
 		pop bc
 		push bc
 		
-		ld hl,sbctrlb
+		;;ld hl,sbctrlb
+		push hl
 		push hl
 							; check right dir
 		ld a,dirrt
 		cp c
 		jp nz,sbstmv1
+		
+		call sbinccol		
+		pop hl
+
 		call sbstgort		
 		jp sbstmv2
 		
 sbstmv1:				
+		call sbdeccol
+		pop hl
 		call sbstgolt
 		
 sbstmv2:				
