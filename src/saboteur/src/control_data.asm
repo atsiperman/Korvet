@@ -87,13 +87,10 @@ tilemapa:	dw tilemap
 curtile:	dw 0			; address of the current tile in video memory	
 shcurtl:	dw 0			; current tile address in shadow screen
 			
-sprtbuf:	dup 512
-			db 0
-			edup
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn28 		; pointer to current screen
+curscr: 	dw scrn3 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 			
 			
@@ -119,8 +116,8 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,5,7
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,5,7
 			
 ; ----	saboteur health
 ;			

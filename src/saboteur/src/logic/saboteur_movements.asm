@@ -7,30 +7,21 @@ sbstmove:
 		push bc
 		
 		ld hl,sbctrlb
-		push hl
 		call sbincrow		; sprite for moving object has less height, so move it down
-		pop hl
 		
 		pop bc
 		push bc
 		
-		;;ld hl,sbctrlb
-		push hl
+		ld hl,sbctrlb
 		push hl
 							; check right dir
 		ld a,dirrt
 		cp c
 		jp nz,sbstmv1
-		
-		call sbinccol		
-		pop hl
-
 		call sbstgort		
 		jp sbstmv2
 		
 sbstmv1:				
-		call sbdeccol
-		pop hl
 		call sbstgolt
 		
 sbstmv2:				
@@ -84,7 +75,15 @@ sbstgort:
 		push hl
 		scurdir dirrt		
 		pop hl
-		or c			; anything not zero
+
+		push hl
+		ld a,(sbmvrttb)			; total sprite count
+		dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		sbscursi
+		call sbgort
+		pop hl
+
+		inc a					; anything not zero
 		ret		
 
 ; ---- saboteur starts going left
@@ -122,7 +121,15 @@ sbstgolt:
 		pop hl
 		xor a
 		scurspi
-		or c			; anything not zero
+
+		push hl
+		ld a,(sbmvlttb)			; total sprite count
+		dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		sbscursi
+		call sbgolt
+		pop hl
+
+		inc a					; anything not zero
 		ret		
 
 
@@ -317,10 +324,10 @@ sbchknpr:
 		ld hl,shadscr
 		
 		ld b,0
-		ld c,d
+		ld c,d				; save next column in C
 		add hl,bc			; X + 1 position (right side + 1)
 		
-		ld c,e
+		ld c,e				; save current row in C
 		ld de,COLNUM
 							; calculate Y + 1, head's row
 sbchkn1:					

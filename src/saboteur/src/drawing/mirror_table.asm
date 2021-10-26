@@ -21,22 +21,3 @@ mirtable:
 		db 7, 135, 71, 199, 39, 167, 103, 231, 23, 151, 87, 215, 55, 183, 119, 247
 		db 15, 143, 79, 207, 47, 175, 111, 239, 31, 159, 95, 223, 63, 191, 127, 255
 
-		; ---- returns mirrored byte
-		; args:
-		;			A - byte to be mirrored
-		; result:	
-		;			A - mirrored byte
-		;
-		macro MIRRBYTE
-		push de
-		push hl
-		
-		ld hl,mirtable		
-		ld d,0
-		ld e,a
-		add hl,de
-		ld a,(hl)
-		
-		pop hl
-		pop de		
-		endm

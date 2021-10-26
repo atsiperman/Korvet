@@ -7,19 +7,22 @@
 
         include "const.asm"
 		include "sbmacro.asm"	
-		include "sound.asm"	
-		
 		include "object_def.asm"
-		include "drawing/mirror_table.asm"
 		
+		include "control_data.asm"
+		include "sprites/gun_sprites.asm"
+						
+		include "drawing/mirror_table.asm"
+
 		include "sprites/dog_sprites.asm"
         include "sprites/background_sprites.asm"				
 		include "sprites/saboteur_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
-		include "sprites/gun_sprites.asm"
-		
+
+		include "sound.asm"	
+
 		include "screens/object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
@@ -39,7 +42,6 @@
 		
 		include "screen_control.asm"
 		include "mem_utils.asm"
-		include "control_data.asm"
 		include "init.asm"
 		
 		include "logic/dog_control.asm"

@@ -162,13 +162,14 @@ copytile:
 		ld hl,(curtile)		; address of current tile in video memory						
 
 		dup 8
+			ld b,((7 & ~CMAIN) << 1) + 1	; save main color in B
 			ld a,(de)					; load data byte
 			
 			push de						; save address in screen buffer
 			ex de, hl					; save video address in DE
 			
 			ld hl,COLRREG				; 
-			ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
+			ld (hl), b					; set main color
 			
 			ex de,hl					; HL - screen address
 
@@ -176,7 +177,8 @@ copytile:
 					
 			ex de,hl					; HL - color reg
 			
-			ld (hl), ((7 & ~CMAIN) << 1)	; set color to clear		
+			dec b						; set color to clear		
+			ld (hl),b					
 			ex de,hl					; HL - screen address			
 			cpl							; get bits to clear
 			ld (hl),a					; move data byte
