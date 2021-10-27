@@ -81,9 +81,8 @@ rsttile1:
 		pop hl
 		
 rsttile2:	
-		dup 9
-			inc de			; move to the next tile in screen buffer
-		edup
+		
+		skip_buf_tile de	; move to the next tile in screen buffer
 		
 		ld hl,(shcurtl)		; move to the next tile in shadow screen	
 		inc hl				; move to attributes byte

@@ -25,7 +25,7 @@ putspr:
 putspr1:
 		push bc
 
-        inc hl              ; skip attributes
+        skip_buf_tile_head hl  ; skip attributes
 
         dup 8
             ld a,(de)		; load mask from sprite
@@ -104,9 +104,7 @@ showsc2:
 		ld (shcurtl),hl
 		pop hl
 
-		dup 9
-			inc de					; move to the next column in buffer	
-		edup
+		skip_buf_tile de 		; move to the next column in buffer	
 
 		dec c
 		jp z, showsc3			; next row
@@ -154,6 +152,8 @@ showsc_:
 ;
 
 copytile:
+		inc de				; skip sprite address
+		inc de	
 		ld a,(de)			; load attributes
 		and fgtile
 		ret nz				; do not copy if tile is foreground
@@ -221,6 +221,8 @@ rstbktl:
 	 	ld a,(de)		; read attributes
  		inc de			
 
+		inc hl			; skip sprite address
+		inc hl
 		ld (hl),a		; save attributes in screen buffer       
 		inc hl			
 		

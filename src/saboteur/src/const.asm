@@ -24,7 +24,13 @@ GRAMLEN 	EQU 4000h
 
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
-ROWWIDB		EQU COLNUM * 9	; width of the row in screen buffer, bytes  
+
+COLWIDB		EQU 2 + 1 + 8	; size of one column in screen buffer, bytes
+							; 2, sprite address
+							; 1, attributes
+							; 8 sprite data
+
+ROWWIDB		EQU COLNUM * COLWIDB	; width of the row in screen buffer, bytes  
 
 FRMADDR		EQU GRAM + 16 + 64*32
 FRMWIDT		EQU COLNUM + 2
@@ -51,8 +57,6 @@ CMAIN 		EQU CBLACK			; color of the main character
 ;COLORCLR	EQU 80h + ((7 & CMAIN) << 1)	; color to clear working screen
 COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
-
-BUFLEN		EQU ROWNUM * ROWWIDB	; size of the screen buffer
 
 
 

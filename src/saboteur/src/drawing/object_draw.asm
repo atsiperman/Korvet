@@ -97,7 +97,7 @@ rdsprpos:
 
 		rla				
 		rla
-		rla				; multipy by 8 
+		rla				; multipy by 8
 		ld l,a			; save it in L
 
 		xor a
@@ -107,7 +107,9 @@ rdsprpos:
 		ld b,a			; B - 0
 						; C - column index
 		
-		add hl,bc		; add 9-th column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
 
 		add hl,de		; column address in HL
 		

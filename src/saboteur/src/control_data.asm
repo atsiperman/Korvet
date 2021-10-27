@@ -28,6 +28,7 @@ LUTVAL:
 		
 shadscr:								; map of the current screen, 2 bytes per tile
 			dup	ROWNUM * COLNUM
+			; sprite index, type
 			db 0,0
 			edup
 
@@ -53,10 +54,22 @@ shadrows:	dw shadscr
 
 objlist:	dw 0			; pointer to the list of objects on the current screen
 
-scrbuf:						; screen buffer		
-			dup BUFLEN
+scrbuf:									; screen buffer		
+			dup ROWNUM * ROWWIDB
 			db 0
 			edup
+	
+	macro skip_buf_tile_head reg_pair
+		dup 3
+			inc reg_pair
+		edup
+	endm
+
+	macro skip_buf_tile reg_pair
+		dup COLWIDB
+			inc reg_pair
+		edup
+	endm
 
 bufrows:	dw scrbuf
 			dw scrbuf + ROWWIDB
