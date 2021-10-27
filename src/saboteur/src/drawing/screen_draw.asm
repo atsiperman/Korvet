@@ -23,23 +23,51 @@ scrchng2:
 ; args: 
 ;		A  - index of a sprite in the local sprite table
 ;		BC - address of the local sprite table
-;		DE - current address in the shadow screen
+;		DE - current address in the screen buffer
 		macro PUTBSC_
 
 		and 15				; index of the first sprite in A
 		push hl
 		push de
+
 		ld d,0
 		ld e,a
-		ld h,b				; screen address		
+
+		ld h,b				; local sprite table		
 		ld l,c				; from bc to hl
+
 		add hl,de			; add index of sprite
-		ld a,(hl)			; index of sprite in global table
-		
-		pop de
-		ex de,hl
-		ld (hl),a			; write it to the shadow screen
-		ex de,hl
+		; ; ld a,(hl)			; index of sprite in global table
+				
+		; ; pop de
+		; ; ex de,hl
+		; ; ld (hl),a			; write it to the shadow screen
+		; ; ex de,hl
+
+		ld e,(hl)			; sprite index in global table
+		ld hl,BKSPRTAB
+		add hl,de
+		add hl,de			; address of the current sprite
+		load_de_hl			; in DE
+		;;ex de,hl			; to HL
+
+		pop hl				; restore screen buffer pointer
+		;;ex de,hl			; move it into HL
+
+		ld (hl),e			; save sprite address
+		inc hl
+		ld (hl),d
+		inc hl				; move pointer to attributes
+
+		inc de				; skip back color				
+		inc de				; skip color
+		ld a,(de)			; load and save sprite attributes
+		ld (hl),a
+		inc hl					; move pointer to data
+		skip_buf_tile_data hl 	; skip data bytes
+
+		ex de,hl			; address in screen buffer into DE
+
 		pop hl				; restore pointer to the next byte
 		
 		endm
@@ -55,15 +83,15 @@ scrchng2:
 		
 		PUTBSC_				;  put first compressed byte to the shadow screen
 		
-		inc de				; next byte of shadow screen
-		inc de				; skip tile attributes
+		;;inc de				; next byte of shadow screen
+		;;inc de				; skip tile attributes
 
 		ld a,(hl)			; restore compressed byte		
 		
 		PUTBSC_				;  put second compressed byte to the shadow screen
 
-		inc de				; next byte in shadow screen		
-		inc de				; skip tile attributes
+		;;inc de				; next byte in shadow screen		
+		;;inc de				; skip tile attributes
 		endm
 		
 ; ----- decompresses current screen into shadow area
@@ -82,7 +110,7 @@ decmrscr:
 		
 		add hl,de			; now hl points to the first tile data
 		
-		ld de,shadscr		; pointer to the shadow screen	
+		ld de,scrbuf		; pointer to the screen buffer	
 		
 decmprs1:
 		ld a,(hl)			; load compressed byte into A			
@@ -241,26 +269,26 @@ scrch1_:
 		
 		call decmrscr		; decompress new screen map
 		
-		ld de,shadscr		; address of the shadow screen
+		;;ld de,shadscr		; address of the shadow screen
         call drawbkgr		; draw background
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 		
-		call clrtilem		; clear tile map
+		;;call clrtilem		; clear tile map
 		
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
-		call savetilm		; save old tiles state
+		;;call savetilm		; save old tiles state
 
 drawobj2:
-		call updobjs		; update objects state		
-		call rsttiles		; restore tiles background according to current objects location
+		;;call updobjs		; update objects state		
+		;;call rsttiles		; restore tiles background according to current objects location
 				
-		call drawobjs
+		;;call drawobjs
 		
-		call showscr		; show buffer on the screen
+		;;call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar
 		

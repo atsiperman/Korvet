@@ -109,6 +109,7 @@ _bkcolr:
 		db 0
 
 drawbkgr:
+        ld de,scrbuf
         ld hl,SCRADDR
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
 					; C=COLNUM sprites in line
@@ -116,7 +117,7 @@ startdrw:
         call drawbktl
 
         push bc
-        ld bc,64-COLNUM+1
+        ld bc, (64 * 8) + 1 - COLNUM
         add hl,bc
         pop bc
         ld c,COLNUM     ; next line of sprites
@@ -128,7 +129,7 @@ startdrw:
 
 		
 ; ----- draws background tile in video memory
-; args: DE - address of the tile in shadow screen model
+; args: DE - address of the tile in screen buffer
 ;       HL - address in video memory
 ;		C  - number of sprites to draw starting from the current one 
 ; result:
@@ -137,72 +138,69 @@ startdrw:
 drawbktl:
 
 drawbkt1:
-        push hl         ; out address
-        push de         ; sprite pointer
+        push hl         ; save video memory address for the first line of the current column
         push bc         ; screen lines counter
 
-        ex de,hl
-        ld b,0
-        ld c,(hl)
-        ld hl,BKSPRTAB
-        add hl,bc
-        add hl,bc       ; pointer to sprite's address
-        push de         ; save screen address
-        ld e,(hl)
+        push hl         ; save video memory address
+        ex de,hl        ; pointer to screen buffer in HL
+
+        ld e,(hl)       ; load sprite address
         inc hl
-        ld d,(hl)
-		
+        ld d,(hl)       ; to DE
+        inc hl
+        inc hl                  ; skip attributes
+        skip_buf_tile_data hl   ; skip data in screen buffer
+
+        ld b,h
+        ld c,l          ; save address in screen buffer in BC
+
+        pop hl          ; restore screen address		
+        push bc         ; save address in screen buffer
+
         ld a,(de)	; read back color
         ld (_bkcolr),a	; save it 		
         inc de
-		
+	        
         ld a,(de)	; read foreground color
         ld b,a			
         inc de
         inc de		; skip header
-		
-        pop hl          ; restore screen address		
-        ld c,8
-sprloop:
-        ld a,(de)	; load data byte	
-		
-        push de		; save data address
-        
-        ex de,hl	; DE - screen address		
-        
-        push bc		; save foreground color and counter
-        
-        ld hl,COLRREG	; set color register		
-        ld (hl),b	; set main color
-        ex de,hl	; HL - screen address
-        ld (hl),255	; set main color by default
-        
-        ex de,hl	; DE - screen address				
-        ld hl,_bkcolr
-        ld b,(hl)	; get background color
-        ld hl,COLRREG	; set color register
-        ld (hl),b	; set background color
-        
-        ex de,hl	; HL - screen address
-        cpl		; get bits to be drawn as background
-        ld (hl),a	; move data byte
-        pop bc
-                                        
-        pop de		; restore data address
-		
-        inc de          ; next byte from sprite
-        dec c           ; sprite counter
-        jp z,sprend
-        push de
-        ld de,64        ; add 64
-        add hl,de       ; move to the next line on screen
-        pop de
-        jp sprloop
 
-sprend: pop bc          ; sprite finished
+        dup 8
+                push bc		; save fg color
+
+                ld a,(de)	; load data byte			
+                push de		; save data address
+                
+                ex de,hl	; DE - screen address		
+                                
+                ld hl,COLRREG	; set color register		
+                ld (hl),b	; set main color
+                ex de,hl	; HL - screen address
+                ld (hl),255	; set main color by default
+                
+                ex de,hl	; DE - screen address				
+                ld hl,_bkcolr
+                ld b,(hl)	; get background color
+                ld hl,COLRREG	; set color register
+                ld (hl),b	; set background color
+                
+                ex de,hl	; HL - screen address
+                cpl		; get bits to be drawn as background
+                ld (hl),a	; move data byte
+
+                pop de		; restore data address                        
+                inc de          ; next byte from sprite
+                
+                ld bc,64        ; add 64
+                add hl,bc       ; move to the next line on screen
+                
+                pop bc          ; restore fg color
+        edup
+
+        ;pop bc          ; sprite finished
         pop de
-        inc de          ; move to the next tile
-        inc de		; skip tile attributes
+        pop bc        
         dec c
         jp z,nextline   ; move to the next line of sprites
         pop hl          ; top of the next column on screen
@@ -210,7 +208,7 @@ sprend: pop bc          ; sprite finished
         jp drawbkt1
 
 nextline:
-        pop af          ; clear stack from prev hl
+        pop hl          ; restore address of the last column
 	ret	
 		
 	

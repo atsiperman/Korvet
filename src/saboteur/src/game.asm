@@ -3,8 +3,9 @@
 ; result: A - 0 to stop
 
 gmain:
-		call gaction		; process objects		
+		;;call gaction		; process objects		
 		call sbmain			; process saboteur
+		;;ld a,1
 		ret
 
 ; ---- calls action logic for other objects
@@ -52,7 +53,7 @@ sbmain:
 		or a
 		;ret z			; stop if dead
 				
-		call sbcanact	; check if can act
+		;;call sbcanact	; check if can act
 		or a 			
 		jp z,gend		; return if zero (no actions)
 		

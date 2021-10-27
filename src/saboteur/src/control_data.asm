@@ -52,43 +52,6 @@ shadrows:	dw shadscr
 			dw shadscr + (SROWLEN * 15)
 			dw shadscr + (SROWLEN * 16)
 
-objlist:	dw 0			; pointer to the list of objects on the current screen
-
-scrbuf:									; screen buffer		
-			dup ROWNUM * ROWWIDB
-			db 0
-			edup
-	
-	macro skip_buf_tile_head reg_pair
-		dup 3
-			inc reg_pair
-		edup
-	endm
-
-	macro skip_buf_tile reg_pair
-		dup COLWIDB
-			inc reg_pair
-		edup
-	endm
-
-bufrows:	dw scrbuf
-			dw scrbuf + ROWWIDB
-			dw scrbuf + (ROWWIDB * 2)
-			dw scrbuf + (ROWWIDB * 3)
-			dw scrbuf + (ROWWIDB * 4)
-			dw scrbuf + (ROWWIDB * 5)
-			dw scrbuf + (ROWWIDB * 6)
-			dw scrbuf + (ROWWIDB * 7)
-			dw scrbuf + (ROWWIDB * 8)
-			dw scrbuf + (ROWWIDB * 9)
-			dw scrbuf + (ROWWIDB * 10)
-			dw scrbuf + (ROWWIDB * 11)
-			dw scrbuf + (ROWWIDB * 12)
-			dw scrbuf + (ROWWIDB * 13)
-			dw scrbuf + (ROWWIDB * 14)
-			dw scrbuf + (ROWWIDB * 15)
-			dw scrbuf + (ROWWIDB * 16)
-			
 TILMAPLN	EQU	ROWNUM * COLNUM
 
 tilemap:					; map of tiles, low half map - current state, hi half map - previous state
@@ -114,10 +77,52 @@ tilemapa:	dw tilemap
 			dw tilemap + (COLNUM * 15)
 			dw tilemap + (COLNUM * 16)
 
-
 curtile:	dw 0			; address of the current tile in video memory	
 shcurtl:	dw 0			; current tile address in shadow screen
-			
+
+objlist:	dw 0			; pointer to the list of objects on the current screen
+
+scrbuf:									; screen buffer		
+			dup ROWNUM * ROWWIDB
+			db 0
+			edup
+	
+	macro skip_buf_tile_head reg_pair
+		dup 3
+			inc reg_pair
+		edup
+	endm
+
+	macro skip_buf_tile reg_pair
+		dup COLWIDB
+			inc reg_pair
+		edup
+	endm
+	
+	macro skip_buf_tile_data reg_pair
+		dup 8
+			inc reg_pair
+		edup
+	endm
+
+bufrows:	dw scrbuf
+			dw scrbuf + ROWWIDB
+			dw scrbuf + (ROWWIDB * 2)
+			dw scrbuf + (ROWWIDB * 3)
+			dw scrbuf + (ROWWIDB * 4)
+			dw scrbuf + (ROWWIDB * 5)
+			dw scrbuf + (ROWWIDB * 6)
+			dw scrbuf + (ROWWIDB * 7)
+			dw scrbuf + (ROWWIDB * 8)
+			dw scrbuf + (ROWWIDB * 9)
+			dw scrbuf + (ROWWIDB * 10)
+			dw scrbuf + (ROWWIDB * 11)
+			dw scrbuf + (ROWWIDB * 12)
+			dw scrbuf + (ROWWIDB * 13)
+			dw scrbuf + (ROWWIDB * 14)
+			dw scrbuf + (ROWWIDB * 15)
+			dw scrbuf + (ROWWIDB * 16)
+						
 
 ; ---- screen control block
 ;
