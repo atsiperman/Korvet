@@ -45,10 +45,12 @@ sbcnact2:
 		call sbdoshjp
 		jp sbcnactn
 
-sbcnact3:			
-		cp sbstay
-		jp nz,sbcnacty	; not staying, should not fall since is not falling already
-								
+sbcnact3:		
+		;;cp sbstay
+		;;jp nz,sbcnacty	; not staying, should not fall since is not falling already
+
+		;;jp sbcnacty
+
 		call sbcanfal	; check if he must fall down	
 		or a
 		jp z,sbcnacty
@@ -56,7 +58,6 @@ sbcnact3:
 		ld hl,sbctrlb
 		ld a,dirlt
 		call sbstfall
-						
 		jp sbcnactn
 
 sbcnacty:

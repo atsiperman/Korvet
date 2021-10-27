@@ -352,4 +352,11 @@ objsize EQU	odcbend - odtype
 		endm
 		
 		
+; --- checks type of a sprite
+; args:		A - sprite type
+; result:	A - 0 if not a floor type (something to walk on)
+;
+        macro isfloor
+	  		and bwall + bladder
+        endm
 		

@@ -25,11 +25,31 @@ LUTVAL:
 		db 00001110b
 		db 00001111b
 		
-			
-shadscr:					; map of the current screen
+		
+shadscr:								; map of the current screen, 2 bytes per tile
 			dup	ROWNUM * COLNUM
-			db 0
+			db 0,0
 			edup
+
+SROWLEN		EQU COLNUM * 2				; shadow screen row length
+
+shadrows:	dw shadscr
+			dw shadscr + SROWLEN
+			dw shadscr + (SROWLEN * 2)
+			dw shadscr + (SROWLEN * 3)
+			dw shadscr + (SROWLEN * 4)
+			dw shadscr + (SROWLEN * 5)
+			dw shadscr + (SROWLEN * 6)
+			dw shadscr + (SROWLEN * 7)
+			dw shadscr + (SROWLEN * 8)
+			dw shadscr + (SROWLEN * 9)
+			dw shadscr + (SROWLEN * 10)
+			dw shadscr + (SROWLEN * 11)
+			dw shadscr + (SROWLEN * 12)
+			dw shadscr + (SROWLEN * 13)
+			dw shadscr + (SROWLEN * 14)
+			dw shadscr + (SROWLEN * 15)
+			dw shadscr + (SROWLEN * 16)
 
 objlist:	dw 0			; pointer to the list of objects on the current screen
 
@@ -38,8 +58,7 @@ scrbuf:						; screen buffer
 			db 0
 			edup
 
-bufrows:	;;dup ROWNUM
-			dw scrbuf
+bufrows:	dw scrbuf
 			dw scrbuf + ROWWIDB
 			dw scrbuf + (ROWWIDB * 2)
 			dw scrbuf + (ROWWIDB * 3)
@@ -56,7 +75,6 @@ bufrows:	;;dup ROWNUM
 			dw scrbuf + (ROWWIDB * 14)
 			dw scrbuf + (ROWWIDB * 15)
 			dw scrbuf + (ROWWIDB * 16)
-			;;edup
 			
 TILMAPLN	EQU	ROWNUM * COLNUM
 

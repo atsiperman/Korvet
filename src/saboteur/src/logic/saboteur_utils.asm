@@ -62,38 +62,74 @@ scadrrt:
 		pop hl
 		add hl,bc				; get right column
 		ret
-				
+
+
 ; ---- checks if saboteur may fall down
-;
+;				
 ; result:
-;			A - 0 if can not fall
+;			A - 1 if can fall
 ;
-		macro SBCANFAL exitlabl
-		inc hl			; X = X + 1
-		push hl
-		ldsprt	
-		pop hl
-		call isfloor
-		jp nz,exitlabl
-		endm
-		
 sbcanfal:
 		sbcurrh			; get height
 		ld d,a
-		sblcursr
+		sblcursr		; current row in A
 		add d			; level below feet
 		
-		call scadrlt	; get left position
+		ld d,a			; save row in D
+		push de			; save row		
+		call _isfloor	
+		pop de
+		or a
+		jp nz,_sbcnfal0 ; floor, return 0
 		
-		SBCANFAL sbcnfaln
-		SBCANFAL sbcnfaln
-		SBCANFAL sbcnfaln
+		ld a,d			; move row to A
+		cp ROWNUM-1		; check if this is the last row
+		ret z			; return A > 0 to fall if saboteur is on the last row
 
-		ld a,1			; no floor - may fall down
+		inc a			; check Y + 1
+		call _isfloor	
+		or a
+		jp nz,_sbcnfal0 ; floor, return 0
+
+		inc a
+		ret
+
+_sbcnfal0:		
+		xor a			; there is a floor, no fall
+		ret
+
+
+; ---- checks if there is no floor on specified row
+;
+; args:	D - column
+;		E - row
+;					
+;
+; result:
+;		A - 1 if there is a floor
+;
+		macro SBONFLOOR ;;exitlabl
+		inc hl			; skip tile attributes
+		inc hl			; X = X + 1
+
+		push hl
+		ldsprt	
+		pop hl
+		and bwall
+		ret nz
+		;;jp nz,exitlabl
+		endm
+
+_isfloor:
+		call scadrlt		; get left position		
+		SBONFLOOR ;;_isflore
+		SBONFLOOR ;;_isflore
+		SBONFLOOR ;;_isflore
+		;;xor a				; no floor, 0
 		ret
 		
-sbcnfaln:
-		xor a
+_isflore:
+		ld a,1
 		ret
 
 		

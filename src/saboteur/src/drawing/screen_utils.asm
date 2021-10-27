@@ -1,37 +1,33 @@
 
-; --- checks type of a sprite
-; args:		A - sprite type
-; result:	A - 0 if not a floor type (something to walk on)
-;
-isfloor:
-		and bwall + bladder
-		ret 
-
 ; 
 ; ----- calculates address in memory of specified column and row of shadow screen
-;	args: 	D - column
-;			E - row
-; result: 	HL - address 
+; args: 	D - column
+;		E - row
+; result: 	
+;               HL - address 
 ;			
 shscradr:
-		ld hl,shadscr
-		
-		ld b,0
-		ld c,d
-		add hl,bc			; X position
-		
-		ld c,COLNUM
-		ld a,e
-							; calculate Y 
-		or a
-		ret z
+        ld hl,shadrows
 
-spadrcr1:				
-		add hl,bc
-		dec a
-		jp nz,spadrcr1
-		
-		ret
+        ld b,0      
+        xor a          
+        ld a,e          ; row in A
+        rla             ; 2 bytes per address
+        ld c,a          ; row in C
+        add hl,bc       ; pointer to row address
+
+        ld a,d          ; save column in A
+
+        ld e,(hl)       ; load row address
+        inc hl
+        ld d,(hl)
+        
+        ex de,hl        ; row address in HL
+        rla             ; 2 bytes per column
+        ld c,a
+        add hl,bc       ; get column address
+        
+        ret
 
 
 ; -----  clear text screen
@@ -205,7 +201,8 @@ sprloop:
 
 sprend: pop bc          ; sprite finished
         pop de
-        inc de          ; move to the next sprite
+        inc de          ; move to the next tile
+        inc de		; skip tile attributes
         dec c
         jp z,nextline   ; move to the next line of sprites
         pop hl          ; top of the next column on screen

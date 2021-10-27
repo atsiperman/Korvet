@@ -44,18 +44,20 @@ chkfal1:
 		call shscradr		; get address of the sprites' index
 		push hl
 		ldsprt
-		call isfloor		; is floor reached down
+		isfloor				; is floor reached down
 		pop hl
 		or a				
 		jp nz,chkfal2		; floor, stop falling
 
+		inc hl				; skip tile attributes
 		inc hl				; check X + 1 position
+		
 		ldsprt
-		call isfloor		; is floor reached down
+		isfloor	   	        ; is floor reached down
 		or a
 		jp nz,chkfal2		; floor, stop falling
 		
-					; continue falling down
+					        ; continue falling down
 		pop hl
 		pop de
 		
@@ -75,6 +77,7 @@ chkfal2:
 		scursc
 		
 		call sbdosquat
+
 		xor a
 		ret
 	
@@ -136,7 +139,7 @@ cangolad:
 		
 		push bc				; save state and direction
 		sblcursp			; DE - sprite address
-		ldsprht		; load sprite height
+		ldsprht				; load sprite height
 		ld e,a				; save height in E
 		
 		sblcursr
@@ -177,6 +180,8 @@ sbcanld2:
 		jp nz,sbcanld3
 
 		inc e				; skip column
+
+		inc hl				; skip tile attributes
 		inc hl				; skip position behind (first left column for right direction)
 		
 sbcanld3:
@@ -206,7 +211,8 @@ sbcanld5:
 		inc b				; increase counter
 		
 sbcanld7:
-		inc hl				; next column
+		inc hl				; skip tile attributes
+		inc hl				; next column		
 		dec c
 		jp nz,sbcanld4		; continue check
 		

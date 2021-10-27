@@ -1,8 +1,7 @@
 
-
 mkdir out
 
-del /Y out\*.*
+del /Q out\*.*
 ..\..\tools\sjasmplus makefile  --lst=out/sabmain.lst
 
 @IF ERRORLEVEL 1 GOTO error
@@ -10,6 +9,8 @@ del /Y out\*.*
 @echo off
 del /Q sab.kdi
 copy /Y sab-clean.kdi sab.kdi
+@IF ERRORLEVEL 1 GOTO error
+
 cd out
 ..\..\..\tools\xkorvet a ..\sab.kdi SAB.COM >nul
 ..\..\..\tools\xkorvet w ..\sab.kdi >nul

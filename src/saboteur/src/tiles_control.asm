@@ -85,8 +85,9 @@ rsttile2:
 			inc de			; move to the next tile in screen buffer
 		edup
 		
-		ld hl,(shcurtl)	; move to the next tile in shadow screen	
-		inc hl
+		ld hl,(shcurtl)		; move to the next tile in shadow screen	
+		inc hl				; move to attributes byte
+		inc hl				; skip tile attributes
 		ld (shcurtl),hl
 		
 		ld a,(sbuftlc)

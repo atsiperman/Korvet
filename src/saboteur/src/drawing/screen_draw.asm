@@ -56,12 +56,14 @@ scrchng2:
 		PUTBSC_				;  put first compressed byte to the shadow screen
 		
 		inc de				; next byte of shadow screen
+		inc de				; skip tile attributes
 
 		ld a,(hl)			; restore compressed byte		
 		
 		PUTBSC_				;  put second compressed byte to the shadow screen
 
 		inc de				; next byte in shadow screen		
+		inc de				; skip tile attributes
 		endm
 		
 ; ----- decompresses current screen into shadow area
@@ -70,7 +72,7 @@ decmrscr:
 		ld hl,(curscr)		; pointer to screen control block
 				
 		load_de_hl			; load address of the current screen
-		ex de,hl
+		ex de,hl			; address of the screen in HL
 
 		ld d,0
 		ld e,(hl)			; length of local sprite map		
@@ -78,7 +80,7 @@ decmrscr:
 		push hl
 		pop	bc				; keep screen address in BC as pointer to local sprite map		
 		
-		add hl,de			; now hl points to the first sprite's index
+		add hl,de			; now hl points to the first tile data
 		
 		ld de,shadscr		; pointer to the shadow screen	
 		
