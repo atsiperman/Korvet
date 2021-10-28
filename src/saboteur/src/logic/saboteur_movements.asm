@@ -308,6 +308,7 @@ sbmoveh8:
 _chkposr:		; initial row
 		db 0
 
+sbchknpl:
 sbchknpr:
 		ld a,e
 		ld (_chkposr),a		; save initial Y
@@ -315,54 +316,46 @@ sbchknpr:
 
 		inc e				; Y + 1, one block below head
 		call shscradr		; get tile address in HL
-		push hl
 
-		ldsprt				
+		ld a,(hl)
 		and bwall
 		jp nz,.sbchke		; wall, no movement
 
 		dup 2
-			pop hl
-			ld de,SROWLEN	; Y + 2, Y + 3
+			ld de,ROWWIDB	; Y + 2, Y + 3
 			add hl,de
 
-			push hl
-			ldsprt				
+			ld a,(hl)
 			and bwall
 			jp nz,.sbchke	; wall, no movement
 		edup
 
-		pop hl
-		ld de,SROWLEN		; Y + 4
+		ld de,ROWWIDB		; Y + 4
 		add hl,de
 
-		push hl
-		ldsprt				
+		ld a,(hl)
 		and bwall
 		jp z,.sbchk1		; no wall, check floor under saboteur
 
-							; upstairs
-		pop hl
 		pop hl				; control block
 		call sbgoupst
 		ld a,1
 		ret
 
 .sbchk1:
-		pop hl				; restore tile address
-		ld de,SROWLEN		; Y + 5, first row under feet
+		ld de,ROWWIDB		; Y + 5, first row under feet
 		add hl,de
 
 		ld a,(_chkposr)		; load initial Y
 		add 5
 		ld e,a
-		push de
 
 		; проверить, если может падать - значит надо просто сделать шаг вперёд, на след итерации он упадёт
+		;push de
 		; push hl
 		; call sbchkfal
 		; pop hl
-		pop de
+		;pop de
 		; or a
 		; jp nz,.sbchky
 
@@ -384,43 +377,43 @@ sbchknpr:
 		ret
 
 .sbchke:
-		pop hl
+		;pop hl
 		pop hl
 		xor a
 		ret
 
-; ---- checks if saboteur may fall down
-; args: 	HL - adress of the right tile in the first row under feet, in shadow screen
-;			E  - row index
-; result:
-;			A - >0 if can fall down
-;
-sbchkfal:
-		push de				; save row
-		push hl				; save address
-		call _tstflor
-		pop hl
-		pop de
-		or a
-		jp nz,_sbchkfln		; floor, can't fall down
+; ; ; ---- checks if saboteur may fall down
+; ; ; args: 	HL - adress of the right tile in the first row under feet, in shadow screen
+; ; ;			E  - row index
+; ; ; result:
+; ; ;			A - >0 if can fall down
+; ; ;
+; ; sbchkfal:
+; ; 		push de				; save row
+; ; 		push hl				; save address
+; ; 		call _tstflor
+; ; 		pop hl
+; ; 		pop de
+; ; 		or a
+; ; 		jp nz,_sbchkfln		; floor, can't fall down
 
-		ld a,e
-		cp ROWNUM-1			; last screen row ?
-		ret z				; yes, return non zero to fall down
+; ; 		ld a,e
+; ; 		cp ROWNUM-1			; last screen row ?
+; ; 		ret z				; yes, return non zero to fall down
 
-		ld de,SROWLEN		; Y + 1, second row under feet
-		add hl,de
+; ; 		ld de,ROWWIDB		; Y + 1, second row under feet
+; ; 		add hl,de
 
-		call _tstflor
-		or a
-		jp nz,_sbchkfln:
+; ; 		call _tstflor
+; ; 		or a
+; ; 		jp nz,_sbchkfln:
 
-		inc a				; not a floor, return non zero to fall down
-		ret
+; ; 		inc a				; not a floor, return non zero to fall down
+; ; 		ret
 
-_sbchkfln:
-		xor a
-		ret
+; ; _sbchkfln:
+; ; 		xor a
+; ; 		ret
 
 ; ---- checks if suboteur can go downstairs
 ; args: 	HL - adress of the right tile in the first row under feet, in shadow screen
@@ -429,6 +422,9 @@ _sbchkfln:
 ;			A - >0 if can go down
 ;
 sbcangdn:
+		sblddir
+		ld d,a				; save current direction in D
+
 		push de				; save row
 		push hl				; save address
 		call _tstflor
@@ -441,8 +437,8 @@ sbcangdn:
 		cp ROWNUM-1			; last screen row ?
 		jp z,_sbcngdn0		; last row, can't go down
 
-		ld de,SROWLEN		; Y + 1, second row under feet
-		add hl,de
+		ld bc,ROWWIDB		; Y + 1, second row under feet
+		add hl,bc
 
 		call _tstflor
 		or a
@@ -458,76 +454,31 @@ _sbcngdn0:
 ;			A - >0 if there is a floor tile in the row
 ;
 _tstflor:
-		dup 3
-			push hl
-			ldsprt	
-			pop hl
+		ld a,d
+		cp dirrt
+		jp nz,_tstflor1
+		dup 3				; moving right
+			ld a,(hl)
 			and bwall
 			ret nz
-			dec hl			; skip tile attributes
-			dec hl			; X = X - 1
+			dup COLWIDB		; X = X - 1
+				dec hl
+			edup
 		edup
 		xor a
 		ret 
 
-
-; ---- checks next position on left
-; args: HL - address of control block
-;		D  - next column
-;		E  - current row 
-;
-; result: 
-;		A - 0 not to continue movement 
-;
-sbchknpl:
-		push hl
-
-		inc e			; Y + 1, one block below head
-		call shscradr	; get tile address in HL
-		push hl
-
-		ldsprt				
-		and bwall
-		jp nz,.sbchkle		; wall, no movement
-
-		dup 2
-			pop hl
-			ld de,SROWLEN	; Y + 2, Y + 3
-			add hl,de
-
-			push hl
-			ldsprt				
+_tstflor1:					; moving left
+		dup 3
+			ld a,(hl)
 			and bwall
-			jp nz,.sbchkle	; wall, no movement
+			ret nz
+			dup COLWIDB		; X = X + 1
+				inc hl
+			edup
 		edup
-
-		pop hl
-		ld de,SROWLEN		; Y + 4
-		add hl,de
-
-		push hl
-		ldsprt				
-		and bwall
-		jp z,.sbchkl1		; no wall, check floor under saboteur
-
-							; upstairs
-		pop hl
-		pop hl				; control block
-		call sbgoupst
-		ret
-
-.sbchkl1:
-		pop hl
-		pop hl
-		ld a,1
-		ret
-
-.sbchkle:
-		pop hl
-		pop hl
 		xor a
-		ret
-
+		ret 
 
 ; ---- go upstairs
 ; args: HL - address of control block

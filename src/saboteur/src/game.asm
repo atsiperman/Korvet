@@ -52,7 +52,7 @@ sbmain:
 		or a
 		;ret z			; stop if dead
 				
-		;;call sbcanact	; check if can act
+		call sbcanact	; check if can act
 		or a 			
 		jp z,gend		; return if zero (no actions)
 		

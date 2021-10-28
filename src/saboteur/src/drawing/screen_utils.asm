@@ -1,34 +1,47 @@
 
-; 
-; ----- calculates address in memory of specified column and row of shadow screen
+
+; ----- calculates address of a tile with specified column and row in screen buffer
 ; args: 	D - column
 ;		E - row
 ; result: 	
-;               HL - address 
+;               HL - pointer to a byte with sprite attributes
 ;			
 shscradr:
-        ld hl,shadrows
-
-        ld b,0      
-        xor a          
-        ld a,e          ; row in A
-        rla             ; 2 bytes per address
-        ld c,a          ; row in C
-        add hl,bc       ; pointer to row address
-
-        ld a,d          ; save column in A
-
-        ld e,(hl)       ; load row address
-        inc hl
-        ld d,(hl)
+        ld a,e          ; load current row index
+        add a,a		; make address displacement
+        ld c,a		
+        ld b,0          ; BC - displacement to row address in bytes
         
-        ex de,hl        ; row address in HL
-        rla             ; 2 bytes per column
-        ld c,a
-        add hl,bc       ; get column address
+        ld a,d          ; save col index in A	
+
+        ld hl,bufrows
+        add hl,bc	; pointer to row address
+        load_de_hl	; save row address in DE
+                
+        ld c,a		; save column in C
+
+        rla				
+        rla
+        rla		; multipy by 8
+        ld l,a		; save it in L
+
+        xor a
+        ld h,a		; zero to H
+                        ; L = column index * 8                        
+        ld b,a		; B - 0
+                        ; C - column index
         
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+
+        add hl,de	; column address in HL
+
+        inc hl                          
+        inc hl          ; skip sprite address
+        inc hl          ; skip tile state
         ret
-
 
 ; -----  clear text screen
 ;
