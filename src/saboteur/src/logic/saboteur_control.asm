@@ -46,6 +46,8 @@ sbcnact2:
 		jp sbcnactn
 
 sbcnact3:		
+		cp sbladr
+		jp z,sbcnacty
 		;;cp sbstay
 		;;jp nz,sbcnacty	; not staying, should not fall since is not falling already
 

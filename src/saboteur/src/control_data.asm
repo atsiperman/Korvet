@@ -24,38 +24,9 @@ LUTVAL:
 		db 00001101b
 		db 00001110b
 		db 00001111b
-		
-		
-shadscr:								; map of the current screen, 2 bytes per tile
-			dup	ROWNUM * COLNUM
-			; sprite index, type
-			db 0,0
-			edup
 
-SROWLEN		EQU COLNUM * 2				; shadow screen row length
-
-shadrows:	dw shadscr
-			dw shadscr + SROWLEN
-			dw shadscr + (SROWLEN * 2)
-			dw shadscr + (SROWLEN * 3)
-			dw shadscr + (SROWLEN * 4)
-			dw shadscr + (SROWLEN * 5)
-			dw shadscr + (SROWLEN * 6)
-			dw shadscr + (SROWLEN * 7)
-			dw shadscr + (SROWLEN * 8)
-			dw shadscr + (SROWLEN * 9)
-			dw shadscr + (SROWLEN * 10)
-			dw shadscr + (SROWLEN * 11)
-			dw shadscr + (SROWLEN * 12)
-			dw shadscr + (SROWLEN * 13)
-			dw shadscr + (SROWLEN * 14)
-			dw shadscr + (SROWLEN * 15)
-			dw shadscr + (SROWLEN * 16)
 
 TILMAPLN	EQU	ROWNUM * COLNUM
-
-curtile:	dw 0			; address of the current tile in video memory	
-shcurtl:	dw 0			; current tile address in shadow screen
 
 objlist:	dw 0			; pointer to the list of objects on the current screen
 
@@ -103,7 +74,7 @@ bufrows:	dw scrbuf
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn3 		; pointer to current screen
+curscr: 	dw scrn73 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 			
 			
@@ -129,8 +100,8 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,5,7
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,8,9
 			
 ; ----	saboteur health
 ;			

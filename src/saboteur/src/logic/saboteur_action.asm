@@ -12,7 +12,7 @@ sbdosquat:
 		inc de				; skip color
 		ld a,(de)			; old sprite height		
 		
-		ld hl,sabsqtrt - 2	; new sprite, skip width
+		ld hl,sabsqtrt + 1	; new sprite, skip color
 		ld b,(hl)			; new sprite height
 		cp b
 		jp c,sbdsqt2		; if old h < new h

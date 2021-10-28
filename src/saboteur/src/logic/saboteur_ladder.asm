@@ -42,19 +42,15 @@ chkfal_1:
 		
 chkfal1:		
 		call shscradr		; get address of the sprites' index
-		push hl
-		ldsprt
+		ld a,(hl)
 		isfloor				; is floor reached down
-		pop hl
-		or a				
 		jp nz,chkfal2		; floor, stop falling
 
-		inc hl				; skip tile attributes
-		inc hl				; check X + 1 position
+		ld bc,COLWIDB
+		add hl,bc			; check X + 1 position
 		
-		ldsprt
+		ld a,(hl)
 		isfloor	   	        ; is floor reached down
-		or a
 		jp nz,chkfal2		; floor, stop falling
 		
 					        ; continue falling down
@@ -139,7 +135,7 @@ cangolad:
 		
 		push bc				; save state and direction
 		sblcursp			; DE - sprite address
-		ldsprht				; load sprite height
+		ldsprht				; load sprite height, it may be different depending on the current state
 		ld e,a				; save height in E
 		
 		sblcursr
@@ -181,16 +177,13 @@ sbcanld2:
 
 		inc e				; skip column
 
-		inc hl				; skip tile attributes
-		inc hl				; skip position behind (first left column for right direction)
+		skip_buf_tile hl	; skip position behind (first left column for right direction)
 		
 sbcanld3:
 		push de
 
 sbcanld4:
-		push hl				; check tile type in X,Y
-		ldsprt
-		pop hl
+		ld a,(hl)			; check tile type at X,Y
 		and bladder		
 		jp z,sbcanld7		; if not a ladder then continue
 							; else check if more than one tile discovered
@@ -211,8 +204,7 @@ sbcanld5:
 		inc b				; increase counter
 		
 sbcanld7:
-		inc hl				; skip tile attributes
-		inc hl				; next column		
+		skip_buf_tile hl	; next column
 		dec c
 		jp nz,sbcanld4		; continue check
 		
@@ -364,39 +356,33 @@ sbdolade:
 ;		
 sbstplad:
 		ld c,a				; save direction
+		
+		sblcursc			; load current column
+		dec a				; X - 1
+		ld d,a				; save column in D
+
 		sblcursr			; load current row
 		add SBHILAD	- 1		; get one level up from the floor 
-		
-		ld hl,shadscr		
-		ld de,COLNUM
-		
-sbstpld1:					; calculate Y for floor level
-		add hl,de
-		dec a
-		jp nz,sbstpld1
-		
-		sblcursc			; load current column		
-		dec a
-		ld e,a		
-							; calculate X - 1
-		add hl,de
-		
+		ld e,a				; save row in E
+
+		push bc
+		call shscradr		; get pointer to tile attributes in HL
+		pop bc
+	
 		sblddir
 		cp dirlt
 		jp z,sbstpld3
-		ld de,SBWILAD + 1
+		ld de,COLWIDB*3
 		add hl,de			; calculate X position for right direction
 		
 sbstpld3:		
-		push hl
-		ldsprt				; Y - 1
-		pop hl
+		ld a,(hl)			; Y - 1
 		and bwall
 		jp nz,sbstpldn		; wall above the floor, can't move there		
 		
-		ld de,COLNUM
+		ld de,ROWWIDB
 		add hl,de			; Y = Y + 1
-		ldsprt				
+		ld a,(hl)
 		and bwall
 		ret nz				; wall on the floor, can move
 		
