@@ -57,6 +57,8 @@ scrchng2:
 		ld (hl),e			; save sprite address
 		inc hl
 		ld (hl),d
+		inc hl				; move pointer to tile state
+		ld (hl),0			; clear tile state
 		inc hl				; move pointer to attributes
 
 		inc de				; skip back color				
@@ -269,26 +271,23 @@ scrch1_:
 		
 		call decmrscr		; decompress new screen map
 		
-		;;ld de,shadscr		; address of the shadow screen
         call drawbkgr		; draw background
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
-		
-		;;call clrtilem		; clear tile map
-		
+				
 		jp drawobj2			; skip saving old tile map
 		
 drawobj1:					; draw all objects
-		;;call savetilm		; save old tiles state
+		call savetilm		; save old tiles state
 
 drawobj2:
-		;;call updobjs		; update objects state		
-		;;call rsttiles		; restore tiles background according to current objects location
+		call updobjs		; update objects state		
+		call rsttiles		; restore tiles background according to current objects location
 				
-		;;call drawobjs
+		call drawobjs
 		
-		;;call showscr		; show buffer on the screen
+		call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar
 		

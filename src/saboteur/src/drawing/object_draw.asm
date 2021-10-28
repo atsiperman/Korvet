@@ -110,6 +110,7 @@ rdsprpos:
 		add hl,bc		; add column index to get column offset in byte
 		add hl,bc		; add column index to get column offset in byte
 		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
 
 		add hl,de		; column address in HL
 		
@@ -120,6 +121,7 @@ rdsprpos:
 
 ; ----	draws object
 ; args: HL - address of the object's control block
+;
 drawobj:
 		push hl
 		ldcurp				; load current position in screen buffer to DE

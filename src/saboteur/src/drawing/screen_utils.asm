@@ -148,6 +148,7 @@ drawbkt1:
         inc hl
         ld d,(hl)       ; to DE
         inc hl
+        inc hl          ; skip tile state
         inc hl                  ; skip attributes
         skip_buf_tile_data hl   ; skip data in screen buffer
 
@@ -158,11 +159,12 @@ drawbkt1:
         push bc         ; save address in screen buffer
 
         ld a,(de)	; read back color
-        ld (_bkcolr),a	; save it 		
+        ;;ld (_bkcolr),a	; save it 		
+        ld c,a          ; save back color in C
         inc de
 	        
         ld a,(de)	; read foreground color
-        ld b,a			
+        ld b,a		; save fg color in B
         inc de
         inc de		; skip header
 
@@ -180,10 +182,10 @@ drawbkt1:
                 ld (hl),255	; set main color by default
                 
                 ex de,hl	; DE - screen address				
-                ld hl,_bkcolr
-                ld b,(hl)	; get background color
-                ld hl,COLRREG	; set color register
-                ld (hl),b	; set background color
+                ;;ld hl,_bkcolr
+                ;;ld b,(hl)	; get background color
+                ;;ld hl,COLRREG	; set color register
+                ld (hl),c	; set background color
                 
                 ex de,hl	; HL - screen address
                 cpl		; get bits to be drawn as background

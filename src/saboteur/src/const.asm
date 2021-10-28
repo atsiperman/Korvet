@@ -25,8 +25,9 @@ GRAMLEN 	EQU 4000h
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
 
-COLWIDB		EQU 2 + 1 + 8	; size of one column in screen buffer, bytes
+COLWIDB		EQU 2 + 1 + 1 + 8	; size of one column in screen buffer, bytes
 							; 2, sprite address
+							; 1 tile state
 							; 1, attributes
 							; 8 sprite data
 
