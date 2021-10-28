@@ -35,24 +35,15 @@ scrchng2:
 
 		ld h,b				; local sprite table		
 		ld l,c				; from bc to hl
-
 		add hl,de			; add index of sprite
-		; ; ld a,(hl)			; index of sprite in global table
-				
-		; ; pop de
-		; ; ex de,hl
-		; ; ld (hl),a			; write it to the shadow screen
-		; ; ex de,hl
 
 		ld e,(hl)			; sprite index in global table
 		ld hl,BKSPRTAB
 		add hl,de
 		add hl,de			; address of the current sprite
 		load_de_hl			; in DE
-		;;ex de,hl			; to HL
 
 		pop hl				; restore screen buffer pointer
-		;;ex de,hl			; move it into HL
 
 		ld (hl),e			; save sprite address
 		inc hl
@@ -85,15 +76,9 @@ scrchng2:
 		
 		PUTBSC_				;  put first compressed byte to the shadow screen
 		
-		;;inc de				; next byte of shadow screen
-		;;inc de				; skip tile attributes
-
 		ld a,(hl)			; restore compressed byte		
 		
 		PUTBSC_				;  put second compressed byte to the shadow screen
-
-		;;inc de				; next byte in shadow screen		
-		;;inc de				; skip tile attributes
 		endm
 		
 ; ----- decompresses current screen into shadow area

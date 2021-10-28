@@ -70,17 +70,17 @@ ctslop: ld (hl),d
 ; ----- setup LUT
 ;
 lutsetup:
-		ld c,16
-		ld de,LUTREG
-		ld hl,LUTVAL
+        ld c,16
+        ld de,LUTREG
+        ld hl,LUTVAL
 		
 lutset2:
-		ld a,(hl)
-		ld (de),a
-		inc hl
-		dec c
-		jp nz,lutset2
-		ret
+        ld a,(hl)
+        ld (de),a
+        inc hl
+        dec c
+        jp nz,lutset2
+        ret
 		
 
 ; -----  fills screen with color mode in A
@@ -159,7 +159,6 @@ drawbkt1:
         push bc         ; save address in screen buffer
 
         ld a,(de)	; read back color
-        ;;ld (_bkcolr),a	; save it 		
         ld c,a          ; save back color in C
         inc de
 	        
@@ -182,9 +181,6 @@ drawbkt1:
                 ld (hl),255	; set main color by default
                 
                 ex de,hl	; DE - screen address				
-                ;;ld hl,_bkcolr
-                ;;ld b,(hl)	; get background color
-                ;;ld hl,COLRREG	; set color register
                 ld (hl),c	; set background color
                 
                 ex de,hl	; HL - screen address
@@ -200,7 +196,6 @@ drawbkt1:
                 pop bc          ; restore fg color
         edup
 
-        ;pop bc          ; sprite finished
         pop de
         pop bc        
         dec c

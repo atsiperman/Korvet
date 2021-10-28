@@ -5,7 +5,6 @@
 gmain:
 		call gaction		; process objects		
 		call sbmain			; process saboteur
-		;;ld a,1
 		ret
 
 ; ---- calls action logic for other objects

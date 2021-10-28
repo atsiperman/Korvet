@@ -93,27 +93,10 @@ showsc1:
 		pop hl
 		
 showsc2:
-		inc hl					; move to the next column in screen map
+		inc hl					; move to the next column in video memory		
+		skip_buf_tile de 		; move to the next column in screen buffer	
 		
-		;;inc hl					; next tile in tile map
-		
-		;;push hl
-		;;ld hl,(shcurtl)			; move to the next column in screen map
-		;;inc hl
-		;;ld (shcurtl),hl
-		;;pop hl
-
-		skip_buf_tile de 		; move to the next column in buffer	
-
-		dec c
-		;;jp z, showsc3			; next row
-		
-		;;push hl		
-		;;ld hl,(curtile)			; move to the next column in video memory
-		;;inc hl
-		;;ld (curtile),hl		
-		;;pop hl		
-		
+		dec c		
 		jp nz,showsc1
 		
 showsc3:						; next row
@@ -125,12 +108,8 @@ showsc3:						; next row
 		ld b,a
 		push bc					; save new counters
 				
-		;;push hl		
-		ld bc,64*8 - COLNUM 	;+ 1
-		;;ld hl,(curtile)			; move to the next row in video memory		
+		ld bc,64*8 - COLNUM 	; move to the next row in video memory		
 		add hl,bc
-		;;ld (curtile),hl
-		;;pop hl
 
 		pop bc
 		push bc
