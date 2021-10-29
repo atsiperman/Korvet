@@ -86,11 +86,9 @@ updtilem:
 		push bc			; save width in C
 		
 uptlm1:		
-		push bc
 		ld a,1000b		; mark as occupied
 		ld (hl),a
 
-		pop bc
 		skip_buf_tile hl	; move to the next tile
 		dec c
 		jp nz,uptlm1	; next column

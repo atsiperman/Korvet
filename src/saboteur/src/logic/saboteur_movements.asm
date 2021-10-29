@@ -77,14 +77,12 @@ sbstgort:
 		scurdir dirrt		
 		pop hl
 
-		push hl
 		ld a,(sbmvrttb)			; total sprite count
 		dec a					; set last sprite by default, it will be switched to 0 in sbgort
 		sbscursi
 		call sbgort
-		pop hl
 
-		inc a					; anything not zero
+		ld a,1					; anything not zero
 		ret		
 
 ; ---- saboteur starts going left
@@ -120,17 +118,15 @@ sbstgolt:
 		push hl
 		scurdir dirlt
 		pop hl
-		xor a
-		scurspi
 
 		push hl
-		ld a,(sbmvlttb)			; total sprite count
-		dec a					; set last sprite by default, it will be switched to 0 in sbgort
-		sbscursi
-		call sbgolt
+		xor a
+		scurspi
 		pop hl
 
-		inc a					; anything not zero
+		call sbgolt
+
+		ld a,1					; anything not zero
 		ret		
 
 
@@ -308,7 +304,7 @@ sbmoveh8:
 _chkposr:		; initial row
 		db 0
 
-sbchknpl:
+sbchknpl:		
 sbchknpr:
 		ld a,e
 		ld (_chkposr),a		; save initial Y

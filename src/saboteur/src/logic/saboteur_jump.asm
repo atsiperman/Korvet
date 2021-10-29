@@ -48,15 +48,13 @@ canjmp2:
 		call shscradr		; get top right position 
 		
 canjmp5:
-		push hl		
-		ldsprt
-		pop hl
+		ld a,(hl)
 		and bwall
 		jp nz,canjmpn		; wall, no way
 		
-		ld de,COLNUM		
+		ld de,ROWWIDB
 		add hl,de			; Y = Y + 1
-		ldsprt
+		ld a,(hl)
 		and bwall
 		jp nz,canjmpn		; wall, no way
 		
@@ -136,7 +134,7 @@ sbdojp:
 		push bc
 		
 		cp c
-		jp z,sbdojpe
+		jp z,sbdojpe		; last sprite, stop jump
 
 		sbscursi
 		
@@ -204,12 +202,10 @@ sbstopjp:
 		ld c,4
 		
 sbstopj2:		
-		push hl
-		ldsprt
-		pop hl
+		ld a,(hl)
 		and bwall
 		jp nz,sbstopj4		; wall, no way
-		inc hl
+		skip_buf_tile hl
 		dec c
 		jp nz,sbstopj2
 							; no floor - fall down

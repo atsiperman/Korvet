@@ -71,13 +71,7 @@ bufrows:	dw scrbuf
 			dw scrbuf + (ROWWIDB * 15)
 			dw scrbuf + (ROWWIDB * 16)
 						
-
-; ---- screen control block
-;
-curscr: 	dw scrn73 		; pointer to current screen
-prevscr:	dw 0			; pointer to previous screen
-			
-			
+						
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row
@@ -97,11 +91,17 @@ HLDOGHIT	EQU 4			; hit by the dog
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 			
+
+; ---- screen control block
+;
+curscr: 	dw scrn3 		; pointer to current screen
+prevscr:	dw 0			; pointer to previous screen
+
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,8,9
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
 			
 ; ----	saboteur health
 ;			
