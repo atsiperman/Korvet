@@ -369,7 +369,7 @@ sbstplad:
 		call shscradr		; get pointer to tile attributes in HL
 		pop bc
 	
-		sblddir
+		ld a,c
 		cp dirlt
 		jp z,sbstpld3
 		ld de,COLWIDB*3
