@@ -77,10 +77,10 @@ sbstgort:
 		scurdir dirrt		
 		pop hl
 
-		ld a,(sbmvrttb)			; total sprite count
-		dec a					; set last sprite by default, it will be switched to 0 in sbgort
-		sbscursi
-		call sbgort
+		; ; ld a,(sbmvrttb)			; total sprite count
+		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		; ; sbscursi
+		; ; call sbgort
 
 		ld a,1					; anything not zero
 		ret		
@@ -124,7 +124,10 @@ sbstgolt:
 		scurspi
 		pop hl
 
-		call sbgolt
+		; ; ld a,(sbmvlttb)			; total sprite count
+		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		; ; sbscursi
+		; ; call sbgolt
 
 		ld a,1					; anything not zero
 		ret		
@@ -176,6 +179,10 @@ sbgort:
 		ld (sbmoveh5 + 1),a
 		ld a,0x3C				; inc a
 		ld (sbmoveh6),a
+		ld hl,sbmvrttb
+		ld (sbmoveh9 + 1),hl
+		inc hl
+		ld (sbmoveh10 + 1),hl
 		pop hl
 		jp sbmoveh
 		
@@ -193,7 +200,11 @@ sbgolt:
 		ld a,ECOLNUM
 		ld (sbmoveh5 + 1),a
 		ld a,0x3D				; dec a
-		ld (sbmoveh6),a		
+		ld (sbmoveh6),a	
+		ld hl,sbmvlttb
+		ld (sbmoveh9 + 1),hl
+		inc hl
+		ld (sbmoveh10 + 1),hl
 		pop hl
 		jp sbmoveh
 				
@@ -260,7 +271,8 @@ sbmoveh7:
 		ld a,(hl)		; cur sprite index in A
 		
 		push hl
-		
+
+sbmoveh9:		
 		ld hl,sbmvrttb
 		ld e,(hl)		; total sprite count		
 		inc a
@@ -274,6 +286,7 @@ sbmoveh8:
 		
 		push hl
 		
+sbmoveh10:		
 		ld hl,sbmvrttb + 1  ; sprite table
 		ld b,0
 		ld c,a

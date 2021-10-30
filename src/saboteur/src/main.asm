@@ -8,14 +8,25 @@
         include "const.asm"
 		include "sbmacro.asm"	
 		include "object_def.asm"
-		
-		include "control_data.asm"
-		include "sprites/gun_sprites.asm"
-						
-		include "drawing/mirror_table.asm"
-
-		include "sprites/dog_sprites.asm"
+; -----------------------------------------------------------
+; -----------------------------------------------------------
         include "sprites/background_sprites.asm"				
+		include "sprites/gun_sprites.asm"
+
+		; reserve bytes to get mirror table starting with xx00h address
+		dup 23
+			db 0
+		edup
+
+;------------------------------------------------------------
+		; order of this section is important, since mirror table must be 		
+		include "drawing/mirror_table.asm"
+; -----------------------------------------------------------
+; -----------------------------------------------------------
+
+		include "control_data.asm"						
+
+		include "sprites/dog_sprites.asm"		
 		include "sprites/saboteur_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"

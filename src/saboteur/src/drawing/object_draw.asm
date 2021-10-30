@@ -125,13 +125,23 @@ rdsprpos:
 drawobj:
 		push hl
 		ldcurp				; load current position in screen buffer to DE
-		pop hl				; load control block address
+		pop hl				; restore control block address
 
 		push hl				; save control block
-		push de				; save current position 
+		push de				; save pointer to screen buffer
 
+		push hl
 		ldcurspr			; load address of the current sprite into DE		
+		pop hl
+		
+		;push hl
+		;lddir				; load objects direction into A
+		;pop hl
+		;cp dirrt
+		;jp z,_drwob1		; no mirror if right direction
+		;call mirrspr
 
+;_drwob1:		
 		pop hl				; restore position in screen buffer
 		call putspr			; put sprite to screen buffer
 

@@ -3,8 +3,8 @@
 ; ----- puts sprite on the screen buffer
 ;		
 ; args: 
-;		hl - address on the screen buffer
-;		de - address of the sprite
+;		HL - address on the screen buffer
+;		DE - address of the sprite
 ;
 _putsp_x: dw 0			; start X address of the last row
 

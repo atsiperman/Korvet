@@ -27,8 +27,8 @@ sbstsnd:
         cp sbmove
         ret nz
 
-        ld a,(sbctrlb + odcursi)
-        cp 3
+        ld a,(sbctrlb + odcursi)    ; load sprite index
+        cp 3                        ; step sound if this is last sprite
         ret nz
         
         ENSND 255, 255
