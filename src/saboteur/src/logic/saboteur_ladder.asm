@@ -83,20 +83,15 @@ chkfal2:
 
 ; ----- starts falling down
 ; args: 
-;		C	- direction
 ;
 sbstfall:
-		push bc
-		sblcursc
-		
-		pop bc
-		
+		sblcursc		
 		ld e,a
 		
-		ld a,c
-		cp dirlt
+		sblddir				; check direction saboteur was going at
+		cp dirrt
 		jp z,sbfall1
-							; falling to the right side
+							; was going left, falling to the right side
 		inc e
 		inc e
 		ld a,e
@@ -104,7 +99,8 @@ sbstfall:
 		jp sbfalle
 							
 sbfall1:
-							; falling to the left side
+							; was going right, falling to the left side
+		inc e
 		ld a,e
 
 sbfalle:
@@ -118,7 +114,7 @@ sbfalle:
 ; --- end of sbstfall
 ;
 		
-; ----- check, if saboteur can go upstairs or downstairs
+; ----- check, if saboteur can go up or down on the ladder
 ; args: HL - address of control block
 ;		;;;B  - state
 ;		C  - vertical direction

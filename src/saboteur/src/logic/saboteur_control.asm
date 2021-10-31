@@ -58,7 +58,6 @@ sbcnact3:
 		jp z,sbcnacty
 						; start falling down
 		ld hl,sbctrlb
-		ld a,dirlt
 		call sbstfall
 		jp sbcnactn
 
