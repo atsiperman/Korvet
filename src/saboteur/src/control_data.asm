@@ -86,7 +86,7 @@ HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
-HLDOGHIT	EQU 4			; hit by the dog
+HLDOGHIT	EQU 6			; hit by the dog
 
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
@@ -94,14 +94,14 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn16 		; pointer to current screen
+curscr: 	dw scrn3 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,17,9
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,17,9
 			
 ; ----	saboteur health
 ;			

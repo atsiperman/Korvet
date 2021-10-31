@@ -56,17 +56,16 @@ sbcanfal:
 		ld d,a
 		sblcursr		; current row in A
 		add d			; level below feet
-		
+
+		cp ROWNUM		; check if this is the last row
+		ret z			; return A > 0 to fall if saboteur is on the last row
+
 		ld d,a			; save row in D
 		push de			; save row		
 		call _isfloor	
 		pop de
 		or a
 		jp nz,_sbcnfal0 ; floor, return 0
-		
-		ld a,d			; move row to A
-		cp ROWNUM-1		; check if this is the last row
-		ret z			; return A > 0 to fall if saboteur is on the last row
 
 		inc a			; check Y + 1
 		call _isfloor	

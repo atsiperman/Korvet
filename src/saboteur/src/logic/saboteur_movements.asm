@@ -31,6 +31,7 @@ sbstmv2:
 		ld de,odcurst
 		add hl,de
 		ld (hl),b
+
 		ret		
 ;
 ; ----	end of sbstmove:
@@ -134,8 +135,7 @@ sbstgolt:
 
 
 ; ---- continue moving
-; args: 
-;		C  - direction to move
+; args: C  - direction to move
 ;			
 sbdomove:
 		ld hl,sbctrlb
@@ -213,7 +213,8 @@ sbgolt:
 ; args: HL - address of control block
 ;		
 sbmoveh:
-		push hl		
+		push hl	
+	
 		ld bc,odcursc
 		add hl,bc
 		ld d,(hl)		; load current screen column
@@ -224,15 +225,15 @@ sbmoveh:
 		push de
 		push hl
 		
-		sblddir
-		cp dirrt
-		jp z,sbmoveh1
-		dec d
+		sblddir			; load current direction
+		cp dirrt		; check direction
+		jp z,sbmoveh1	
+		dec d			; going left
 		jp sbmoveh2
 		
-sbmoveh1:		
-		ld a,d
-		add a,SBWI
+sbmoveh1:				; going right
+		ld a,d		
+		add a,SBWI		
 		ld d,a
 
 sbmoveh2:
@@ -241,7 +242,7 @@ sbmoveh2:
 		pop de
 		or a
 		ret z
-				
+						
 		ld a,d
 		
 sbmoveh3:		
@@ -263,6 +264,12 @@ sbmoveh6:
 		inc a			; next column
 
 sbmoveh7:
+		push af			; save next column
+		push hl			; save control block
+		call sbstepud	; go upstairs/go downstairs if possible
+		pop hl
+		pop af
+
 		ld bc,odcursc
 		add hl,bc
 		ld (hl),a		; save column index
@@ -305,8 +312,101 @@ sbmoveh10:
 ; ---- end of sbmoveh
 ;
 
+; ---- checks & does step upstairs/downstairs if possible
+; args:
+;
+sbstepud:
+		sblcursp			; load current sprite address
+		ldsprht 			; load sprite height
+		ld e,a				; save height in E
+		sblcursr			; load current screen row
+		add e
+		dec a				; feet level
+		;;dec a				; one block above feet
+		ld e,a				; save row in E
 
-; ---- checks next position on right
+		sblcursc			; load current column
+		ld d,a				; save it in D
+
+		sblddir				; load direction
+		cp dirrt
+		jp nz,_sbstpud1
+		ld a,d				; move column into A		
+		add SBWI - 1
+		ld d,a				; save it in D
+
+_sbstpud1:
+		push de				; save row 
+		call shscradr		; get pointer to screen buffer
+		push hl
+		call sbtrygup		; restore row
+		pop hl
+		pop de
+		or a
+		ret nz				; went up, return
+
+		ld bc,ROWWIDB + COLWIDB	; for left direction by default
+		sblddir
+		cp dirlt
+		jp z,_sbstpud2
+		ld bc,ROWWIDB - COLWIDB	; for right direction
+_sbstpud2:				
+		add hl,bc			; first row under feet 
+		inc e				; correct row index
+		call sbtrygdn		; try to go down
+		ret
+
+
+; ---- saboteur goes up if possible
+; args: 	HL - adress of the right tile in the first row above feet
+;			
+; result:
+;			A - >0 if went up
+;
+sbtrygup:		
+		ld a,(hl)			; test feet level
+		and bwall
+		jp z,_sbcngupn		; no wall, can't go up
+
+		ld hl,sbctrlb
+		call sbgoupst
+		ld a,1
+		ret
+
+_sbcngupn:
+		xor a
+		ret
+
+; ---- saboteur goes down if possible
+; args: 	HL - adress of the second tile in the first row under feet
+;			E  - row index
+; result:
+;			A - >0 if can go down
+;
+sbtrygdn:
+		ld a,(hl)			; test first block under feet
+		isfloor	
+		ret nz				; wall, do nothing
+
+		ld a,e
+		cp ROWNUM-1
+		jp nz,_sbstpud3		
+		xor a				; last row, can't go down
+		ret
+
+_sbstpud3:				
+		ld bc,ROWWIDB		; two blocks under feet, X +/- 2
+		add hl,bc			; second block under feet
+		ld a,(hl)
+		isfloor
+		ret z				; no wall, do nothing
+
+		ld hl, sbctrlb
+		call sbgodnst
+		ld a,1
+		ret
+
+; ---- checks next position on right or left
 ; args: HL - address of control block
 ;		D  - next column
 ;		E  - current row 
@@ -317,11 +417,17 @@ sbmoveh10:
 _chkposr:		; initial row
 		db 0
 
-sbchknpl:		
+sbchknpl:
+		ld bc,ROWWIDB + COLWIDB	; displacement for the last tiles
+		jp _sbchknp
+
 sbchknpr:
+		ld bc,ROWWIDB - COLWIDB
+
+_sbchknp:
 		ld a,e
 		ld (_chkposr),a		; save initial Y
-		push hl
+		push bc
 
 		inc e				; Y + 1, one block below head
 		call shscradr		; get tile address in HL
@@ -330,164 +436,44 @@ sbchknpr:
 		and bwall
 		jp nz,.sbchke		; wall, no movement
 
-		dup 2
-			ld de,ROWWIDB	; Y + 2, Y + 3
-			add hl,de
-
-			ld a,(hl)
-			and bwall
-			jp nz,.sbchke	; wall, no movement
-		edup
-
-		ld de,ROWWIDB		; Y + 4
-		add hl,de
-
+		ld de,ROWWIDB	
+		
+		add hl,de			; Y + 2
 		ld a,(hl)
 		and bwall
-		jp z,.sbchk1		; no wall, check floor under saboteur
+		jp nz,.sbchke		; wall, no movement
 
-		pop hl				; control block
-		call sbgoupst
-		ld a,1
-		ret
-
-.sbchk1:
-		ld de,ROWWIDB		; Y + 5, first row under feet
-		add hl,de
-
-		ld a,(_chkposr)		; load initial Y
-		add 5
-		ld e,a
-
-		; проверить, если может падать - значит надо просто сделать шаг вперёд, на след итерации он упадёт
-		;push de
-		; push hl
-		; call sbchkfal
-		; pop hl
-		;pop de
-		; or a
-		; jp nz,.sbchky
-
-		; если упасть не может, тогда проверить, может ли сделать шаг вниз
 		push hl
-		call sbcangdn
+		add hl,de			; Y + 3
+		ld a,(hl)
 		pop hl
-		or a
-		jp z,.sbchky
+		and bwall
+		jp z,.sbchky		; no wall, can move
 
-		pop hl			; restore control block
-		call sbgodnst	
-		ld a,1
-		ret
+		pop bc
+		push bc
+
+		add hl,bc			; Y + 3, neighbour
+		ld a,(hl)
+		and bwall
+		jp nz,.sbchke		; wall, no movement
+
+		ld de,ROWWIDB	
+		
+		add hl,de			; Y + 4, neighbour
+		ld a,(hl)
+		and bwall
+		jp z,.sbchke		; no wall, no movement
 
 .sbchky:
-		pop hl
+		pop bc
 		ld a,1
 		ret
 
 .sbchke:
-		;pop hl
-		pop hl
+		pop bc
 		xor a
 		ret
-
-; ; ; ---- checks if saboteur may fall down
-; ; ; args: 	HL - adress of the right tile in the first row under feet, in shadow screen
-; ; ;			E  - row index
-; ; ; result:
-; ; ;			A - >0 if can fall down
-; ; ;
-; ; sbchkfal:
-; ; 		push de				; save row
-; ; 		push hl				; save address
-; ; 		call _tstflor
-; ; 		pop hl
-; ; 		pop de
-; ; 		or a
-; ; 		jp nz,_sbchkfln		; floor, can't fall down
-
-; ; 		ld a,e
-; ; 		cp ROWNUM-1			; last screen row ?
-; ; 		ret z				; yes, return non zero to fall down
-
-; ; 		ld de,ROWWIDB		; Y + 1, second row under feet
-; ; 		add hl,de
-
-; ; 		call _tstflor
-; ; 		or a
-; ; 		jp nz,_sbchkfln:
-
-; ; 		inc a				; not a floor, return non zero to fall down
-; ; 		ret
-
-; ; _sbchkfln:
-; ; 		xor a
-; ; 		ret
-
-; ---- checks if suboteur can go downstairs
-; args: 	HL - adress of the right tile in the first row under feet, in shadow screen
-;			E  - row index
-; result:
-;			A - >0 if can go down
-;
-sbcangdn:
-		sblddir
-		ld d,a				; save current direction in D
-
-		push de				; save row
-		push hl				; save address
-		call _tstflor
-		pop hl
-		pop de
-		or a
-		jp nz,_sbcngdn0		; floor, can't go down
-
-		ld a,e
-		cp ROWNUM-1			; last screen row ?
-		jp z,_sbcngdn0		; last row, can't go down
-
-		ld bc,ROWWIDB		; Y + 1, second row under feet
-		add hl,bc
-
-		call _tstflor
-		or a
-		ret 			; can go down if there is a floor on Y + 1 row
-		
-_sbcngdn0:		
-		xor a			; there is a floor, no fall
-		ret
-
-; ---- checks if specified row contains floor tiles 
-; args: 	HL - adress of the right tile in shadow screen				
-; result:
-;			A - >0 if there is a floor tile in the row
-;
-_tstflor:
-		ld a,d
-		cp dirrt
-		jp nz,_tstflor1
-		dup 3				; moving right
-			ld a,(hl)
-			and bwall
-			ret nz
-			dup COLWIDB		; X = X - 1
-				dec hl
-			edup
-		edup
-		xor a
-		ret 
-
-_tstflor1:					; moving left
-		dup 3
-			ld a,(hl)
-			and bwall
-			ret nz
-			dup COLWIDB		; X = X + 1
-				inc hl
-			edup
-		edup
-		xor a
-		ret 
 
 ; ---- go upstairs
 ; args: HL - address of control block

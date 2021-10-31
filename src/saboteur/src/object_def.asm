@@ -10,6 +10,7 @@ sbladr	EQU 6				; moving on the ladder
 sbdead	EQU 7				; dead
 sbsquat EQU 8				; squatting
 sbshjmp EQU 9				; short jump
+sbstmov EQU 10				; start moving
 
 ; ---- dog state
 ;
