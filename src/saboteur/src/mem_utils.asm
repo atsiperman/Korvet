@@ -30,14 +30,14 @@ copymem:
 
 ; ---- multiplies two numbers
 ; args: 
-;		HL - multiplicand
+;		BC - multiplicand
 ; 		A - multiplier
 ; result:
 ;		HL - result
 ;
 multpl:	
-		ld b,h
-		ld c,l
+		;ld b,h
+		;ld c,l
 		ld hl,0
 		
 		or a			; return 0 if multiplier is 0

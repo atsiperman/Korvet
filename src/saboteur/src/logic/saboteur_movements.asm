@@ -7,30 +7,21 @@ sbstmove:
 		push bc
 		
 		ld hl,sbctrlb
-		push hl
 		call sbincrow		; sprite for moving object has less height, so move it down
-		pop hl
 		
 		pop bc
 		push bc
 		
-		;;ld hl,sbctrlb
-		push hl
+		ld hl,sbctrlb
 		push hl
 							; check right dir
 		ld a,dirrt
 		cp c
 		jp nz,sbstmv1
-		
-		call sbinccol		
-		pop hl
-
 		call sbstgort		
 		jp sbstmv2
 		
 sbstmv1:				
-		call sbdeccol
-		pop hl
 		call sbstgolt
 		
 sbstmv2:				
@@ -40,6 +31,7 @@ sbstmv2:
 		ld de,odcurst
 		add hl,de
 		ld (hl),b
+
 		ret		
 ;
 ; ----	end of sbstmove:
@@ -65,10 +57,11 @@ sbstgort:
 		
 		ld bc,odcursc
 		add hl,bc
-		ld d,(hl)		; load current screen column
+		ld d,(hl)				; load current screen column
 		
 		inc hl
-		ld e,(hl)		; load screen row
+		ld e,(hl)				; load screen row
+
 		pop hl
 		push hl
 		
@@ -84,7 +77,13 @@ sbstgort:
 		push hl
 		scurdir dirrt		
 		pop hl
-		or c			; anything not zero
+
+		; ; ld a,(sbmvrttb)			; total sprite count
+		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		; ; sbscursi
+		; ; call sbgort
+
+		ld a,1					; anything not zero
 		ret		
 
 ; ---- saboteur starts going left
@@ -120,15 +119,23 @@ sbstgolt:
 		push hl
 		scurdir dirlt
 		pop hl
+
+		push hl
 		xor a
 		scurspi
-		or c			; anything not zero
+		pop hl
+
+		; ; ld a,(sbmvlttb)			; total sprite count
+		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
+		; ; sbscursi
+		; ; call sbgolt
+
+		ld a,1					; anything not zero
 		ret		
 
 
 ; ---- continue moving
-; args: 
-;		C  - direction to move
+; args: C  - direction to move
 ;			
 sbdomove:
 		ld hl,sbctrlb
@@ -172,6 +179,10 @@ sbgort:
 		ld (sbmoveh5 + 1),a
 		ld a,0x3C				; inc a
 		ld (sbmoveh6),a
+		ld hl,sbmvrttb
+		ld (sbmoveh9 + 1),hl
+		inc hl
+		ld (sbmoveh10 + 1),hl
 		pop hl
 		jp sbmoveh
 		
@@ -189,7 +200,11 @@ sbgolt:
 		ld a,ECOLNUM
 		ld (sbmoveh5 + 1),a
 		ld a,0x3D				; dec a
-		ld (sbmoveh6),a		
+		ld (sbmoveh6),a	
+		ld hl,sbmvlttb
+		ld (sbmoveh9 + 1),hl
+		inc hl
+		ld (sbmoveh10 + 1),hl
 		pop hl
 		jp sbmoveh
 				
@@ -198,7 +213,8 @@ sbgolt:
 ; args: HL - address of control block
 ;		
 sbmoveh:
-		push hl		
+		push hl	
+	
 		ld bc,odcursc
 		add hl,bc
 		ld d,(hl)		; load current screen column
@@ -209,15 +225,15 @@ sbmoveh:
 		push de
 		push hl
 		
-		sblddir
-		cp dirrt
-		jp z,sbmoveh1
-		dec d
+		sblddir			; load current direction
+		cp dirrt		; check direction
+		jp z,sbmoveh1	
+		dec d			; going left
 		jp sbmoveh2
 		
-sbmoveh1:		
-		ld a,d
-		add a,SBWI
+sbmoveh1:				; going right
+		ld a,d		
+		add a,SBWI		
 		ld d,a
 
 sbmoveh2:
@@ -226,7 +242,7 @@ sbmoveh2:
 		pop de
 		or a
 		ret z
-				
+						
 		ld a,d
 		
 sbmoveh3:		
@@ -248,6 +264,12 @@ sbmoveh6:
 		inc a			; next column
 
 sbmoveh7:
+		push af			; save next column
+		push hl			; save control block
+		call sbstepud	; go upstairs/go downstairs if possible
+		pop hl
+		pop af
+
 		ld bc,odcursc
 		add hl,bc
 		ld (hl),a		; save column index
@@ -256,7 +278,8 @@ sbmoveh7:
 		ld a,(hl)		; cur sprite index in A
 		
 		push hl
-		
+
+sbmoveh9:		
 		ld hl,sbmvrttb
 		ld e,(hl)		; total sprite count		
 		inc a
@@ -270,6 +293,7 @@ sbmoveh8:
 		
 		push hl
 		
+sbmoveh10:		
 		ld hl,sbmvrttb + 1  ; sprite table
 		ld b,0
 		ld c,a
@@ -288,8 +312,101 @@ sbmoveh8:
 ; ---- end of sbmoveh
 ;
 
+; ---- checks & does step upstairs/downstairs if possible
+; args:
+;
+sbstepud:
+		sblcursp			; load current sprite address
+		ldsprht 			; load sprite height
+		ld e,a				; save height in E
+		sblcursr			; load current screen row
+		add e
+		dec a				; feet level
+		;;dec a				; one block above feet
+		ld e,a				; save row in E
 
-; ---- checks next position on right
+		sblcursc			; load current column
+		ld d,a				; save it in D
+
+		sblddir				; load direction
+		cp dirrt
+		jp nz,_sbstpud1
+		ld a,d				; move column into A		
+		add SBWI - 1
+		ld d,a				; save it in D
+
+_sbstpud1:
+		push de				; save row 
+		call shscradr		; get pointer to screen buffer
+		push hl
+		call sbtrygup		; restore row
+		pop hl
+		pop de
+		or a
+		ret nz				; went up, return
+
+		ld bc,ROWWIDB + COLWIDB	; for left direction by default
+		sblddir
+		cp dirlt
+		jp z,_sbstpud2
+		ld bc,ROWWIDB - COLWIDB	; for right direction
+_sbstpud2:				
+		add hl,bc			; first row under feet 
+		inc e				; correct row index
+		call sbtrygdn		; try to go down
+		ret
+
+
+; ---- saboteur goes up if possible
+; args: 	HL - adress of the right tile in the first row above feet
+;			
+; result:
+;			A - >0 if went up
+;
+sbtrygup:		
+		ld a,(hl)			; test feet level
+		and bwall
+		jp z,_sbcngupn		; no wall, can't go up
+
+		ld hl,sbctrlb
+		call sbgoupst
+		ld a,1
+		ret
+
+_sbcngupn:
+		xor a
+		ret
+
+; ---- saboteur goes down if possible
+; args: 	HL - adress of the second tile in the first row under feet
+;			E  - row index
+; result:
+;			A - >0 if can go down
+;
+sbtrygdn:
+		ld a,(hl)			; test first block under feet
+		isfloor	
+		ret nz				; wall, do nothing
+
+		ld a,e
+		cp ROWNUM-1
+		jp nz,_sbstpud3		
+		xor a				; last row, can't go down
+		ret
+
+_sbstpud3:				
+		ld bc,ROWWIDB		; two blocks under feet, X +/- 2
+		add hl,bc			; second block under feet
+		ld a,(hl)
+		isfloor
+		ret z				; no wall, do nothing
+
+		ld hl, sbctrlb
+		call sbgodnst
+		ld a,1
+		ret
+
+; ---- checks next position on right or left
 ; args: HL - address of control block
 ;		D  - next column
 ;		E  - current row 
@@ -297,244 +414,66 @@ sbmoveh8:
 ; result: 
 ;		A - 0 not to continue movement 
 ;
-sbchknpr:		
-		push hl
-		push de
-		
-		ldcurspr
-		ex de,hl
-		inc hl				; skip color
-		ld a,(hl)			; load height
-		
-		sub 4				; repeat from the top point to the 3 blocks above the floor
-		ld c,a
-		
-		pop de
-		pop hl
-		push hl
-		push bc				; save C
-		
-		ld hl,shadscr
-		
-		ld b,0
-		ld c,d
-		add hl,bc			; X + 1 position (right side + 1)
-		
-		ld c,e
-		ld de,COLNUM
-							; calculate Y + 1, head's row
-sbchkn1:					
-		add hl,de
-		dec c
-		jp nz,sbchkn1
-		
-		pop bc						
-		;ld c,SBHI-4			; repeat from the top point to the 3 blocks above the floor
-sbchkn2:		
-							; X, Y - top-left or top-right point BEFORE the saboteur
-		push hl				
-		
-		ldsprt		
-		and bwall
-		jp nz,sbchke0		; wall, no movement
-		
-		pop hl
-		ld de,COLNUM
-		add hl,de			
-		
-		dec c
-		jp nz,sbchkn2		
-		
-		ld c,3				; go down
-		ld de,COLNUM
-sbchkn3:		
-		add hl,de
-		dec c
-		jp nz,sbchkn3
-		
-							; X,(Y + SBHI-1) - one block upper
-		dec hl				
-		push hl
+_chkposr:		; initial row
+		db 0
 
-		ldsprt
-		and bwall
-		jp z,sbchk1
-							; upstairs
-		pop hl
-		pop hl				; control block
-		call sbgoupst
-		ret
-		
-sbchk1:
-		pop hl
-		ld de,COLNUM
-		add hl,de			; X,Y - floor
-		push hl
-		ldsprt
-		and bwall + bladder
-		jp nz,sbchke1		; floor continues
-		
-		; ------
-							; X - 2,Y - floor under saboteur
-		pop hl
-		dec hl
-		push hl
+sbchknpl:
+		ld bc,ROWWIDB + COLWIDB	; displacement for the last tiles
+		jp _sbchknp
 
-		ldsprt
-		and bwall
-		jp nz,sbchke1		; wall, go further
+sbchknpr:
+		ld bc,ROWWIDB - COLWIDB
 
-		pop hl
-		ld de,COLNUM
-		add hl,de			; X - 2,Y - 1 - one block under floor
+_sbchknp:
+		ld a,e
+		ld (_chkposr),a		; save initial Y
+		push bc
+
+		inc e				; Y + 1, one block below head
+		call shscradr		; get tile address in HL
+
+		ld a,(hl)
+		and bwall
+		jp nz,.sbchke		; wall, no movement
+
+		ld de,ROWWIDB	
+		
+		add hl,de			; Y + 2
+		ld a,(hl)
+		and bwall
+		jp nz,.sbchke		; wall, no movement
+
 		push hl
-		ldsprt
-		and bwall + bladder
-		jp nz,sbrdn			; can't fall down
+		add hl,de			; Y + 3
+		ld a,(hl)
+		pop hl
+		and bwall
+		jp z,.sbchky		; no wall, can move
+
+		pop bc
+		push bc
+
+		add hl,bc			; Y + 3, neighbour
+		ld a,(hl)
+		and bwall
+		jp nz,.sbchke		; wall, no movement
+
+		ld de,ROWWIDB	
 		
-		pop hl
-		pop hl				; control block
-		ld c,dirrt
-		call sbstfall		; start falling down
-		xor a
-		ret
-		
-sbrdn:						
-							; no wall - downstairs
-		pop hl
-		pop hl				; control block
-		call sbgodnst
-		ret
-	
-sbchke1:					
-		pop hl
-		pop hl
+		add hl,de			; Y + 4, neighbour
+		ld a,(hl)
+		and bwall
+		jp z,.sbchke		; no wall, no movement
+
+.sbchky:
+		pop bc
 		ld a,1
 		ret
-		
-sbchke0:				
-		pop hl
-		pop hl
+
+.sbchke:
+		pop bc
 		xor a
 		ret
-		
-; ---- end of sbchknpr
-;
-
-; ---- checks next position on left
-; args: HL - address of control block
-;		D  - next column
-;		E  - current row 
-;
-; result: 
-;		A - 0 not to continue movement 
-;
-sbchknpl:		
-		push hl
-		push de
-		
-		ldcurspr
-		ex de,hl
-		inc hl				; skip color
-		ld a,(hl)			; load height
-		
-		sub 4				; repeat from the top point to the 3 blocks above the floor
-		ld c,a
-		
-		pop de
-		pop hl
-		push hl
-		push bc				; save C
-		
-		ld hl,shadscr
-		
-		ld b,0
-		ld c,d
-		add hl,bc			; X next position
-		
-		ld c,e
-		ld de,COLNUM
-							
-sbchkln1:					; calculate Y, head's row	
-		add hl,de
-		dec c
-		jp nz,sbchkln1
-		
-		pop bc				; repeat from the top point to the 3 blocks above the floor
-sbchkln2:		
-							; X, Y - top-left or top-right point BEFORE the saboteur
-		push hl				
-		
-		ldsprt		
-		and bwall
-		jp nz,sbchkle0		; wall, no movement
-		
-		pop hl
-		ld de,COLNUM
-		add hl,de			
-		
-		dec c
-		jp nz,sbchkln2		
-		
-		ld c,3				; go down
-		ld de,COLNUM
-sbchkl3:		
-		add hl,de
-		dec c
-		jp nz,sbchkl3
-		
-							; X - 1,(Y + SBHI-1) - one block upper
-		inc hl				
-		push hl
-
-		ldsprt
-		and bwall
-		jp z,sbchkl1		; not wall
-							; upstairs
-		pop hl
-		pop hl				; control block
-		call sbgoupst
-		ret
-		
-sbchkl1:
-		pop hl
-		ld de,COLNUM
-		add hl,de			; X - 1,Y - floor
-		push hl
-		ldsprt
-		and bwall + bladder
-		jp nz,sbchkle1		; floor continues
-				
-		; ------
-							; X - 2,Y - floor under saboteur
-		pop hl
-		inc hl
-		push hl
-
-		ldsprt
-		and bwall
-		jp nz,sbchkle1		; wall, go further
-		
-							; no wall - downstairs
-		pop hl
-		pop hl				; control block
-		call sbgodnst
-		ret
-	
-sbchkle1:					
-		pop hl
-		pop hl
-		ld a,1
-		ret
-		
-sbchkle0:				
-		pop hl
-		pop hl
-		xor a
-		ret
-		
-; ---- end of sbchknpl
-;
 
 ; ---- go upstairs
 ; args: HL - address of control block

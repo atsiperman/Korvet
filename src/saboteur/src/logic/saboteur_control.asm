@@ -45,18 +45,20 @@ sbcnact2:
 		call sbdoshjp
 		jp sbcnactn
 
-sbcnact3:			
-		cp sbstay
-		jp nz,sbcnacty	; not staying, should not fall since is not falling already
-								
+sbcnact3:		
+		cp sbladr
+		jp z,sbcnacty
+		;;cp sbstay
+		;;jp nz,sbcnacty	; not staying, should not fall since is not falling already
+
+		;;jp sbcnacty
+
 		call sbcanfal	; check if he must fall down	
 		or a
 		jp z,sbcnacty
 						; start falling down
 		ld hl,sbctrlb
-		ld a,dirlt
 		call sbstfall
-						
 		jp sbcnactn
 
 sbcnacty:
@@ -83,6 +85,15 @@ sbnoactn:
 		ret
 
 sbnoact1:		
+		cp sbstmov			; check if just started moving
+		jp nz,_sbnoact1		; no
+
+							; yes, need to do at least one step
+		sblddir				; load current direction
+		ld c,a
+		call sbdomove		; do at least one movement since it was allowed
+
+_sbnoact1:
 		cp sbladr			
 		jp nz,sbnoact2
 							; player is on the ladder
@@ -90,9 +101,8 @@ sbnoact1:
 		ret
 		
 sbnoact2:		
-		push hl
-		lddir
-		pop hl
+
+		sblddir
 		cp dirrt
 		jp nz,sbnoact5
 							; was moving right
@@ -125,7 +135,7 @@ sbststop:
 		push af				; save prev height
 		
 		sblcursp			; load cur sprite 
-		ldsprht		; current height
+		ldsprht				; current height
 		pop bc
 		sub b				; current is always bigger than previous
 		ld c,a				; save the difference

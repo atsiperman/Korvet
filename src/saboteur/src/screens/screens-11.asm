@@ -569,7 +569,7 @@ smap17e:
 		mkline 5
 		mkbyte 1,1
 
-		mkline 11
+		mkline 10
 		db 0
 		
 		mkdup 2

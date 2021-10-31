@@ -7,19 +7,33 @@
 
         include "const.asm"
 		include "sbmacro.asm"	
-		include "sound.asm"	
-		
 		include "object_def.asm"
-		include "drawing/mirror_table.asm"
-		
-		include "sprites/dog_sprites.asm"
+; -----------------------------------------------------------
+; -----------------------------------------------------------
         include "sprites/background_sprites.asm"				
+		include "sprites/gun_sprites.asm"
+
+		; reserve bytes to get mirror table starting with xx00h address
+		dup 23
+			db 0
+		edup
+
+;------------------------------------------------------------
+		; order of this section is important, since mirror table must be 		
+		include "drawing/mirror_table.asm"
+; -----------------------------------------------------------
+; -----------------------------------------------------------
+
+		include "control_data.asm"						
+
+		include "sprites/dog_sprites.asm"		
 		include "sprites/saboteur_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
-		include "sprites/gun_sprites.asm"
-		
+
+		include "sound.asm"	
+
 		include "screens/object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
@@ -39,7 +53,6 @@
 		
 		include "screen_control.asm"
 		include "mem_utils.asm"
-		include "control_data.asm"
 		include "init.asm"
 		
 		include "logic/dog_control.asm"
@@ -47,6 +60,7 @@
 		
 		include "tiles_control.asm"
 		include "logic/saboteur_utils.asm"
+		include "logic/saboteur_fall.asm"
 		include "logic/saboteur_ladder.asm"
 		include "logic/saboteur_action.asm"
 		include "logic/saboteur_control.asm"

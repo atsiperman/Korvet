@@ -97,7 +97,7 @@ rdsprpos:
 
 		rla				
 		rla
-		rla				; multipy by 8 
+		rla				; multipy by 8
 		ld l,a			; save it in L
 
 		xor a
@@ -107,7 +107,10 @@ rdsprpos:
 		ld b,a			; B - 0
 						; C - column index
 		
-		add hl,bc		; add 9-th column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
+		add hl,bc		; add column index to get column offset in byte
 
 		add hl,de		; column address in HL
 		
@@ -118,16 +121,27 @@ rdsprpos:
 
 ; ----	draws object
 ; args: HL - address of the object's control block
+;
 drawobj:
 		push hl
 		ldcurp				; load current position in screen buffer to DE
-		pop hl				; load control block address
+		pop hl				; restore control block address
 
 		push hl				; save control block
-		push de				; save current position 
+		push de				; save pointer to screen buffer
 
+		push hl
 		ldcurspr			; load address of the current sprite into DE		
+		pop hl
+		
+		;push hl
+		;lddir				; load objects direction into A
+		;pop hl
+		;cp dirrt
+		;jp z,_drwob1		; no mirror if right direction
+		;call mirrspr
 
+;_drwob1:		
 		pop hl				; restore position in screen buffer
 		call putspr			; put sprite to screen buffer
 
@@ -136,93 +150,3 @@ drawobj:
 		call copystat
 		
 		ret
-
-		
-;
-; ----	mirrors sprite if direction is left
-;		always makes copy of the sprite into buffer in order to get equal movement speed in both directions
-;		returns original address of the sprite if this is right direction
-;
-		macro MIRSPCPY
-		ld a,(hl)
-		ld (de),a
-		inc hl
-		inc de		
-		endm
-		
-; args: 
-;		HL - address of the object's control block	
-;		DE - sprite address
-;
-; result:
-;		DE - address of a sprite to be drawn 
-;			 original address for right direction 
-;			 sprite buffer for left direction
-;
-		
-mirrspr:
-		push de
-		push hl
-				
-		ex de,hl			; sprite address in HL
-		ld de,sprtbuf
-		
-		MIRSPCPY			; copy color
-		
-		MIRSPCPY			; copy height
-		ld b,a				; save height in B
-		MIRSPCPY			; copy width
-
-		rla					; get width in bytes
-		rla
-		rla					
-
-		ld c,a				; save width in C
-				
-		ld a,b				; save height in A			
-		ld b,0
-		add hl,bc			; HL points to the last byte in the first line
-		push bc				; save width only
-
-		ld b,a 				; save height in B
-		
-mirrspr1:
-		ld a,(hl)
-		MIRRBYTE
-		ld (de),a				
-		dec hl
-		inc de		
-
-		ld a,(hl)
-		MIRRBYTE
-		ld (de),a				
-		dec hl
-		inc de		
-
-		dec c
-		jp nz,mirrspr1
-		
-		dec b
-		jp z,mirrspr_		; finish
-
-		ld a,b				; save height
-		pop bc				; restore width
-		push bc
-		
-		add hl,bc
-		add hl,bc			; set to the end of the next line
-		ld b,a				; restore height counter
-		jp mirrspr1
-		
-mirrspr_:
-		pop bc
-		
-		pop hl
-		lddir
-		cp dirrt
-		pop de
-		ret z
-		
-		ld de,sprtbuf
-		ret
-

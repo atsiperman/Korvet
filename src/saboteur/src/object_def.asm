@@ -10,6 +10,7 @@ sbladr	EQU 6				; moving on the ladder
 sbdead	EQU 7				; dead
 sbsquat EQU 8				; squatting
 sbshjmp EQU 9				; short jump
+sbstmov EQU 10				; start moving
 
 ; ---- dog state
 ;
@@ -352,4 +353,11 @@ objsize EQU	odcbend - odtype
 		endm
 		
 		
+; --- checks type of a sprite
+; args:		A - sprite type
+; result:	A - 0 if not a floor type (something to walk on)
+;
+        macro isfloor
+	  		and bwall + bladder
+        endm
 		

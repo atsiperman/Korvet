@@ -309,16 +309,25 @@ gkright1:
 gkmvstay:
 		sblcurst
 		cp sbstay			
-		jp nz,gkrmove		; if not staying then check next state
+		jp nz,gkrstmv		; if not staying then continue moving
 
 gkmvstmv:					; else start movement
-		ld b,sbmove			; B - state, C - direction
+		ld b,sbstmov		; B - state, C - direction
 		call sbstmove
 		ret
 		
+gkrstmv:
+		cp sbstmov			; moving started ?
+		jp nz,gkrmove		; no, check further state
+		ld a,sbmove			; state state to moving
+		sbsetst
+		call sbdomove		; yes, continue moving
+		ret 
+
 gkrmove:
 		cp sbmove
 		call z,sbdomove		; continue movement
+		
 		ret
 		
 ; ---- end of gkmoveh

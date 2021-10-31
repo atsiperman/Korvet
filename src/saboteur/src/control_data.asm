@@ -24,22 +24,36 @@ LUTVAL:
 		db 00001101b
 		db 00001110b
 		db 00001111b
-		
-			
-shadscr:					; map of the current screen
-			dup	ROWNUM * COLNUM
-			db 0
-			edup
+
+
+TILMAPLN	EQU	ROWNUM * COLNUM
 
 objlist:	dw 0			; pointer to the list of objects on the current screen
 
-scrbuf:						; screen buffer		
-			dup BUFLEN
+scrbuf:									; screen buffer		
+			dup ROWNUM * ROWWIDB
 			db 0
 			edup
+	
+	macro skip_buf_tile_head reg_pair
+		dup 4
+			inc reg_pair
+		edup
+	endm
 
-bufrows:	;;dup ROWNUM
-			dw scrbuf
+	macro skip_buf_tile reg_pair
+		dup COLWIDB
+			inc reg_pair
+		edup
+	endm
+	
+	macro skip_buf_tile_data reg_pair
+		dup 8
+			inc reg_pair
+		edup
+	endm
+
+bufrows:	dw scrbuf
 			dw scrbuf + ROWWIDB
 			dw scrbuf + (ROWWIDB * 2)
 			dw scrbuf + (ROWWIDB * 3)
@@ -56,47 +70,8 @@ bufrows:	;;dup ROWNUM
 			dw scrbuf + (ROWWIDB * 14)
 			dw scrbuf + (ROWWIDB * 15)
 			dw scrbuf + (ROWWIDB * 16)
-			;;edup
-			
-TILMAPLN	EQU	ROWNUM * COLNUM
-
-tilemap:					; map of tiles, low half map - current state, hi half map - previous state
-			dup TILMAPLN
-			db 0
-			edup
-
-tilemapa:	dw tilemap
-			dw tilemap + COLNUM
-			dw tilemap + (COLNUM * 2)
-			dw tilemap + (COLNUM * 3)
-			dw tilemap + (COLNUM * 4)
-			dw tilemap + (COLNUM * 5)
-			dw tilemap + (COLNUM * 6)
-			dw tilemap + (COLNUM * 7)
-			dw tilemap + (COLNUM * 8)
-			dw tilemap + (COLNUM * 9)
-			dw tilemap + (COLNUM * 10)
-			dw tilemap + (COLNUM * 11)
-			dw tilemap + (COLNUM * 12)
-			dw tilemap + (COLNUM * 13)
-			dw tilemap + (COLNUM * 14)
-			dw tilemap + (COLNUM * 15)
-			dw tilemap + (COLNUM * 16)
-
-
-curtile:	dw 0			; address of the current tile in video memory	
-shcurtl:	dw 0			; current tile address in shadow screen
-			
-sprtbuf:	dup 512
-			db 0
-			edup
-
-; ---- screen control block
-;
-curscr: 	dw scrn28 		; pointer to current screen
-prevscr:	dw 0			; pointer to previous screen
-			
-			
+						
+						
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row
@@ -111,16 +86,22 @@ HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
-HLDOGHIT	EQU 4			; hit by the dog
+HLDOGHIT	EQU 6			; hit by the dog
 
 ;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 			
+
+; ---- screen control block
+;
+curscr: 	dw scrn112 		; pointer to current screen
+prevscr:	dw 0			; pointer to previous screen
+
 ; ----	saboteur control block			
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,5,7
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,23,10
 			
 ; ----	saboteur health
 ;			

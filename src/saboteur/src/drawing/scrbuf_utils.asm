@@ -3,8 +3,8 @@
 ; ----- puts sprite on the screen buffer
 ;		
 ; args: 
-;		hl - address on the screen buffer
-;		de - address of the sprite
+;		HL - address on the screen buffer
+;		DE - address of the sprite
 ;
 _putsp_x: dw 0			; start X address of the last row
 
@@ -25,7 +25,7 @@ putspr:
 putspr1:
 		push bc
 
-        inc hl              ; skip attributes
+        skip_buf_tile_head hl  ; skip attributes
 
         dup 8
             ld a,(de)		; load mask from sprite
@@ -72,16 +72,13 @@ putspr_:
 ; 
 showscr:		
 		ld hl,SCRADDR
-		ld (curtile),hl			; init address of the current tile in video memory
-		
-		ld hl,tilemap		
-		ld de,scrbuf
+		ld de,scrbuf + 2				; pointer to tile state
 		ld bc,(ROWNUM << 8) + COLNUM
 		
 		push bc
 		
 showsc1:			
-		ld a,(hl)
+		ld a,(de)
 		or a
 		jp z, showsc2			; tile not changed
 		
@@ -96,32 +93,13 @@ showsc1:
 		pop hl
 		
 showsc2:
-		inc hl					; next tile in tile map
+		inc hl					; move to the next column in video memory		
+		skip_buf_tile de 		; move to the next column in screen buffer	
 		
-		push hl
-		ld hl,(shcurtl)			; move to the next column in screen map
-		inc hl
-		ld (shcurtl),hl
-		pop hl
-
-		dup 9
-			inc de					; move to the next column in buffer	
-		edup
-
-		dec c
-		jp z, showsc3			; next row
+		dec c		
+		jp nz,showsc1
 		
-		push hl
-		
-		ld hl,(curtile)			; move to the next column in video memory
-		inc hl
-		ld (curtile),hl
-		
-		pop hl		
-		
-		jp showsc1
-		
-showsc3:		
+showsc3:						; next row
 		dec b
 		jp z,showsc_			; end
 		
@@ -130,14 +108,9 @@ showsc3:
 		ld b,a
 		push bc					; save new counters
 				
-		push hl
-		
-		ld bc,64*8 - COLNUM + 1
-		ld hl,(curtile)			; move to the next row in video memory		
+		ld bc,64*8 - COLNUM 	; move to the next row in video memory		
 		add hl,bc
-		ld (curtile),hl
-				
-		pop hl
+
 		pop bc
 		push bc
 		jp showsc1
@@ -150,25 +123,30 @@ showsc_:
 		
 ; ----	copy tile to video memory
 ; args: 
-;		DE - source address in screen buffer
+;		HL - address in video memory
+;		DE - source address in screen buffer pointing to tile state
 ;
 
 copytile:
+		inc de				; move to attributes
 		ld a,(de)			; load attributes
 		and fgtile
-		ret nz				; do not copy if tile is foreground
+		jp z,_cpytil1		; copy if tile is not foreground
+		dec de				; restore address in DE, to get it shifted outside
+		ret
 
-		inc de
-		ld hl,(curtile)		; address of current tile in video memory						
+_cpytil1:
+		inc de				; move to data base
 
 		dup 8
+			ld b,((7 & ~CMAIN) << 1) + 1	; save main color in B
 			ld a,(de)					; load data byte
 			
 			push de						; save address in screen buffer
 			ex de, hl					; save video address in DE
 			
 			ld hl,COLRREG				; 
-			ld (hl), ((7 & ~CMAIN) << 1) + 1	; set main color
+			ld (hl), b					; set main color
 			
 			ex de,hl					; HL - screen address
 
@@ -176,7 +154,8 @@ copytile:
 					
 			ex de,hl					; HL - color reg
 			
-			ld (hl), ((7 & ~CMAIN) << 1)	; set color to clear		
+			dec b						; set color to clear		
+			ld (hl),b					
 			ex de,hl					; HL - screen address			
 			cpl							; get bits to clear
 			ld (hl),a					; move data byte
@@ -192,35 +171,17 @@ copytile:
 		
 		
 ; ----- restores background tile in screen buffer
-; args: HL - address of the tile in shadow screen model
-;       DE - address in screen buffer
-;		
+; args: 
+;       HL - address of the first data byte in screen buffer
+;		DE - address of the tile's sprite 		
+;
 rstbktl:
-        push hl         ; tile in shadow screen
-        push de         ; screen buffer address
+        push hl         ; screen buffer address
         push bc         
-
-        ld b,0
-        ld c,(hl)
-        ld hl,BKSPRTAB
-        add hl,bc
-        add hl,bc       ; pointer to sprite's address
-		
-        push de         ; save screen address
-        ld e,(hl)
-        inc hl
-        ld d,(hl)		; back tile image address in DE
-		
-		pop hl          ; restore screen address in HL
 
 		inc de			; skip back color		
 		inc de			; skip foreground color
-
-	 	ld a,(de)		; read attributes
- 		inc de			
-
-		ld (hl),a		; save attributes in screen buffer       
-		inc hl			
+		inc de			; skip sprite attributes
 		
 		dup 8
 			ld a,(de)		; load data byte	
@@ -231,7 +192,6 @@ rstbktl:
 		edup
 		
 		pop bc
-		pop de
 		pop hl
 		
 		ret			

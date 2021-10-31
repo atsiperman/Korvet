@@ -1,125 +1,4 @@
-; ----- checks, if saboteur is falling down and makes next step if he is
-; result:
-;		A - 0 if is falling
-;
-chkfalng:
-		ld hl,sbctrlb
-		push hl
-		ldstate				; load state
-		
-		cp sbfall
-		pop hl
-		ret nz				; exit if not falling down
-		
-		push hl
-		ldcursc
-		ld d,a				; column in D
-		inc hl
-		ld a,(hl)			; row in E
-		ld e,a
-		
-		pop hl
-		push de				; save current coordinates
-		push hl
-		
-		add SBHILAD			; add height of the saboteur to get floor level
-		ld e,a				; row in E		
-		cp ROWNUM	
-		jp nz,chkfal1
-		
-		call goscrndn	
-		pop hl
-		pop de		
-		or a
-		jp nz,chkfal_1
-		ld a,1				; screen not changed, stop falling
-		ret
-		
-chkfal_1:
-		xor a				; row num on the new screen				
-		sbscursr
-		ret
-		
-chkfal1:		
-		call shscradr		; get address of the sprites' index
-		push hl
-		ldsprt
-		call isfloor		; is floor reached down
-		pop hl
-		or a				
-		jp nz,chkfal2		; floor, stop falling
-
-		inc hl				; check X + 1 position
-		ldsprt
-		call isfloor		; is floor reached down
-		or a
-		jp nz,chkfal2		; floor, stop falling
-		
-					; continue falling down
-		pop hl
-		pop de
-		
-		ld a,e				; save next row	
-		inc a
-		scursr			
-		
-		xor a
-		ret
-		
-chkfal2:
-		pop hl
-		pop de
-
-		dec d				; decrease column
-		ld a,d
-		scursc
-		
-		call sbdosquat
-		xor a
-		ret
-	
-;
-; --- end of chkfalng
-;
-
-; ----- starts falling down
-; args: 
-;		C	- direction
-;
-sbstfall:
-		push bc
-		sblcursc
-		
-		pop bc
-		
-		ld e,a
-		
-		ld a,c
-		cp dirlt
-		jp z,sbfall1
-							; falling to the right side
-		inc e
-		inc e
-		ld a,e
-		
-		jp sbfalle
-							
-sbfall1:
-							; falling to the left side
-		ld a,e
-
-sbfalle:
-		sbscursc
-		ld de,sabfall
-		sbscursp			; save sprite address
-		sbscurst sbfall
-		ret	
-
-;
-; --- end of sbstfall
-;
-		
-; ----- check, if saboteur can go upstairs or downstairs
+; ----- check, if saboteur can go up or down on the ladder
 ; args: HL - address of control block
 ;		;;;B  - state
 ;		C  - vertical direction
@@ -136,7 +15,7 @@ cangolad:
 		
 		push bc				; save state and direction
 		sblcursp			; DE - sprite address
-		ldsprht		; load sprite height
+		ldsprht				; load sprite height, it may be different depending on the current state
 		ld e,a				; save height in E
 		
 		sblcursr
@@ -177,15 +56,14 @@ sbcanld2:
 		jp nz,sbcanld3
 
 		inc e				; skip column
-		inc hl				; skip position behind (first left column for right direction)
+
+		skip_buf_tile hl	; skip position behind (first left column for right direction)
 		
 sbcanld3:
 		push de
 
 sbcanld4:
-		push hl				; check tile type in X,Y
-		ldsprt
-		pop hl
+		ld a,(hl)			; check tile type at X,Y
 		and bladder		
 		jp z,sbcanld7		; if not a ladder then continue
 							; else check if more than one tile discovered
@@ -206,7 +84,7 @@ sbcanld5:
 		inc b				; increase counter
 		
 sbcanld7:
-		inc hl				; next column
+		skip_buf_tile hl	; next column
 		dec c
 		jp nz,sbcanld4		; continue check
 		
@@ -358,39 +236,33 @@ sbdolade:
 ;		
 sbstplad:
 		ld c,a				; save direction
+		
+		sblcursc			; load current column
+		dec a				; X - 1
+		ld d,a				; save column in D
+
 		sblcursr			; load current row
 		add SBHILAD	- 1		; get one level up from the floor 
-		
-		ld hl,shadscr		
-		ld de,COLNUM
-		
-sbstpld1:					; calculate Y for floor level
-		add hl,de
-		dec a
-		jp nz,sbstpld1
-		
-		sblcursc			; load current column		
-		dec a
-		ld e,a		
-							; calculate X - 1
-		add hl,de
-		
-		sblddir
+		ld e,a				; save row in E
+
+		push bc
+		call shscradr		; get pointer to tile attributes in HL
+		pop bc
+	
+		ld a,c
 		cp dirlt
 		jp z,sbstpld3
-		ld de,SBWILAD + 1
+		ld de,COLWIDB*3
 		add hl,de			; calculate X position for right direction
 		
 sbstpld3:		
-		push hl
-		ldsprt				; Y - 1
-		pop hl
+		ld a,(hl)			; Y - 1
 		and bwall
 		jp nz,sbstpldn		; wall above the floor, can't move there		
 		
-		ld de,COLNUM
+		ld de,ROWWIDB
 		add hl,de			; Y = Y + 1
-		ldsprt				
+		ld a,(hl)
 		and bwall
 		ret nz				; wall on the floor, can move
 		
