@@ -26,7 +26,11 @@ canjmp:
 		
 canjmp1_:		
 		pop af
-		call scadrlt		; get top left position
+		ld e,a				; save Y in E
+		sblcursc			
+		dec a				; check column on the left
+		ld d,a				; save X in D		
+		call shscradr		; get top left position
 		jp canjmp5
 		
 canjmp1:		
@@ -185,21 +189,16 @@ sbdojp4:
 		ld hl,sabjmprb + 1	; save pointer to first sprite in HL
 		ld b,0
 		ld c,a				; save current sprite index in C
-;		push bc				; save current sprite index on stack
 
 		add hl,bc
 		add hl,bc
 		load_de_hl			; get address of the current sprite in DE
 		sbscursp			; save new sprite address
 
-		;sblcursi
 		cp 1
 		jp nz,sbdojp5
 		call sbdecrow
 		ret					; keep old column for the first small sprite 
-
-		; cp (SBJPSPN - 1)			
-		; ret z				; skip column change for last sprite
 		
 sbdojp5:		
 		sblddir
@@ -230,18 +229,19 @@ sbstopjp:
 		cp dirrt
 		jp z,_sbstpjr
 
-
 _sbstpj1:
+		call sblandlh
+		call sblandv
 		ret
 
 _sbstpjr:
-		call sbstjrh
-		call sbstjrv
+		call sblandrh
+		call sblandv
 		ret
 
 ; ---- finds place to land in horizontal direction to the right
 ;
-sbstjrh:
+sblandrh:
 		sblcursc		; load column
 		add SBJMPWI		; next column on the right
 		ld d,a			; save column in D
@@ -263,9 +263,10 @@ sbstjrh:
 
 		pop hl				; restore (X,Y)
 		push hl
-		ld bc,COLWIDB		
+		ld bc,COLWIDB
 		add hl,bc			; X = X + 1
 							; start with (X + 1,Y)
+		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
@@ -280,12 +281,61 @@ sbstjrh:
 _sbstpjr1:
 		pop bc				; clear stack
 		ret
+
+
+; ---- finds place to land in horizontal direction to the left
+;
+sblandlh:
+		sblcursc		; load column
+		dec a		
+		dec a			; two columns on the left	
+		ld d,a			; save column in D
+		sblcursr		; load row
+		ld e,a			; save row in E
+		call shscradr	; get position (X - 2,Y) in HL
+
+		push hl			; save initial address
+		ld bc,COLWIDB	
+		add hl,bc		; start from first column on the left (X - 1,Y)
+
+		ld bc,ROWWIDB
+		dup 3
+			ld a,(hl)		; read attributes
+			and bwall		; is wall ?
+			jp nz,_sbstpjl1	; yes, no move 
+			add hl,bc		; Y = Y + 1
+		edup
+
+		sblcursc			; load column
+		dec a				; move left, it's free
+		sbscursc			; save column
+
+		pop hl				; restore (X - 2,Y)
+		push hl
+							; start with (X - 2,Y)
+		dup 3
+			ld a,(hl)		; read attributes
+			and bwall		; is wall ?
+			jp nz,_sbstpjl1	; yes, no move 
+			add hl,bc		; Y = Y + 1
+		edup
+
+		sblcursc			; load column
+		dec a				; move left, it's free
+		sbscursc			; save column
+
+_sbstpjl1:
+		pop bc				; clear stack
+		ret
+		
+
 		
 ; ---- finds place to land in vertical direction to the right
 ;
-sbstjrv:
+sblandv:
 		sblcursc
 		ld d,a			; save column in D
+
 		sblcursr		; load row
 		add SBJMPHI		; row under feet
 		ld e,a			; save row in E
@@ -298,7 +348,7 @@ sbstjrv:
 			dup 3
 				ld a,(hl)
 				and bwall	
-				jp nz,_stjrv1	; wall, land on this row
+				jp nz,_stlnd1	; wall, land on this row
 				add hl,bc		; next column
 			edup
 			sblcursr
@@ -310,21 +360,45 @@ sbstjrv:
 			push hl
 		edup
 
-_stjrv1:
+		sblcursr
+		sub 4				; no wall found, keep current coordinates	
+		sbscursr			; save row
+
+		jp _stlnd5				
+
+_stlnd1:
 		sblcursr
 		sub (SBHI - SBJMPHI)	; dec row to let him stay
 		sbscursr
 
-		sblcursc
-		dec a					; dec column, staying sprite is wider
+_stlnd5:
+		pop bc 					; clear stack
+
+		sblddir
+		cp dirlt
+		jp z,_stlnd3			; leave current column for left direction
+
+		sblcursc				; for right direction:
+		dec a					; 	dec column, staying sprite is wider
 		sbscursc
-
-		ld a,SBJPSPN - 1	
-		sbscursi				; set last sprite index
-
 		ld de,sabjmpr1
+		jp _stlnd4
+
+_stlnd3:
+		ld de,sabjmpl1
+
+_stlnd4:		
 		sbscursp
 
-		pop bc 					; clear stack
+		sblcurst				; load current state
+		cp sbshjmp
+		jp z,_stlnd2
+
+		ld a,SBJPSPN - 1		; number of sprites for long jump
+		sbscursi				; set last sprite index
 		ret
 
+_stlnd2:
+		ld a,SBSJPSPN - 1		; number of sprites for short jump
+		sbscursi				; set last sprite index
+		ret
