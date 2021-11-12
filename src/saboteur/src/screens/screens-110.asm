@@ -312,9 +312,9 @@ smap112e:
 		mkbyte 1,1
 		mkbyte 2,1
 		mkbyte 1,1
-		mkbyte 1,3
 		mkbyte 3,3
-		mkbyte 3,1
+		mkbyte 3,3
+		mkbyte 1,1
 		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 1,1

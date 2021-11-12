@@ -12,7 +12,7 @@ smap120b:
 		bkindex BK32ADDR    ; 6, green vertical tube				
 smap120e:
 		
-		mkdup 5
+		mkdup 4
 			mkline 5
 			db 0
 			mkbyte 4,5
