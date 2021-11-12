@@ -43,18 +43,14 @@ _sbcnfal0:
 ; result:
 ;		A - 1 if there is a floor
 ;
-		macro SBONFLOOR
-		skip_buf_tile hl	; X = X + 1
-		ld a,(hl)
-		isfloor
-		ret nz
-		endm
-
 _isfloor:		
 		call scadrlt		; get left position		
-		SBONFLOOR
-		SBONFLOOR
-		;SBONFLOOR
+		dup 2
+			skip_buf_tile hl	; X = X + 1
+			ld a,(hl)
+			isfloor
+			ret nz
+		edup
 		ret
 		
 _isflore:

@@ -77,12 +77,13 @@ ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
-
+SBJMPHI		EQU 4			; height of the saboteur sprite when jumping
+SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 
-HLCOLRON	EQU	CRED  ; (80h + (CRED << 1)) ; color register to draw health bar
-HLCOLRRM	EQU CBLUE ;	(80h + (CBLUE << 1)) ; color register to clear health bar
+HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
+HLCOLRRM	EQU CBLUE 		;	(80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
@@ -94,14 +95,14 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn112 		; pointer to current screen
+curscr: 	dw scrn3 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,23,10
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,23,10
 			
 ; ----	saboteur health
 ;			
@@ -123,7 +124,7 @@ sbhealth:
 		ld (sbctrlb + odcurst),a
 		endm
 			
-		; ---- current sprite 
+		; ---- save current sprite 
 		macro sbscursp
 		ld hl,sbctrlb + odcursp
 		ld (hl),e
@@ -134,7 +135,6 @@ sbhealth:
 		macro sblcursp
 		ld hl,(sbctrlb + odcursp)
 		ex de,hl
-		;load_de_hl
 		endm
 				
 		; ---- current sprite index
