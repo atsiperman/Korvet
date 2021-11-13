@@ -361,23 +361,24 @@ smap36b:
 		bkindex BK33ADDR   	; 4, solid blue 
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
+		bkindex BK34ADDR	; 7, blue left edge
 smap36e:
 							; 1
-		mkline 12
+		mkline 11
 		mkbyte 1,1
-		mkbyte 4,4
-		mkbyte 4,4
-		mkbyte 4,4
+		mkbyte 1,7
+		mkline 3
+		mkbyte 4,4		
 							; 2		
 		mkline 11
 		mkbyte 1,1
-		mkbyte 4,4
+		mkbyte 7,4
 		mkline 3
 		mkbyte 4,4
 							; 3		
 		mkline 3
 		mkbyte 1,1
-		mkbyte 1,4
+		mkbyte 1,7
 		mkline 11
 		mkbyte 4,4
 							; 4		
@@ -395,13 +396,13 @@ smap36e:
 							; 6
 		mkbyte 1,1
 		mkbyte 1,1
-		mkbyte 1,4
+		mkbyte 1,7
 		mkline 12
 		mkbyte 4,4		
 							; 7
 		mkbyte 1,1
 		mkbyte 1,1
-		mkbyte 4,4
+		mkbyte 7,4
 		mkline 12
 		mkbyte 4,4		
 							; 8
@@ -468,47 +469,50 @@ smap37b:
 		bkindex BK33ADDR   	; 4, solid blue 
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
+		bkindex BK35ADDR	; 7, blue right edge
+		bkindex BK36ADDR    ; 8, red right top edge
+		bkindex BK37ADDR    ; 9, red right bottom edge
 smap37e:
 							; 1
 		mkbyte 4,4
 		mkbyte 4,4
-		mkbyte 4,4
+		mkbyte 4,7
 		mkline 12
 		mkbyte 1,1		
 							; 2		
-		mkbyte 4,4
 		mkline 3
 		mkbyte 4,4
+		mkbyte 7,1
 		mkline 11
 		mkbyte 1,1
 							; 3		
 		mkline 11
 		mkbyte 4,4
-		mkbyte 4,1
+		mkbyte 7,1
 		mkline 3
 		mkbyte 1,1		
 							; 4
 		mkline 12
 		mkbyte 5,5
-		mkbyte 2,1
+		mkbyte 8,1
 		mkbyte 1,1
 		mkbyte 1,1
 							; 5		
 		mkline 12
 		mkbyte 5,5
-		mkbyte 3,1
+		mkbyte 9,1
 		mkbyte 1,1
 		mkbyte 1,1		
 							; 6		
 		mkline 12
 		mkbyte 4,4
-		mkbyte 4,1
+		mkbyte 7,1
 		mkbyte 1,1
 		mkbyte 1,1		
 							; 7		
 		mkline 12
 		mkbyte 4,4
-		mkbyte 4,4
+		mkbyte 4,7
 		mkbyte 1,1
 		mkbyte 1,1		
 							; 8
@@ -553,12 +557,12 @@ smap37e:
 				
 		mkline 13
 		mkbyte 5,5
-		mkbyte 5,2
+		mkbyte 5,8
 		db 0
 		
 		mkline 13
 		mkbyte 5,5
-		mkbyte 5,3
+		mkbyte 5,9
 		db 0
 		
 		mscrend

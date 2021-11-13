@@ -21,7 +21,7 @@ canjmp:
 		call goscrnlt		; switch screen
 		or a
 		jp z,canjmpn2		; return if screen not changed
-		ld a,ECOLNUM 		; index of the first column 
+		ld a,ECOLNUMJ 		; index of the first column 
 		sbscursc
 		
 canjmp1_:		
@@ -35,14 +35,14 @@ canjmp1_:
 		
 canjmp1:		
 		sblcursc
-		cp ECOLNUM			; is last column
-		jp nz,canjmp2
+		cp ECOLNUMJ			; is last column
+		jp c,canjmp2
 		call goscrnrt		; switch screen
 		or a
 		jp z,canjmpn2		; return if screen not changed
 		ld a,SCOLNUM 		; index of the first column 
 		sbscursc
-		
+
 canjmp2:	
 		add SBWI			; check right position for sprite in stay mode
 		ld d,a				; save column number
@@ -243,6 +243,16 @@ _sbstpjr:
 ;
 sblandrh:
 		sblcursc		; load column
+
+		cp ECOLNUMJ		; check for maximal column index
+		jp c,_slndrh1	; continue if index is not less than current column
+		call goscrnrt	; switch screen to the right
+		or a
+		ret z			; return if screen not changed
+
+		ld a,SCOLNUM 	; index of the first column 
+		sbscursc
+_slndrh1:
 		add SBJMPWI		; next column on the right
 		ld d,a			; save column in D
 		sblcursr		; load row
@@ -253,7 +263,7 @@ sblandrh:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_sbstpjr1	; yes, no move 
+			jp nz,_slndrhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
@@ -270,7 +280,7 @@ sblandrh:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_sbstpjr1	; yes, no move 
+			jp nz,_slndrhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
@@ -278,7 +288,7 @@ sblandrh:
 		inc a				; move right, it's free
 		sbscursc			; save column
 
-_sbstpjr1:
+_slndrhe:
 		pop bc				; clear stack
 		ret
 
@@ -287,6 +297,16 @@ _sbstpjr1:
 ;
 sblandlh:
 		sblcursc		; load column
+		cp SCOLNUM + 2	; check for minimal column index
+		jp nc,_slndlh1	; continue if index is less than current column
+		call goscrnlt	; switch screen to the left
+		or a
+		ret z			; return if screen not changed
+
+		ld a,ECOLNUMJ + 1 ; index of the first column 
+		sbscursc
+	
+_slndlh1:
 		dec a		
 		dec a			; two columns on the left	
 		ld d,a			; save column in D
@@ -302,7 +322,7 @@ sblandlh:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_sbstpjl1	; yes, no move 
+			jp nz,_slndlhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
@@ -316,7 +336,7 @@ sblandlh:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_sbstpjl1	; yes, no move 
+			jp nz,_slndlhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
@@ -324,7 +344,7 @@ sblandlh:
 		dec a				; move left, it's free
 		sbscursc			; save column
 
-_sbstpjl1:
+_slndlhe:
 		pop bc				; clear stack
 		ret
 		

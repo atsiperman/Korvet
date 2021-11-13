@@ -4,16 +4,19 @@ smap60b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK5ADDR		; 2, solid blue 
+		bkindex BK29ADDR    ; 3, solid red
+		bkindex BK36ADDR    ; 4, red right top edge
+		bkindex BK37ADDR    ; 5, red right bottom edge
 smap60e:
 							; 1
 		mkline 13
-		mkbyte 2,2					
-		mkbyte 2,2
+		mkbyte 3,3
+		mkbyte 3,4
 		mkbyte 1,1
 							; 2
 		mkline 13
-		mkbyte 2,2					
-		mkbyte 2,2
+		mkbyte 3,3					
+		mkbyte 3,5
 		mkbyte 1,1
 
 							; 3		
@@ -75,16 +78,19 @@ smap61b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK5ADDR		; 2, solid blue 
+		bkindex BK29ADDR    ; 3, solid red
+		bkindex BK27ADDR    ; 4, red left top edge
+		bkindex BK28ADDR    ; 5, red left bottom edge
 smap61e:
 		mkbyte 1,1			; 1
-		mkbyte 2,2
+		mkbyte 4,3
 		mkline 13
-		mkbyte 2,2
+		mkbyte 3,3
 
 		mkbyte 1,1			; 2
-		mkbyte 2,2
+		mkbyte 5,3
 		mkline 13
-		mkbyte 2,2
+		mkbyte 3,3
 
 		mkline 4			; 3
 		mkbyte 1,1

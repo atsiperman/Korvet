@@ -75,6 +75,7 @@ bufrows:	dw scrbuf
 SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
 SROWNUM 	EQU 1			; index of the start row
+ECOLNUMJ	EQU COLNUM-5	; index of the last column for saboteur on the new screen when jumping
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
 SBJMPHI		EQU 4			; height of the saboteur sprite when jumping
@@ -95,14 +96,14 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn112 		; pointer to current screen
+curscr: 	dw scrn61 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,9
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,1,9
 			
 ; ----	saboteur health
 ;			
