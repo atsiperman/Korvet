@@ -7,6 +7,9 @@ smap60b:
 		bkindex BK29ADDR    ; 3, solid red
 		bkindex BK36ADDR    ; 4, red right top edge
 		bkindex BK37ADDR    ; 5, red right bottom edge
+		bkindex BK38ADDR	; 6, top black half
+		bkindex BK39ADDR	; 7, bottom black half
+		bkindex BK30ADDR	; 8, solid green
 smap60e:
 							; 1
 		mkline 13
@@ -21,38 +24,38 @@ smap60e:
 
 							; 3		
 		mkline 10
-		mkbyte 2,2		
-		mkbyte 2,1
+		mkbyte 6,6
+		mkbyte 6,1
 		mkline 4
 		mkbyte 1,1
 
 							; 4		
 		mkline 10
-		mkbyte 2,2		
-		mkbyte 2,1
+		mkbyte 8,8
+		mkbyte 8,1
 		mkline 4
 		mkbyte 1,1
 		
 							; 5		
 		mkline 10
-		mkbyte 2,2
+		mkbyte 8,8
 		mkline 5
 		mkbyte 1,1		
 							; 6
 		mkline 10
-		mkbyte 2,2
+		mkbyte 8,8
 		mkline 5			
 		mkbyte 1,1		
 							; 7
 		mkline 9	
-		mkbyte 2,2
-		mkbyte 2,1
+		mkbyte 8,8
+		mkbyte 8,1
 		mkline 5			
 		mkbyte 1,1		
 							; 8
 		mkline 9
-		mkbyte 2,2
-		mkbyte 2,1
+		mkbyte 7,7
+		mkbyte 7,1
 		mkline 5			
 		mkbyte 1,1		
 		
