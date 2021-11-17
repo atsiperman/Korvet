@@ -41,15 +41,25 @@ rsttile1:
 		inc hl			; move to tile state
 
 		ld a,(hl)		; load tile state				
+		; inc hl			; move to attributes
+		; inc hl 			; move to data
+		or a				; check state
+		jp z,rsttile2		; continue if this tile was/is not occupied
+
+		inc hl			; move to attributes
+		ld a,(hl)
+		inc hl 			; move to data
+		and stotile		; is static object ?
+		jp nz,rsttile3  ; if yes then do not restore background
+
+		call rstbktl	; restore background otherwise
+		jp rsttile3
+		
+rsttile2:
 		inc hl			; move to attributes
 		inc hl 			; move to data
 
-		and a				; check state
-		jp z,rsttile2		; continue if this tile was/is not occupied
-		
-		call rstbktl		; restore background otherwise
-		
-rsttile2:			
+rsttile3:
 		skip_buf_tile_data hl	; move to the next tile in screen buffer
 		
 		dec bc

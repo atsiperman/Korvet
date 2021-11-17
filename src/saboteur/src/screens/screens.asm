@@ -1,6 +1,7 @@
 SCREND	EQU 255
 LINELEN EQU 15 << 4
 DUPLEN	EQU 14 << 4
+STATOBJ EQU 13
 
 		; sprite map length
 		macro spmaplen	bmap, emap

@@ -31,10 +31,12 @@
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
+		include "sprites/static_object_sprites.asm"
 
 		include "sound.asm"	
 
 		include "screens/object_map.asm"
+		include "screens/static_object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
 		include "screens/screens-23.asm"

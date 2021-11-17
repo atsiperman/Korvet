@@ -5,8 +5,12 @@ DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
 	; screen header
 	endm
 
+	macro colordef color			; color register in LAYER mode
+	(80h + (color << 1))
+	endm
+
 	macro mkcolor color
-	db (80h + (color << 1)) 	; color register in LAYER mode
+	db colordef color
 	endm 
 	
 	; background sprite header
@@ -88,7 +92,7 @@ DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
 		ld c,(hl)
 		inc hl
 		ld b,(hl)
-		inc bc
+		inc hl
 	endm
 
 	macro savem_hl_bc

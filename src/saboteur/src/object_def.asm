@@ -35,6 +35,7 @@ dirdn	EQU 8
 
 ; ---- 
 fgtile	EQU 128		; tile must be drawn above moving sprites
+stotile EQU 64		; static object tile
 
 ; ---- background type
 bwall   EQU 1
@@ -68,6 +69,7 @@ odmaxc	EQU 17		; 17, max column
 odcbend EQU 18		; end of the control block
 
 objsize EQU	odcbend - odtype
+stobjsz EQU 4
 
 ; ----	makes control block for an object
 ;
@@ -93,6 +95,11 @@ objsize EQU	odcbend - odtype
 		macro mkgun direct,curspr,curspri,curscol,cursrow
 		mkctrlb ogun,gunact,0,direct,scrbuf,curspr,curspri,curscol,cursrow
 		db 0,0
+		endm
+
+		macro mkstobj address,colnum,rownum
+		dw SCRADDR + colnum + rownum * 64 * 8	; start address in video RAM
+		dw address								; pointer to image data
 		endm
 
 ; ----  loads ldcurscb

@@ -28,7 +28,8 @@ LUTVAL:
 
 TILMAPLN	EQU	ROWNUM * COLNUM
 
-objlist:	dw 0			; pointer to the list of objects on the current screen
+objlist:	dw 0		; pointer to the list of objects on the current screen
+sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 
 scrbuf:									; screen buffer		
 			dup ROWNUM * ROWWIDB
@@ -96,14 +97,14 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn61 		; pointer to current screen
+curscr: 	dw scrn48 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,1,9
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,6,10
 			
 ; ----	saboteur health
 ;			

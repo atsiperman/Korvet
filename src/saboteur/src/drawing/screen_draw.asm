@@ -26,7 +26,7 @@ scrchng2:
 ;		DE - current address in the screen buffer
 		macro PUTBSC_
 
-		and 15				; index of the first sprite in A
+		;and 15				; index of the first sprite in A
 		push hl
 		push de
 
@@ -63,22 +63,6 @@ scrchng2:
 
 		pop hl				; restore pointer to the next byte
 		
-		endm
-
-; ----- decompresses byte 		
-		macro DCMPBYT_
-		ld a,(hl)
-							; get index from hi half
-		rra					
-		rra
-		rra
-		rra		
-		
-		PUTBSC_				;  put first compressed byte to the shadow screen
-		
-		ld a,(hl)			; restore compressed byte		
-		
-		PUTBSC_				;  put second compressed byte to the shadow screen
 		endm
 		
 ; ----- decompresses current screen into shadow area
@@ -121,7 +105,15 @@ decmprs5:
 		load_de_hl			; load object map address
 		ex de,hl
 		
-		ld (objlist),hl
+		ld (objlist),hl		; save pointer to the object list
+
+		ld hl,(curscr)		; pointer to screen control block
+		ld bc,stobjmpd
+		add hl,bc
+		load_de_hl			; load static object map address
+		ex de,hl
+		ld (sobjlst),hl		; save pointer to the list of static objects
+
 		ret
 				
 		
@@ -195,8 +187,57 @@ decmprs2:
 		ld a,(hl)			; reload data byte
 		
 decmprs3:		
-		DCMPBYT_
+							; ----- decompresses byte 		
+		ld a,(hl)
+							; get index from hi half
+		rra					
+		rra
+		rra
+		rra		
+		and 15				; index of the first sprite in A
+
+		cp STATOBJ
+		jp nz,_dcmpr31		; not a static object, normal decompress
+
+							; init tile for a static object
+		inc de			
+		inc de				; skip sprite address
+		xor a				; clear tile state
+		ld (de),a			; save tile state
+		inc de				; move to attributes
+		ld a,stotile + fgtile
+		ld (de),a			; mark tile as a static object
+		inc de
+		skip_buf_tile_data de 	; skip data bytes
+
+		jp _dcmpr32
+
+_dcmpr31:
+		PUTBSC_				;  put first compressed byte to the shadow screen
 		
+_dcmpr32:		
+		ld a,(hl)			; restore compressed byte		
+		and 15				; index of the first sprite in A
+
+		cp STATOBJ
+		jp nz,_dcmpr33		; not a static object, normal decompress
+
+							; init tile for a static object
+		inc de			
+		inc de				; skip sprite address
+		xor a				; clear tile state
+		ld (de),a			; save tile state
+		inc de				; move to attributes
+		ld a,stotile + fgtile	
+		ld (de),a			; mark tile as a static object
+		inc de
+		skip_buf_tile_data de 	; skip data bytes
+		jp _dcmpr34
+
+_dcmpr33:
+		PUTBSC_				;  put second compressed byte to the shadow screen
+							; ----- end decompresses byte 		
+_dcmpr34:
 		pop af				; restore counter
 		dec a				
 		jp z,decmprs4		; end, continue global cycle
@@ -242,6 +283,37 @@ drwobjs1:
 		
 		ret
 		
+; ----- draws static objects
+;
+drawstos:
+		ld hl,(sobjlst)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
+		
+		inc hl				; set to the first object
+        
+_drwsto1:		
+		push hl
+		push af
+		
+		load_de_hl			; load pointer to video RAM into DE
+		load_bc_hl			; load object address into BC
+		
+		call drawsto
+		pop af
+		pop hl
+		
+		ld bc,stobjsz	
+		add hl,bc
+		
+		dec a
+		jp nz,_drwsto1
+		
+		ret
+
 ; ----- draws current screen	
 ;
 drawscr:
@@ -257,6 +329,7 @@ scrch1_:
 		call decmrscr		; decompress new screen map
 		
         call drawbkgr		; draw background
+		call drawstos		; draw static objects
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
