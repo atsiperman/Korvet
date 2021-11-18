@@ -3,16 +3,30 @@
 ;
 
 s3objm:
-		db 1								; number of objects
+		db 3								; number of objects
 		mkdog dirlt,dogspml1,0,20,4,1,22
+		mkmasko desk,24,3
+		mkmasko trash,19,14
 
-s4objm:
-		db 1
+s4objm:	
+		db 9
+		mkmasko fencert,11,11
+		mkmasko fencert,12,10
+		mkmasko fencert,13,9
+		mkmasko fencert,14,8
+		mkmasko fencert,15,7
+		mkmasko fencert,16,6
+		mkmasko fencert,17,5
+		mkmasko fencertl,18,5
 		mkgun dirlt,gunlt,0,17,1
 
 s7objm:
-		db 1
+		db 5
 		mkgun dirlt,gunlt,0,16,6
+		mkmasko fencert,21,11
+		mkmasko fencert,22,10
+		mkmasko fencert,23,9
+		mkmasko fencertl,24,9
 
 s8objm:
 		db 2

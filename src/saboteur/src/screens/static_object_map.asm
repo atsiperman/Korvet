@@ -16,3 +16,22 @@ s49stom:
         mkstobj box4img, 2, 10
         mkstobj box4img, 14, 10
         mkstobj box3img, 25, 11
+
+s73stom:
+        db 7
+        mkstobj barelimg, 11, 11
+        mkstobj barelimg, 17, 9
+        mkstobj barelimg, 15, 12
+        mkstobj barelimg, 18, 12
+        mkstobj barelimg, 21, 13
+        mkstobj barelimg, 24, 13
+        mkstobj barelimg, 21, 10
+
+s74stom:
+        db 5
+        mkstobj barelimg, 0, 13
+        mkstobj barelimg, 3, 13
+        mkstobj barelimg, 7, 12
+        mkstobj box3img, 20, 12
+        mkstobj box34img, 25, 13
+

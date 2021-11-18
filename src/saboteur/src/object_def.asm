@@ -102,6 +102,11 @@ stobjsz EQU 4
 		dw address								; pointer to image data
 		endm
 
+		macro mkmasko address,colnum,rownum
+		mkctrlb 0,maskoproc,0,0,scrbuf,address,0,colnum,rownum
+		dw 0
+		endm
+
 ; ----  loads ldcurscb
 ; args: HL - address of the current column index
 		macro ldcurscb
