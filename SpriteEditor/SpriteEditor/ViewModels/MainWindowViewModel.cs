@@ -1,4 +1,6 @@
 ﻿using SpriteEditor.Code;
+using SpriteEditor.Code.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -75,6 +77,16 @@ namespace SpriteEditor.ViewModels
             {
                 EditorSettings.Color = value;
                 FirePropertyChanged("SelectedColor");
+            }
+        }
+
+        public ImageType ImageType
+        {
+            get { return EditorSettings.ImageType; }
+            set
+            {
+                EditorSettings.ImageType = value;
+                FirePropertyChanged(nameof(ImageType));
             }
         }
 
@@ -165,7 +177,7 @@ namespace SpriteEditor.ViewModels
 
         public void SaveToFile(string file)
         {
-            FileSaver.Save(EditorSettings, file, SelectedColor.NativeColor, MaskNativeColor);
+            FileSaver.Save(EditorSettings, file, SelectedColor.NativeColor, MaskNativeColor, ImageType);
             FirePropertyChanged(nameof(Title));
         }
 
@@ -188,6 +200,12 @@ namespace SpriteEditor.ViewModels
                     vm.SetPixel(a, rightIndex, y);
                 }
             }
+        }
+
+        public void SetImageType(string imageType)
+        {
+            var imType = (ImageType)Enum.Parse(typeof(ImageType), imageType);
+            ImageType = imType;
         }
 
         #endregion Public methods

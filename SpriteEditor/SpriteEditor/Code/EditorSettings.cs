@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SpriteEditor.Code.Enums;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -63,6 +64,8 @@ namespace SpriteEditor
         }
 
         public string FilePath { get; set; }
+
+        public ImageType ImageType { get; set; }
 
         #endregion Public properties
     }

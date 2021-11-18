@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
+using SpriteEditor.Code.Enums;
 using SpriteEditor.Code.Storage;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SpriteEditor.Code
 {
@@ -20,7 +17,7 @@ namespace SpriteEditor.Code
             public uint[] Mask { get; set; }
         }
 
-        public static void Save(EditorSettings editor, string path, uint nativeColor, uint maskNativeColor)
+        public static void Save(EditorSettings editor, string path, uint nativeColor, uint maskNativeColor, ImageType imageType)
         {
             editor.FilePath = path;
             var ext = Path.GetExtension(path);
@@ -30,8 +27,8 @@ namespace SpriteEditor.Code
                     SaveNative(editor, path);
                     break;
 
-                case ".msk":
-                    ExportMask.Save(path, editor.VideoMemory, nativeColor, maskNativeColor);
+                case ".dat":
+                    ExportData.Save(path, editor.VideoMemory, nativeColor, maskNativeColor, imageType);
                     break;
 
                 default:
