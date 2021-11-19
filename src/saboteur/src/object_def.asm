@@ -48,6 +48,7 @@ osabotr	EQU 1		; saboteur
 odog	EQU 2		; dog
 oguard	EQU 3		; guard
 ogun	EQU 4		; gun
+ostobj  EQU 5		; static object with mask
 
 ; ---- displacements from the beginning of the control block
 ;
@@ -103,7 +104,7 @@ stobjsz EQU 4
 		endm
 
 		macro mkmasko address,colnum,rownum
-		mkctrlb 0,maskoproc,0,0,scrbuf,address,0,colnum,rownum
+		mkctrlb ostobj,maskoproc,0,0,scrbuf,address,0,colnum,rownum
 		dw 0
 		endm
 

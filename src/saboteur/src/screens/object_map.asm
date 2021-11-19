@@ -10,23 +10,23 @@ s3objm:
 
 s4objm:	
 		db 9
-		mkmasko fencert,11,11
-		mkmasko fencert,12,10
-		mkmasko fencert,13,9
-		mkmasko fencert,14,8
-		mkmasko fencert,15,7
-		mkmasko fencert,16,6
-		mkmasko fencert,17,5
-		mkmasko fencertl,18,5
+		mkmasko fencert,11,13
+		mkmasko fencert,12,12
+		mkmasko fencert,13,11
+		mkmasko fencert,14,10
+		mkmasko fencert,15,9
+		mkmasko fencert,16,8
+		mkmasko fencert,17,7
+		mkmasko fencertl,18,7
 		mkgun dirlt,gunlt,0,17,1
 
 s7objm:
 		db 5
 		mkgun dirlt,gunlt,0,16,6
-		mkmasko fencert,21,11
-		mkmasko fencert,22,10
-		mkmasko fencert,23,9
-		mkmasko fencertl,24,9
+		mkmasko fencert,21,13
+		mkmasko fencert,22,12
+		mkmasko fencert,23,11
+		mkmasko fencertl,24,11
 
 s8objm:
 		db 2

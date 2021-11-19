@@ -326,6 +326,9 @@ scrch1_:
 		and a		
 		jp z,drawobj1		; do not draw if no
 		
+		ld a,1
+		ld (fstrendr),a		; set flag for first render
+
 		call decmrscr		; decompress new screen map
 		
         call drawbkgr		; draw background
@@ -348,7 +351,10 @@ drawobj2:
 		call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar
-		
+
+		xor a
+		ld (fstrendr),a		; reset set flag for first render
+
 		ret
 			
 			

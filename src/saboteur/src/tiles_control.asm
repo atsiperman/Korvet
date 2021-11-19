@@ -41,10 +41,8 @@ rsttile1:
 		inc hl			; move to tile state
 
 		ld a,(hl)		; load tile state				
-		; inc hl			; move to attributes
-		; inc hl 			; move to data
-		or a				; check state
-		jp z,rsttile2		; continue if this tile was/is not occupied
+		or a			; check state
+		jp z,rsttile2	; continue if this tile was/is not occupied
 
 		inc hl			; move to attributes
 		ld a,(hl)
@@ -69,13 +67,47 @@ rsttile3:
 		
 		jp rsttile1		
 		
+
+		define CHECK_MASKED_OBJTYPE	1		
+
 ; ----- updates tile map for sprite
 ;		
 ; args: 
 ;		HL - address of the object's control block
 ;		DE - address of the sprite
-		
+_objtyp:
+		db 0			; object type		
 updtilem:			
+	if CHECK_MASKED_OBJTYPE
+		ld a,(fstrendr)
+		or a
+		jp z,uptlm11_
+
+		push hl
+		ld hl,uptlm2_		
+		ld (hl),0
+		inc hl		
+		ld (hl),0
+		inc hl		
+		ld (hl),0
+		pop hl
+		jp uptlm12_
+
+uptlm11_:
+		push hl
+		ld hl,uptlm2_		
+		ld (hl),0C3h
+		inc hl		
+		ld (hl),LOW uptlm3
+		inc hl		
+		ld (hl),HIGH uptlm3
+		pop hl
+
+		ld a,(hl)		; load object type
+		ld (_objtyp),a	; save object type
+	endif
+
+uptlm12_:
 		push de			; save sprite address
 		call rdsprpos		
 		ex de,hl		; address of current position in screen buffer in HL
@@ -95,10 +127,27 @@ updtilem:
 		
 		push bc			; save width in C
 		
-uptlm1:		
+uptlm1:	
+
+	if CHECK_MASKED_OBJTYPE
+
+		ld a,(_objtyp)
+		cp ostobj
+		jp nz,uptlm2	; not an object with mask, keep going
+
+		ld a,(hl)
+		and 0F0h
+		jp nz,uptlm3	; has been occupied, will be cleared, do not mark as occupied
+
+uptlm2_:
+		jp uptlm3
+
+uptlm2:
+	endif
 		ld a,1000b		; mark as occupied
 		ld (hl),a
 
+uptlm3:
 		skip_buf_tile hl	; move to the next tile
 		dec c
 		jp nz,uptlm1	; next column
