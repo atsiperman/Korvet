@@ -70,7 +70,7 @@ odmaxc	EQU 17		; 17, max column
 odcbend EQU 18		; end of the control block
 
 objsize EQU	odcbend - odtype
-stobjsz EQU 4
+stobjsz EQU 6
 
 ; ----	makes control block for an object
 ;
@@ -99,8 +99,10 @@ stobjsz EQU 4
 		endm
 
 		macro mkstobj address,colnum,rownum
-		dw SCRADDR + colnum + rownum * 64 * 8	; start address in video RAM
-		dw address								; pointer to image data
+		db colnum
+		db rownum
+		dw address									; pointer to image data
+		dw SCRADDR + colnum + rownum * 64 * 8		; start address in video RAM
 		endm
 
 		macro mkmasko address,colnum,rownum

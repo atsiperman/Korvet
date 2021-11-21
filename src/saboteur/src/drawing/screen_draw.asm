@@ -286,7 +286,7 @@ drwobjs1:
 ; ----- draws static objects
 ;
 drawstos:
-		ld hl,(sobjlst)		; HL - address of the object list
+		ld hl,(sobjlst)		; HL - address of the static objects list
 		ld a,h
 		or l
 		ret z				; address is zero - exit
@@ -299,9 +299,20 @@ _drwsto1:
 		push hl
 		push af
 		
-		load_de_hl			; load pointer to video RAM into DE
+		ld d,(hl)			; load X
+		inc hl				
+		ld e,(hl)			; load Y
+		inc hl
 		load_bc_hl			; load object address into BC
-		
+
+		push hl
+		push bc		
+		call stotiles		; set tiles occupied by static object
+		pop bc				; restore object address
+		pop hl				; restore object pointer
+
+		load_de_hl			; load pointer to video RAM into DE		
+
 		call drawsto
 		pop af
 		pop hl
@@ -330,9 +341,9 @@ scrch1_:
 		ld (fstrendr),a		; set flag for first render
 
 		call decmrscr		; decompress new screen map
-		
-        call drawbkgr		; draw background
 		call drawstos		; draw static objects
+
+        call drawbkgr		; draw background
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		

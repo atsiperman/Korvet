@@ -237,6 +237,53 @@ nextline:
 	ret	
 		
 
+; ----- marks tiles, occupied by static objects
+;
+; args: BC - address of the static object
+;       DE - X,Y
+;			
+stotiles:
+        push bc
+        call shscradr           ; HL - pointer to attributes in the screen buffer
+        pop bc
+        ld a,(bc)               ; load object width
+        ld e,a
+        inc bc                  ; move to height
+        ld a,(bc)               ; height in bytes in D
+        rra
+        rra
+        rra                     ; divide by 8
+        ld d,a
+        ld a,e                  ; load object width
+        cp 4
+        jp z, _sttil4
+        ld a,stotile + fgtile
+        ld bc,ROWWIDB - (COLWIDB * 3)
+_sttil1:
+        dup 3          
+          ld (hl),a
+          skip_buf_tile hl
+        edup
+        dec d
+        ret z
+        add hl,bc
+        jp _sttil1
+
+        
+_sttil4:
+        ld a,stotile + fgtile
+        ld bc,ROWWIDB - (COLWIDB * 4)
+_sttil2:        
+        dup 4          
+          ld (hl),a
+          skip_buf_tile hl
+        edup
+        dec d
+        ret z
+        add hl,bc
+        jp _sttil2
+
+
         macro DRWSTOB   ; draw static object byte
                 ld a,(bc)       ; load foreground color         
                 rla     
@@ -281,12 +328,12 @@ nextline:
 ;       DE - address in video memory
 ;			
 drawsto:
-        ld a,(bc)       ; load width
+        ld a,(bc)               ; load width
         cp 4
-        jp z, drawsto4  ; draw 4x4 object
+        jp z, drawsto4          ; draw 4x4 object
 
 drawsto3:
-        ld a,0C3h        ; C3 - JP <address> code
+        ld a,0C3h               ; C3 - JP <address> code
         ld hl,_drwso1           ; skip drawing 4-th columns for 3x3 object
         ld (hl),a
         inc hl
@@ -304,8 +351,8 @@ drawsto3:
         jp _drwstos
 
 drawsto4:
-        xor a           ; 00 - NOP
-        ld hl,_drwso1   ; overwrite jump instructions
+        xor a                   ; 00 - NOP
+        ld hl,_drwso1           ; overwrite jump instructions
         dup 3
           ld (hl),a
           inc hl

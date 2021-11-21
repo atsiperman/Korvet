@@ -89,7 +89,7 @@ scrn71:	mkscreen scrbk71, scrn72,scrn70, 0, scrn6, 0
 scrn72:	mkscreen scrbk72, 0,scrn71, scrn73, scrn4, 0
 scrn73:	mkscreen2 scrbk73, 0,scrn74, 0, scrn72, 0, s73stom
 scrn74:	mkscreen2 scrbk74, scrn73,scrn75, 0, scrn71, 0, s74stom
-scrn75:	mkscreen scrbk75, scrn74,0, scrn84, scrn70, 0
+scrn75:	mkscreen2 scrbk75, scrn74,0, scrn84, scrn70, 0, s75stom
 
 scrn77:	mkscreen scrbk77, 0,scrn78, scrn82, scrn68, 0
 scrn78:	mkscreen scrbk78, scrn77,scrn79, 0, 0, 0

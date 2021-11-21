@@ -35,3 +35,13 @@ s74stom:
         mkstobj box3img, 20, 12
         mkstobj box34img, 25, 13
 
+
+s75stom:
+        db 7
+        mkstobj box34img, 2, 13
+        mkstobj box34img, 4, 10
+        mkstobj box3img, 7, 13
+        mkstobj barelimg, 12,13
+        mkstobj box3img, 24, 13
+        mkstobj box3img, 19, 13
+        mkstobj box34img, 21, 10
