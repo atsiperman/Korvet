@@ -653,45 +653,14 @@ smap48e:
 		mkbyte 2,3
 		mkline 9
 		db 0
-
-		db 0
-		mkline 4
-		mkbyte 1,1
-		mkbyte 2,3
-		mkline 8
-		mkbyte 1,1
-		db 0
-
-		mkdup 3
+		
+		mkdup 7
 			db 0
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte 1,1
+			mkline 4
 			mkbyte 1,1
 			mkbyte 2,3
 			mkline 8
 			mkbyte 1,1
-			db 0
-		;edup
-
-		mkdup 3
-			db 0
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,1
-
-			mkbyte 2,3
-
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-
-			mkline 4
-			mkbyte 1,1
-
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,1
-
 			db 0
 		;edup
 		
@@ -739,65 +708,64 @@ smap49e:
 		;edup
 		
 		db 0
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 4
 		mkbyte 1,1
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,STATOBJ
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 1,2
-		mkbyte 3,1		
+		mkbyte 3,1
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 4,1
 		
-		mkdup 3
-			db 0
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,STATOBJ		
-			mkline 3
-			mkbyte 1,1
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte 1,1
-			mkbyte 1,2
-			mkbyte 3,1
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte 4,1
-		;edup
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
 
-		; db 0
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkline 3
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,2
-		; mkbyte 3,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 4,1
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
 
-		; db 0
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkline 3
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 1,2
-		; mkbyte 3,1
-		; mkbyte 1,1
-		; mkbyte 1,1
-		; mkbyte 4,1
+		db 0
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 3
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 1,2
+		mkbyte 3,1
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,1
 
 		mkline 4
 		db 0

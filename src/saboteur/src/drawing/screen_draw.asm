@@ -196,45 +196,11 @@ decmprs3:
 		rra		
 		and 15				; index of the first sprite in A
 
-		cp STATOBJ
-		jp nz,_dcmpr31		; not a static object, normal decompress
-
-							; init tile for a static object
-		inc de			
-		inc de				; skip sprite address
-		xor a				; clear tile state
-		ld (de),a			; save tile state
-		inc de				; move to attributes
-		ld a,stotile + fgtile
-		ld (de),a			; mark tile as a static object
-		inc de
-		skip_buf_tile_data de 	; skip data bytes
-
-		jp _dcmpr32
-
-_dcmpr31:
 		PUTBSC_				;  put first compressed byte to the shadow screen
 		
-_dcmpr32:		
 		ld a,(hl)			; restore compressed byte		
 		and 15				; index of the first sprite in A
 
-		cp STATOBJ
-		jp nz,_dcmpr33		; not a static object, normal decompress
-
-							; init tile for a static object
-		inc de			
-		inc de				; skip sprite address
-		xor a				; clear tile state
-		ld (de),a			; save tile state
-		inc de				; move to attributes
-		ld a,stotile + fgtile	
-		ld (de),a			; mark tile as a static object
-		inc de
-		skip_buf_tile_data de 	; skip data bytes
-		jp _dcmpr34
-
-_dcmpr33:
 		PUTBSC_				;  put second compressed byte to the shadow screen
 							; ----- end decompresses byte 		
 _dcmpr34:

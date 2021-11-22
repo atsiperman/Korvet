@@ -247,7 +247,7 @@ smap73b:
 		bkindex BK11ADDR    ; 4, blue ladder left top
 		bkindex BK12ADDR    ; 5, blue ladder right top		
 smap73e:
-		mkdup 9
+		mkdup 11
 			db 0
 			mkbyte 1,1
 			mkline 13
@@ -255,62 +255,19 @@ smap73e:
 		;edup
 		
 		db 0
-		mkline 7
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 5
-		mkbyte 1,1
-
 		db 0
-		mkline 7
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 3
-		mkbyte 1,1
-
-		db 0
-		db 0
-		mkline 3
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 3
+		mkline 13
 		mkbyte 1,1
 
 		db 0
 		db 0
 		mkbyte 0,1
-		mkbyte 1,1
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte 1,STATOBJ
-		mkline 4
-		mkbyte STATOBJ,STATOBJ
-		mkline 3
+		mkline 12
 		mkbyte 1,1
 		
-
 		mkline 3
 		db 0
-		mkbyte 1,1
-		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 4
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,1
+		mkline 12
 		mkbyte 1,1
 		
 		mkline 4
@@ -318,10 +275,8 @@ smap73e:
 		mkbyte 4,5
 		db 0
 		db 0
-		mkbyte 0,STATOBJ
-		mkline 5
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,1
+		mkbyte 0,1
+		mkline 7
 		mkbyte 1,1
 
 		mkline 4
@@ -329,10 +284,8 @@ smap73e:
 		mkbyte 2,3
 		mkline 5
 		db 0
-		mkbyte 0,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,1
+		mkbyte 0,1
+		mkline 4
 		mkbyte 1,1
 
 		mkline 4
@@ -350,7 +303,7 @@ smap74b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L		
 smap74e:
-		mkdup 12
+		mkdup 15
 			mkbyte 1,1
 			mkbyte 1,1
 			mkline 13
@@ -359,31 +312,6 @@ smap74e:
 		
 		mkline 3
 		mkbyte 1,1
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkline 5
-		mkbyte 1,1
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,1
-		mkline 3
-		mkbyte 1,1
-
-		mkdup 2
-			mkline 3
-			mkbyte STATOBJ,STATOBJ
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkline 5
-			mkbyte 1,1
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,1
-			mkbyte 1,STATOBJ
-			mkbyte STATOBJ,STATOBJ
-			mkbyte STATOBJ,1
-		;edup
-
-		mkline 3
-		mkbyte STATOBJ,STATOBJ
 		mkline 3
 		db 0
 		mkbyte 0,1
@@ -391,9 +319,8 @@ smap74e:
 		mkbyte 1,1
 		mkline 3
 		db 0
-		mkbyte 1,STATOBJ
-		mkbyte STATOBJ,STATOBJ
-		mkbyte STATOBJ,1
+		mkline 3
+		mkbyte 1,1
 		
 		mkline 6
 		db 0
