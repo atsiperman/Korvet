@@ -161,6 +161,12 @@ smap84e:
 		mkbyte 1,1
 		mkbyte 4,1
 		
+		mkline 8
+		db 0
+		mkbyte 2,3		
+		mkline 6
+		db 0
+
 		mscrend
 ; --- end of scrbk84
 

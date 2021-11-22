@@ -255,8 +255,10 @@ stotiles:
         rra                     ; divide by 8
         ld d,a
         ld a,e                  ; load object width
+        cp 2
+        jp z, _sttil21
         cp 4
-        jp z, _sttil4
+        jp z, _sttil41
         ld a,stotile + fgtile
         ld bc,ROWWIDB - (COLWIDB * 3)
 _sttil1:
@@ -269,12 +271,11 @@ _sttil1:
         add hl,bc
         jp _sttil1
 
-        
-_sttil4:
+_sttil21:        
         ld a,stotile + fgtile
-        ld bc,ROWWIDB - (COLWIDB * 4)
-_sttil2:        
-        dup 4          
+        ld bc,ROWWIDB - (COLWIDB * 2)
+_sttil2:
+        dup 2     
           ld (hl),a
           skip_buf_tile hl
         edup
@@ -282,6 +283,19 @@ _sttil2:
         ret z
         add hl,bc
         jp _sttil2
+        
+_sttil41:
+        ld a,stotile + fgtile
+        ld bc,ROWWIDB - (COLWIDB * 4)
+_sttil4:        
+        dup 4          
+          ld (hl),a
+          skip_buf_tile hl
+        edup
+        dec d
+        ret z
+        add hl,bc
+        jp _sttil4
 
 
         macro DRWSTOB   ; draw static object byte
@@ -329,6 +343,8 @@ _sttil2:
 ;			
 drawsto:
         ld a,(bc)               ; load width
+        cp 2
+        jp z,_drwsto2
         cp 4
         jp z, drawsto4          ; draw 4x4 object
 
@@ -409,4 +425,43 @@ _drwso5:
         ex de,hl        ; save new pointer ino DE
         jp _drwso31     ; continue loop
 
-				
+
+; ----- draws static object, having width of 2 columns, in video memory
+; args: BC - address of the static object
+;       DE - address in video memory
+;							
+_drwsto2:
+        inc bc          ; move to height
+        ld a,(bc)       ; load object height
+        or a            ; clear CY
+        rra             ; divide by 2
+        ld l,a          ; save in L
+        push hl         ; save height counter
+
+        inc bc          ; move to data bytes
+
+_drws2_1:
+        ld hl,COLRREG	        ; set color register
+                
+        dup 2
+        DRWSTOB
+        edup
+
+        push hl         ; save color reg
+        ld hl,63        ; load displacement to the video line in the last column
+        add hl,de
+        ex de,hl        ; save new address of video cell in DE
+        pop hl
+
+        dup 2
+        DRWSTOBD
+        edup
+
+        pop hl          ; restore height counter
+        dec l
+        ret z
+        push hl         ; save decreased counter 
+        ld hl,65        ; load displacement to the video line in the initial column
+        add hl,de
+        ex de,hl        ; save new pointer ino DE
+        jp _drws2_1     ; continue loop

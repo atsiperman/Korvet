@@ -13,8 +13,8 @@ s48stom:
 s49stom:
         db 4
         mkstobj barelimg, 5, 11
-        mkstobj box4img, 2, 10
-        mkstobj box4img, 14, 10
+        mkstobj box44img, 2, 10
+        mkstobj box44img, 14, 10
         mkstobj box3img, 25, 11
 
 s73stom:
@@ -33,15 +33,53 @@ s74stom:
         mkstobj barelimg, 3, 13
         mkstobj barelimg, 7, 12
         mkstobj box3img, 20, 12
-        mkstobj box34img, 25, 13
+        mkstobj box43img, 25, 13
 
 
 s75stom:
         db 7
-        mkstobj box34img, 2, 13
-        mkstobj box34img, 4, 10
+        mkstobj box43img, 2, 13
+        mkstobj box43img, 4, 10
         mkstobj box3img, 7, 13
         mkstobj barelimg, 12,13
         mkstobj box3img, 24, 13
         mkstobj box3img, 19, 13
-        mkstobj box34img, 21, 10
+        mkstobj box43img, 21, 10
+
+s84stom:
+        db 7
+        mkstobj box3img, 2, 12
+        mkstobj box3img, 6, 13
+        mkstobj barelimg, 10, 13
+        mkstobj barelimg, 13,13
+        mkstobj barelimg, 12, 10
+        mkstobj box43img, 19, 13
+        mkstobj box3img, 25, 13
+
+s85stom:
+        db 4
+        mkstobj barelimg, 2, 12
+        mkstobj barelimg, 3, 9
+        mkstobj box43img, 4, 12
+        mkstobj box3img, 21, 12
+
+s86stom:
+        db 8
+        mkstobj barelimg, 2, 12
+        mkstobj barelimg, 5, 12
+        mkstobj barelimg, 16, 12
+        mkstobj barelimg, 19, 12
+        mkstobj barelimg, 22, 12
+        mkstobj barelimg, 18, 9
+        mkstobj barelimg, 21, 9
+        mkstobj barelimg, 19, 6
+
+s87stom:
+        db 7
+        mkstobj box44img, 17, 12
+        mkstobj barelimg, 2, 10
+        mkstobj barelimg, 3, 13
+        mkstobj box22img, 14, 14
+        mkstobj box22img, 20, 14
+        mkstobj box22img, 23, 14
+        mkstobj barelimg, 26, 13
