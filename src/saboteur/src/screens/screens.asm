@@ -25,6 +25,70 @@ DUPLEN	EQU 14 << 4
 		
 scrbk1:
 scrbk2:
+		spmaplen smap2b,smap2e
+smap2b:			
+		bkindex BK5ADDR		; 0, 	solid blue
+		bkindex BK2ADDR		; 1, 	wall
+		bkindex BK40ADDR	; 2,	underwater floor
+		bkindex BK42ADDR	; 3,	moorage, vertical part
+		bkindex BK41ADDR	; 4,	moorage, horizontal part
+		bkindex BK43ADDR	; 5,	water layer
+		bkindex BK44ADDR	; 6,    invisible ladder
+		bkindex BK45ADDR	; 7 ,   water layer, ladder
+smap2e:										
+							; 1st line
+		mkdup 7
+			mkline 14
+			db 0
+			db 0
+		;edup
+
+		mkline 4
+		db 0
+		mkline 9
+		mkbyte 4,4
+		mkbyte 4,1		
+		mkbyte 1,1
+
+		mkdup 4
+			mkline 4
+			db 0
+			mkbyte 6,3
+			db 0
+			db 0
+			mkbyte 3,6
+			db 0
+			mkbyte 6,3
+			db 0
+			mkbyte 0,1
+			mkline 3
+			mkbyte 1,1
+		;edup
+
+		mkdup 4
+			mkline 4
+			mkbyte 5,5
+			mkbyte 7,7
+			mkbyte 5,5
+			mkbyte 5,5
+			mkbyte 7,7
+			mkbyte 5,5
+			mkbyte 7,7
+			mkbyte 5,5
+			mkbyte 5,1
+			mkline 3
+			mkbyte 1,1
+		;edup 
+
+		mkline 11
+		mkbyte 2,2
+		mkbyte 2,1
+		mkline 3
+		mkbyte 1,1
+
+		mscrend
+
+; --- end of scrbk2
 
 scrbk3:
 		spmaplen smap3b,smap3e

@@ -1,7 +1,7 @@
 ;
 ;	this file contains definitions of static objects for all the screens
 ;
-
+        
 s48stom:
         db 5
         mkstobj barelimg, 3, 10
@@ -83,3 +83,21 @@ s87stom:
         mkstobj box22img, 20, 14
         mkstobj box22img, 23, 14
         mkstobj barelimg, 26, 13
+
+s89stom:
+        db 13
+        mkstobj barelimg, 2, 13
+        mkstobj barelimg, 5, 13
+        mkstobj barelimg, 8, 13
+        mkstobj barelimg, 11, 13
+        mkstobj barelimg, 3, 10
+        mkstobj barelimg, 6, 10
+        mkstobj barelimg, 9, 10
+        mkstobj barelimg, 5, 7
+        mkstobj barelimg, 8, 7
+        mkstobj barelimg, 6, 4
+        mkstobj barelimg, 18, 13
+        mkstobj barelimg, 22, 13
+        mkstobj barelimg, 25, 13
+
+

@@ -15,10 +15,11 @@ stobjmpd equ 12 	; static object map
 
 ; ---- map of screens
 scrn1:
-scrn3:	mkscreen scrbk3, 0, scrn4, 0, 0, s3objm
+scrn2:	mkscreen scrbk2, 0,     scrn3, 0, 0, 0
+scrn3:	mkscreen scrbk3, scrn2, scrn4, 0, 0, s3objm
 scrn4:	mkscreen scrbk4, scrn3, scrn5, scrn72, 0, s4objm
 scrn5:	mkscreen scrbk5, scrn4, scrn6, 0, 0, 0
-scrn6:	mkscreen scrbk6, scrn5, scrn7, scrn70, scrn11, 0
+scrn6:	mkscreen scrbk6, scrn5, scrn7, scrn70, scrn11, s6objm
 scrn7:	mkscreen scrbk7, scrn6, scrn8, 0, scrn12, s7objm
 scrn8:	mkscreen scrbk8, scrn7, 0, scrn68, scrn13, s8objm
 scrn9:	mkscreen scrbk9, 0, scrn10,scrn67, scrn14, s9objm
@@ -104,7 +105,7 @@ scrn85:	mkscreen2 scrbk85, scrn86,scrn84, 0,scrn74, 0, s85stom
 scrn86:	mkscreen2 scrbk86, 0,scrn85, scrn87,0, 0, s86stom
 scrn87:	mkscreen2 scrbk87, 0,scrn88, scrn100,scrn86, 0, s87stom
 scrn88:	mkscreen scrbk81, scrn87,scrn89, 0,0, 0
-scrn89:	mkscreen scrbk89, scrn88,0, scrn98,0, 0
+scrn89:	mkscreen2 scrbk89, scrn88,0, scrn98,0, 0, s89stom
 
 scrn91:	mkscreen scrbk91, 0,scrn92, 0,scrn82, 0
 scrn92:	mkscreen scrbk92, scrn91,scrn93, 0,0, 0

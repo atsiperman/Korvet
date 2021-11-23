@@ -242,6 +242,13 @@ nextline:
 ; args: BC - address of the static object
 ;       DE - X,Y
 ;			
+        macro SETSTO
+          ld a,(hl)
+          or stotile + fgtile
+          ld (hl),a
+          skip_buf_tile hl
+        endm
+
 stotiles:
         push bc
         call shscradr           ; HL - pointer to attributes in the screen buffer
@@ -259,12 +266,10 @@ stotiles:
         jp z, _sttil21
         cp 4
         jp z, _sttil41
-        ld a,stotile + fgtile
         ld bc,ROWWIDB - (COLWIDB * 3)
 _sttil1:
-        dup 3          
-          ld (hl),a
-          skip_buf_tile hl
+        dup 3        
+          SETSTO
         edup
         dec d
         ret z
@@ -272,12 +277,10 @@ _sttil1:
         jp _sttil1
 
 _sttil21:        
-        ld a,stotile + fgtile
         ld bc,ROWWIDB - (COLWIDB * 2)
 _sttil2:
         dup 2     
-          ld (hl),a
-          skip_buf_tile hl
+          SETSTO
         edup
         dec d
         ret z
@@ -285,12 +288,10 @@ _sttil2:
         jp _sttil2
         
 _sttil41:
-        ld a,stotile + fgtile
         ld bc,ROWWIDB - (COLWIDB * 4)
 _sttil4:        
         dup 4          
-          ld (hl),a
-          skip_buf_tile hl
+          SETSTO
         edup
         dec d
         ret z

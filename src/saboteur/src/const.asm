@@ -49,9 +49,10 @@ CBLUE		EQU 0
 CGREEN		EQU 1
 CRED        EQU 2
 CYELLOW		EQU 3
-
 CBLACK		EQU 4
 
+CWHITE		EQU 2		; CRED
+CCYAN		EQU 3 		; CYELLOW			
 
 CMAIN 		EQU CBLACK			; color of the main character
 
