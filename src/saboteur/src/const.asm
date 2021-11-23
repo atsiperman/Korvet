@@ -6,6 +6,15 @@ TSYSREG 	EQU 0fa00h + SYSREG
 
 
 TRAM		EQU 0fc00h
+TSTARTC		EQU 17			; start colnum number in text RAM
+TSTARTR		EQU 2			; start row number in text RAM
+TLINELEN    EQU 64			; length of the text line
+;CHFULL		EQU 191			; full tile occupied
+;CHTOP		EQU 143
+
+CHFULL		EQU 171			; full tile occupied
+CHBOTM		EQU 172
+CHTOP		EQU 175
 
 GCONFIG 	EQU 6Ch
 GREGBASE 	EQU 0bf00h
@@ -18,6 +27,7 @@ TVIREG		EQU TVRGBASE + 3ah
 
 ATRSET  	EQU 10h 		; set inversion attr
 ATRRES  	EQU 20h			; reset inversion attr
+ALTCHAR		EQU 4			; alternative character set
 
 GRAM    	EQU 0c000h
 GRAMLEN 	EQU 4000h

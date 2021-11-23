@@ -2,6 +2,14 @@ SCREND	EQU 255
 LINELEN EQU 15 << 4
 DUPLEN	EQU 14 << 4
 
+TXLINEV EQU 1
+TXLINEH EQU 2
+
+
+		macro mktxtaddr colnum, rownum
+		dw TRAM + TSTARTC + colnum + 64*(TSTARTR + rownum)
+		endm
+
 		; sprite map length
 		macro spmaplen	bmap, emap
 		db	(emap - bmap)
@@ -85,6 +93,33 @@ smap2e:
 		mkbyte 2,1
 		mkline 3
 		mkbyte 1,1
+
+		mscrend
+
+scrn2txd:					; description of the text RAM used by this screen
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHBOTM
+
+		mkbyte TXLINEH,8
+			mktxtaddr 15, 6
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+
+		mkbyte TXLINEH,8
+			mktxtaddr 15, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+
+		mkbyte TXLINEH,8
+			mktxtaddr 15, 8
+			db CHTOP
 
 		mscrend
 

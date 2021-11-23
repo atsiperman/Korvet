@@ -277,6 +277,33 @@ smap103e:
 		
 		mscrend
 		
+scrn103txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 19, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,2
+			mktxtaddr 13, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 3
+			db CHTOP
+
+		mscrend
+
 ; --- end of scrbk103
 
 

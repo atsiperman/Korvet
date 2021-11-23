@@ -1,9 +1,13 @@
+		macro mkscreen3 scraddr, leftscr, rightsrc, upscr, downscr,objmap,stomap,txtscrd
+		dw scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap, txtscrd
+		endm
+
 		macro mkscreen2 scraddr, leftscr, rightsrc, upscr, downscr,objmap,stomap
-		dw scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap
+		mkscreen3 scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap, 0
 		endm
 
 		macro mkscreen scraddr, leftscr, rightsrc, upscr, downscr,objmap
-		mkscreen2 scraddr, leftscr, rightsrc, upscr, downscr,objmap, 0
+		mkscreen2 scraddr, leftscr, rightsrc, upscr, downscr, objmap, 0
 		endm
 
 leftscrd equ 2		; displacement of left screen's address from the screen map
@@ -15,7 +19,7 @@ stobjmpd equ 12 	; static object map
 
 ; ---- map of screens
 scrn1:
-scrn2:	mkscreen scrbk2, 0,     scrn3, 0, 0, 0
+scrn2:	mkscreen3 scrbk2, 0,     scrn3, 0, 0, 0, 0, scrn2txd
 scrn3:	mkscreen scrbk3, scrn2, scrn4, 0, 0, s3objm
 scrn4:	mkscreen scrbk4, scrn3, scrn5, scrn72, 0, s4objm
 scrn5:	mkscreen scrbk5, scrn4, scrn6, 0, 0, 0
@@ -120,7 +124,7 @@ scrn99:	mkscreen scrbk99, scrn100,scrn98, scrn102,0, 0
 scrn100:	mkscreen scrbk100, 0,scrn99, 0,scrn87, 0
 scrn101:	mkscreen scrbk101, 0,scrn102, 0,0, 0
 scrn102:	mkscreen scrbk102, scrn101,scrn103, 0,scrn99, 0
-scrn103:	mkscreen scrbk103, scrn102,0, scrn112,0, 0
+scrn103:	mkscreen3 scrbk103, scrn102,0, scrn112,0, 0, 0, scrn103txd
 scrn104:	mkscreen scrbk104, 0,scrn105, 0,0, 0
 scrn105:	mkscreen scrbk105, scrn104,scrn106, scrn110,0, 0
 scrn106:	mkscreen scrbk106, scrn105,scrn107, 0,scrn95, 0

@@ -125,7 +125,7 @@ BK24DATA:	bksh2 CYELLOW,bladder						; yellow ladder left
 BK25DATA:	bksh2 CYELLOW,bladder						; yellow ladder right
 			DB 9,205,205,13,13,205,201,15
 
-BK26DATA:	bksh CBLUE									; cyan vertical tube
+BK26DATA:	bksh CCYAN									; cyan vertical tube
 			DB 102,70,70,102,98,102,102,102
 			
 BK27DATA:	bksh3 CYELLOW,CRED,bwall					; red left top edge

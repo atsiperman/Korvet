@@ -62,10 +62,10 @@ ctslop: ld (hl),d
 ;
         macro   GRMODON 
 
-        ld hl,TSYSREG
+        ;ld hl,TSYSREG
         ld a,GCONFIG
         ;di
-        ld (hl),a
+        ld (TSYSREG),a
 
         endm
 
@@ -73,9 +73,9 @@ ctslop: ld (hl),d
 ;
         macro   GRMODOFF 
 
-        ld hl,GSYSREG
+        ;ld hl,GSYSREG
         ld a,1ch
-        ld (hl),a
+        ld (GSYSREG),a
         ;ei
 
         endm
@@ -466,3 +466,126 @@ _drws2_1:
         add hl,de
         ex de,hl        ; save new pointer ino DE
         jp _drws2_1     ; continue loop
+
+
+; ----- clears text ram for current screen
+;
+clrtxscr:
+        ld hl,(tramdef)
+        ld a,h
+        or l
+        ret z				; address is zero, nothing to draw
+                
+        GRMODOFF
+
+_clrtxs1:
+        ld a,(hl)
+        inc hl
+        ld c,a                  ; save in C
+        cp SCREND
+        jp z,_clrtxse           ; end of data
+
+        and 0F0h                ; leave hi half
+        cp TXLINEV << 4
+        jp z,_clrtxs3           ; process vertical line
+
+        ld a,c                  ; reload data byte
+        and 0Fh			; leave counter
+        ld c,a
+        load_de_hl              ; load text RAM address
+        xor a   		; byte to clear 
+        inc hl
+
+_clrtxs2:
+        ld (de),a               ; set character
+        inc de                  ; move to the next column
+        dec c
+        jp nz, _clrtxs2
+        jp _clrtxs1
+
+_clrtxs3:
+        ld a,c                  ; reload data byte
+        and 0Fh			; leave counter
+        ld c,a
+        load_de_hl              ; load text RAM address
+        xor a   		; byte to clear 
+        inc hl
+        push hl
+
+_clrtxs4:
+        ld (de),a               ; set character
+        push bc
+        ld bc,64
+        ex de,hl
+        add hl,bc               ; move to the next line in text ram
+        ex de,hl
+        pop bc
+        dec c
+        jp nz, _clrtxs4
+        pop hl
+        jp _clrtxs1
+
+_clrtxse:
+        GRMODON
+        ret
+
+; ----- draws text ram for current screen
+;
+drawtram:       
+        ld hl,(tramdef)
+        ld a,h
+        or l
+        ret z				; address is zero, nothing to draw
+                
+        GRMODOFF
+
+_drtram1:
+        ld a,(hl)
+        inc hl
+        ld c,a                  ; save in C
+        cp SCREND
+        jp z,_drtrame           ; end of data
+
+        and 0F0h                ; leave hi half
+        cp TXLINEV << 4
+        jp z,_drtram3           ; process vertical line
+
+        ld a,c                  ; reload data byte
+        and 0Fh			; leave counter
+        ld c,a
+        load_de_hl              ; load text RAM address
+        ld a,(hl)		; load byte
+        inc hl
+
+_drtram2:
+        ld (de),a               ; set character
+        inc de                  ; move to the next column
+        dec c
+        jp nz, _drtram2
+        jp _drtram1
+
+_drtram3:
+        ld a,c                  ; reload data byte
+        and 0Fh			; leave counter
+        ld c,a
+        load_de_hl              ; load text RAM address
+        ld a,(hl)		; load byte
+        inc hl
+        push hl
+
+_drtram4:
+        ld (de),a               ; set character
+        push bc
+        ld bc,64
+        ex de,hl
+        add hl,bc               ; move to the next line in text ram
+        ex de,hl
+        pop bc
+        dec c
+        jp nz, _drtram4
+        pop hl
+        jp _drtram1
+
+_drtrame:
+        GRMODON
+        ret

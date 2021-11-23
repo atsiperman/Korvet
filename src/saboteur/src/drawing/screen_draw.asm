@@ -110,9 +110,14 @@ decmprs5:
 		ld hl,(curscr)		; pointer to screen control block
 		ld bc,stobjmpd
 		add hl,bc
-		load_de_hl			; load static object map address
+		load_de_hl			; load static object map address to DE
 		ex de,hl
 		ld (sobjlst),hl		; save pointer to the list of static objects
+
+		ex de,hl
+		load_de_hl			; load text RAM definition
+		ex de,hl
+		ld (tramdef),hl
 
 		ret
 				
@@ -306,7 +311,12 @@ scrch1_:
 		ld a,1
 		ld (fstrendr),a		; set flag for first render
 
+		call clrtxscr		; clear text ram for old screen
+		
 		call decmrscr		; decompress new screen map
+
+		call drawtram		; draw text ram for new screen
+
 		call drawstos		; draw static objects
 
         call drawbkgr		; draw background

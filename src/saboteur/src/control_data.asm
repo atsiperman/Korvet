@@ -4,15 +4,15 @@ tmpstk: dw 0				; to save stack for some operations
 	
 ; ---- LUT 
 LUTVAL:
-		db 00010000b	; CBLUE		0001 0001
-		db 00100001b	; CGREEN    0010 0010
-		db 01000010b	; CRED		0100 0011
-		db 01100011b    ; CYELLOW   0110 0100
+		db 00010000b	; CBLUE		
+		db 00100001b	; CGREEN    
+		db 01000010b	; CRED		
+		db 01100011b    ; CYELLOW   
 				
-		db 10011000b	; CBLUE		0001 0001
-		db 10101001b	; CGREEN    0010 0010
-		db 11001010b	; CRED		0100 0011
-		db 11101011b    ; CYELLOW   0110 0100
+		db 00011000b	; CBLUE		
+		db 10101001b	; CGREEN    
+		db 11111010b	; CRED = WHITE
+		db 00111011b    ; CYELLOW = CYAN
 
 		; black color		
 		db 00000100b
@@ -30,6 +30,7 @@ TILMAPLN	EQU	ROWNUM * COLNUM
 
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
+tramdef:	dw 0		; pointer to definition of text ram for current screen
 
 scrbuf:									; screen buffer		
 			dup ROWNUM * ROWWIDB
@@ -97,15 +98,15 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn3 		; pointer to current screen
+curscr: 	dw scrn103 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,8
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,20,2
 			
 ; ----	saboteur health
 ;			

@@ -87,6 +87,8 @@ start:
 		
 		;;;call sabinit
 		
+		ld a, ALTCHAR
+		ld (TVIREG),a
         call clrtscr
 		;call drawfrmt	; draw frame in text ram 		
 
