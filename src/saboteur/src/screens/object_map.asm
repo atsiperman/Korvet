@@ -6,7 +6,7 @@ s3objm:
 		db 1								; number of objects
 		mkdog dirlt,dogspml1,0,20,4,1,22
 
-s3maskom:									; masked objects
+s3mom:								     	; masked objects
 		db 2								; number of objects
 		mkmasko desk,24,3
 		mkmasko trash,19,14
@@ -16,7 +16,7 @@ s4objm:
 		db 1
 		mkgun dirlt,gunlt,0,17,1
 
-s4maskom:	
+s4mom:	
 		db 8
 		mkmasko fencert,11,12
 		mkmasko fencert,12,11
@@ -27,28 +27,20 @@ s4maskom:
 		mkmasko fencert,17,6
 		mkmasko fencertl,18,6
 
-s6objm:
-		db 15
-		mkmasko bigpllt,3,13
-		mkmasko bigplm,4,13
-		mkmasko bigplrt,5,13
-		mkmasko smpllt,3,12
-		mkmasko smplm,4,12
-		mkmasko smplrt,5,12
-		mkmasko smpllt,3,11
-		mkmasko smplm,4,11
-		mkmasko smplrt,5,11
-
-		mkmasko bigpllt,24,15
-		mkmasko bigplm,25,15
-		mkmasko bigplrt,26,15
-		mkmasko smpllt,24,14
-		mkmasko smplm,25,14
-		mkmasko smplrt,26,14
+s6mom:
+		db 5
+		mkmasko bigplate,3,13
+		mkmasko smlplate,3,12
+		mkmasko smlplate,3,11
+		mkmasko bigplate,24,15
+		mkmasko smlplate,24,14
 
 s7objm:
-		db 5
+		db 1
 		mkgun dirlt,gunlt,0,16,6
+
+s7mom:
+		db 4
 		mkmasko fencert,21,12
 		mkmasko fencert,22,11
 		mkmasko fencert,23,10

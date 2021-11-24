@@ -55,7 +55,7 @@ canjmp5:
 		and bwall
 		jp nz,canjmpn		; wall, no way
 		
-		dup 2
+		dup 3
 			ld de,ROWWIDB
 			add hl,de			; Y = Y + 1
 			ld a,(hl)

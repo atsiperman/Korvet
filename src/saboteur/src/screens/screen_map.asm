@@ -24,11 +24,11 @@ stobjmpd equ 12 	; static object map
 ; ---- map of screens
 scrn1:
 scrn2:	mkscreen3 scrbk2, 0,     scrn3, 0, 0, 0, 0, scrn2txd
-scrn3:	mkscreen4 scrbk3, scrn2, scrn4, 0,      0, s3objm, 0, s3maskom, 0
-scrn4:	mkscreen4 scrbk4, scrn3, scrn5, scrn72, 0, s4objm, 0, s4maskom, 0
+scrn3:	mkscreen4 scrbk3, scrn2, scrn4, 0,      0, s3objm, 0, s3mom, 0
+scrn4:	mkscreen4 scrbk4, scrn3, scrn5, scrn72, 0, s4objm, 0, s4mom, 0
 scrn5:	mkscreen scrbk5, scrn4, scrn6, 0, 0, 0
-scrn6:	mkscreen scrbk6, scrn5, scrn7, scrn70, scrn11, s6objm
-scrn7:	mkscreen scrbk7, scrn6, scrn8, 0, scrn12, s7objm
+scrn6:	mkscreen4 scrbk6, scrn5, scrn7, scrn70, scrn11, 0, 0, s6mom, 0
+scrn7:	mkscreen4 scrbk7, scrn6, scrn8, 0, scrn12, s7objm, 0, s7mom, 0
 scrn8:	mkscreen scrbk8, scrn7, 0, scrn68, scrn13, s8objm
 scrn9:	mkscreen scrbk9, 0, scrn10,scrn67, scrn14, s9objm
 scrn10:	mkscreen scrbk10, scrn9,0,0,scrn15, s10objm
