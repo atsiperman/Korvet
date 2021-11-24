@@ -116,3 +116,42 @@ s60objm:
 s62objm:
 		db 1		
 		mkdog dirlt,dogspml1,0,3,8,3,15
+
+
+s70objm:
+		db 2
+		mkguard gdstay,dirrt,scrbuf,gdsprt,0,12,1,3,24
+		mkdog dirlt,dogspml1,0,24,4,0,24
+
+s70smom:
+		db 17
+		mkmasko bigplate,1,15
+		mkmasko smlplate,1,14
+		mkmasko smlplate,1,13
+		mkmasko smlplate,1,12
+
+		mkmasko bigplate,4,15
+		mkmasko smlplate,4,14
+		mkmasko smlplate,4,13
+
+		mkmasko bigplate,17,15
+		mkmasko smlplate,17,14
+		mkmasko smlplate,17,13
+
+		mkmasko bigplate,22,15
+		mkmasko smlplate,22,14
+		mkmasko smlplate,22,13
+		mkmasko smlplate,22,12
+
+		mkmasko bigplate,25,15
+		mkmasko smlplate,25,14
+		mkmasko smlplate,25,13
+s70smome:
+
+s71objm:
+		db 1
+		mkdog dirlt,dogspml1,0,15,5,5,15
+
+s84objm:
+		db 1
+		mkdog dirlt,dogspml1,0,23,13,6,23

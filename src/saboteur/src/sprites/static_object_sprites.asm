@@ -11,7 +11,7 @@ smlplate:
         db CMAINREG
         db 1,3
         db 128,127, 128,64, 192,32, 224,16, 128,127, 128,64, 192,32, 224,16, 0,255, 0,0, 0,0, 0,0, 0,255, 0,0, 0,0, 0,0, 0,255, 0,1, 1,2, 3,4, 0,255, 0,1, 1,2, 3,4
-
+    
 desk:
         db CMAINREG
         db 4,2
@@ -42,6 +42,33 @@ fencertl:
         db 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192
         ;db 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192
         db 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192, 31,192
+
+mrpillar:
+      db 1,24
+      db CBLACK,0, CBLUE,255
+      db CBLACK,60,CBLUE,195
+      db CBLACK,126,CBLUE,129
+      db CBLACK,54, CBLUE,201
+      db CBLACK,108,CBLUE,147
+      db CBLACK,92, CBLUE,163
+      db CBLACK,126,CBLUE,129
+      db CBLACK,58, CBLUE,197
+      db CBLACK,54, CBLUE,201
+      db CBLACK,108,CBLUE,147
+      db CBLACK,92, CBLUE,163
+      db CBLACK,126,CBLUE,129
+      db CBLACK,58, CBLUE,197
+      db CBLACK,54, CBLUE,201
+      db CBLACK,108,CBLUE,147
+      db CBLACK,92, CBLUE,163
+      db CBLACK,126,CBLUE,129
+      db CBLACK,58, CBLUE,197
+      db CBLACK,54, CBLUE,201
+      db CBLACK,110,CBLUE,145
+      db CBLACK,92, CBLUE,163
+      db CBLACK,124,CBLUE,131
+      db CBLACK,62, CBLUE,193
+      db CBLACK,126,CBLUE,129
 
 barelimg:
         db 3,24

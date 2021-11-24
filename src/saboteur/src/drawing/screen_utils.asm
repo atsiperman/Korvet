@@ -262,19 +262,30 @@ stotiles:
         rra                     ; divide by 8
         ld d,a
         ld a,e                  ; load object width
+        cp 1
+        jp z, .sttil11
         cp 2
         jp z, _sttil21
         cp 4
         jp z, _sttil41
         ld bc,ROWWIDB - (COLWIDB * 3)
-_sttil1:
+.sttil3:
         dup 3        
           SETSTO
         edup
         dec d
         ret z
         add hl,bc
-        jp _sttil1
+        jp .sttil3
+
+.sttil11:
+        ld bc,ROWWIDB - COLWIDB
+.sttil1:
+        SETSTO
+        dec d
+        ret z
+        add hl,bc
+        jp .sttil1
 
 _sttil21:        
         ld bc,ROWWIDB - (COLWIDB * 2)
@@ -344,6 +355,8 @@ _sttil4:
 ;			
 drawsto:
         ld a,(bc)               ; load width
+        cp 1
+        jp z,_drwsto1
         cp 2
         jp z,_drwsto2
         cp 4
@@ -466,6 +479,42 @@ _drws2_1:
         add hl,de
         ex de,hl        ; save new pointer ino DE
         jp _drws2_1     ; continue loop
+
+; ----- draws static object, having width of 1 column, in video memory
+; args: BC - address of the static object
+;       DE - address in video memory
+;							
+_drwsto1:
+        inc bc          ; move to height
+        ld a,(bc)       ; load object height
+        or a            ; clear CY
+        rra             ; divide by 2
+        ld l,a          ; save in L
+        push hl         ; save height counter
+
+        inc bc          ; move to data bytes
+
+_drws1_1:
+        ld hl,COLRREG	        ; set color register
+                
+        DRWSTOB
+
+        push hl         ; save color reg
+        ld hl,63        ; load displacement to the video line in the last column
+        add hl,de
+        ex de,hl        ; save new address of video cell in DE
+        pop hl
+
+        DRWSTOBD
+
+        pop hl          ; restore height counter
+        dec l
+        ret z
+        push hl         ; save decreased counter 
+        ld hl,65        ; load displacement to the video line in the initial column
+        add hl,de
+        ex de,hl        ; save new pointer ino DE
+        jp _drws1_1     ; continue loop
 
 
 ; ----- clears text ram for current screen

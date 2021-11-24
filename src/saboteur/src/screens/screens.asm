@@ -61,13 +61,13 @@ smap2e:
 		mkdup 4
 			mkline 4
 			db 0
-			mkbyte 6,3
-			db 0
+			mkbyte 0,3
+			mkbyte 6,0
 			db 0
 			mkbyte 3,6
 			db 0
-			mkbyte 6,3
-			db 0
+			mkbyte 0,3
+			mkbyte 6,0
 			mkbyte 0,1
 			mkline 3
 			mkbyte 1,1
@@ -76,13 +76,13 @@ smap2e:
 		mkdup 4
 			mkline 4
 			mkbyte 5,5
-			mkbyte 7,7
-			mkbyte 5,5
-			mkbyte 5,5
-			mkbyte 7,7
+			mkbyte 5,7
+			mkbyte 7,5
 			mkbyte 5,5
 			mkbyte 7,7
 			mkbyte 5,5
+			mkbyte 5,7
+			mkbyte 7,5
 			mkbyte 5,1
 			mkline 3
 			mkbyte 1,1

@@ -372,7 +372,21 @@ smap75e:
 		db 0
 
 		mscrend
+
+scr75txd:						; description of the text RAM used by this screen
+		mkbyte TXLINEV,1
+			mktxtaddr 28, 2
+			db CHBOTM
 		
+		mkbyte TXLINEV,5
+			mktxtaddr 28, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 28, 8
+			db CHTOP
+
+		mscrend
 ; --- end of scrbk75
 
 

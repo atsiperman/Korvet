@@ -23,7 +23,7 @@ stobjmpd equ 12 	; static object map
 
 ; ---- map of screens
 scrn1:
-scrn2:	mkscreen3 scrbk2, 0,     scrn3, 0, 0, 0, 0, scrn2txd
+scrn2:	mkscreen3 scrbk2, 0,     scrn3, 0, 0, 0, s2stom, scrn2txd
 scrn3:	mkscreen4 scrbk3, scrn2, scrn4, 0,      0, s3objm, 0, s3mom, 0
 scrn4:	mkscreen4 scrbk4, scrn3, scrn5, scrn72, 0, s4objm, 0, s4mom, 0
 scrn5:	mkscreen scrbk5, scrn4, scrn6, 0, 0, 0
@@ -93,12 +93,12 @@ scrn66:	mkscreen scrbk66, scrn67,0, 0,0, 0
 scrn67:	mkscreen scrbk67, scrn68,scrn66, 0,scrn9, 0
 scrn68:	mkscreen scrbk68, 0,scrn67, scrn77,scrn8, 0
 
-scrn70:	mkscreen scrbk70, scrn71,0, scrn75, scrn6, 0
-scrn71:	mkscreen scrbk71, scrn72,scrn70, 0, scrn6, 0
+scrn70:	mkscreen4 scrbk70, scrn71,0, scrn75, scrn6, s70objm, 0, s70smom, 0
+scrn71:	mkscreen scrbk71, scrn72,scrn70, 0, scrn6, s71objm
 scrn72:	mkscreen scrbk72, 0,scrn71, scrn73, scrn4, 0
 scrn73:	mkscreen2 scrbk73, 0,scrn74, 0, scrn72, 0, s73stom
 scrn74:	mkscreen2 scrbk74, scrn73,scrn75, 0, scrn71, 0, s74stom
-scrn75:	mkscreen2 scrbk75, scrn74,0, scrn84, scrn70, 0, s75stom
+scrn75:	mkscreen4 scrbk75, scrn74,0, scrn84, scrn70, 0, s75stom, 0, scr75txd
 
 scrn77:	mkscreen scrbk77, 0,scrn78, scrn82, scrn68, 0
 scrn78:	mkscreen scrbk78, scrn77,scrn79, 0, 0, 0
@@ -108,12 +108,12 @@ scrn80:	mkscreen scrbk80, scrn81,0, scrn93, 0, 0
 scrn81:	mkscreen scrbk81, scrn82,scrn80, 0, 0, 0
 scrn82:	mkscreen scrbk82, 0,scrn81, scrn91, scrn77, 0
 
-scrn84:	mkscreen2 scrbk84, scrn85,0, 0,scrn75, 0, s84stom
+scrn84:	mkscreen4 scrbk84, scrn85,0, 0,scrn75, s84objm, s84stom, 0, scr75txd
 scrn85:	mkscreen2 scrbk85, scrn86,scrn84, 0,scrn74, 0, s85stom
 scrn86:	mkscreen2 scrbk86, 0,scrn85, scrn87,0, 0, s86stom
 scrn87:	mkscreen2 scrbk87, 0,scrn88, scrn100,scrn86, 0, s87stom
 scrn88:	mkscreen scrbk81, scrn87,scrn89, 0,0, 0
-scrn89:	mkscreen2 scrbk89, scrn88,0, scrn98,0, 0, s89stom
+scrn89:	mkscreen4 scrbk89, scrn88,0, scrn98,0, 0, s89stom, 0, scr75txd
 
 scrn91:	mkscreen scrbk91, 0,scrn92, 0,scrn82, 0
 scrn92:	mkscreen scrbk92, scrn91,scrn93, 0,0, 0

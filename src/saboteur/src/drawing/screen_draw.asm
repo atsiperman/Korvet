@@ -302,7 +302,7 @@ drawstos:
 		
 		inc hl				; set to the first object
         
-_drwsto1:		
+.drwsto1:		
 		push hl
 		push af
 		
@@ -328,7 +328,7 @@ _drwsto1:
 		add hl,bc
 		
 		dec a
-		jp nz,_drwsto1
+		jp nz,.drwsto1
 		
 		ret
 

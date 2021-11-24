@@ -1,7 +1,15 @@
 ;
 ;	this file contains definitions of static objects for all the screens
 ;
-        
+
+s2stom:
+        db 5
+        mkstobj mrpillar, 8, 4
+        mkstobj mrpillar, 13, 4
+        mkstobj mrpillar, 18, 4
+        mkstobj mrpillar, 23, 4
+        mkstobj mrpillar, 28, 4
+
 s48stom:
         db 5
         mkstobj barelimg, 3, 10
