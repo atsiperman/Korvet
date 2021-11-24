@@ -68,46 +68,12 @@ rsttile3:
 		jp rsttile1		
 		
 
-		define CHECK_MASKED_OBJTYPE	1		
-
 ; ----- updates tile map for sprite
 ;		
 ; args: 
 ;		HL - address of the object's control block
 ;		DE - address of the sprite
-_objtyp:
-		db 0			; object type		
 updtilem:			
-	if CHECK_MASKED_OBJTYPE
-		ld a,(fstrendr)
-		or a
-		jp z,uptlm11_
-
-		push hl
-		ld hl,uptlm2_		
-		ld (hl),0
-		inc hl		
-		ld (hl),0
-		inc hl		
-		ld (hl),0
-		pop hl
-		jp uptlm12_
-
-uptlm11_:
-		push hl
-		ld hl,uptlm2_		
-		ld (hl),0C3h
-		inc hl		
-		ld (hl),LOW uptlm3
-		inc hl		
-		ld (hl),HIGH uptlm3
-		pop hl
-
-		ld a,(hl)		; load object type
-		ld (_objtyp),a	; save object type
-	endif
-
-uptlm12_:
 		push de			; save sprite address
 		call rdsprpos		
 		ex de,hl		; address of current position in screen buffer in HL
@@ -124,33 +90,20 @@ uptlm12_:
 		ld c,(hl)		; load width
 
 		ex de,hl		; tile pointer in HL
-		
+		ld de,ROWWIDB
+
 		push bc			; save width in C
 		
 uptlm1:	
-
-	if CHECK_MASKED_OBJTYPE
-
-		ld a,(_objtyp)
-		cp ostobj
-		jp nz,uptlm2	; not an object with mask, keep going
-
-		ld a,(hl)
-		and 0F0h
-		jp nz,uptlm3	; has been occupied, will be cleared, do not mark as occupied
-
-uptlm2_:
-		jp uptlm3
-
-uptlm2:
-	endif
 		ld a,1000b		; mark as occupied
+
+uptlm2:		
 		ld (hl),a
 
 uptlm3:
 		skip_buf_tile hl	; move to the next tile
 		dec c
-		jp nz,uptlm1	; next column
+		jp nz,uptlm2	; next column
 		
 		dec b
 		jp z,uptlm_		; end
@@ -158,9 +111,7 @@ uptlm3:
 		pop bc 			; restore C
 		ld b,a
 		
-		pop de			; restore address first tile in the row
-		ex de,hl
-		ld de,ROWWIDB
+		pop hl			; restore address first tile in the row
 		add hl,de		; next row
 		push hl
 		
@@ -169,5 +120,94 @@ uptlm3:
 		
 uptlm_:		
 		pop bc			; clear stack
+		pop hl
+		ret
+
+
+; ----- updates tile map for masked object
+;		
+; args: 
+;		HL - object control block
+;		
+utlmmobj:			
+		ld a,(fstrendr)
+		or a
+		jp z,.utlmo12_
+
+		push hl
+		xor a				; 0 - NOP command
+		ld hl,.utlmo2_		
+		ld (hl),a
+		inc hl		
+		ld (hl),a
+		inc hl		
+		ld (hl),a
+		pop hl
+
+		call .utlmo12_
+
+		; ---- restore normal way after first render			
+		ld hl,.utlmo2_		
+		ld (hl),0C3h			; JP command
+		inc hl		
+		ld (hl),LOW .utlmo3
+		inc hl		
+		ld (hl),HIGH .utlmo3
+		ret
+
+.utlmo12_:
+
+		load_bc_hl		; load pointer in screen buffer into BE
+		load_de_hl		; load image address into DE
+		ld l,c
+		ld h,b			; tile pointer into HL
+		inc hl
+		inc hl			; move to tile state
+
+		push hl			; save address of the tile state
+		
+		ex de,hl		; sprite address in HL
+		inc hl			; skip color
+		ld b,(hl)		; load height
+		inc hl
+		ld c,(hl)		; load width
+
+		ex de,hl		; tile pointer in HL
+		ld de,ROWWIDB
+
+		push bc			; save width in C
+
+.utlmo1:
+
+		ld a,(hl)
+		and 0F0h
+		jp nz,.utlmo3	; has been occupied, will be cleared, do not mark as occupied
+
+.utlmo2_:
+	 	jp .utlmo3
+
+		ld a,1000b		; mark as occupied
+		ld (hl),a
+
+.utlmo3:
+		skip_buf_tile hl	; move to the next tile
+		dec c
+		jp nz,.utlmo1		; next column
+		
+		dec b
+		jp z,.utlmoe		; end
+		ld a,b				; save B counter
+		pop bc 				; restore C
+		ld b,a
+		
+		pop hl				; restore address first tile in the row
+		add hl,de			; next row
+		push hl
+		
+		push bc
+		jp .utlmo1
+		
+.utlmoe:		
+		pop bc				; clear stack
 		pop hl
 		ret

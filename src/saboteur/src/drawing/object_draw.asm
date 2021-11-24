@@ -30,6 +30,34 @@ updobjs1:
 		
 		ret
 
+; ----- updates state of all the masked objects on the screen
+;       updates tile map according to objects locations
+;
+updmobjs:
+		ld hl,(mobjlst)		; HL - address of the masked objects list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
+		
+		inc hl				; set to the first object
+        
+.updmo1:		
+		push hl
+		push af		
+		call utlmmobj
+		pop af
+		pop hl
+		
+		ld bc,mobjsz	
+		add hl,bc
+		
+		dec a
+		jp nz,.updmo1
+		
+		ret
+
 ; ----- updates state of the object provided
 ; args:
 ;		 HL - address of the object's control block 

@@ -103,16 +103,18 @@ decmprs5:
 		ld bc,objmapd
 		add hl,bc
 		load_de_hl			; load object map address
-		ex de,hl
-		
+		ex de,hl		
 		ld (objlist),hl		; save pointer to the object list
 
-		ld hl,(curscr)		; pointer to screen control block
-		ld bc,stobjmpd
-		add hl,bc
+		ex de,hl
 		load_de_hl			; load static object map address to DE
 		ex de,hl
 		ld (sobjlst),hl		; save pointer to the list of static objects
+
+		ex de,hl
+		load_de_hl			; load masked object map address to DE
+		ex de,hl
+		ld (mobjlst),hl		; save pointer to the list of masked objects
 
 		ex de,hl
 		load_de_hl			; load text RAM definition
@@ -253,7 +255,41 @@ drwobjs1:
 		jp nz,drwobjs1
 		
 		ret
+
+; ----- draws all masked objects on the current screen	
+;		
+drwmobjs:		
+		ld hl,(mobjlst)		; HL - address of the masked objects list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		ld a,(hl)			; load number of objects
 		
+		inc hl				; set to the first object
+		
+.drwmo1:		
+		push hl
+		push af
+		
+		load_bc_hl		; load pointer in screen buffer into BE
+		load_de_hl		; load image address into DE
+		ld l,c
+		ld h,b			; tile pointer into HL
+
+		call putspr		; put sprite to screen buffer
+
+		pop af
+		pop hl
+		
+		ld bc,mobjsz	
+		add hl,bc
+		
+		dec a
+		jp nz,.drwmo1
+		
+		ret
+
 ; ----- draws static objects
 ;
 drawstos:
@@ -311,12 +347,9 @@ scrch1_:
 		ld a,1
 		ld (fstrendr),a		; set flag for first render
 
-		call clrtxscr		; clear text ram for old screen
-		
+		call clrtxscr		; clear text ram for old screen		
 		call decmrscr		; decompress new screen map
-
 		call drawtram		; draw text ram for new screen
-
 		call drawstos		; draw static objects
 
         call drawbkgr		; draw background
@@ -331,10 +364,13 @@ drawobj1:					; draw all objects
 
 drawobj2:
 		call updobjs		; update objects state		
+		call updmobjs		; update masked objects state
 		call rsttiles		; restore tiles background according to current objects location
 				
-		call drawobjs
-		
+		call drawobjs		; draw active objects
+
+		call drwmobjs		; draw masked objects
+
 		call showscr		; show buffer on the screen
 		
 		call hldraw			; draw health bar

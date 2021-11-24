@@ -71,6 +71,8 @@ odcbend EQU 18		; end of the control block
 
 objsize EQU	odcbend - odtype
 stobjsz EQU 6
+mobjsz  EQU	4
+
 
 ; ----	makes control block for an object
 ;
@@ -106,8 +108,8 @@ stobjsz EQU 6
 		endm
 
 		macro mkmasko address,colnum,rownum
-		mkctrlb ostobj,maskoproc,0,0,scrbuf,address,0,colnum,rownum
-		dw 0
+		dw scrbuf + (colnum * COLWIDB) + (rownum * ROWWIDB)		; address in screen buffer
+		dw address												; image address
 		endm
 
 ; ----  loads ldcurscb

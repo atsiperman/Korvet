@@ -30,6 +30,7 @@ TILMAPLN	EQU	ROWNUM * COLNUM
 
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
+mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
 
 scrbuf:									; screen buffer		
