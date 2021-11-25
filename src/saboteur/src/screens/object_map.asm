@@ -2,6 +2,13 @@
 ;	this file contains object definitions for all the screens
 ;
 
+s2mom:
+		db 4
+		mkmasko plrchain,9,4
+		mkmasko plrchain,14,4
+		mkmasko plrchain,19,4
+		mkmasko plrchain,24,4
+
 s3objm:
 		db 1								; number of objects
 		mkdog dirlt,dogspml1,0,20,4,1,22
@@ -75,7 +82,29 @@ s35objm:
 s36objm:
 		db 1
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,9,9,8,22
-		
+
+s36mom:
+		db 6
+		mkmasko s36wfrml, 6, 8
+		mkmasko	s36wfrm, 10, 8
+		mkmasko	s36wfrm, 14, 8
+		mkmasko	s36wfrm, 18, 8
+		mkmasko	s36wfrm, 22, 8
+		mkmasko	s36wfrm, 26, 8
+
+s37mom:
+		db 6
+		mkmasko	s36wfrm, 3, 8
+		mkmasko	s36wfrm, 7, 8
+		mkmasko	s36wfrm, 11, 8
+		mkmasko	s36wfrm, 15, 8
+		mkmasko	s36wfrm, 19, 8
+		mkmasko s36wfrmr, 23, 8
+
+s38objm:
+		db 1
+		mkgun dirrt, gunrt, 0, 13, 5
+
 s39objm:
 		db 1
 		mkguard gdstay,dirrt,scrbuf,gdsprt,0,6,7,6,22
@@ -86,7 +115,7 @@ s41objm:
 
 s46objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,14,6,5,20
+		mkguard gdstay,dirlt,scrbuf,gdsprt,0,12,6,5,20
 
 s48objm:
 		db 2
@@ -155,3 +184,45 @@ s71objm:
 s84objm:
 		db 1
 		mkdog dirlt,dogspml1,0,23,13,6,23
+
+s99mom:
+		db 4
+		mkmasko fenceltl, 6, 4
+		mkmasko fencelt, 7, 4
+		mkmasko fencelt, 8, 5
+		mkmasko fencelt, 9, 6
+
+s100om:
+		db 1
+		mkdog dirrt,dogspml1,0,2,5,3,14
+
+s100mom:
+		db 7
+		mkmasko bigplate,18,6
+		mkmasko smlplate,18,5		
+
+		mkmasko bigplate,23,6
+		mkmasko smlplate,23,5
+		mkmasko smlplate,23,4
+
+		mkmasko bigplate,12,15
+		mkmasko smlplate,12,14
+
+s102om:
+		db 1
+		mkguard gdstay,dirrt,scrbuf,gdsprt,0,21,3,2,25
+
+s102mom:
+		db 9
+		mkmasko bigplate,7,8
+		mkmasko smlplate,7,7
+		mkmasko smlplate,7,6
+
+		mkmasko bigplate,10,8
+		mkmasko smlplate,10,7
+
+		mkmasko bigplate,23,8
+		mkmasko smlplate,23,7
+		mkmasko smlplate,23,6
+
+		mkmasko desk,18,5

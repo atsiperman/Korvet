@@ -136,6 +136,25 @@ smap50e:
 		
 		mscrend
 		
+scr50txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 0
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 16, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 4
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 16, 5
+			db CHFULL
+
+		mscrend
+
 ; --- end of scrbk50
 
 

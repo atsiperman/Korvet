@@ -10,6 +10,10 @@ s2stom:
         mkstobj mrpillar, 23, 4
         mkstobj mrpillar, 28, 4
 
+s46stom:
+        db 1
+        mkstobj box3img, 2, 9
+
 s48stom:
         db 5
         mkstobj barelimg, 3, 10
@@ -108,4 +112,29 @@ s89stom:
         mkstobj barelimg, 22, 13
         mkstobj barelimg, 25, 13
 
+s99stom:
+        db 4
+        mkstobj barelimg, 16, 4
+        mkstobj barelimg, 14, 7
+        mkstobj barelimg, 17, 7
+        mkstobj barelimg, 23, 7
 
+s100stom:
+        db 14
+        mkstobj box3img, 2, 2
+        mkstobj box43img, 2, 5
+        mkstobj box3img, 8, 5
+        mkstobj barelimg, 12, 5
+
+        mkstobj barelimg, 3, 10
+        mkstobj barelimg, 2, 13
+        mkstobj barelimg, 5, 13
+
+        mkstobj barelimg, 16, 13
+        mkstobj barelimg, 19, 13
+        mkstobj barelimg, 22, 13
+        mkstobj barelimg, 25, 13
+
+        mkstobj barelimg, 18, 10
+        mkstobj barelimg, 22, 10
+        mkstobj barelimg, 25, 10

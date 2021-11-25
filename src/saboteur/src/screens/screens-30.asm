@@ -210,6 +210,33 @@ smap31e:
 		
 		mscrend
 		
+scr31txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 4, 2
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 4, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 2
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 16, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 6
+			db CHBOTM
+
+		mkbyte TXLINEV,2
+			mktxtaddr 16, 7
+			db CHFULL
+
+		mscrend
+		
 ; --- end of scrbk31
 
 scrbk32:
@@ -249,6 +276,25 @@ smap32e:
 		
 		mscrend
 		
+scr32txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 5, 2
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 5, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 21, 2
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 21, 3
+			db CHFULL
+
+		mscrend
+
 ; --- end of scrbk32
 
 scrbk34:
@@ -302,6 +348,25 @@ smap34e:
 		
 		mscrend
 		
+scr34txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 2
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 14, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 25, 2
+			db CHBOTM
+		
+		mkbyte TXLINEV,3
+			mktxtaddr 25, 3
+			db CHFULL
+
+		mscrend
+
 ; --- end of scrbk34
 
 scrbk35:
@@ -349,6 +414,25 @@ smap35e:
 		
 		mscrend
 		
+scr35txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 1
+			db CHBOTM
+		
+		mkbyte TXLINEV,6
+			mktxtaddr 14, 2
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 25, 1
+			db CHBOTM
+		
+		mkbyte TXLINEV,6
+			mktxtaddr 25, 2
+			db CHFULL
+
+		mscrend
+
 ; --- end of scrbk35
 
 scrbk36:
@@ -362,6 +446,8 @@ smap36b:
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
 		bkindex BK34ADDR	; 7, blue left edge
+		bkindex BK46ADDR	; 8, top black half on blue
+		bkindex BK47ADDR	; 9, bottom black half on blue
 smap36e:
 							; 1
 		mkline 11
@@ -408,36 +494,38 @@ smap36e:
 							; 8
 		mkbyte 1,1
 		mkbyte 1,1
-		mkline 13
 		mkbyte 4,4		
+		mkline 12
+		mkbyte 8,8
 							; 9
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 4,4
-		dup 6
-			mkbyte 6,6
-			mkbyte 6,6
-		edup		
+		mkline 12
+		mkbyte 6,6
 							; 10
 		mkdup 2
 			mkbyte 1,1
 			mkbyte 1,1
 			mkbyte 4,4
-			dup 6
-				mkbyte 6,6
-				mkbyte 6,6
-			edup
+			mkline 12
+    		mkbyte 6,6
 		;edup
 							; 11
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 4,4
-		dup 6
-			mkbyte 6,6
-			mkbyte 6,6
-		edup		
-		
-		mkdup 3
+		mkline 12
+		mkbyte 6,6
+		;edup		
+
+		mkbyte 1,1
+		mkbyte 1,1
+		mkbyte 4,4		
+		mkline 12
+		mkbyte 9,9
+
+		mkdup 2
 			mkbyte 1,1
 			mkbyte 1,1
 			mkline 13
@@ -464,8 +552,8 @@ scrbk37:
 smap37b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
-		bkindex BK27ADDR    ; 2, red left top edge
-		bkindex BK28ADDR    ; 3, red left bottom edge
+		bkindex BK46ADDR	; 2, top black half on blue
+		bkindex BK47ADDR	; 3, bottom black half on blue
 		bkindex BK33ADDR   	; 4, solid blue 
 		bkindex BK29ADDR    ; 5, solid red
 		bkindex BK30ADDR    ; 6, solid green
@@ -516,39 +604,39 @@ smap37e:
 		mkbyte 1,1
 		mkbyte 1,1		
 							; 8
-		mkline 13
+		mkline 12
+		mkbyte 2,2
 		mkbyte 4,4		
 		mkbyte 1,1
 		mkbyte 1,1
 							; 9
-		dup 6
-			mkbyte 6,6
-			mkbyte 6,6
-		edup		
+		mkline 12
+		mkbyte 6,6
 		mkbyte 4,4
 		mkbyte 1,1
 		mkbyte 1,1
 							; 10
 		mkdup 2			
-			dup 6
-				mkbyte 6,6
-				mkbyte 6,6
-			edup
+			mkline 12
+			mkbyte 6,6
 			mkbyte 4,4
 			mkbyte 1,1
 			mkbyte 1,1
 		;edup
 							; 11		
-		dup 6
-			mkbyte 6,6
-			mkbyte 6,6
-		edup		
+		mkline 12
+		mkbyte 6,6
 		mkbyte 4,4
 		mkbyte 1,1
 		mkbyte 1,1
 
+		mkline 12
+		mkbyte 3,3
+		mkbyte 4,4		
+		mkbyte 1,1
+		mkbyte 1,1
 		
-		mkdup 3
+		mkdup 2
 			mkline 13
 			mkbyte 4,4		
 			mkbyte 1,1
@@ -745,6 +833,25 @@ smap38e:
 		
 		mscrend
 		
+scr38txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 0
+			db CHBOTM
+		
+		mkbyte TXLINEV,6
+			mktxtaddr 16, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 7
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 8
+			db CHFULL
+
+		mscrend
+
 ; --- end of scrbk38
 
 

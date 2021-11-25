@@ -225,6 +225,7 @@ smap102e:
 			mkline 12
 			mkbyte 1,1
 		;edup
+
 		
 		mscrend
 ; --- end of scrbk102

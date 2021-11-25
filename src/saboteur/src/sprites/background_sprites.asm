@@ -50,6 +50,8 @@ BK42ADDR:   DW BK42DATA
 BK43ADDR:   DW BK43DATA
 BK44ADDR:	DW BK44DATA
 BK45ADDR:	DW BK45DATA
+BK46ADDR:   DW BK46DATA
+BK47ADDR:   DW BK47DATA
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
@@ -161,11 +163,11 @@ BK36DATA:	bksh3 CYELLOW,CRED,bwall					; red right top edge
 BK37DATA:	bksh3 CYELLOW,CRED,bwall					; red right bottom edge
 			DB 255, 255, 255, 255, 254, 252, 248, 240
 
-BK38DATA:	bksh3 CGREEN,CBLACK,bwall					; top black half
+BK38DATA:	bksh3 CGREEN,CBLACK,0   					; top black half
 			DB 255, 255, 255, 255, 0, 0, 0, 0
 
-BK39DATA:	bksh3 CGREEN,CBLACK,bwall					; bottom black half
-			DB 0, 0, 0, 0, 255, 255, 255, 255
+BK39DATA:	bksh3 CBLACK,CGREEN,0   					; bottom black half
+			DB 255, 255, 255, 255, 0, 0, 0, 0
 
 BK40DATA:   bksh2 CYELLOW, bwall						; underwater floor
 			db  123, 164, 119, 8, 221, 42, 0, 0
@@ -184,3 +186,9 @@ BK44DATA:	bksh2 CBLUE, bladder						; solid blue, ladder
 
 BK45DATA:	bksh3 CGREEN, CCYAN, fgtile + bladder		; water layer, ladder
       		db  95, 251, 191, 223, 255, 127, 239, 255
+
+BK46DATA:	bksh3 CBLUE,CBLACK,fgtile			   		; top black half on blue
+			DB 0, 0, 0, 0, 255, 255, 255, 255			
+
+BK47DATA:	bksh3 CBLUE,CBLACK,fgtile   				; bottom black half on blue
+			DB 255, 255, 255, 255, 0, 0, 0, 0

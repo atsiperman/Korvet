@@ -569,38 +569,18 @@ smap46e:
 			db 0
 		;edup
 		
-		db 0
-		mkline 7
-		mkbyte 1,1
-		mkbyte 4,1
-		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 3,1
-		mkbyte 1,1
-		db 0
-		db 0
-	
-		db 0
-		mkline 7
-		mkbyte 1,1
-		mkbyte 4,1
-		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 3,1
-		mkbyte 1,1
-		db 0
-		db 0
-	
-		db 0
-		mkline 7
-		mkbyte 1,1
-		mkbyte 4,1
-		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 3,1
-		mkbyte 1,1
-		db 0
-		db 0
+		mkdup 3
+			db 0
+			mkline 7
+			mkbyte 1,1
+			mkbyte 4,1
+			mkbyte 1,1
+			mkbyte 1,2
+			mkbyte 3,1
+			mkbyte 1,1
+			db 0
+			db 0
+		;edup
 
 		mkbyte 0,5
 		mkline 9
@@ -625,7 +605,25 @@ smap46e:
 		;edup
 		
 		mscrend
+
+scr46txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 0
+			db CHBOTM
 		
+		mkbyte TXLINEV,5
+			mktxtaddr 16, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 6
+			db CHTOP
+
+		mkbyte TXLINEV,2
+			mktxtaddr 16, 7
+			db CHFULL
+
+		mscrend
 ; --- end of scrbk46
 
 
