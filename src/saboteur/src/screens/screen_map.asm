@@ -112,7 +112,7 @@ scrn84:	mkscreen4 scrbk84, scrn85,0, 0,scrn75, s84objm, s84stom, 0, scr75txd
 scrn85:	mkscreen2 scrbk85, scrn86,scrn84, 0,scrn74, 0, s85stom
 scrn86:	mkscreen2 scrbk86, 0,scrn85, scrn87,0, 0, s86stom
 scrn87:	mkscreen2 scrbk87, 0,scrn88, scrn100,scrn86, 0, s87stom
-scrn88:	mkscreen scrbk81, scrn87,scrn89, 0,0, 0
+scrn88:	mkscreen2 scrbk81, scrn87,scrn89, 0,0, 0, s88stom
 scrn89:	mkscreen4 scrbk89, scrn88,0, scrn98,0, 0, s89stom, 0, scr75txd
 
 scrn91:	mkscreen scrbk91, 0,scrn92, 0,scrn82, 0

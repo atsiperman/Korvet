@@ -2,6 +2,40 @@
 ;	this file contains definitions of static objects for all the screens
 ;
 
+        macro mkbox33 colnum, rownum
+        mkstobj box31img, colnum, rownum
+        mkstobj box32img, colnum + 1, rownum
+        mkstobj box33img, colnum + 2, rownum
+        endm
+
+        macro mkbox34 colnum, rownum
+        mkstobj box31img, colnum, rownum
+        mkstobj box32img, colnum + 1, rownum
+        mkstobj box32img, colnum + 2, rownum
+        mkstobj box33img, colnum + 3, rownum
+        endm
+
+        macro mkbox43 colnum, rownum
+        mkstobj box41img, colnum, rownum
+        mkstobj box42img, colnum + 1, rownum
+        mkstobj box43img, colnum + 2, rownum
+        endm
+
+        macro mkbox44 colnum, rownum
+        mkstobj box41img, colnum, rownum
+        mkstobj box42img, colnum + 1, rownum
+        mkstobj box42img, colnum + 2, rownum
+        mkstobj box43img, colnum + 3, rownum
+        endm
+
+        macro mkbox45 colnum, rownum
+        mkstobj box41img, colnum, rownum
+        mkstobj box42img, colnum + 1, rownum
+        mkstobj box42img, colnum + 2, rownum
+        mkstobj box42img, colnum + 3, rownum
+        mkstobj box43img, colnum + 4, rownum
+        endm
+
 s2stom:
         db 5
         mkstobj mrpillar, 8, 4
@@ -11,23 +45,23 @@ s2stom:
         mkstobj mrpillar, 28, 4
 
 s46stom:
-        db 1
-        mkstobj box3img, 2, 9
+        db 3
+        mkbox33 2, 9
 
 s48stom:
-        db 5
+        db 7
         mkstobj barelimg, 3, 10
         mkstobj barelimg, 3, 13
         mkstobj barelimg, 6, 13
         mkstobj barelimg, 13, 13
-        mkstobj box3img, 24, 13
+        mkbox33 24, 13
 
 s49stom:
-        db 4
+        db 12
         mkstobj barelimg, 5, 11
-        mkstobj box44img, 2, 10
-        mkstobj box44img, 14, 10
-        mkstobj box3img, 25, 11
+        mkbox44 2, 10
+        mkbox44 14, 10
+        mkbox33 25, 11
 
 s73stom:
         db 7
@@ -40,40 +74,40 @@ s73stom:
         mkstobj barelimg, 21, 10
 
 s74stom:
-        db 5
+        db 10
         mkstobj barelimg, 0, 13
         mkstobj barelimg, 3, 13
         mkstobj barelimg, 7, 12
-        mkstobj box3img, 20, 12
-        mkstobj box43img, 25, 13
+        mkbox33 20, 12
+        mkbox34 25, 13
 
 
 s75stom:
-        db 7
-        mkstobj box43img, 2, 13
-        mkstobj box43img, 4, 10
-        mkstobj box3img, 7, 13
+        db 22
+        mkbox34 2, 13
+        mkbox34 4, 10
+        mkbox33 7, 13
         mkstobj barelimg, 12,13
-        mkstobj box3img, 24, 13
-        mkstobj box3img, 19, 13
-        mkstobj box43img, 21, 10
+        mkbox33 24, 13
+        mkbox33 19, 13
+        mkbox34 21, 10
 
 s84stom:
-        db 7
-        mkstobj box3img, 2, 12
-        mkstobj box3img, 6, 13
+        db 16
+        mkbox33 2, 12
+        mkbox33 6, 13
         mkstobj barelimg, 10, 13
         mkstobj barelimg, 13,13
         mkstobj barelimg, 12, 10
-        mkstobj box43img, 19, 13
-        mkstobj box3img, 25, 13
+        mkbox34 19, 13
+        mkbox33 25, 13
 
 s85stom:
-        db 4
+        db 9
         mkstobj barelimg, 2, 12
         mkstobj barelimg, 3, 9
-        mkstobj box43img, 4, 12
-        mkstobj box3img, 21, 12
+        mkbox34 4, 12
+        mkbox33 21, 12
 
 s86stom:
         db 8
@@ -87,14 +121,20 @@ s86stom:
         mkstobj barelimg, 19, 6
 
 s87stom:
-        db 7
-        mkstobj box44img, 17, 12
+        db 9
+        mkbox43 18, 12
         mkstobj barelimg, 2, 10
         mkstobj barelimg, 3, 13
         mkstobj box22img, 14, 14
         mkstobj box22img, 20, 14
         mkstobj box22img, 23, 14
         mkstobj barelimg, 26, 13
+
+s88stom:
+        db 13
+        mkbox45 4, 12
+        mkbox45 12, 12
+        mkbox33 20, 13
 
 s89stom:
         db 13
@@ -120,10 +160,10 @@ s99stom:
         mkstobj barelimg, 23, 7
 
 s100stom:
-        db 14
-        mkstobj box3img, 2, 2
-        mkstobj box43img, 2, 5
-        mkstobj box3img, 8, 5
+        db 21
+        mkbox33 2, 2
+        mkbox34 2, 5
+        mkbox33 8, 5
         mkstobj barelimg, 12, 5
 
         mkstobj barelimg, 3, 10

@@ -99,7 +99,7 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn35 		; pointer to current screen
+curscr: 	dw scrn75 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -107,8 +107,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:	
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,2,1
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,11,9
+		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,8
+		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
 			
 ; ----	saboteur health
 ;			
