@@ -1,6 +1,7 @@
 ; ---- triggers logic
 
 ; ---- triggers logic processing
+;
 trigact:
         ld hl,(trigmap)
         ld a,h
@@ -30,39 +31,42 @@ trigact:
 .tract1:
         push af
         ld   a,(hl)
-        or a                ; check trigger state
-        jp  z,.tract4       ; go to the next trigger if this one is disabled
+        or   a              ; check trigger state
+        jp   z,.tract4      ; go to the next trigger if this one is disabled
+
+        push hl             ; save pointer to the current trigger
 
 .tract2:
         inc  hl             ; move to colnum
-        ld  a,(hl)          ; load trigger location X
+        ld   a,(hl)         ; load trigger location X
         inc  hl             ; move to rownum
-        cp c                ; compare to saboteur's X coordinate
+        cp   c              ; compare to saboteur's X coordinate
         jp   nz,.tract5     ; not equal, go to the next iteration
 
-        ld  a,(hl)          ; load trigger location Y
-        cp  b               ; compare to saboteur's Y coordinate
-        jp   nz,.tract5     ; not equal, go to the next iteration
+        ld a,(hl)           ; load trigger location Y
+        cp b                ; compare to saboteur's Y coordinate
+        jp nz,.tract5       ; not equal, go to the next iteration
 
-        ld   a,1
-        ld   (trigchd),a    ; set flag, trigger changed 
+        pop  af
+        ld   (trigchd),a    ; set flag, trigger changed, A != 0 here
 
         inc  hl             ; move to the image address
-        load_de_hl          ; load trigger image into DE
-        ex   de,hl
-        ld   (trimage),hl   ; save trigger's image
-        ex   de,hl
         load_de_hl          ; load trigger's procedure
         ex   de,hl
-        ld   (curtrig),hl   ; save current trigger's procedure
-        pop  af
+        ld   (trproc),hl    ; save current trigger's procedure
+
+        ex   de,hl
+        ld   a,(hl)
+        ld   (trtype),a     ; save current trigger's type
+        inc  hl             ; move to trigger object type
+        ld   (trotptr),hl   ; save pointer to current trigger's object type
+
+        pop  hl             ; restore pointer to the trigger
+        ld   (curtrig),hl   ; save pointer to the current trigger
         ret
 
 .tract5:
-        dup 5
-            inc  hl         ; skip current trigger
-        edup
-        jp   .tract3
+        pop  hl             ; clear stack
 
 .tract4:
         skip_trigger hl
@@ -72,37 +76,44 @@ trigact:
         dec  a
         jp nz,.tract1
 
-.tracte:
-        ld   hl,(trimage)
+        ld   hl,(curtrig)
         ld   a,h
         or   l
         ret  z              ; no triggers had been set previously, just return
                             ; some trigger had been found, but it is not found this time
-        xor  a              
-        ld   hl,trimage     ; clear image address, to get trigger image cleared
-        ld   (hl),a
-        inc  hl
-        ld   (hl),a
+        ld   hl,0
+        xor  a
+        ld   (trproc),hl
+        ld   (curtrig),hl
+        ld   (trotptr),hl
+        ld   (trtype),a
 
-        ld   hl,curtrig     ; clear trigger's procedure
-        ld   (hl),a
-        inc  hl
-        ld   (hl),a
-
-        inc a
-        ld (trigchd),a     ; set flag, to get trigger image cleared
+        inc  a
+        ld  (trigchd),a     ; set flag, to get trigger image cleared
         ret
 
 
 ; ---- procedure for simple items triggers (brick, desk, etc.)
+;
 itmproc:
+        ld   hl,(trotptr)   ; load pointer to current trigger's object type
+        ld   de,sbholds     ; pointer to what saboteur holds
+
+        ld   a,(de)         ; what saboteur holds
+        ld   b,(hl)         ; new object type
+        ld   (hl),a         ; move current object to trigger's location
+        ld   a,b            ; save new object type in A
+        ld   (de),a         ; give new object type to saboteur
+
+        ld   a,1
+        ld   (trigchd),a    ; refresh triggered image
+
         ret
 
 
 ; ---- draws image of the triggered object
 ;
 ; args: HL - address of the image to be drawn
-;
 ;
 drawtrim:
         ld   de,TRIMADR

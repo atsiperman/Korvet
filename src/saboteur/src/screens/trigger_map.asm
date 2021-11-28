@@ -2,5 +2,6 @@
 
 
 s3trm:
-    db 1
-    mktrig 22, 15, trgmanl, itmproc, redbrick
+    db 2
+    mktrig 22, 15, trgmanl, trobrck, itmproc
+    mktrig 24, 6,  trgmanl, trobrck, itmproc

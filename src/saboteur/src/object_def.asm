@@ -118,8 +118,14 @@ mobjsz  EQU	4					; size of the masked object
 
 ; ---- trigger type
 ;
-trgmanl	EQU 0		; manual trigger
-trgauto	EQU 1		; auto trigger
+trgmanl	EQU 1		; manual trigger
+trgauto	EQU 2		; auto trigger
+
+; ---- object type in trigger
+;
+trempty EQU 0       ; nothing
+trobrck EQU 1       ; brick
+trodesk EQU 2       ; desktop
 
 ; ---- trigger state
 ;
@@ -134,13 +140,13 @@ trsize  EQU 7 		; trigger size
 			edup
 		endm
 
-		macro mktrig colnum, rownum, type, procaddr, imgaddr
+		macro mktrig colnum, rownum, trtype, objtype, procaddr
 		db tractiv				; trigger state, active by default
 		db colnum
 		db rownum
-		dw imgaddr
 		dw procaddr
-;		db type
+		db trtype               ; trigger type - manual/auto
+        db objtype              ; object type (brick, desk, etc.)
 		endm
 
 ; ----  loads ldcurscb

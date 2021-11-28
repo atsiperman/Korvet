@@ -32,6 +32,7 @@
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
 		include "sprites/static_object_sprites.asm"
+        include "sprites/trigger_sprites.asm"
 
 		include "sound.asm"	
 

@@ -235,14 +235,28 @@ drawtrig:
 		or	 a
 		ret	 z				; nothing triggered
         
-		ld	 hl,(trimage)	; load pointer to the trigger image
-		ld	 a,h
-		or	 l
-		jp	 nz, .drwtr1	; not zero, draw triggered image
+		ld	 hl,(trotptr)	; load pointer to the trigger object type
+        ld   a,h
+        or   l
+        jp   z,.drwtr1      ; no triggers, clear image
+
+        ld   a,(hl)         ; load object type into A
+		or	 a
+		jp	 nz, .drwtr2	; not zero, draw triggered image
+
+.drwtr1:
 		call clrtrim		; clear triggered image
 		jp	 .drwtre
 
-.drwtr1:
+.drwtr2:
+        ld   hl,trimglst
+        dec  a              ; get image index from object type
+        ld   c,a
+        ld   b,0
+        add  hl,bc
+        add  hl,bc          ; pointer to image address
+        load_de_hl          ; read image address
+        ex   de,hl          ; into HL
 		call drawtrim		; draw triggered image
 
 .drwtre:

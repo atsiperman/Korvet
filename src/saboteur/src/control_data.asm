@@ -34,10 +34,6 @@ mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 
-trigchd:	db 0		; flag, = 1 when trigger has been changed 
-curtrig:	dw 0		; pointer to the current trigger's procedure
-trimage:	dw 0		; address of the triggered image
-
 scrbuf:									; screen buffer		
 			dup ROWNUM * ROWWIDB
 			db 0
@@ -114,7 +110,16 @@ sbctrlb:
 		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,8
 		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
-			
+
+sbholds:    db 0        ; type of an object being held by saboteur
+
+trigchd:	db 0		; flag, = 1 when trigger has been changed 
+curtrig:	dw 0		; pointer to the current trigger data
+trproc:	    dw 0		; pointer to the current trigger's procedure
+trtype:     db 0        ; trigger type (auto/manual)
+trotptr:    dw 0        ; pointer to trigger's object type
+
+
 ; ----	saboteur health
 ;			
 sbhealth:

@@ -111,8 +111,17 @@ gifdown:
 		call gkdown
 		jp gend
 
-gifspace:
-		; action
+gifspace:                   ; action
+        ld   a,(trtype)  
+        or   a          
+        jp   z,.gifsp1      ; no triggers, continue
+        cp   trgmanl
+        jp   nz,.gifsp1     ; trigger is not manual, continue
+        ld   hl,(trproc)    ; trigger is manual, load trigger procedure
+        jp   (hl)           ; call trigger
+
+.gifsp1:
+		
 gend:		
 		ld a,1
 		ret
