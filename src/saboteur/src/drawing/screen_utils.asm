@@ -349,7 +349,7 @@ _sttil4:
                 inc bc          ; move to next byte in object data
         endm
 
-; ----- draws static object, having width of 3 columns, in video memory
+; ----- draws static object in video memory
 ; args: BC - address of the static object
 ;       DE - address in video memory
 ;			

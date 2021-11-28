@@ -121,6 +121,11 @@ decmprs5:
 		ex de,hl
 		ld (tramdef),hl
 
+		ex de,hl
+		load_de_hl			; load pointer to the list of triggers
+		ex de,hl
+		ld (trigmap),hl
+
 		ret
 				
 		
@@ -222,7 +227,28 @@ decmprs4:
 		inc hl				; move to the next data byte		
 
 		ret
-		
+
+; ----- draws triggered objects 
+;		
+drawtrig:        
+		ld	 a,(trigchd)
+		or	 a
+		ret	 z				; nothing triggered
+        
+		ld	 hl,(trimage)	; load pointer to the trigger image
+		ld	 a,h
+		or	 l
+		jp	 nz, .drwtr1	; not zero, draw triggered image
+		call clrtrim		; clear triggered image
+		jp	 .drwtre
+
+.drwtr1:
+		call drawtrim		; draw triggered image
+
+.drwtre:
+		xor	 a
+		ld	 (trigchd),a	; clear trigger flag
+		ret	
 
 ; ----- draws all objects on the current screen	
 ;		
@@ -368,7 +394,7 @@ drawobj2:
 		call rsttiles		; restore tiles background according to current objects location
 				
 		call drawobjs		; draw active objects
-
+		call drawtrig		; draw triggered image, if any
 		call drwmobjs		; draw masked objects
 
 		call showscr		; show buffer on the screen

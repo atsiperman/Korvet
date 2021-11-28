@@ -1,7 +1,6 @@
 ;
 ;	this file contains definitions of static objects for all the screens
 ;
-
         macro mkbox33 colnum, rownum
         mkstobj box31img, colnum, rownum
         mkstobj box32img, colnum + 1, rownum

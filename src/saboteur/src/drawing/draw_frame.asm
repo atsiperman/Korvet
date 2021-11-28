@@ -56,15 +56,20 @@ drfrmtxt:
 		ld hl,FRMADDR + (FRMHIGT-2)*8*64 + 22
 		ld de,strtime
 		call drawspr
-		
+        call drnoner
+        jp drnohld
+
+; ---- draws 'NOTHING NEAR;
+drnoner:
 		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 27
 		ld de,nthnear
-		call drawspr				
+		jp drawspr		
 
+; ---- draws 'NOTHING HELD;
+drnohld:
 		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 1
 		ld de,nthnheld
-		call drawspr
-		ret
+		jp drawspr
 
 ; ----- draws frame around working screen
 drawfrm:		

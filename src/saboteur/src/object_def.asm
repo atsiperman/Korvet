@@ -33,14 +33,13 @@ dirlt	EQU 2
 dirup	EQU 4
 dirdn	EQU 8
 
-; ---- 
-fgtile	EQU 128		; tile must be drawn above moving sprites
-stotile EQU 64		; static object tile
-
 ; ---- background type
 bwall   EQU 1
 bladder EQU 2 
 
+; ---- background tile attributes
+fgtile	EQU 128		; tile must be drawn above moving sprites
+stotile EQU 64		; static object tile
 
 ; ---- object types
 ;
@@ -48,7 +47,6 @@ osabotr	EQU 1		; saboteur
 odog	EQU 2		; dog
 oguard	EQU 3		; guard
 ogun	EQU 4		; gun
-ostobj  EQU 5		; static object with mask
 
 ; ---- displacements from the beginning of the control block
 ;
@@ -70,8 +68,8 @@ odmaxc	EQU 17		; 17, max column
 odcbend EQU 18		; end of the control block
 
 objsize EQU	odcbend - odtype
-stobjsz EQU 6
-mobjsz  EQU	4
+stobjsz EQU 6					; size of the static object
+mobjsz  EQU	4					; size of the masked object
 
 
 ; ----	makes control block for an object
@@ -79,9 +77,14 @@ mobjsz  EQU	4
 		macro mkctrlb otype,oproc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
 		db otype
 		dw oproc
-		db curstat,direct
-		dw curpos,curpos,curspr
-		db curspri,curscol,cursrow
+		db curstat
+		db direct
+		dw curpos
+		dw curpos
+		dw curspr
+		db curspri
+		db curscol
+		db cursrow
 		dw curspr	; previous sprite address
 		endm
 
@@ -100,16 +103,44 @@ mobjsz  EQU	4
 		db 0,0
 		endm
 
-		macro mkstobj address,colnum,rownum
-		db colnum
-		db rownum
-		dw address									; pointer to image data
-		dw SCRADDR + colnum + rownum * 64 * 8		; start address in video RAM
-		endm
-
 		macro mkmasko address,colnum,rownum
 		dw scrbuf + (colnum * COLWIDB) + (rownum * ROWWIDB)		; address in screen buffer
 		dw address												; image address
+		endm
+
+        macro mkstobj address,colnum,rownum
+        db colnum
+        db rownum
+        dw address									; pointer to image data
+        dw SCRADDR + colnum + rownum * 64 * 8		; start address in video RAM
+        endm
+
+
+; ---- trigger type
+;
+trgmanl	EQU 0		; manual trigger
+trgauto	EQU 1		; auto trigger
+
+; ---- trigger state
+;
+trdisab EQU 0		; trigger disabled, picture must not be shown, trigger procedure must not be called
+tractiv EQU 1		; trigger is active
+
+trsize  EQU 7 		; trigger size
+
+		macro skip_trigger regpair
+			dup trsize 
+				inc	 regpair
+			edup
+		endm
+
+		macro mktrig colnum, rownum, type, procaddr, imgaddr
+		db tractiv				; trigger state, active by default
+		db colnum
+		db rownum
+		dw imgaddr
+		dw procaddr
+;		db type
 		endm
 
 ; ----  loads ldcurscb

@@ -14,13 +14,13 @@
 		include "sprites/gun_sprites.asm"
 
 		; reserve bytes to get mirror table starting with xx00h address
-		dup 23
-			db 0
-		edup
+		; dup 23
+		; 	db 0
+		; edup
 
 ;------------------------------------------------------------
 		; order of this section is important, since mirror table must be 		
-		include "drawing/mirror_table.asm"
+		;include "drawing/mirror_table.asm"
 ; -----------------------------------------------------------
 ; -----------------------------------------------------------
 
@@ -51,6 +51,7 @@
 		include "screens/screens-110.asm"
 		include "screens/screens-120.asm"
 		
+		include "screens/trigger_map.asm"		
 		include "screens/screen_map.asm"		
 		
 		include "screen_control.asm"
@@ -70,6 +71,7 @@
 		include "logic/saboteur_jump.asm"
 		include "logic/health.asm"
 		include "logic/gun_logic.asm"
+		include "logic/triggers.asm"
 		
 		include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"

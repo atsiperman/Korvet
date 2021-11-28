@@ -5,6 +5,9 @@
 gmain:
 		call gaction		; process objects		
 		call sbmain			; process saboteur
+		push af
+		call trigact		; process triggers
+		pop	 af
 		ret
 
 ; ---- calls action logic for other objects
