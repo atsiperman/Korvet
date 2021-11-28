@@ -117,6 +117,8 @@ gifspace:                   ; action
         jp   z,.gifsp1      ; no triggers, continue
         cp   trgmanl
         jp   nz,.gifsp1     ; trigger is not manual, continue
+        ld   hl,gend
+        push hl
         ld   hl,(trproc)    ; trigger is manual, load trigger procedure
         jp   (hl)           ; call trigger
 

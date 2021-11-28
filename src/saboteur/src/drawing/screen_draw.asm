@@ -228,6 +228,39 @@ decmprs4:
 
 		ret
 
+; ----- draws an object being held by saboteur
+;		
+drwheldo:
+        ld   a,(sbhldch)
+        or   a
+        ret  z              ; nothing changed
+
+        ld   a,(sbholds)
+        or   a
+        jp   nz,.drwhl1     ; draw object
+        ld   hl,HELDADR
+        ld   de,drnohld     ; draw text 'nothing held'
+        call clrtrim        ; clear object image
+        jp   .drwhle
+
+.drwhl1:
+        ld   hl,trimglst
+        dec  a              ; get image index from object type
+        ld   c,a
+        ld   b,0
+        add  hl,bc
+        add  hl,bc          ; pointer to image address
+        load_de_hl          ; read image address
+        ex   de,hl          ; into HL
+        ld   de,HELDADR
+		call drawtrim		; draw triggered image
+
+.drwhle:
+		xor	 a
+		ld	 (sbhldch),a	; clear trigger flag
+		ret	
+
+
 ; ----- draws triggered objects 
 ;		
 drawtrig:        
@@ -245,6 +278,8 @@ drawtrig:
 		jp	 nz, .drwtr2	; not zero, draw triggered image
 
 .drwtr1:
+        ld   hl,TRIMADR
+        ld   de,drnoner     ; restore text 'nothing near'
 		call clrtrim		; clear triggered image
 		jp	 .drwtre
 
@@ -257,6 +292,7 @@ drawtrig:
         add  hl,bc          ; pointer to image address
         load_de_hl          ; read image address
         ex   de,hl          ; into HL
+        ld   de,TRIMADR
 		call drawtrim		; draw triggered image
 
 .drwtre:
@@ -410,6 +446,7 @@ drawobj2:
 		call drawobjs		; draw active objects
 		call drawtrig		; draw triggered image, if any
 		call drwmobjs		; draw masked objects
+        call drwheldo       ; draw an object being held by saboteur
 
 		call showscr		; show buffer on the screen
 		

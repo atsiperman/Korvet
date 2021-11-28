@@ -1,4 +1,3 @@
-; ---- triggers logic
 
 ; ---- triggers logic processing
 ;
@@ -107,28 +106,28 @@ itmproc:
 
         ld   a,1
         ld   (trigchd),a    ; refresh triggered image
-
+        ld   (sbhldch),a    ; refresh held object image
         ret
 
 
 ; ---- draws image of the triggered object
 ;
 ; args: HL - address of the image to be drawn
-;
+;       DE - address in video memory
 drawtrim:
-        ld   de,TRIMADR
         ld   c,l
         ld   b,h
         call drawsto
         ret
 
 ; ---- clear image of the triggered object
+; args: HL - address of the image to be drawn
+;       DE - address of the procedure to restore text
 ;
 clrtrim:
         ld  a,CMAINREG
         ld  (COLRREG),a
 
-        ld  hl,TRIMADR
         ld  a,255
         dup 12
             dup 4
@@ -145,5 +144,6 @@ clrtrim:
             add  hl,bc
         edup
 
-        jp   drnoner    ; draw text 'NOTHING NEAR'
+        ex   de,hl
+        jp   (hl)           ; restore text
         ret        
