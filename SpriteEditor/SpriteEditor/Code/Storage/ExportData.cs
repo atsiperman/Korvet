@@ -81,10 +81,10 @@ namespace SpriteEditor.Code.Storage
             {
                 var width = vm.ScreenWidth / 8;
                 var height = vm.ScreenHeight;
-                stream.WriteLine("      db {0},{1}", width, height);
+                stream.WriteLine("        db {0},{1}", width, height);
                 for (var line = 0; line < vm.ScreenHeight; line++)
                 {
-                    stream.Write("      db");
+                    stream.Write("        db");
                     var firstByte = true;
                     for (int w = 0; w < width; w++)
                     {
@@ -98,7 +98,7 @@ namespace SpriteEditor.Code.Storage
 
                     line++;
 
-                    stream.Write("      db");
+                    stream.Write("        db");
                     firstByte = true;
                     for (int w = width - 1; w >= 0; w--)
                     {
