@@ -132,30 +132,7 @@ uptlm_:
 utlmmobj:			
 		ld a,(fstrendr)
 		or a
-		jp z,.utlmo12_
-
-		push hl
-		xor a				; 0 - NOP command
-		ld hl,.utlmo2_		
-		ld (hl),a
-		inc hl		
-		ld (hl),a
-		inc hl		
-		ld (hl),a
-		pop hl
-
-		call .utlmo12_
-
-		; ---- restore normal way after first render			
-		ld hl,.utlmo2_		
-		ld (hl),0C3h			; JP command
-		inc hl		
-		ld (hl),LOW .utlmo3
-		inc hl		
-		ld (hl),HIGH .utlmo3
-		ret
-
-.utlmo12_:
+        ret  z
 
 		load_bc_hl		; load pointer in screen buffer into BE
 		load_de_hl		; load image address into DE
@@ -178,18 +155,9 @@ utlmmobj:
 		push bc			; save width in C
 
 .utlmo1:
-
-		ld a,(hl)
-		and 0F0h
-		jp nz,.utlmo3	; has been occupied, will be cleared, do not mark as occupied
-
-.utlmo2_:
-	 	jp .utlmo3
-
 		ld a,1000b		; mark as occupied
 		ld (hl),a
 
-.utlmo3:
 		skip_buf_tile hl	; move to the next tile
 		dec c
 		jp nz,.utlmo1		; next column
