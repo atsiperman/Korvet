@@ -1,5 +1,12 @@
 
-; ---- triggers logic processing
+; ---- runs manual trigger
+;
+trigrun:
+        ld   hl,(trproc)    ; trigger is manual, load trigger procedure
+        jp   (hl)           ; call trigger
+        ret
+
+; ---- check for the triggers on the screen
 ;
 trigact:
         ld hl,(trigmap)
@@ -8,7 +15,7 @@ trigact:
         ret z
 
         xor a
-        ld  (trigchd),a    ; clear trigger changed flag         
+        ld  (trigchd),a                 ; clear trigger changed flag         
 
         ld  a,(hl)
         inc hl				            ; set to the first object

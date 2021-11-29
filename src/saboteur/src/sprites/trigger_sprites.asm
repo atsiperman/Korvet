@@ -4,7 +4,51 @@
 ;
 trimglst:
         dw redbrick
-        dw redbrick
+        dw shuriken
+
+; ---- list of objects which can be thrown
+othrwlst:
+        dw smbrick      ; small brick
+        dw smshrkn      ; small shuriken
+
+smbrick:
+        db CMAINREG
+        db 1,1
+        db 0,30, 0,62, 0,122, 0,134, 0,244, 0,248, 0,240, 0,0
+
+smshrkn:
+        db CMAINREG
+        db 1,1
+        db 0,2, 0,198, 0,108, 0,56, 0,28, 0,54, 0,99, 0,64
+
+shuriken:
+        db 4,24
+        db 2,0, CBLUE,255, 2,0, CBLUE,255, 2,0, CBLUE,255, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,128, CBLUE,127, 2,0, CBLUE,255, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,0, CBLUE,255, 2,128, CBLUE,127, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,128, CBLUE,127, 2,0, CBLUE,255, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,1, CBLUE,254, 2,128, CBLUE,127, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,128, CBLUE,127, 2,1, CBLUE,254, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,3, CBLUE,252, 2,192, CBLUE,63, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,240, CBLUE,15, 2,127, CBLUE,128, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,15, CBLUE,240, 2,254, CBLUE,1, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,192, CBLUE,63, 2,3, CBLUE,252, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,1, CBLUE,254, 2,128, CBLUE,127, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,128, CBLUE,127, 2,1, CBLUE,254, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,1, CBLUE,254, 2,0, CBLUE,255, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,0, CBLUE,255, 2,1, CBLUE,254, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,1, CBLUE,254, 2,0, CBLUE,255, 2,0, CBLUE,255
+        db 2,0, CBLUE,255, 2,0, CBLUE,255, 2,0, CBLUE,255, 2,0, CBLUE,255
+
+        db 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255
+        db 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255
+        db 3,117, CBLACK,138, 3,86, CBLACK,169, 3,85, CBLACK,170, 3,210, CBLACK,45
+        db 3,26, CBLACK,229, 3,85, CBLACK,170, 3,85, CBLACK,170, 3,69, CBLACK,186
+
+        db 3,119, CBLACK,136, 3,86, CBLACK,169, 3,89, CBLACK,166, 3,158, CBLACK,97
+        db 3,22, CBLACK,233, 3,85, CBLACK,170, 3,85, CBLACK,170, 3,21, CBLACK,234
+        db 3,117, CBLACK,138, 3,37, CBLACK,218, 3,85, CBLACK,170, 3,210, CBLACK,45
+        db 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255, 3,0, CBLACK,255
 
 ; ---- big red brick in the right bottom corner
 redbrick:

@@ -49,12 +49,12 @@ putspr1:
 		dec b
 		jp z,putspr_
 		
-		ld a,b			; save counter B in A
-		pop bc			; restore counter in C
-		ld b,a			; restore counter B
-		push bc			; save new counters
+		ld a,b			    ; save counter B in A
+		pop bc			    ; restore counter in C
+		ld b,a			    ; restore counter B
+		push bc			    ; save new counters
 
-		push de			; save pointer to sprite data
+		push de			    ; save pointer to sprite data
 		ld hl,(_putsp_x)	; restore initial X position
 		ld de, ROWWIDB
 		add hl,de			; get address of the next row in screen buffer
@@ -64,7 +64,7 @@ putspr1:
 		jp putspr1
 		
 putspr_:
-		pop bc			; clear stack
+		pop bc			    ; clear stack
 		ret
 
 				

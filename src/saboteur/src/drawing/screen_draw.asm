@@ -442,6 +442,7 @@ drawobj2:
 		call updobjs		; update objects state		
 		call updmobjs		; update masked objects state
 		call rsttiles		; restore tiles background according to current objects location
+        call utlmtho        ; update thrown object state
 				
 		call drawobjs		; draw active objects
 		call drawtrig		; draw triggered image, if any

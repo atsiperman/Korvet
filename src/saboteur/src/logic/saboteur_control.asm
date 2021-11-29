@@ -162,3 +162,91 @@ sbstplna:
 		call sbleavld		; if yes - stop and stay
 		call sbstopst
 		ret
+
+; ---- saboteur throws an object
+;
+sbthrow:
+        ld   a,(sbholds)
+        or   a
+        ret  z                          ; nothing is held, return
+
+        ld   hl,othrwlst
+        dec  a                          ; get image index from object type
+        ld   c,a
+        ld   b,0
+        add  hl,bc
+        add  hl,bc                      ; pointer to image address
+        load_de_hl                      ; read image address
+        ex   de,hl                      ; into HL
+
+        ld   (othrown + odflimg),hl     ; save image address
+        sblcursc
+        ld   c,a                        ; save column in C
+        inc  c                          ; make correctin for if throwing left
+
+        sblddir                         ; load current direction into A
+        ld   (othrown),a                ; save direction of an object to fly
+        cp   dirlt
+        jp   z,.sbthr1
+
+        inc  c                          ; throw right
+
+.sbthr1:       
+        ld   a,c
+        ld   de,othrown + odfcoln        
+        ld   (de),a                     ; save colnum
+
+        sblcursr
+        inc  a
+        inc  de                         ; move to rownum
+        ld   (de),a
+
+.sbthre:
+        xor  a
+        ld   (sbholds),a    ; object is thrown
+        inc  a
+        ld   (sbhldch),a    ; redraw object
+
+        jp   movthrn        ; check next column to 
+
+
+
+; ---- moving thrown object
+;
+movthrn:
+        ld   a,(othrown)
+        or   a
+        ret  z                      ; 0 direction means no object is moving
+
+        ld   d,a                    ; save direction in D
+
+        ld   a,(othrown + odfcoln)  ; load colnum
+        ld   c,a                    ; save in C
+
+        ld   a,d                    ; restore direction in A
+        cp   dirrt
+        jp   z,.mvthr1
+
+        ld   a,c                    ; moving left
+        cp   2                      ; last column on the left, stop moving
+        jp   c,.mvthre
+
+        dec  a
+        dec  a
+        ld   (othrown + odfcoln),a
+        ret
+
+.mvthr1:
+        ld   a,c
+        cp   COLNUM - 2
+        jp   nc,.mvthre
+
+        inc  a
+        inc  a
+        ld   (othrown + odfcoln),a
+        ret
+
+.mvthre:
+        xor  a
+        ld   (othrown),a            ; movement is finished
+        ret

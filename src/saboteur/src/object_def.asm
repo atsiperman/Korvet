@@ -125,7 +125,7 @@ trgauto	EQU 2		; auto trigger
 ;
 trempty EQU 0       ; nothing
 trobrck EQU 1       ; brick
-trodesk EQU 2       ; desktop
+troshrk EQU 2       ; shuriken
 
 ; ---- trigger state
 ;
@@ -148,6 +148,12 @@ trsize  EQU 7 		; trigger size
 		db trtype               ; trigger type - manual/auto
         db objtype              ; object type (brick, desk, etc.)
 		endm
+
+; ---- displacement of the attributes for the thrown object
+;
+odflimg EQU 1       ; image address
+odfcoln EQU 3       ; colnum
+odfrown EQU 4       ; rownum
 
 ; ----  loads ldcurscb
 ; args: HL - address of the current column index

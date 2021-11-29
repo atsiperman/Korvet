@@ -211,3 +211,33 @@ utlmmobj:
 		pop bc				; clear stack
 		pop hl
 		ret
+
+; ---- update tile map for thrown object
+;
+utlmtho:
+        ld   hl,othrown
+        ld   a,(hl)
+        or   a
+        ret  z                      
+
+        inc  hl
+        load_de_hl                  ; load image address into DE
+        push de
+
+        ld   d,(hl)                 ; save colnum in D
+        inc  hl
+        ld   e,(hl)                 ; save rownum in E
+
+        call shscradr               ; get pointer to a tile for thrown object
+
+        dec  hl                     ; move to tile state
+		ld   a,1000b		        ; mark as occupied
+		ld   (hl),a
+
+        dec  hl
+        dec  hl                     ; move to tile start
+
+        pop  de
+        call putspr
+
+        ret

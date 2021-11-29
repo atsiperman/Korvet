@@ -107,12 +107,21 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,8
-		;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
+		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,8
+		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
 
-sbholds:    db 0        ; type of an object being held by saboteur
-sbhldch:    db 0        ; flag, when object is changed
+sbholds:    db troshrk  ; type of an object being held by saboteur
+sbhldch:    db 1        ; flag, when object is changed
+
+; ---- object thrown by saboteur
+;
+othrown:    
+            db 0        ; direction where object has been thrown            
+            dw 0        ; image address of an object thrown
+            db 0        ; colnum
+            db 0        ; rownum
+
 
 trigchd:	db 0		; flag, = 1 when trigger has been changed 
 curtrig:	dw 0		; pointer to the current trigger data

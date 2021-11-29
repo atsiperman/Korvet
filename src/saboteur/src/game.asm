@@ -3,7 +3,8 @@
 ; result: A - 0 to stop
 
 gmain:
-		call gaction		; process objects		
+        call movthrn        ; move thrown object if any
+		call gaction		; process objects        		
 		call sbmain			; process saboteur
 		push af
 		call trigact		; process triggers
@@ -117,13 +118,12 @@ gifspace:                   ; action
         jp   z,.gifsp1      ; no triggers, continue
         cp   trgmanl
         jp   nz,.gifsp1     ; trigger is not manual, continue
-        ld   hl,gend
-        push hl
-        ld   hl,(trproc)    ; trigger is manual, load trigger procedure
-        jp   (hl)           ; call trigger
+        call trigrun
+        jp   gend
 
 .gifsp1:
-		
+        call sbthrow        ; throw the object being held or do a punch        
+
 gend:		
 		ld a,1
 		ret
