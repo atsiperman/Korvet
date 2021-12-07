@@ -77,8 +77,8 @@
 		include "drawing/scrbuf_utils.asm"
 		include "drawing/drawsprite.asm"
 		include "drawing/draw_frame.asm"		
-		include "drawing/screen_draw.asm"
         include "drawing/screen_utils.asm"		
+		include "drawing/screen_draw.asm"
 		
 		include "drawing/object_draw.asm"		
 		
@@ -109,15 +109,15 @@ start:
 		call drawfrm	; draw frame
 		
         GRMODOFF
-		
+
 main:					; main cycle
 		DISSND
 
-        GRMODON
+        ;GRMODON
 
 		call drawscr
 				
-        GRMODOFF
+        ;GRMODOFF
 		
 		call sbstsnd
 
@@ -125,6 +125,7 @@ main:					; main cycle
 		or a		
 		jp nz,main		; continue if not zero
 
+exit:
 						; exit to cp/m
         ld hl,(OLDSTK)
         ld sp,hl

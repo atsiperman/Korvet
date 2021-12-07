@@ -4,14 +4,16 @@ tmpstk: dw 0				; to save stack for some operations
 	
 ; ---- LUT 
 LUTVAL:
-		db 00010000b	; CBLUE		
-		db 00100001b	; CGREEN    
-		db 01000010b	; CRED		
+
+		db 00000000b	; CBLACK
+		db 00010001b	; CBLUE    
+		db 01000010b	; CRED
 		db 01100011b    ; CYELLOW   
-				
-		db 00011000b	; CBLUE		
-		db 10101001b	; CGREEN    
-		db 11111010b	; CRED = WHITE
+    
+        ; with text latyer
+		db 11111000b	; CWHITE
+		db 00011001b	; CBLUE   
+        db 00101010b	; CGREEN = CRED
 		db 10111011b    ; CYELLOW = CYAN
 
 		; black color		
@@ -25,13 +27,13 @@ LUTVAL:
 		db 00001110b
 		db 00001111b
 
-
 TILMAPLN	EQU	ROWNUM * COLNUM
 
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
+otramdef:	dw 0		; pointer to definition of text ram for old screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 
 scrbuf:									; screen buffer		

@@ -116,6 +116,9 @@ decmprs5:
 		ex de,hl
 		ld (mobjlst),hl		; save pointer to the list of masked objects
 
+        ld hl,(tramdef)     ; save old text RAM definition
+        ld (otramdef),hl
+
 		ex de,hl
 		load_de_hl			; load text RAM definition
 		ex de,hl
@@ -423,12 +426,15 @@ scrch1_:
 		ld a,1
 		ld (fstrendr),a		; set flag for first render
 
-		call clrtxscr		; clear text ram for old screen		
 		call decmrscr		; decompress new screen map
-		call drawtram		; draw text ram for new screen
-		call drawstos		; draw static objects
 
+        call waitblnk
+		call clrtxscr		; clear text ram for old screen		
+		call drawtram		; draw text ram for new screen
+        GRMODON
+		call drawstos		; draw static objects
         call drawbkgr		; draw background
+        GRMODOFF
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
@@ -445,13 +451,17 @@ drawobj2:
         call utlmtho        ; update thrown object state
 				
 		call drawobjs		; draw active objects
-		call drawtrig		; draw triggered image, if any
 		call drwmobjs		; draw masked objects
-        call drwheldo       ; draw an object being held by saboteur
 
-		call showscr		; show buffer on the screen
-		
+        call waitblnk
+        GRMODON
+
+		call drawtrig		; draw triggered image, if any
+        call drwheldo       ; draw an object being held by saboteur
+		call showscr		; show buffer on the screen		
 		call hldraw			; draw health bar
+
+        GRMODOFF
 
 		xor a
 		ld (fstrendr),a		; reset set flag for first render

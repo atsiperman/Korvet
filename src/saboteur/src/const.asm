@@ -54,16 +54,16 @@ HELDADR     EQU SCRADDR + 64 * 8 * 18       ; start of the memory to show an obj
 NEWSTK  	EQU 0beffh		; new address of stack
 
                             ; logical colors
-CBLUE		EQU 0
-CGREEN		EQU 1
-CRED        EQU 2
+CBLACK		EQU 0                            
+CBLUE		EQU 1
+CRED        EQU 2           
+CGREEN		EQU 2   ; CRED + text
 CYELLOW		EQU 3
-CBLACK		EQU 4
+CCYAN		EQU 3   ; CYELLOW + text
+CWHITE		EQU 8   ; CBLACK + text
 
-CWHITE		EQU 2		    ; CRED
-CCYAN		EQU 3 		    ; CYELLOW			
+CMAIN 		EQU 4			; color of the main character
 
-CMAIN 		EQU CBLACK			; color of the main character
 
 ;COLORCLR	EQU 80h + ((7 & CMAIN) << 1)	; color to clear working screen
 COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen

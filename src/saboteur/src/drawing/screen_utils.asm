@@ -520,7 +520,7 @@ _drws1_1:
 ; ----- clears text ram for current screen
 ;
 clrtxscr:
-        ld hl,(tramdef)
+        ld hl,(otramdef)
         ld a,h
         or l
         ret z			    ; address is zero, nothing to draw
@@ -543,7 +543,7 @@ drawtram:
         ld (_drtrm3_),a
 
 _drtrams:                
-        GRMODOFF
+;        GRMODOFF
 
 _drtram1:
         ld a,(hl)
@@ -596,5 +596,5 @@ _drtram4:
         jp _drtram1
 
 _drtrame:
-        GRMODON
+;        GRMODON
         ret

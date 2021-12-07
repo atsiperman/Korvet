@@ -34,3 +34,17 @@ sbstsnd:
         ENSND 255, 255
 
         ret
+
+; ---- wait for the blank to start
+;
+waitblnk:
+        ld   a,(TVISTS)
+        and  2
+        jp   z,waitblnk
+
+.waitbl1
+        ld   a,(TVISTS)
+        and  2
+        jp   nz,.waitbl1
+
+        ret

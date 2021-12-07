@@ -142,7 +142,7 @@ BK29DATA:	bksh2 CRED, bwall							; solid red
 BK30DATA:	bksh CGREEN									; solid green
 			DB 255,255,255,255,255,255,255,255
 
-BK31DATA:	bksh2 CRED,bwall							; black and white dots
+BK31DATA:	bksh2 CWHITE,bwall							; black and white dots
 			DB 50,46,123,38,50,46,123,38 
 			
 BK32DATA:	bksh CGREEN									; green vertical tube
