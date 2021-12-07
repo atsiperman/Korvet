@@ -177,3 +177,14 @@ s100stom:
         mkstobj barelimg, 18, 10
         mkstobj barelimg, 22, 10
         mkstobj barelimg, 25, 10
+
+s101stom:
+        db 7
+        mkbox33 2, 8
+        mkbox44 2, 11
+
+s103stom:
+        db 3
+        mkstobj barelimg, 8, 6
+        mkstobj barelimg, 12, 6
+        mkstobj barelimg, 19, 5

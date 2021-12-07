@@ -134,7 +134,10 @@ smap50e:
 		mkline 3
 		db 0
 		
-		mscrend
+        db SCREND
+        db TXTSMAP
+        dw scr50txd
+        db SCREND
 		
 scr50txd:
 		mkbyte TXLINEV,1
@@ -314,7 +317,10 @@ smap51e:
 		db 0
 		db 0
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s51objm
+        db SCREND
 		
 ; --- end of scrbk51
 
@@ -424,7 +430,10 @@ smap52e:
 		mkline 11
 		db 0
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s52objm
+        db SCREND
 		
 ; --- end of scrbk52
 
@@ -570,7 +579,11 @@ smap54e:
 		mkbyte 3,0
 		db 0
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s54objm
+        db SCREND
+
 		
 ; --- end of scrbk54
 

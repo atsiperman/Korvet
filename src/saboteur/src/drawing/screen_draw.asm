@@ -85,7 +85,7 @@ decmrscr:
 		
 decmprs1:
 		ld a,(hl)			; load compressed byte into A			
-		cp SCREND			; marker of the end 
+		cp SCREND			; marker of the end of the screen map defition
 		jp z,decmprs5		; set pointer to the object list						
 		
 		and LINELEN			; clear low bits
@@ -99,38 +99,73 @@ decmps1_:
 		jp decmprs1			; continue
 		
 decmprs5:
-		ld hl,(curscr)		; pointer to screen control block
-		ld bc,objmapd
-		add hl,bc
-		load_de_hl			; load object map address
-		ex de,hl		
-		ld (objlist),hl		; save pointer to the object list
-
-		ex de,hl
-		load_de_hl			; load static object map address to DE
-		ex de,hl
-		ld (sobjlst),hl		; save pointer to the list of static objects
-
-		ex de,hl
-		load_de_hl			; load masked object map address to DE
-		ex de,hl
-		ld (mobjlst),hl		; save pointer to the list of masked objects
-
+        push hl             ; save current pointer to screen map data
         ld hl,(tramdef)     ; save old text RAM definition
         ld (otramdef),hl
 
+        ld   hl,objlist
+        xor  a
+        dup (otramdef - objlist)
+            ld   (hl),a
+            inc  hl
+        edup
+
+        pop  hl             ; restore data pointer
+        inc  hl             ; move to the next data byte
+.decmp6:
+		ld   a,(hl)			; load compressed byte into A
+        inc  hl
+		cp   SCREND			; marker of the end 
+        ret  z
+
+        cp   OBJMAP
+        jp   nz,.decmp7
+		load_de_hl			; load object map address
+		ex   de,hl		
+		ld   (objlist),hl		; save pointer to the object list
+        ex   de,hl		
+        jp   .decmp6
+
+.decmp7:
+        cp   STOMAP
+        jp   nz,.decmp8
+		load_de_hl			; load static object map address to DE
 		ex de,hl
+		ld (sobjlst),hl		; save pointer to the list of static objects
+        ex   de,hl		
+        jp   .decmp6
+
+.decmp8:
+        cp   MSKOMAP
+        jp   nz,.decmp9
+		load_de_hl			; load masked object map address to DE
+		ex de,hl
+		ld (mobjlst),hl		; save pointer to the list of masked objects
+        ex   de,hl		
+        jp   .decmp6
+
+.decmp9:
+        cp   TXTSMAP
+        jp   nz,.decmp10
 		load_de_hl			; load text RAM definition
 		ex de,hl
 		ld (tramdef),hl
+        ex   de,hl		
+        jp   .decmp6
 
-		ex de,hl
+.decmp10:
+        cp   TRIGMAP
+        jp   nz,.decmp11
 		load_de_hl			; load pointer to the list of triggers
 		ex de,hl
 		ld (trigmap),hl
+        ex   de,hl		
+        jp   .decmp6
 
-		ret
-				
+.decmp11:
+        inc  hl
+        jp   .decmp6
+			
 		
 linecnt_:
 		db 0
@@ -428,7 +463,7 @@ scrch1_:
 
 		call decmrscr		; decompress new screen map
 
-        call waitblnk
+        ;call waitblnk
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
         GRMODON
@@ -453,7 +488,7 @@ drawobj2:
 		call drawobjs		; draw active objects
 		call drwmobjs		; draw masked objects
 
-        call waitblnk
+        ;call waitblnk
         GRMODON
 
 		call drawtrig		; draw triggered image, if any

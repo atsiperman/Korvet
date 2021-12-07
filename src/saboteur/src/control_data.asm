@@ -32,9 +32,9 @@ TILMAPLN	EQU	ROWNUM * COLNUM
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
+trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
 otramdef:	dw 0		; pointer to definition of text ram for old screen
-trigmap:	dw 0		; pointer to the list of triggers on the current screen
 
 scrbuf:									; screen buffer		
 			dup ROWNUM * ROWWIDB
@@ -102,15 +102,15 @@ SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start scr
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn3 		; pointer to current screen
+curscr: 	dw scrn103 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,8
+		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,3
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
 
 sbholds:    db troshrk  ; type of an object being held by saboteur

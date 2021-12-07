@@ -144,7 +144,10 @@ smap41e:
 		mkbyte 1,1
 		
 
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s41objm
+        db SCREND
 		
 ; --- end of scrbk41
 		
@@ -604,7 +607,14 @@ smap46e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s46objm
+        db STOMAP
+        dw s46stom
+        db TXTSMAP
+        dw scr46txd
+        db SCREND
 
 scr46txd:
 		mkbyte TXLINEV,1
@@ -669,7 +679,12 @@ smap48e:
 		mkline 3
 		db 0
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s48objm
+        db STOMAP
+        dw s48stom
+        db SCREND
 		
 ; --- end of scrbk48
 
@@ -781,6 +796,12 @@ smap49e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s49objm
+        db STOMAP
+        dw s49stom
+        db SCREND
+
 		
 ; --- end of scrbk49

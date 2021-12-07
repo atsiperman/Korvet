@@ -43,7 +43,15 @@ smap100e:
 		mkline 10
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s100om
+        db STOMAP
+        dw s100stom
+        db MSKOMAP
+        dw s100mom
+        db SCREND
+
 ; --- end of scrbk100
 
 
@@ -165,13 +173,66 @@ smap101e:
 		mkline 6
 		mkbyte 1,1
 		
-		mkline 8		; line 16
+		mkline 8		; line 17
 		db 0
 		mkbyte 0,1
 		mkline 6
 		mkbyte 1,1
 		
-		mscrend
+        db SCREND
+        db STOMAP
+        dw s101stom
+        db TXTSMAP
+        dw scrn101txd
+        db SCREND
+
+scrn101txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 0
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 1
+			db CHTOP
+
+		mkbyte TXLINEV,6
+			mktxtaddr 8, 2
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 0
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 13, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 17, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 20, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 20, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 23, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 27, 1
+			db CHFULL
+
+        db SCREND
 ; --- end of scrbk101
 
 
@@ -227,7 +288,54 @@ smap102e:
 		;edup
 
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s102om
+        db MSKOMAP
+        dw s102mom
+        db TXTSMAP
+        dw scrn102txd
+        db SCREND
+
+scrn102txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 4, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,4
+			mktxtaddr 4, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,4
+			mktxtaddr 14, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,4
+			mktxtaddr 17, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,2
+			mktxtaddr 24, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 3
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk102
 
 
@@ -246,7 +354,7 @@ smap103e:
 			mkbyte 1,2
 			mkbyte 1,1
 			mkbyte 1,1
-			mkbyte 1,2
+			mkbyte 2,1
 			mkbyte 1,1
 			mkbyte 1,3
 			mkbyte 4,1
@@ -254,10 +362,7 @@ smap103e:
 			db 0
 		;edup
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 1,1
+		mkline 9
 		mkbyte 1,1
 		mkline 6
 		db 0
@@ -276,19 +381,25 @@ smap103e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s103stom
+        db TXTSMAP
+        dw scrn103txd
+        db SCREND
+
 		
 scrn103txd:					; description of the text RAM used by this screen		
 		mkbyte TXLINEV,1
-			mktxtaddr 19, 0
+			mktxtaddr 18, 0
 			db CHBOTM
 
 		mkbyte TXLINEV,3
-			mktxtaddr 19, 1
+			mktxtaddr 18, 1
 			db CHFULL
 
 		mkbyte TXLINEV,1
-			mktxtaddr 19, 4
+			mktxtaddr 18, 4
 			db CHTOP
 
 		mkbyte TXLINEV,1

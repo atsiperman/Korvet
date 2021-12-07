@@ -73,7 +73,12 @@ smap70e:
 		mkline 7
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP        
+        dw s70objm
+        db MSKOMAP
+        dw s70smom
+        db SCREND
 		
 ; --- end of scrbk70
 
@@ -159,7 +164,10 @@ smap71e:
 		mkline 13
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP        
+        dw s71objm
+        db SCREND
 
 ; --- end of scrbk71
 
@@ -294,7 +302,11 @@ smap73e:
 		mkline 10
 		db 0
 
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s73stom
+        db SCREND
+
 ; --- end of scrbk73
 
 scrbk74:
@@ -330,7 +342,10 @@ smap74e:
 		mkline 6
 		db 0
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s74stom
+        db SCREND
 		
 ; --- end of scrbk74
 
@@ -371,7 +386,12 @@ smap75e:
 		mkline 6
 		db 0
 
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s75stom
+        db TXTSMAP
+        dw scr75txd
+        db SCREND
 
 scr75txd:						; description of the text RAM used by this screen
 		mkbyte TXLINEV,1

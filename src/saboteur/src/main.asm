@@ -40,7 +40,7 @@
 		include "screens/static_object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
-		include "screens/screens-23.asm"
+		include "screens/screens-20.asm"
 		include "screens/screens-30.asm"
 		include "screens/screens-40.asm"
 		include "screens/screens-50.asm"

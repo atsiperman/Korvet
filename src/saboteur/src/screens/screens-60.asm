@@ -71,7 +71,11 @@ smap60e:
 			db 0
 			db 0
 		;edup
-		mscrend
+
+		db SCREND
+        db OBJMAP        
+        dw s60objm
+        db SCREND
 		
 ; --- end of scrbk60
 
@@ -212,7 +216,11 @@ smap62e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db OBJMAP        
+        dw s62objm
+        db SCREND
+
 		
 ; --- end of scrbk62
 

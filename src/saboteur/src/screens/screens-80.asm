@@ -167,7 +167,15 @@ smap84e:
 		mkline 6
 		db 0
 
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s84objm
+        db STOMAP
+        dw s84stom
+        db TXTSMAP
+        dw scr75txd
+        db SCREND
+
 ; --- end of scrbk84
 
 
@@ -208,7 +216,12 @@ smap85e:
 			mkline 6
 			db 0
 		;edup
-		mscrend
+
+		db SCREND
+        db STOMAP
+        dw s85stom
+        db SCREND
+
 ; --- end of scrbk85
 
 scrbk86:
@@ -235,7 +248,11 @@ smap86e:
 			db 0
 		;edup
 
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s86stom
+        db SCREND
+
 ; --- end of scrbk86
 
 
@@ -277,8 +294,43 @@ smap87e:
 		mkline 10
 		db 0
 
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s87stom
+        db SCREND
+
 ; --- end of scrbk87
+
+
+scrbk88:
+		spmaplen smap81b,smap81e
+smap88b:
+		bkindex BK2ADDR		; 0, wall
+		bkindex BK1ADDR		; 1, yellow L
+smap88e:
+		mkbyte 1,1
+		mkbyte 1,1
+		mkline 13
+		mkbyte 1,1
+		
+		mkdup 15
+			mkbyte 1,1
+			mkbyte 1,1
+			mkline 13
+			mkbyte 1,1
+		;edup
+		
+		db 0
+		db 0
+		mkline 13
+		db 0
+		
+		db SCREND
+        db STOMAP
+        dw s88stom
+        db SCREND
+		
+; --- end of scrbk88
 
 scrbk89:
 		spmaplen smap89b,smap89e
@@ -313,5 +365,12 @@ smap89e:
 		db 0
 		mkline 13
 		db 0
-		mscrend
+
+		db SCREND
+        db STOMAP
+        dw s89stom
+        db TXTSMAP
+        dw scr75txd
+        db SCREND
+
 ; --- end of scrbk89

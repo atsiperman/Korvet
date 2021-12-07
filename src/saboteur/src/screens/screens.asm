@@ -5,6 +5,12 @@ DUPLEN	EQU 14 << 4
 TXLINEV EQU 1
 TXLINEH EQU 2
 
+OBJMAP  EQU 1       ; object map marker
+STOMAP  EQU 2       ; static object map marker
+MSKOMAP EQU 3       ; masked object map marker
+TRIGMAP EQU 4       ; trigger map
+TXTSMAP EQU 5       ; text screen map marker
+
 
 		macro mktxtaddr colnum, rownum
 		dw TRAM + TSTARTC + colnum + 64*(TSTARTR + rownum)
@@ -17,6 +23,7 @@ TXLINEH EQU 2
 
 		macro mscrend
 		db	SCREND
+        db	SCREND
 		endm
 
 		macro mkbyte hi,lo
@@ -94,7 +101,15 @@ smap2e:
 		mkline 3
 		mkbyte 1,1
 
-		mscrend
+		db SCREND           ; end of screen map
+
+        db STOMAP
+        dw s2stom
+        db MSKOMAP
+        dw s2mom
+        db TXTSMAP
+        dw scrn2txd
+        db SCREND
 
 scrn2txd:					; description of the text RAM used by this screen
 		mkbyte TXLINEH,15
@@ -202,7 +217,15 @@ smap3e:
 		mkbyte 1,1	
 		mkbyte 1,1
 		
-		mscrend
+		db SCREND
+
+        db OBJMAP
+        dw s3objm
+        db MSKOMAP
+        dw s3mom
+        db TRIGMAP
+        dw s3trm
+        db SCREND
 
 ; --- end of scrbk3
 	
@@ -321,7 +344,14 @@ smap4e:
 		db 0
 		db 0
 		
-		mscrend
+		db SCREND
+
+        db OBJMAP
+        dw s4objm
+        db MSKOMAP
+        dw s4mom
+        db SCREND
+
 ; --- end of scrbk4
 
 
@@ -448,7 +478,10 @@ smap6e:
 		mkline 10
 		db 0
 
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s6mom
+        db SCREND
 				
 ; --- end of scrbk6
 
@@ -538,7 +571,12 @@ smap7e:
 		mkline 5
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s7objm
+        db MSKOMAP
+        dw s7mom
+        db SCREND
 				
 ; --- end of scrbk7
 
@@ -609,7 +647,10 @@ smap8e:
 			db 0			
 		;edup
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s8objm
+        db SCREND
 		
 ; --- end of scrbk8
 
@@ -747,7 +788,11 @@ smap9e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s9objm
+        db SCREND
+
 ; --- end of scrbk9
 
 scrbk10:
@@ -800,7 +845,11 @@ smap10e:
 			db 0	
 		;edup
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s10objm
+        db SCREND
+
 		
 ; --- end of scrbk10
 

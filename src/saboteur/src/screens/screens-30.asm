@@ -208,7 +208,10 @@ smap31e:
 		mkline 3
 		db 0
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw scr31txd        
+        db SCREND
 		
 scr31txd:
 		mkbyte TXLINEV,1
@@ -274,7 +277,12 @@ smap32e:
 			mkbyte 1,1
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s32objm
+        db TXTSMAP
+        dw scr32txd
+        db SCREND
 		
 scr32txd:
 		mkbyte TXLINEV,1
@@ -346,7 +354,11 @@ smap34e:
 			db 0
 		;edup 
 		
-		mscrend
+        db SCREND
+        db TXTSMAP
+        dw scr34txd
+        db SCREND
+
 		
 scr34txd:
 		mkbyte TXLINEV,1
@@ -412,7 +424,13 @@ smap35e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s35objm
+        db TXTSMAP
+        dw scr35txd
+        db SCREND
+
 		
 scr35txd:
 		mkbyte TXLINEV,1
@@ -542,8 +560,13 @@ smap36e:
 		mkline 13
 		mkbyte 5,5
 		
-		mscrend
-		
+        db SCREND
+        db OBJMAP
+        dw s36objm
+        db MSKOMAP
+        dw s36mom
+        db SCREND
+
 ; --- end of scrbk36
 
 
@@ -653,7 +676,11 @@ smap37e:
 		mkbyte 5,9
 		db 0
 		
-		mscrend
+        db SCREND
+        db MSKOMAP
+        dw s37mom
+        db SCREND
+
 		
 ; --- end of scrbk37
 
@@ -831,7 +858,12 @@ smap38e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s38objm
+        db TXTSMAP
+        dw scr38txd
+        db SCREND
 		
 scr38txd:
 		mkbyte TXLINEV,1
@@ -901,7 +933,10 @@ smap39e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s39objm
+        db SCREND
 		
 ; --- end of scrbk39
 

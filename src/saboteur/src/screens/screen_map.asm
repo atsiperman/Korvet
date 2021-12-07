@@ -1,5 +1,5 @@
 		macro mkscreen5 scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap, maskobjm, txtscrd, trmap
-		dw scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap, maskobjm, txtscrd, trmap
+		dw scraddr, leftscr, rightsrc, upscr, downscr ;, objmap, stomap, maskobjm, txtscrd, trmap
 		endm
 
 		macro mkscreen4 scraddr, leftscr, rightsrc, upscr, downscr, objmap, stomap, maskobjm,txtscrd		
@@ -36,6 +36,7 @@ scrn7:	mkscreen4 scrbk7, scrn6, scrn8, 0, scrn12, s7objm, 0, s7mom, 0
 scrn8:	mkscreen scrbk8, scrn7, 0, scrn68, scrn13, s8objm
 scrn9:	mkscreen scrbk9, 0, scrn10,scrn67, scrn14, s9objm
 scrn10:	mkscreen scrbk10, scrn9,0,0,scrn15, s10objm
+
 scrn11:	mkscreen scrbk11, 0,0,scrn6,scrn16, 0
 scrn12:	mkscreen scrbk12, 0,0,scrn7,scrn17, 0
 scrn13:	mkscreen scrbk13, 0,scrn14,scrn8,scrn18, 0
@@ -116,7 +117,7 @@ scrn84:	mkscreen4 scrbk84, scrn85,0, 0,scrn75, s84objm, s84stom, 0, scr75txd
 scrn85:	mkscreen2 scrbk85, scrn86,scrn84, 0,scrn74, 0, s85stom
 scrn86:	mkscreen2 scrbk86, 0,scrn85, scrn87,0, 0, s86stom
 scrn87:	mkscreen2 scrbk87, 0,scrn88, scrn100,scrn86, 0, s87stom
-scrn88:	mkscreen2 scrbk81, scrn87,scrn89, 0,0, 0, s88stom
+scrn88:	mkscreen2 scrbk88, scrn87,scrn89, 0,0, 0, s88stom
 scrn89:	mkscreen4 scrbk89, scrn88,0, scrn98,0, 0, s89stom, 0, scr75txd
 
 scrn91:	mkscreen scrbk91, 0,scrn92, 0,scrn82, 0

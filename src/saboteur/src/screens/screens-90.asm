@@ -727,6 +727,12 @@ smap99e:
 		mkline 13
 		mkbyte 1,1
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s99stom
+        db MSKOMAP
+        dw s99mom
+        db SCREND
+
 ; --- end of scrbk99
 
