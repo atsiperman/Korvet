@@ -78,8 +78,52 @@ smap70e:
         dw s70objm
         db MSKOMAP
         dw s70smom
+        db TXTSMAP
+        dw scr70txd
         db SCREND
 		
+scr70txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHBOTM
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 8
+			db CHTOP
+
+		mkbyte TXLINEH,2
+			mktxtaddr 14, 8
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk70
 
 scrbk71:
@@ -167,8 +211,47 @@ smap71e:
 		db SCREND
         db OBJMAP        
         dw s71objm
+        db TXTSMAP
+        dw scr71txd
         db SCREND
 
+scr71txd:
+		mkbyte TXLINEH,10
+			mktxtaddr 20, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,4
+			mktxtaddr 2, 5
+			db CHBOTM
+		mkbyte TXLINEH,15
+			mktxtaddr 6, 5
+			db CHFULL
+		mkbyte TXLINEH,9
+			mktxtaddr 21, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 7
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 8
+			db CHTOP
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 8
+			db CHTOP
+
+        db SCREND
 ; --- end of scrbk71
 
 scrbk72:
@@ -462,7 +545,44 @@ smap77e:
 		mkline 6
 		db 0
 		
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s77mom		
+        db STOMAP        
+        dw s77stom
+        db TXTSMAP
+        dw scr77txd
+        db SCREND
+		
+s77mom:
+        db 4
+        mkmasko bigplate, 21, 15
+        mkmasko smlplate, 21, 14
+        mkmasko smlplate, 21, 13
+        mkmasko smlplate, 21, 12
+
+scr77txd:
+		mkbyte TXLINEH,2
+			mktxtaddr 9, 8
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 12, 8
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 15, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 2
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 1, 3
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 8
+			db CHTOP
+
+		db SCREND		
 		
 ; --- end of scrbk77
 

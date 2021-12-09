@@ -463,13 +463,14 @@ scrch1_:
 
 		call decmrscr		; decompress new screen map
 
-        ;call waitblnk
+        call waitblnk
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
         GRMODON
 		call drawstos		; draw static objects
         call drawbkgr		; draw background
         GRMODOFF
+		call drawtram		; draw text ram for new screen
 
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		

@@ -210,7 +210,7 @@ smap31e:
 		
 		db SCREND
         db TXTSMAP
-        dw scr31txd        
+        dw scr31txd
         db SCREND
 		
 scr31txd:

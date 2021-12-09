@@ -429,8 +429,67 @@ smap5e:
 			db 0
 		;edup
 		
-		mscrend
-		
+		db SCREND
+        db TXTSMAP
+        dw scr5txd
+		db SCREND
+
+scr5txd:
+		mkbyte TXLINEH,15 ;22
+			mktxtaddr 8, 0
+			db CHBOTM
+		mkbyte TXLINEH,7
+			mktxtaddr 23, 0
+			db CHBOTM
+
+        mkbyte TXLINEH,15 ;24
+            mktxtaddr 6, 1
+            db CHFULL
+        mkbyte TXLINEH,9 ;24
+            mktxtaddr 21, 1
+            db CHFULL
+
+        mkbyte TXLINEH,15 ;24
+            mktxtaddr 6, 2
+            db CHFULL
+        mkbyte TXLINEH,9 ;24
+            mktxtaddr 21, 2
+            db CHFULL
+
+        mkbyte TXLINEH,15 ;24
+            mktxtaddr 6, 3
+            db CHFULL
+        mkbyte TXLINEH,9 ;24
+            mktxtaddr 21, 3
+            db CHFULL
+
+        mkbyte TXLINEH,15 ;24
+            mktxtaddr 6, 4
+            db CHFULL
+        mkbyte TXLINEH,9 ;24
+            mktxtaddr 21, 4
+            db CHFULL
+
+        mkbyte TXLINEH,1
+            mktxtaddr 15, 5
+            db CHTOP
+        mkbyte TXLINEH,14 
+            mktxtaddr 16, 5
+            db CHFULL
+
+        mkbyte TXLINEH,1
+            mktxtaddr 17, 6
+            db CHTOP
+        mkbyte TXLINEH,12
+            mktxtaddr 18, 6
+            db CHFULL
+
+        mkbyte TXLINEH,11
+            mktxtaddr 19, 7
+            db CHTOP
+
+        mscrend	
+
 ; --- end of scrbk5
 
 scrbk6:
@@ -481,8 +540,76 @@ smap6e:
 		db SCREND
         db MSKOMAP
         dw s6mom
-        db SCREND
-				
+        db TXTSMAP
+        dw scr6txd
+		db SCREND
+
+scr6txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 0
+			db CHBOTM
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 0
+			db CHBOTM
+
+        mkbyte TXLINEH,15
+            mktxtaddr 0, 1
+            db CHFULL
+        mkbyte TXLINEH,15
+            mktxtaddr 15, 1
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 2
+            db CHFULL
+        mkbyte TXLINEH,15
+            mktxtaddr 15, 2
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 3
+            db CHFULL
+        mkbyte TXLINEH,15
+            mktxtaddr 15, 3
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 4
+            db CHFULL
+        mkbyte TXLINEH,15 
+            mktxtaddr 15, 4
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 5
+            db CHFULL
+        mkbyte TXLINEH,15 
+            mktxtaddr 15, 5
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 6
+            db CHFULL
+        mkbyte TXLINEH,15 
+            mktxtaddr 15, 6
+            db CHFULL
+
+        mkbyte TXLINEH,15 
+            mktxtaddr 0, 7
+            db CHTOP
+        mkbyte TXLINEH,5
+            mktxtaddr 15, 7
+            db CHTOP
+
+        mkbyte TXLINEH,10
+            mktxtaddr 20, 7
+            db CHFULL
+        mkbyte TXLINEH,9
+            mktxtaddr 21, 8
+            db CHTOP
+
+        mscrend	
+
 ; --- end of scrbk6
 
 scrbk7:
@@ -576,8 +703,78 @@ smap7e:
         dw s7objm
         db MSKOMAP
         dw s7mom
+        db TXTSMAP
+        dw scr7txd
         db SCREND
 				
+scr7txd:
+		mkbyte TXLINEH,2
+			mktxtaddr 11, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 11, 1
+			db CHFULL
+
+		mkbyte TXLINEV,3
+			mktxtaddr 12, 1
+			db CHFULL
+
+		mkbyte TXLINEH,11
+			mktxtaddr 0, 3
+			db CHBOTM
+		mkbyte TXLINEH,15
+			mktxtaddr 13, 3
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 29, 3
+			db CHBOTM
+            
+		mkbyte TXLINEV,3
+			mktxtaddr 29, 4
+			db CHFULL
+            
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 15, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,8
+			mktxtaddr 15, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 23, 7
+			db CHTOP
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,7
+			mktxtaddr 15, 8
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk7
 
 scrbk8:
@@ -650,8 +847,72 @@ smap8e:
 		db SCREND
         db OBJMAP
         dw s8objm
+        db TXTSMAP
+        dw scr8txd
         db SCREND
 		
+scr8txd:
+		mkbyte TXLINEH,1
+			mktxtaddr 0, 3
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 0, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 5, 0
+			db CHBOTM
+		mkbyte TXLINEH,10
+			mktxtaddr 20, 0
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 5, 1
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 20, 1
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 5, 2
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 20, 2
+			db CHFULL
+
+		mkbyte TXLINEH,3
+			mktxtaddr 2, 3
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 5, 3
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 20, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 4
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 5
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 6
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk8
 
 scrbk9:
@@ -791,6 +1052,76 @@ smap9e:
 		db SCREND
         db OBJMAP
         dw s9objm
+        db TXTSMAP
+        dw scr9txd
+        db SCREND
+		
+scr9txd:
+		mkbyte TXLINEH,2
+			mktxtaddr 2, 0
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 20, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 20, 1
+			db CHFULL
+		mkbyte TXLINEV,3
+			mktxtaddr 21, 1
+			db CHFULL
+
+		mkbyte TXLINEH,10
+			mktxtaddr 2, 1
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 12, 1
+			db CHBOTM
+
+		mkbyte TXLINEH,12
+			mktxtaddr 2, 2
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 14, 2
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 3
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 16, 3
+			db CHBOTM
+		mkbyte TXLINEH,1
+			mktxtaddr 26, 3
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 4
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 5
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 8, 7
+			db CHTOP
+		mkbyte TXLINEH,7
+			mktxtaddr 23, 7
+			db CHTOP
+
         db SCREND
 
 ; --- end of scrbk9
@@ -848,8 +1179,44 @@ smap10e:
 		db SCREND
         db OBJMAP
         dw s10objm
+        db TXTSMAP
+        dw scr10txd
         db SCREND
 
+scr10txd:
+		mkbyte TXLINEH,3
+			mktxtaddr 2, 3
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHTOP
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 7
+			db CHTOP
+
+        db SCREND
 		
 ; --- end of scrbk10
 

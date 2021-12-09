@@ -62,6 +62,27 @@ s49stom:
         mkbox44 14, 10
         mkbox33 25, 11
 
+s66stom:
+        db 27
+        mkbox33 2,13
+        mkbox33 6,13
+        mkbox34 11,13
+        mkbox33 16,13
+        mkbox33 23,13
+
+        mkbox34 8,10
+        mkbox33 14,10
+        
+        mkbox34 11,7
+
+s67stom:
+        db 18
+        mkbox33 8,10
+        mkbox34 12,10
+        mkbox34 5,13
+        mkbox34 9,13
+        mkbox33 15,13
+
 s73stom:
         db 7
         mkstobj barelimg, 11, 11
@@ -90,6 +111,13 @@ s75stom:
         mkbox33 24, 13
         mkbox33 19, 13
         mkbox34 21, 10
+
+s77stom:
+        db 7
+        mkstobj barelimg, 3, 10
+        mkstobj barelimg, 2, 13        
+        mkstobj barelimg, 5, 13
+        mkbox34 19, 13
 
 s84stom:
         db 16

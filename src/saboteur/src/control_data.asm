@@ -96,13 +96,13 @@ HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 6			; hit by the dog
 
-;SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
-SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
+SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
+;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 			
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn103 		; pointer to current screen
+curscr: 	dw scrn7 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -110,8 +110,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,3
-		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
+		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,10,3
+		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,18,10
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed

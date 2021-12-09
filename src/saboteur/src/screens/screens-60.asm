@@ -511,8 +511,108 @@ smap66e:
 		mkline 13
 		db 0
 		
-		mscrend
+		db SCREND		
+        db STOMAP
+        dw s66stom
+        db TXTSMAP
+        dw scr66txd
+        db SCREND
 		
+scr66txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 1
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 1
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 2
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 3
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 3
+			db CHFULL
+
+		mkbyte TXLINEH,11
+			mktxtaddr 0, 4
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 4
+			db CHFULL
+
+		mkbyte TXLINEH,8
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 8, 5
+			db CHTOP
+		mkbyte TXLINEH,2
+			mktxtaddr 12, 5
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 15, 5
+			db CHTOP
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 5
+			db CHFULL
+
+		mkbyte TXLINEH,8
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,2
+			mktxtaddr 12, 6
+			db CHFULL
+		mkbyte TXLINEH,13
+			mktxtaddr 17, 6
+			db CHFULL
+
+		mkbyte TXLINEH,2
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 5, 7
+			db CHFULL
+		mkbyte TXLINEH,2
+			mktxtaddr 9, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 15, 7
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 19, 7
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 26, 7
+			db CHFULL
+
+		mkbyte TXLINEH,2
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 5, 8
+			db CHTOP
+		mkbyte TXLINEH,2
+			mktxtaddr 9, 8
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 15, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 19, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 26, 8
+			db CHTOP
+
+        db SCREND        
+
 ; --- end of scrbk66
 
 scrbk67:
@@ -543,8 +643,116 @@ smap67e:
 		mkline 4
 		db 0
 		
-		mscrend
+		db SCREND
+        ;db OBJMAP
+        ;dw s67objm
+        db STOMAP
+        dw s67stom
+        db MSKOMAP
+        dw s67mom
+        db TXTSMAP
+        dw scr67txd
+        db SCREND
 		
+s67mom:	
+		db 10
+   		mkmasko bigplate,0,15
+		mkmasko smlplate,0,14
+
+   		mkmasko bigplate,4,15
+		mkmasko smlplate,4,14
+        mkmasko smlplate,4,13
+
+   		mkmasko bigplate,22,15
+		mkmasko smlplate,22,14
+
+   		mkmasko bigplate,24,15
+		mkmasko smlplate,24,14
+        mkmasko smlplate,24,13
+
+scr67txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 1
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 1
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 2
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 3
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 4
+			db CHFULL
+
+		mkbyte TXLINEH,8
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 8, 5
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 11, 5
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 12, 5
+			db CHTOP
+		mkbyte TXLINEH,14
+			mktxtaddr 16, 5
+			db CHFULL
+
+		mkbyte TXLINEH,8
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 11, 6
+			db CHFULL
+		mkbyte TXLINEH,14
+			mktxtaddr 16, 6
+			db CHFULL
+
+		mkbyte TXLINEH,5
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,2
+			mktxtaddr 13, 7
+			db CHFULL
+		mkbyte TXLINEH,12
+			mktxtaddr 18, 7
+			db CHFULL
+
+		mkbyte TXLINEH,5
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,2
+			mktxtaddr 13, 8
+			db CHTOP
+		mkbyte TXLINEH,12
+			mktxtaddr 18, 8
+			db CHTOP
+		mkbyte TXLINEH,2
+			mktxtaddr 2, 8
+			db CHFULL
+		mkbyte TXLINEH,2
+			mktxtaddr 20, 8
+			db CHFULL
+
+        db SCREND
+		        
 ; --- end of scrbk67
 
 scrbk68:
@@ -601,6 +809,106 @@ smap68e:
 		mkline 11
 		db 0
 		
-		mscrend
+		db SCREND
+        ;db OBJMAP
+        ;dw s68objm
+        db MSKOMAP
+        dw s68mom
+        db TXTSMAP
+        dw scr68txd
+        db SCREND
+		
+s68mom:	
+		db 11
+   		mkmasko bigplate,2,15
+		mkmasko smlplate,2,14
+        mkmasko smlplate,2,13
+
+   		mkmasko bigplate,19,15
+		mkmasko smlplate,19,14
+        mkmasko smlplate,19,13
+
+   		mkmasko bigplate,22,15
+		mkmasko smlplate,22,14
+
+   		mkmasko bigplate,24,15
+		mkmasko smlplate,24,14
+        mkmasko smlplate,24,13
+
+scr68txd:
+		mkbyte TXLINEH,2
+			mktxtaddr 9, 0
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 12, 0
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 15, 0
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 1
+			db CHFULL
+		mkbyte TXLINEH,12
+			mktxtaddr 18, 1
+			db CHFULL
+
+		mkbyte TXLINEH,3
+			mktxtaddr 0, 2
+			db CHBOTM
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 2
+			db CHFULL
+		mkbyte TXLINEH,12
+			mktxtaddr 18, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 3
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 8
+			db CHTOP
+
+		mkbyte TXLINEH,2
+			mktxtaddr 5, 8
+			db CHFULL
+
+        db SCREND
 		
 ; --- end of scrbk68
