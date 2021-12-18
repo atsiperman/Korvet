@@ -12,7 +12,8 @@ smap110b:
 		bkindex BK12ADDR    ; 7, blue ladder top right
 		bkindex BK32ADDR    ; 8, green vertical tube
 		bkindex BK24ADDR    ; 9, yellow ladder left
-		bkindex BK25ADDR    ; 10, yellow ladder right				
+		bkindex BK25ADDR    ; 10, yellow ladder right	
+        bkindex BK48ADDR    ; 11, cyan horizontal tube		        			
 smap110e:
 		mkbyte 1,1
 		mkbyte 1,2
@@ -53,9 +54,10 @@ smap110e:
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 2,1
-		mkbyte 1,2
-		mkline 3
-		mkbyte 2,2
+		mkbyte 1,11
+		mkbyte 11,11
+		mkbyte 11,11
+        mkbyte 11,1
 		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 1,2
@@ -122,7 +124,98 @@ smap110e:
 		mkline 5
 		db 0
 		
-		mscrend
+        db SCREND
+        db TXTSMAP
+        dw s110txd
+        db SCREND
+
+s110txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 3, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 3, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 3, 4
+			db CHTOP
+		mkbyte TXLINEV,3
+			mktxtaddr 3, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 3, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 5, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 8, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 4
+			db CHTOP
+
+		mkbyte TXLINEH,6
+			mktxtaddr 11, 3
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 12, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 16, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 19, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 23, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 27, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 4
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk110
 
 
@@ -134,6 +227,7 @@ smap111b:
 		bkindex BK26ADDR    ; 2, cyan vertical tube		
 		bkindex BK23ADDR    ; 3, red beam
 		bkindex BK32ADDR    ; 4, green vertical tube
+        bkindex BK48ADDR    ; 5, cyan horizontal tube
 smap111e:
 		mkdup 3
 			mkline 4
@@ -160,9 +254,9 @@ smap111e:
 		mkbyte 1,4
 		mkline 3
 		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 2,2
-		mkbyte 2,2
+		mkbyte 1,5
+		mkbyte 5,5
+		mkbyte 5,5
 		mkline 4
 		mkbyte 1,1
 
@@ -221,7 +315,57 @@ smap111e:
 		mkline 14
 		db 0
 		
-		mscrend
+        db SCREND
+        db TXTSMAP
+        dw s111txd
+        db SCREND
+
+s111txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 9, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 4
+			db CHTOP
+		mkbyte TXLINEV,3
+			mktxtaddr 9, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 8
+			db CHTOP
+
+		mkbyte TXLINEH,5
+			mktxtaddr 17, 2
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 17, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 5
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 17, 6
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 8
+			db CHTOP
+
+		mkbyte TXLINEV,3
+			mktxtaddr 24, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 8
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk111
 
 
@@ -384,7 +528,75 @@ smap112e:
 		db 0
 		db 0
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s112txd
+        db SCREND
+
+s112txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 2, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 2, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 2, 4
+			db CHTOP
+		mkbyte TXLINEV,2
+			mktxtaddr 2, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 2, 7
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 7, 0
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 7, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 7, 6
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 7, 7
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 10, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 0
+			db CHBOTM
+		mkbyte TXLINEV,7
+			mktxtaddr 13, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 18, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 18, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 18, 5
+			db CHTOP
+		mkbyte TXLINEV,3
+			mktxtaddr 18, 6
+			db CHFULL
+
+		db SCREND		
+
+
 ; --- end of scrbk112
 
 scrbk113:
@@ -394,7 +606,9 @@ smap113b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK26ADDR    ; 2, cyan vertical tube		
 		bkindex BK23ADDR    ; 3, red beam
-		bkindex BK32ADDR    ; 4, green vertical tube		
+		bkindex BK32ADDR    ; 4, green vertical tube	
+        bkindex BK48ADDR    ; 5, cyan horizontal tube			
+
 smap113e:
 		mkdup 4
 			mkbyte 1,1
@@ -436,9 +650,9 @@ smap113e:
 		mkline 3
 		mkbyte 1,1
 		mkbyte 2,1
-		mkbyte 1,2
+		mkbyte 1,5
 		mkline 3
-		mkbyte 2,2
+		mkbyte 5,5
 		mkbyte 1,1
 		mkbyte 2,1
 		mkbyte 1,1
@@ -450,9 +664,9 @@ smap113e:
 		mkline 3
 		mkbyte 1,1
 		mkbyte 2,1
-		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 1,2
+		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 2,1
@@ -465,9 +679,9 @@ smap113e:
 		mkline 3
 		mkbyte 1,1
 		mkbyte 2,1
-		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 1,2
+		mkbyte 1,1
 		mkbyte 1,1
 		mkbyte 1,1
 		mkline 3
@@ -579,7 +793,95 @@ smap113e:
 		mkbyte 1,1
 		mkbyte 1,1
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s113txd
+        db SCREND
+
+s113txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 4, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 4, 1
+			db CHFULL
+		mkbyte TXLINEV,2
+			mktxtaddr 4, 5
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 4, 7
+			db CHFULL
+
+		mkbyte TXLINEV,2
+			mktxtaddr 6, 5
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 6, 7
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 0
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 12, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 6
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 7
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 15, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 15, 1
+			db CHFULL
+
+		mkbyte TXLINEH,6
+			mktxtaddr 16, 3
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 2
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 17, 3
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 17, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 19, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 24, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 4
+			db CHTOP
+		mkbyte TXLINEV,3
+			mktxtaddr 24, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 8
+			db CHBOTM
+
+        db SCREND
+
 ; --- end of scrbk113
 
 
@@ -591,7 +893,8 @@ smap114b:
 		bkindex BK26ADDR    ; 2, cyan vertical tube		
 		bkindex BK23ADDR    ; 3, red beam
 		bkindex BK24ADDR    ; 4, yellow ladder left
-		bkindex BK25ADDR    ; 5, yellow ladder right		
+		bkindex BK25ADDR    ; 5, yellow ladder right	
+        bkindex BK48ADDR    ; 6, cyan horizontal tube
 smap114e:
 		mkdup 5
 			db 0
@@ -616,9 +919,9 @@ smap114e:
 		mkbyte 5,1
 		mkbyte 2,1
 		mkbyte 1,1
-		mkbyte 1,2
-		mkbyte 2,2
-		mkbyte 2,1
+		mkbyte 1,6
+		mkbyte 6,6
+		mkbyte 6,6
 		mkbyte 1,2
 		mkline 3
 		mkbyte 1,1
@@ -634,7 +937,7 @@ smap114e:
 			mkbyte 1,1
 			mkbyte 1,2
 			mkbyte 1,1
-			mkbyte 2,1
+			mkbyte 1,1
 			mkbyte 1,2
 			mkline 3
 			mkbyte 1,1
@@ -720,7 +1023,7 @@ smap114e:
 		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 2,1
-		mkbyte 1,1
+		mkbyte 1,2
 		mkbyte 1,1
 		mkbyte 1,2
 		mkbyte 1,1		
@@ -740,7 +1043,104 @@ smap114e:
 		mkbyte 1,2
 		mkbyte 1,1		
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s114txd
+        db SCREND
+
+s114txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 8, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 5
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 6
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 7
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 0
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 13, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 6
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 7
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 8
+			db CHTOP
+
+		mkbyte TXLINEH,4
+			mktxtaddr 14, 3
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 0
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 16, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 3
+			db CHTOP
+
+		mkbyte TXLINEV,2
+			mktxtaddr 17, 5
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 17, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 0
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 19, 1
+			db CHFULL
+
+		mkbyte TXLINEV,2
+			mktxtaddr 20, 5
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 20, 7
+			db CHTOP
+		mkbyte TXLINEV,1
+			mktxtaddr 20, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 0
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 27, 1
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 6
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 27, 7
+			db CHFULL
+
+        db SCREND            
+
 ; --- end of scrbk114
 
 
@@ -924,7 +1324,48 @@ smap115e:
 		mkbyte 1,2
 		mkbyte 1,1		
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s115txd
+        db SCREND
+
+s115txd:
+		mkbyte TXLINEV,3
+			mktxtaddr 13, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 20, 7
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 22, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 24, 6
+			db CHBOTM
+
+		mkbyte TXLINEV,4
+			mktxtaddr 27, 5
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk115
 
 scrbk116:
@@ -1030,7 +1471,46 @@ smap116e:
 		mkbyte 1,1
 		mkbyte 1,1		
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s116txd
+        db SCREND
+
+s116txd:
+		mkbyte TXLINEV,3
+			mktxtaddr 4, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 4, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 6
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 7
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,4
+			mktxtaddr 12, 6
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 12, 7
+			db CHFULL
+
+		mkbyte TXLINEV,4
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEV,4
+			mktxtaddr 19, 5
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk116
 
 
@@ -1192,7 +1672,58 @@ smap117e:
 			mkbyte 1,1
 		;edup
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s117txd
+        db SCREND
+
+s117txd:
+		mkbyte TXLINEV,2
+			mktxtaddr 2, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 7, 6
+			db CHTOP
+		mkbyte TXLINEV,2
+			mktxtaddr 7, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 6
+			db CHTOP
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 0
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 1
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 13, 2
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 13, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 18, 6
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 18, 7
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk117
 
 
@@ -1256,7 +1787,35 @@ smap118e:
 			mkbyte 1,1
 		;edup
 				
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s118txd
+        db SCREND
+
+s118txd:
+		mkbyte TXLINEV,2
+			mktxtaddr 9, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 7
+			db CHTOP
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 8
+			db CHFULL
+
+		mkbyte TXLINEV,2
+			mktxtaddr 14, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 7
+			db CHTOP
+
+		mkbyte TXLINEV,4
+			mktxtaddr 17, 5
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk118
 
 
@@ -1436,5 +1995,95 @@ smap119e:
 		mkbyte 1,2
 		mkbyte 1,1		
 				
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s119txd
+        db SCREND
+
+s119txd:
+		mkbyte TXLINEV,2
+			mktxtaddr 3, 6
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 3, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 5, 7
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 5, 8
+			db CHTOP
+
+		mkbyte TXLINEV,2
+			mktxtaddr 8, 0
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 8, 2
+			db CHFULL
+		mkbyte TXLINEV,3
+			mktxtaddr 8, 5
+			db CHTOP
+		mkbyte TXLINEV,2
+			mktxtaddr 8, 6
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 8, 8
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 1
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 12, 2
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 6
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 12, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 16, 5
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 16, 6
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 5
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 19, 6
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 2
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 23, 3
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 23, 6
+			db CHBOTM
+		mkbyte TXLINEV,2
+			mktxtaddr 23, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 2
+			db CHBOTM
+		mkbyte TXLINEV,4
+			mktxtaddr 27, 3
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 27, 8
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk119

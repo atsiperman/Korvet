@@ -89,7 +89,24 @@ smap91e:
 		mkline 9
 		db 0
 		
-		mscrend
+        db SCREND
+        db TXTSMAP
+        dw scr91txd
+        db SCREND
+
+scr91txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 2
+			db CHBOTM
+		mkbyte TXLINEV,5
+			mktxtaddr 1, 3
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 8
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk91
 
 

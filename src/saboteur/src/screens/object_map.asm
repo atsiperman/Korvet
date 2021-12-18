@@ -226,3 +226,25 @@ s102mom:
 		mkmasko smlplate,23,6
 
 		mkmasko desk,18,5
+
+s107mom:
+		db 7
+		mkmasko fenceltl, 14, 6
+		mkmasko fencelt, 15, 6
+		mkmasko fencelt, 16, 7
+		mkmasko fencelt, 17, 8
+		mkmasko fencelt, 18, 9
+		mkmasko fencelt, 19, 10
+		mkmasko fencelt, 20, 11
+
+s109mom:
+		db 9
+		mkmasko fenceltl, 2, 5
+		mkmasko fencelt, 3, 5
+		mkmasko fencelt, 4, 6
+		mkmasko fencelt, 5, 7
+		mkmasko fencelt, 6, 8
+		mkmasko fencelt, 7, 9
+		mkmasko fencelt, 8, 10
+		mkmasko fencelt, 9, 11
+		mkmasko fencelt, 10, 12

@@ -10,6 +10,7 @@ smap120b:
 		bkindex BK24ADDR    ; 4, yellow ladder left
 		bkindex BK25ADDR    ; 5, yellow ladder right		
 		bkindex BK32ADDR    ; 6, green vertical tube				
+        bkindex BK48ADDR    ; 7, cyan horizontal tube
 smap120e:
 		
 		mkdup 4
@@ -39,9 +40,9 @@ smap120e:
 		mkbyte 4,5
 		mkline 3
 		mkbyte 1,1
-		mkbyte 2,2
-		mkbyte 2,2
-		mkbyte 2,1
+		mkbyte 7,7
+		mkbyte 7,7
+		mkbyte 7,1
 		mkline 3
 		mkbyte 1,1
 
@@ -80,7 +81,46 @@ smap120e:
 			mkbyte 1,1
 		;edup
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s120txd
+        db SCREND
+
+s120txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 6, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 6, 8
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 14, 8
+			db CHFULL
+
+		mkbyte TXLINEH,5
+			mktxtaddr 18, 4
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 19, 0
+			db CHBOTM
+		mkbyte TXLINEV,8
+			mktxtaddr 19, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 26, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 26, 8
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk120
 
 
@@ -91,6 +131,7 @@ smap121b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK26ADDR    ; 2, cyan vertical tube		
 		bkindex BK23ADDR    ; 3, red beam
+        bkindex BK48ADDR    ; 4, cyan horizontal tube		
 smap121e:
 		mkbyte 1,1
 		mkbyte 1,0
@@ -172,8 +213,8 @@ smap121e:
 
 		mkline 3			; line 12
 		mkbyte 1,1
-		mkbyte 2,2
-		mkbyte 2,2
+		mkbyte 4,4
+		mkbyte 4,4
 		mkline 9
 		mkbyte 1,1
 		db 0
@@ -222,7 +263,39 @@ smap121e:
 		mkbyte 1,1
 		db 0
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw s121txd
+        db SCREND
+
+s121txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 7
+			db CHBOTM
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 8
+			db CHFULL
+
+		mkbyte TXLINEH,4
+			mktxtaddr 6, 6
+			db CHTOP
+
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 1
+			db CHBOTM
+		mkbyte TXLINEV,6
+			mktxtaddr 9, 2
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 9, 8
+			db CHBOTM
+
+		mkbyte TXLINEV,1
+			mktxtaddr 12, 8
+			db CHBOTM
+
+        db SCREND
+
 ; --- end of scrbk121
 
 scrbk122:
