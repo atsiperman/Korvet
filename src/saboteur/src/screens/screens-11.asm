@@ -518,8 +518,11 @@ smap16e:
 			mkline 2
 			db 0
 		;edup
-		
-		mscrend
+
+        db SCREND		
+        db TRIGMAP
+        dw s16trm
+        db SCREND
 
 ; --- end of scrbk16
 

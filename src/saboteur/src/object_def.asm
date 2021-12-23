@@ -127,6 +127,7 @@ trempty EQU 0       ; nothing
 trobrck EQU 1       ; brick
 troshrk EQU 2       ; shuriken
 troknif EQU 3       ; knife
+troston EQU 4       ; stone
 
 ; ---- trigger state
 ;

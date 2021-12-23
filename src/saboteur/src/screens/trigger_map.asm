@@ -8,10 +8,20 @@
     mktrig colnum, rownum, trgmanl, troknif, itmproc    
     endm
 
+    macro mkstone colnum, rownum    
+    mktrig colnum, rownum, trgmanl, troston, itmproc    
+    endm
+
 s3trm:
     db 2
+    mkstone 24, 6
     mkbrick 22, 15
-    mkknife 24, 6
+
+s16trm:
+    db 3    
+    mkstone 12,14
+    mkstone 21,14
+    mkbrick 23,14
 
 s70trm:
     db 1
