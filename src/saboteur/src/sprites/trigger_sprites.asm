@@ -5,11 +5,13 @@
 trimglst:
         dw redbrick
         dw shuriken
+        dw knife
 
 ; ---- list of objects which can be thrown
 othrwlst:
         dw smbrick      ; small brick
         dw smshrkn      ; small shuriken
+        dw smknife      ; small knife
 
 smbrick:
         db CMAINREG
@@ -20,6 +22,11 @@ smshrkn:
         db CMAINREG
         db 1,1
         db 0,2, 0,198, 0,108, 0,56, 0,28, 0,54, 0,99, 0,64
+
+smknife:
+        db CMAINREG
+        db 1,1
+        db 0,0, 0,4, 0,4, 0,63, 0,255, 0,4, 0,4, 0,0
 
 shuriken:
         db 4,24
@@ -77,3 +84,30 @@ redbrick:
         db 0,255, CRED,0, 0,127, CRED,128, 0,136, CRED,119, 0,255, CRED,0
         db 0,255, CRED,0, 0,243, CRED,12, 0,255, CRED,0, 0,255, CRED,0
         db 0,255, CRED,0, 0,255, CRED,0, 0,255, CRED,0, 0,255, CRED,0
+
+knife:
+        db 4,24
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,12,  CBLACK,243
+        db CRED,124, CBLACK,131, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,7,   CBLACK,248, CRED,216, CBLACK,39
+        db CRED,184, CBLACK,71,  CRED,15,  CBLACK,240, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,31,  CBLACK,224, CRED,176, CBLACK,79
+        db CRED,96,  CBLACK,159, CRED,127, CBLACK,128, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,254, CBLACK,1,   CRED,192, CBLACK,63
+        db CRED,128, CBLACK,127, CRED,249, CBLACK,6,   CRED,1,   CBLACK,254, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,7,   CBLACK,248, CRED,207, CBLACK,48,  CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,190, CBLACK,65,  CRED,15,  CBLACK,240, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,190, CBLACK,65,  CRED,120, CBLACK,135, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,224, CBLACK,31,  CRED,189, CBLACK,66,  CRED,0,   CBLACK,255
+        db CRED,3,   CBLACK,252, CRED,95,  CBLACK,160, CRED,128, CBLACK,127, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,172, CBLACK,83,  CRED,15,  CBLACK,240
+        db CRED,31,  CBLACK,224, CRED,80,  CBLACK,175, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,72,  CBLACK,183, CRED,223, CBLACK,32
+        db CRED,239, CBLACK,16,  CRED,132, CBLACK,123, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,4,   CBLACK,251, CRED,111, CBLACK,144
+        db CRED,116, CBLACK,139, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,56,  CBLACK,199
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255
+        db CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255, CRED,0,   CBLACK,255

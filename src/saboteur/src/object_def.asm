@@ -126,6 +126,7 @@ trgauto	EQU 2		; auto trigger
 trempty EQU 0       ; nothing
 trobrck EQU 1       ; brick
 troshrk EQU 2       ; shuriken
+troknif EQU 3       ; knife
 
 ; ---- trigger state
 ;

@@ -80,6 +80,8 @@ smap70e:
         dw s70smom
         db TXTSMAP
         dw scr70txd
+        db TRIGMAP
+        dw s70trm
         db SCREND
 		
 scr70txd:
