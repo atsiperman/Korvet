@@ -98,8 +98,8 @@ mobjsz  EQU	4					; size of the masked object
 		db mincol,maxcol
 		endm		
 		
-		macro mkgun direct,curspr,curspri,curscol,cursrow
-		mkctrlb ogun,gunact,0,direct,scrbuf,curspr,curspri,curscol,cursrow
+		macro mkgun direct,curscol,cursrow
+		mkctrlb ogun,gunact,0,direct,scrbuf,gundn,0,curscol,cursrow
 		db 0,0
 		endm
 
@@ -112,7 +112,7 @@ mobjsz  EQU	4					; size of the masked object
         db colnum
         db rownum
         dw address									; pointer to image data
-        dw SCRADDR + colnum + rownum * 64 * 8		; start address in video RAM
+        dw SCRADDR + colnum + (rownum) * 64 * 8		; start address in video RAM
         endm
 
 

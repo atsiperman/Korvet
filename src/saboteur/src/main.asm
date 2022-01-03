@@ -37,6 +37,7 @@
 		include "sound.asm"	
 
 		include "screens/object_map.asm"
+        include "screens/masked_object_map.asm"
 		include "screens/static_object_map.asm"
         include "screens/screens.asm"
 		include "screens/screens-11.asm"

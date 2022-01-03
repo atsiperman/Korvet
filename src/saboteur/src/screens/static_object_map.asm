@@ -35,6 +35,42 @@
         mkstobj box43img, colnum + 4, rownum
         endm
 
+tapeimn EQU 16
+
+        macro mktapem colnum, rownum
+        mkstobj tape11im, colnum, rownum
+        mkstobj tape11im, colnum + 1, rownum
+        mkstobj tape11im, colnum + 2, rownum
+        mkstobj tape14im, colnum + 3, rownum
+
+        mkstobj tape21im, colnum, rownum + 1
+        mkstobj tape22im, colnum + 1, rownum + 1
+        mkstobj tape22im, colnum + 2, rownum + 1 
+        mkstobj tape24im, colnum + 3, rownum + 1 
+
+        mkstobj tape11im, colnum, rownum + 2
+        mkstobj tape32im, colnum + 1, rownum + 2
+        mkstobj tape11im, colnum + 2, rownum + 2
+        mkstobj tape11im, colnum + 3, rownum + 2
+
+        mkstobj tape4im, colnum, rownum + 3
+        mkstobj tape4im, colnum + 1, rownum + 3
+        mkstobj tape4im, colnum + 2, rownum + 3
+        mkstobj tape4im, colnum + 3, rownum + 3
+        endm
+
+        macro mktapew colnum, rownum
+        mktapem colnum, rownum
+        mkstobj tape11im, colnum + 4, rownum
+        mkstobj tape14im, colnum + 5, rownum
+        mkstobj tape22im, colnum + 4, rownum + 1 
+        mkstobj tape24im, colnum + 5, rownum + 1 
+        mkstobj tape11im, colnum + 4, rownum + 2
+        mkstobj tape11im, colnum + 5, rownum + 2
+        mkstobj tape4im, colnum + 4, rownum + 3
+        mkstobj tape4im, colnum + 5, rownum + 3
+        endm 
+
 s2stom:
         db 5
         mkstobj mrpillar, 8, 4
@@ -61,6 +97,12 @@ s49stom:
         mkbox44 2, 10
         mkbox44 14, 10
         mkbox33 25, 11
+
+s58stom:
+        db tapeimn * 3
+        mktapem 4, 11
+        mktapem 11, 11
+        mktapem 16, 11
 
 s66stom:
         db 27
@@ -179,6 +221,10 @@ s89stom:
         mkstobj barelimg, 22, 13
         mkstobj barelimg, 25, 13
 
+s97stom:
+        db tapeimn
+        mktapem 1, 3
+
 s99stom:
         db 4
         mkstobj barelimg, 16, 4
@@ -216,3 +262,28 @@ s103stom:
         mkstobj barelimg, 8, 6
         mkstobj barelimg, 12, 6
         mkstobj barelimg, 19, 5
+
+s104stom:
+        db tapeimn * 2
+        mktapem 1, 11
+        mktapem 17, 11
+
+s124stom:
+        db 3 + tapeimn * 2
+        mkbox33 15, 13
+        mktapem 4, 12
+        mktapem 24, 12
+
+s125stom:
+        db tapeimn * 5
+        mktapem 1, 12
+        mktapem 7, 12
+        mktapem 13, 12
+        mktapem 18, 12
+        mktapem 25, 12
+
+s126stom:
+        db (tapeimn * 3) + 8
+        mktapem 2, 12
+        mktapew 7, 12
+        mktapem 25, 12

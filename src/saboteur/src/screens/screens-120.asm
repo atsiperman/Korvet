@@ -495,7 +495,37 @@ smap124e:
 		mkline 4
 		db 0
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s124stom
+        db TXTSMAP
+        dw s124txd
+        db SCREND
+
+s124txd:
+		mkbyte TXLINEH,1
+			mktxtaddr 6, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 26, 7
+			db CHTOP
+
+		mkbyte TXLINEH,4
+			mktxtaddr 4, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 24, 8
+			db CHTOP
+
+		mkbyte TXLINEH,1
+			mktxtaddr 5, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 25, 7
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk124
 
 
@@ -527,7 +557,64 @@ smap125e:
 		mkline 14
 		db 0			
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s125stom
+        db TXTSMAP
+        dw s125txd
+        db SCREND
+
+s125txd:
+		mkbyte TXLINEH,1
+			mktxtaddr 3, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 9, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 15, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 20, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 27, 7
+			db CHTOP
+
+		mkbyte TXLINEH,1
+			mktxtaddr 2, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 8, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 14, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 19, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 26, 7
+			db CHFULL
+
+		mkbyte TXLINEH,4
+			mktxtaddr 1, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 7, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 13, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 18, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 25, 8
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk125
 
 
@@ -650,7 +737,49 @@ smap126e:
 		mkline 5
 		db 0
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s126stom
+        db TXTSMAP
+        dw s126txd
+        db SCREND
+
+s126txd:
+		mkbyte TXLINEH,1
+			mktxtaddr 4, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 9, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 11, 7
+			db CHTOP
+		mkbyte TXLINEH,1
+			mktxtaddr 27, 7
+			db CHTOP
+
+		mkbyte TXLINEH,1
+			mktxtaddr 3, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 8, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 26, 7
+			db CHFULL
+
+		mkbyte TXLINEH,4
+			mktxtaddr 2, 8
+			db CHTOP
+		mkbyte TXLINEH,6
+			mktxtaddr 7, 8
+			db CHTOP
+		mkbyte TXLINEH,4
+			mktxtaddr 25, 8
+			db CHTOP
+
+        db SCREND
+
 ; --- end of scrbk126
 
 

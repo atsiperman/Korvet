@@ -1027,6 +1027,46 @@ smap58e:
 			db 0
 		;edup
 		
+        db SCREND
+        db STOMAP
+        dw s58stom
+        db TXTSMAP
+        dw scr58txd
+        db SCREND
+		
+scr58txd:
+		mkbyte TXLINEH,2
+			mktxtaddr 5, 6
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 12, 6
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 17, 6
+			db CHBOTM
+
+		mkbyte TXLINEH,4
+			mktxtaddr 4, 7
+			db CHBOTM
+		mkbyte TXLINEH,4
+			mktxtaddr 11, 7
+			db CHBOTM
+		mkbyte TXLINEH,4
+			mktxtaddr 16, 7
+			db CHBOTM
+
+		mkbyte TXLINEH,1
+			mktxtaddr 5, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 12, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 17, 7
+			db CHFULL
+
 		mscrend
+
+
 		
 ; --- end of scrbk58

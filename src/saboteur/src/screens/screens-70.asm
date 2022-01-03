@@ -77,7 +77,7 @@ smap70e:
         db OBJMAP        
         dw s70objm
         db MSKOMAP
-        dw s70smom
+        dw s70mom
         db TXTSMAP
         dw scr70txd
         db TRIGMAP

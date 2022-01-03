@@ -53,6 +53,8 @@ BK45ADDR:	DW BK45DATA
 BK46ADDR:   DW BK46DATA
 BK47ADDR:   DW BK47DATA
 BK48ADDR:   DW BK48DATA
+BK49ADDR:   DW BK49DATA
+BK50ADDR:   DW BK50DATA
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
@@ -196,3 +198,9 @@ BK47DATA:	bksh3 CBLUE,CBLACK,fgtile   				; bottom black half on blue
 
 BK48DATA:	bksh CCYAN   				                ; cyan horizontal tube
             DB  0, 159, 251, 0, 0, 239, 121, 0
+
+BK49DATA:	bksh CCYAN   				                ; cyan big vertical tube
+            db  125, 85, 85, 85, 85, 85, 85, 125
+
+BK50DATA:	bksh CCYAN   				                ; cyan big horizontal cyan tube
+            db  0, 255, 128, 186, 174, 128, 255, 0

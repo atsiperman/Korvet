@@ -442,7 +442,39 @@ smap104e:
 			db 0		
 		;edup
 		
-		mscrend
+        db SCREND
+        db STOMAP
+        dw s104stom
+        db TXTSMAP
+        dw scrn104txd
+        db MSKOMAP
+        dw s104mom
+        db SCREND
+
+scrn104txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEH,2
+			mktxtaddr 2, 6
+			db CHBOTM
+		mkbyte TXLINEH,2
+			mktxtaddr 18, 6
+			db CHBOTM
+
+		mkbyte TXLINEH,4
+			mktxtaddr 1, 7
+			db CHBOTM
+		mkbyte TXLINEH,4
+			mktxtaddr 17, 7
+			db CHBOTM
+
+		mkbyte TXLINEH,1
+			mktxtaddr 2, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 18, 7
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk104
 
 
@@ -523,8 +555,12 @@ smap105e:
 			mkline 13
 			db 0
 		;edup
-		
-		mscrend
+
+        db SCREND		
+        db MSKOMAP
+        dw s105mom
+        db SCREND
+
 ; --- end of scrbk105
 
 
@@ -535,7 +571,8 @@ smap106b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK6ADDR     ; 2, 2 yellow bricks 
 		bkindex BK7ADDR     ; 3, big yellow brick
-		bkindex BK5ADDR     ; 4, solid blue 		
+		bkindex BK49ADDR    ; 4, big vertical cyan tube
+        bkindex BK50ADDR    ; 5, big horizontal cyan tube
 smap106e:
 		mkline 3
 		db 0
@@ -560,9 +597,9 @@ smap106e:
 		
 		mkline 5
 		db 0
-		mkbyte 4,4
-		mkbyte 4,4
-		mkbyte 4,0
+		mkbyte 5,5
+		mkbyte 5,5
+		mkbyte 5,0
 		mkline 7
 		db 0
 		
@@ -576,7 +613,38 @@ smap106e:
 			db 0
 		;edup
 				
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s106om
+        db MSKOMAP
+        dw s106mom
+        db TXTSMAP
+        dw scrn106txd
+        db SCREND
+
+scrn106txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEH,1
+			mktxtaddr 9, 5
+			db CHBOTM
+		mkbyte TXLINEH,5
+			mktxtaddr 10, 5
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 15, 5
+			db CHBOTM
+
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 6
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 7
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 8
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk106
 
 

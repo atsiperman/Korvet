@@ -117,20 +117,22 @@ smap92b:
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK6ADDR     ; 2, 2 yellow bricks 
 		bkindex BK7ADDR     ; 3, big yellow brick
+        bkindex BK49ADDR    ; 4, big cyan vertical tube
+        bkindex BK50ADDR    ; 5, big cyan horizontal tube
 smap92e:
 		mkline 4
 		db 0
-		mkbyte 0,1
-		mkbyte 1,1
-		mkbyte 1,0
+		mkbyte 0,4
+		mkbyte 4,4
+		mkbyte 4,0
 		mkline 8
 		db 0
 		
 		mkline 4
 		db 0
-		mkbyte 0,1
-		mkbyte 1,1
-		mkbyte 1,0
+		mkbyte 0,5
+		mkbyte 5,5
+		mkbyte 5,0
 		db 0
 		db 0
 		mkline 6
@@ -218,7 +220,25 @@ smap92e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s92objm
+        db MSKOMAP
+        dw s92mom
+        db TXTSMAP
+        dw scr92txd
+        db SCREND
+
+scr92txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 0
+			db CHBOTM
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 1
+			db CHTOP
+
+        db SCREND
+
 		
 ; --- end of scrbk92
 
@@ -380,7 +400,7 @@ smap94e:
 			db 0		
 		;edup 
 		
-		mscrend
+        mscrend
 ; --- end of scrbk94
 
 
@@ -390,7 +410,8 @@ scrbk95:
 smap95b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
-		bkindex BK5ADDR    ; 2, solid blue
+		bkindex BK49ADDR    ; 2, big vertical cyan tube
+        bkindex BK50ADDR    ; 3, big horizontal cyan tube
 smap95e:
 		mkdup 5
 			mkline 4
@@ -416,9 +437,9 @@ smap95e:
 
 		mkline 4
 		db 0
-		mkbyte 0,2
-		mkbyte 2,2
-		mkbyte 2,0
+		mkbyte 0,3
+		mkbyte 3,3
+		mkbyte 3,0
 		mkline 3
 		db 0
 		mkline 5
@@ -467,13 +488,54 @@ smap95e:
 
 		mkline 4
 		db 0
-		mkbyte 0,2
-		mkbyte 2,2
-		mkbyte 2,0
+		mkbyte 0,3
+		mkbyte 3,3
+		mkbyte 3,0
 		mkline 8
 		db 0
 		
-		mscrend
+        db SCREND
+        db MSKOMAP
+        dw s95mom
+        db TXTSMAP
+        dw scrn95txd
+        db SCREND
+
+scrn95txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 0
+			db CHBOTM
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 1
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 2
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 9, 3
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 4
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 13, 4
+			db CHTOP
+
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 5
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 6
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 7
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 9, 8
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk95
 
 
@@ -577,7 +639,13 @@ smap96e:
 		mkline 13
 		db 0
 		
-		mscrend
+        db SCREND		
+        db OBJMAP
+        dw s96objm
+        db MSKOMAP
+        dw s96mom
+        db SCREND		
+
 ; --- end of scrbk96
 
 
@@ -624,7 +692,30 @@ smap97e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND		
+        db MSKOMAP
+        dw s97mom
+        db STOMAP
+        dw s97stom
+        db TXTSMAP
+        dw scrn97txd
+        db SCREND
+
+scrn97txd:					; description of the text RAM used by this screen		
+		mkbyte TXLINEH,2
+			db CHBOTM
+			mktxtaddr 2, 2
+
+		mkbyte TXLINEH,4
+			mktxtaddr 1, 3
+			db CHBOTM
+
+		mkbyte TXLINEH,1
+			mktxtaddr 2, 3
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk97
 
 

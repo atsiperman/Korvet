@@ -353,3 +353,80 @@ box43img:
        db 0,21,  3
        db 0,17,  3
        db 0,255, 3    
+
+tape11im:
+        db 1,8
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+        db CBLACK, 0, CBLACK
+
+tape14im:
+        db 1,8
+        db CBLACK, 255, CRED
+        db CBLACK, 255, CRED
+        db CBLACK, 251, CRED
+        db CBLACK, 219, CRED
+        db CBLACK, 223, CRED
+        db CBLACK, 255, CRED
+        db CBLACK, 247, CRED
+        db CBLACK, 246, CRED
+
+tape21im:
+        db 1,8
+        db CBLACK, 223, CYELLOW
+        db CBLACK, 255, CYELLOW
+        db CBLACK, 255, CYELLOW
+        db CBLACK, 251, CYELLOW
+        db CBLACK, 255, CYELLOW
+        db CBLACK, 255, CYELLOW
+        db CBLACK, 239, CYELLOW
+        db CBLACK, 255, CYELLOW
+
+tape22im:
+        db 1,8
+        db CMAIN, 243, CCYAN
+        db CMAIN, 201, CCYAN
+        db CMAIN, 137, CCYAN
+        db CMAIN, 182, CCYAN
+        db CMAIN, 200, CCYAN
+        db CMAIN, 201, CCYAN
+        db CMAIN, 231, CCYAN
+        db CMAIN, 255, CCYAN
+
+tape24im:
+        db 1,8
+        db CBLACK, 254, CYELLOW
+        db CBLACK, 247, CYELLOW
+        db CBLACK, 247, CYELLOW
+        db CBLACK, 223, CYELLOW
+        db CBLACK, 223, CYELLOW
+        db CBLACK, 253, CYELLOW
+        db CBLACK, 253, CYELLOW
+        db CBLACK, 255, CYELLOW
+
+tape32im:
+        db 1,8
+        db CMAIN, 255, CGREEN
+        db CMAIN, 175, CGREEN
+        db CMAIN, 175, CGREEN
+        db CMAIN, 175, CGREEN
+        db CMAIN, 173, CGREEN
+        db CMAIN, 173, CGREEN
+        db CMAIN, 255, CGREEN
+        db CMAIN, 255, CGREEN
+
+tape4im:
+        db 1,8
+        db CBLACK, 255, CMAIN
+        db CBLACK, 255, CMAIN
+        db CBLACK, 0, CMAIN
+        db CBLACK, 255, CMAIN
+        db CBLACK, 255, CMAIN
+        db CBLACK, 255, CMAIN
+        db CBLACK, 219, CMAIN
+        db CBLACK, 255, CMAIN
