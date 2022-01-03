@@ -84,31 +84,14 @@ namespace SpriteEditor.Code.Storage
                 stream.WriteLine("        db {0},{1}", width, height);
                 for (var line = 0; line < vm.ScreenHeight; line++)
                 {
-                    stream.Write("        db");
-                    var firstByte = true;
+                    stream.Write($"        db {inkColor}");
                     for (int w = 0; w < width; w++)
                     {
                         byte data = vm.GetMaskOfByte(w, line, inkColor);
-                        byte back = (byte)~data;
-                        stream.Write("{0}{1},{2}, {3},{4}", firstByte ? " " : ", ", inkColor, data, paperColor, back);
-                        firstByte = false;
+                        stream.Write($", {data}");
                     }
 
-                    stream.WriteLine();
-
-                    line++;
-
-                    stream.Write("        db");
-                    firstByte = true;
-                    for (int w = width - 1; w >= 0; w--)
-                    {
-                        byte data = vm.GetMaskOfByte(w, line, inkColor);
-                        byte back = (byte)~data;
-                        stream.Write("{0}{1},{2}, {3},{4}", firstByte ? " " : ", ", inkColor, data, paperColor, back);
-                        firstByte = false;
-                    }
-
-                    stream.WriteLine();
+                    stream.WriteLine($", {paperColor}");
                 }
             }
         }
