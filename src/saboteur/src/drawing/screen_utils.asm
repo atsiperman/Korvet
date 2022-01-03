@@ -309,46 +309,6 @@ _sttil4:
         add hl,bc
         jp _sttil4
 
-
-        macro DRWSTOB   ; draw static object byte
-                ld a,(bc)       ; load foreground color         
-                rla     
-                add 80h         ; make color mask
-                ld (hl),a	; set main color
-                inc bc          ; move to data byte
-                ld a,(bc)       ; load image byte
-                ld (de),a       ; write to video ram
-                inc bc          ; move to background color
-                ld a,(bc)       ; load background color
-                rla     
-                add 80h         ; make color mask
-                ld (hl),a       ; set background color
-                inc bc          ; move to background data byte
-                ld a,(bc)       ; load background data byte
-                ld (de),a       ; write to video ram
-                inc de          ; move to next column in video memory
-                inc bc          ; move to next byte in object data
-        endm
-        macro DRWSTOBD          ; draw static object byte in reversed direction
-                ld a,(bc)       ; load foreground color 
-                rla     
-                add 80h         ; make color mask
-                ld (hl),a	; set main color
-                inc bc          ; move to data byte
-                ld a,(bc)       ; load image byte
-                ld (de),a       ; write to video ram
-                inc bc          ; move to background color
-                ld a,(bc)       ; load background color
-                rla     
-                add 80h         ; make color mask
-                ld (hl),a       ; set background color
-                inc bc          ; move to background data byte
-                ld a,(bc)       ; load background data byte
-                ld (de),a       ; write to video ram
-                dec de          ; move to previous column in video memory
-                inc bc          ; move to next byte in object data
-        endm
-
 ; ----- draws static object in video memory
 ; args: BC - address of the static object
 ;       DE - address in video memory
@@ -356,165 +316,177 @@ _sttil4:
 drawsto:
         ld a,(bc)               ; load width
         cp 1
-        jp z,_drwsto1
+        jp z,.drwsto1
         cp 2
-        jp z,_drwsto2
+        jp z,.drwsto2
         cp 4
-        jp z, drawsto4          ; draw 4x4 object
+        jp z,.drwsto4          ; draw 4x4 object
 
-drawsto3:
+.drwsto3:
         ld a,0C3h               ; C3 - JP <address> code
-        ld hl,_drwso1           ; skip drawing 4-th columns for 3x3 object
+        ld hl,.drws41           
         ld (hl),a
         inc hl
-        ld (hl),LOW _drwso2  
+        ld (hl),LOW .drws31
         inc hl
-        ld (hl),HIGH _drwso2  
+        ld (hl),HIGH .drws31
 
-        ld hl,_drwso4
+        ld hl,.drws42
         ld (hl),a
         inc hl
-        ld (hl),LOW _drwso5
+        ld (hl),LOW .drws32
         inc hl
-        ld (hl),HIGH _drwso5
+        ld (hl),HIGH .drws32
 
-        jp _drwstos
+        jp .drwstos
 
-drawsto4:
+.drwsto1:
+        ld a,0C3h               ; C3 - JP <address> code
+        ld hl,.drws41           
+        ld (hl),a
+        inc hl
+        ld (hl),LOW .drws11
+        inc hl
+        ld (hl),HIGH .drws11
+
+        ld hl,.drws42
+        ld (hl),a
+        inc hl
+        ld (hl),LOW .drws12
+        inc hl
+        ld (hl),HIGH .drws12
+
+        jp .drwstos
+
+.drwsto2:
+        ld a,0C3h               ; C3 - JP <address> code
+        ld hl,.drws41           
+        ld (hl),a
+        inc hl
+        ld (hl),LOW .drws21
+        inc hl
+        ld (hl),HIGH .drws21
+
+        ld hl,.drws42
+        ld (hl),a
+        inc hl
+        ld (hl),LOW .drws22
+        inc hl
+        ld (hl),HIGH .drws22
+
+        jp .drwstos
+
+.drwsto4:
         xor a                   ; 00 - NOP
-        ld hl,_drwso1           ; overwrite jump instructions
+        ld hl,.drws41           ; overwrite jump instructions
         dup 3
           ld (hl),a
           inc hl
         edup
-        ld hl,_drwso4
+        ld hl,.drws42
         dup 3
           ld (hl),a
           inc hl
         edup
 
-_drwstos:
+.drwstos:
         inc bc          ; move to height
         ld a,(bc)       ; load object height
-        or a            ; clear CY
-        rra             ; divide by 2
         ld l,a          ; save in L
         push hl         ; save height counter
 
         inc bc          ; move to data bytes
 
-_drwso31:
-        ld hl,COLRREG	        ; set color register
-                
-        dup 3        
-        DRWSTOB
-        edup
+.drwso31:
+        ld  hl,COLRREG	; set color register
+        ld  a,(bc)      ; load foreground color         
+        rla     
+        add 80h         ; make color mask
+        ld  (hl),a	    ; set main color
+        inc bc          ; move to data byte
+        
+.drws41:
+        nop             ; jump or nop
+        nop             ; jump or nop
+        nop             ; jump or nop                
 
-_drwso1:
-        jp _drwso2      ; skip 4-th column if object is 3x3
-        DRWSTOB
+        ld   a,(bc)     ; load image byte
+        ld   (de),a     ; write to video ram
+        inc  de         ; move to next column in video memory
+        inc  bc         ; move to next byte in object data
 
-_drwso2:
+.drws31:        
+        ld   a,(bc)     ; load image byte
+        ld   (de),a     ; write to video ram
+        inc  de         ; move to next column in video memory
+        inc  bc         ; move to next byte in object data
+
+.drws21:        
+        ld   a,(bc)     ; load image byte
+        ld   (de),a     ; write to video ram
+        inc  de         ; move to next column in video memory
+        inc  bc         ; move to next byte in object data
+
+.drws11:
+        ld   a,(bc)     ; load image byte
+        ld   (de),a     ; write to video ram
+
+                        ; switch to backgound color
+        inc  bc         ; move to background color
+        ld   a,(bc)     ; load background color
+        rla     
+        add  80h        ; make color mask
+        ld   (hl),a     ; set background color
+
+        push bc         ; save last byte of the current line
+        dec  bc         ; move to background data byte
+
+                        ; start moving back and draw background
+
+.drws42:
+        nop             ; jump or nop
+        nop             ; jump or nop
+        nop             ; jump or nop                
+
+        ld   a,(bc)     ; load image byte
+        cpl         
+        ld   (de),a     ; write to video ram
+        dec  de         ; move to next column in video memory
+        dec  bc         ; move to next byte in object data
+
+.drws32:        
+        ld   a,(bc)     ; load image byte
+        cpl         
+        ld   (de),a     ; write to video ram
+        dec  de         ; move to next column in video memory
+        dec  bc         ; move to next byte in object data
+
+.drws22:        
+        ld   a,(bc)     ; load image byte
+        cpl         
+        ld   (de),a     ; write to video ram
+        dec  de         ; move to next column in video memory
+        dec  bc         ; move to next byte in object data
+
+.drws12:        
+        ld   a,(bc)     ; load image byte
+        cpl         
+        ld   (de),a     ; write to video ram
+
+.drwso2:
         push hl         ; save color reg
-        ld hl,63        ; load displacement to the video line in the last column
-        add hl,de
-        ex de,hl        ; save new address of video cell in DE
-        pop hl
-
-        dup 3        
-        DRWSTOBD
-        edup
-
-_drwso4:
-        jp _drwso5      ; skip 4-th column if object is 3x3
-        DRWSTOBD
-
-_drwso5:
-        pop hl          ; restore height counter
-        dec l
-        ret z
-        push hl         ; save decreased counter 
-        ld hl,65        ; load displacement to the video line in the initial column
-        add hl,de
-        ex de,hl        ; save new pointer ino DE
-        jp _drwso31     ; continue loop
-
-
-; ----- draws static object, having width of 2 columns, in video memory
-; args: BC - address of the static object
-;       DE - address in video memory
-;							
-_drwsto2:
-        inc bc          ; move to height
-        ld a,(bc)       ; load object height
-        or a            ; clear CY
-        rra             ; divide by 2
-        ld l,a          ; save in L
-        push hl         ; save height counter
-
-        inc bc          ; move to data bytes
-
-_drws2_1:
-        ld hl,COLRREG	        ; set color register
-                
-        dup 2
-        DRWSTOB
-        edup
-
-        push hl         ; save color reg
-        ld hl,63        ; load displacement to the video line in the last column
-        add hl,de
-        ex de,hl        ; save new address of video cell in DE
-        pop hl
-
-        dup 2
-        DRWSTOBD
-        edup
-
-        pop hl          ; restore height counter
-        dec l
-        ret z
-        push hl         ; save decreased counter 
-        ld hl,65        ; load displacement to the video line in the initial column
-        add hl,de
-        ex de,hl        ; save new pointer ino DE
-        jp _drws2_1     ; continue loop
-
-; ----- draws static object, having width of 1 column, in video memory
-; args: BC - address of the static object
-;       DE - address in video memory
-;							
-_drwsto1:
-        inc bc          ; move to height
-        ld a,(bc)       ; load object height
-        or a            ; clear CY
-        rra             ; divide by 2
-        ld l,a          ; save in L
-        push hl         ; save height counter
-
-        inc bc          ; move to data bytes
-
-_drws1_1:
-        ld hl,COLRREG	        ; set color register
-                
-        DRWSTOB
-
-        push hl         ; save color reg
-        ld hl,63        ; load displacement to the video line in the last column
-        add hl,de
-        ex de,hl        ; save new address of video cell in DE
-        pop hl
-
-        DRWSTOBD
+        ld   hl,64      ; load displacement to the video line in the last column
+        add  hl,de
+        ex   de,hl      ; save new address of video cell in DE
+        pop  hl
+        pop  bc         ; restore address of the last byte in current line
+        inc  bc
 
         pop hl          ; restore height counter
         dec l
         ret z
         push hl         ; save decreased counter 
-        ld hl,65        ; load displacement to the video line in the initial column
-        add hl,de
-        ex de,hl        ; save new pointer ino DE
-        jp _drws1_1     ; continue loop
+        jp .drwso31     ; continue loop
 
 
 ; ----- clears text ram for current screen
