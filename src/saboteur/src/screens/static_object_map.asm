@@ -105,7 +105,7 @@ s58stom:
         mktapem 16, 11
 
 s64stom:
-        db 14
+        db 15
         mkstobj wgnbtml, 12, 14
         mkstobj wgnbtmr, 15, 14
         mkstobj wgncynl, 12, 13
@@ -120,6 +120,7 @@ s64stom:
         mkstobj wgnmdr,  17, 9
         mkstobj wgntopl, 12, 8
         mkstobj wgntopr, 15, 8
+        mkstobj wgnnm2, 14, 12
 
 s66stom:
         db 27

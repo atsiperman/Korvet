@@ -524,3 +524,41 @@ wgnwind:
         db 2,4
         db 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255
         db 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255
+
+wgnnm1:
+        db 2,16
+        db CBLUE, 0, 0, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 127, 126, CWHITE
+        db CBLUE, 127, 126, CWHITE
+        db CBLUE, 127, 126, CWHITE
+        db CBLUE, 127, 126, CWHITE
+        db CBLUE, 127, 126, CWHITE
+        db CBLUE, 126, 126, CWHITE
+        db CBLUE, 126, 126, CWHITE
+        db CBLUE, 126, 126, CWHITE
+        db CBLUE, 126, 126, CWHITE
+        db CBLUE, 126, 126, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 0, 0, CWHITE
+
+wgnnm2:
+        db 2,16
+        db CBLUE, 0, 0, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 112, 14, CWHITE
+        db CBLUE, 113, 206, CWHITE
+        db CBLUE, 127, 206, CWHITE
+        db CBLUE, 127, 206, CWHITE
+        db CBLUE, 112, 14, CWHITE
+        db CBLUE, 112, 14, CWHITE
+        db CBLUE, 115, 254, CWHITE
+        db CBLUE, 115, 254, CWHITE
+        db CBLUE, 115, 254, CWHITE
+        db CBLUE, 115, 142, CWHITE
+        db CBLUE, 112, 14, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 127, 254, CWHITE
+        db CBLUE, 0, 0, CWHITE

@@ -14,13 +14,6 @@ s7objm:
 		db 1
 		mkgun dirlt,16,6
 
-s7mom:
-		db 4
-		mkmasko fencert,21,12
-		mkmasko fencert,22,11
-		mkmasko fencert,23,10
-		mkmasko fencertl,24,10
-
 s8objm:
 		db 2
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,4,7,4,20	

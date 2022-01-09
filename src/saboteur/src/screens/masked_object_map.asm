@@ -30,6 +30,13 @@ s6mom:
 		mkmasko bigplate,24,15
 		mkmasko smlplate,24,14
 
+s7mom:
+		db 4
+		mkmasko fencert,21,12
+		mkmasko fencert,22,11
+		mkmasko fencert,23,10
+		mkmasko fencertl,24,10
+
 s36mom:
 		db 6
 		mkmasko s36wfrml, 6, 8
