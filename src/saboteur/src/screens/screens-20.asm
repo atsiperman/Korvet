@@ -436,45 +436,137 @@ scrbk25:
 		spmaplen smap25b,smap25e
 smap25b:
 		bkindex BK2ADDR		; 0, wall
-		bkindex BK10ADDR	; 1, blue small bricks
-		bkindex BK4ADDR		; 2, blue bricks
-		bkindex BK22ADDR	; 3, solid white
+		bkindex BK4ADDR		; 1, blue bricks
+        bkindex BK51ADDR    ; 2, white block
+        bkindex BK52ADDR    ; 3, cyan block
+        bkindex BK5ADDR     ; 4, solid blue 
+        bkindex BK53ADDR    ; 5, wagon left bottom edge
+        bkindex BK54ADDR    ; 6, wagon right bottom edge
+        bkindex BK55ADDR    ; 7, wagon window
+        bkindex BK56ADDR    ; 8, wagon right top edge
+        bkindex BK57ADDR    ; 9, wagon left top edge
+        bkindex BK58ADDR    ; 10, wagon top
+        bkindex BK59ADDR    ; 11, wagon right
+        bkindex BK60ADDR    ; 12, wagon left
+        bkindex BK61ADDR    ; 13, yellow block
 smap25e:
 		mkdup 7
-			mkline 13
+			mkline 14
 			db 0
-			mkline 2
 			db 0
-		;edup
-		
-		mkline 13
-		mkbyte 1,1
-		
-		mkline 2
-		mkbyte 1,1
-		
-		mkdup 5
-			mkline 13
-			mkbyte 2,2
-			mkline 2
-			mkbyte 2,2
-		;edup
-		
-		mkdup 2
-			mkline 13
-			mkbyte 3,3
-			mkline 2
-			mkbyte 3,3
 		;edup
 
+        mkline 14
+        mkbyte 1,1
+        mkbyte 1,1
+
+
+                    ; ----------
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,9
+
+        mkline 7
+        mkbyte 10,10
+
+        mkbyte 8,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+
+                    ; ----------
+        mkdup 2
+            mkbyte 1,1
+            mkbyte 1,1
+            mkbyte 1,1
+            mkbyte 1,12
+
+            mkbyte 4,7
+            mkbyte 7,4
+            
+            mkbyte 4,13
+            mkbyte 13,13
+            mkbyte 13,4
+
+            mkbyte 4,7
+            mkbyte 7,4        
+
+            mkbyte 11,1
+            mkbyte 1,1
+            mkbyte 1,1
+            mkbyte 1,1
+
+                    ; ----------
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,12
+
+        mkline 7
+        mkbyte 4,4
+
+        mkbyte 11,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+                    ; ----------
+
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,3
+
+        mkline 7
+        mkbyte 3,3
+
+        mkbyte 3,1
+        mkbyte 1,1
+        mkbyte 1,1
+        mkbyte 1,1
+                    ; ----------
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,3
+
+        mkline 7
+        mkbyte 3,3
+
+        mkbyte 3,2
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,2
+                    ; ----------
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,5
+
+        mkline 7
+        mkbyte 4,4
+
+        mkbyte 6,2
+        mkbyte 2,2
+        mkbyte 2,2
+        mkbyte 2,2
+                    ; ----------
+
 		mkdup 2
-			mkline 13
+			mkline 14
 			db 0
-			mkline 2
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s64mom		
+        db STOMAP
+        dw s25stom
+        db TXTSMAP
+        dw scr64txd
+        db SCREND
+
 ; --- end of scrbk25
 
 scrbk26:

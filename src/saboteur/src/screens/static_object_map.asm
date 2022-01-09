@@ -79,6 +79,24 @@ s2stom:
         mkstobj mrpillar, 23, 4
         mkstobj mrpillar, 28, 4
 
+s25stom:
+        db 15
+        mkstobj wgnbtml, 12, 14
+        mkstobj wgnbtmr, 15, 14
+        mkstobj wgncynl, 12, 13
+        mkstobj wgncynr, 15, 13
+        mkstobj wgncynl, 12, 12
+        mkstobj wgncynr, 15, 12
+        mkstobj wgnbtml, 12, 11
+        mkstobj wgnbtmr, 15, 11
+        mkstobj wgnmdl,  12, 10
+        mkstobj wgnmdl,  12, 9
+        mkstobj wgnmdr,  17, 10
+        mkstobj wgnmdr,  17, 9
+        mkstobj wgntopl, 12, 8
+        mkstobj wgntopr, 15, 8
+        mkstobj wgnnm1, 14, 12
+
 s46stom:
         db 3
         mkbox33 2, 9

@@ -102,7 +102,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn64 		; pointer to current screen
+curscr: 	dw scrn25 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
