@@ -10,19 +10,9 @@
 		include "object_def.asm"
 ; -----------------------------------------------------------
 ; -----------------------------------------------------------
-        include "sprites/background_sprites.asm"				
 		include "sprites/gun_sprites.asm"
-
-		; reserve bytes to get mirror table starting with xx00h address
-		; dup 23
-		; 	db 0
-		; edup
-
-;------------------------------------------------------------
-		; order of this section is important, since mirror table must be 		
-		;include "drawing/mirror_table.asm"
-; -----------------------------------------------------------
-; -----------------------------------------------------------
+        include "sprites/background_sprites.asm"				
+		include "drawing/mirror_table.asm"
 
 		include "control_data.asm"						
 
@@ -88,9 +78,7 @@
 				
 start:
 		di
-		
-		;;;call sabinit
-		
+				
 		ld a, ALTCHAR
 		ld (TVIREG),a
         call clrtscr
@@ -101,6 +89,8 @@ start:
         ld (OLDSTK),hl
         ld sp,NEWSTK
 		
+		call sabinit
+
         GRMODON
 		call lutsetup
 	
@@ -114,12 +104,8 @@ start:
 main:					; main cycle
 		DISSND
 
-        ;GRMODON
-
 		call drawscr
-				
-        ;GRMODOFF
-		
+					
 		call sbstsnd
 
 		call gmain		; test keyboard 

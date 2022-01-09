@@ -1,26 +1,44 @@
 
-; ; ; ----- initializes data
-; ; ;
-; ; sabinit:
-; ; 		call initbuf
-; ; 		ret
-		
-; ; ; ----- makes initialization of screen buffer and vars
-; ; ;
-; ; initbuf:
-; ; 		ld hl,scrbuf	; address of screen buffer
-; ; 		ld de,bufrows	; array of addresses of rows in buffer
-; ; 		ld bc,COLNUM*8	; size of one row
-; ; 		ld a,ROWNUM
+; ----- initializes data
+;
 
-; ; initbuf1:
+        
+sabinit:
+        ld  hl,sabspmr1
+        ld  de,sabspml1
+		call mirrspr
+
+        ld  hl,sabspmr2
+        ld  de,sabspml2
+		call mirrspr
+
+        ld  hl,sabspmr3
+        ld  de,sabspml3
+		call mirrspr
+
+        ld  hl,sabspmr4
+        ld  de,sabspml4
+		call mirrspr
+
+        ld  hl,sabsprt
+        ld  de,sabsplt
+		call mirrspr
+
+        ld  hl,sabjmpr1
+        ld  de,sabjmpl1
+		call mirrspr
+
+        ld  hl,sabjmpr2
+        ld  de,sabjmpl2
+		call mirrspr
+
+        ld  hl,sabkckr1
+        ld  de,sabkckl1
+		call mirrspr
+
+        ld  hl,sabkckr2
+        ld  de,sabkckl2               
+		call mirrspr
+
+		ret
 		
-; ; 		ex de,hl
-; ; 		savem_hl_de
-; ; 		ex de,hl		
-		
-; ; 		dec a
-; ; 		ret z
-		
-; ; 		add hl,bc
-; ; 		jp initbuf1
