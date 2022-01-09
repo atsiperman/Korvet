@@ -179,10 +179,15 @@ rstbktl:
         push hl         ; screen buffer address
         push bc         
 
+        ld  a,(de)        
 		inc de			; skip back color		
 		inc de			; skip foreground color
 		inc de			; skip sprite attributes
-		
+
+        cp  DEFBLCK
+        jp  nz,.rstbk1  ; clear data for a tile if its background is not black 
+
+                        ; restore background for regular sprite
 		dup 8
 			ld a,(de)		; load data byte	
 			cpl 			; get background bits
@@ -193,6 +198,18 @@ rstbktl:
 		
 		pop bc
 		pop hl
-		
+
+        ret 
+
+.rstbk1:
+        xor a           
+        dup 8
+			ld (hl),a		
+			inc hl
+        edup
+
+		pop bc
+		pop hl
+
 		ret			
 		

@@ -1,5 +1,6 @@
 
 DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
+;DEFBLCK EQU (80h + (CBLACK << 1))
 
 	macro scrnhd
 	; screen header

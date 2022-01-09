@@ -47,6 +47,9 @@ s37mom:
 		mkmasko	s36wfrm, 15, 8
 		mkmasko	s36wfrm, 19, 8
 		mkmasko s36wfrmr, 23, 8
+s64mom:
+        db 1
+        mkmasko wgnwind, 13, 9
 
 s70mom:
 		db 17

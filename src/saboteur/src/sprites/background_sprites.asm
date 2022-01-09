@@ -55,10 +55,20 @@ BK47ADDR:   DW BK47DATA
 BK48ADDR:   DW BK48DATA
 BK49ADDR:   DW BK49DATA
 BK50ADDR:   DW BK50DATA
+BK51ADDR:   DW BK51DATA
+BK52ADDR:   DW BK52DATA
+BK53ADDR:   DW BK53DATA
+BK54ADDR:   DW BK54DATA
+BK55ADDR:   DW BK55DATA
+BK56ADDR:   DW BK56DATA
+BK57ADDR:   DW BK57DATA
+BK58ADDR:   DW BK58DATA
+BK59ADDR:   DW BK59DATA
+BK60ADDR:   DW BK60DATA
+BK61ADDR:   DW BK61DATA
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
-			;;DB 127, 255, 255, 255, 255, 255, 255, 255
 			
 BK2DATA: 	bksh2 CBLUE,fgtile + bwall	; blue dots
 			DB 32, 4, 32, 0, 8, 0, 32, 0
@@ -204,3 +214,36 @@ BK49DATA:	bksh CCYAN   				                ; cyan big vertical tube
 
 BK50DATA:	bksh CCYAN   				                ; cyan big horizontal cyan tube
             db  0, 255, 128, 186, 174, 128, 255, 0
+
+BK51DATA:   bksh CWHITE                                 ; white block
+            db 255, 255, 255, 255, 255, 255, 255, 255
+
+BK52DATA:   bksh CCYAN                                  ; cyan block
+            db 255, 255, 255, 255, 255, 255, 255, 255   
+
+BK53DATA:   bksh_b CWHITE, CBLUE                        ; wagon left bottom edge
+            db  255, 255, 255, 127, 127, 63, 31, 7
+
+BK54DATA:   bksh_b CWHITE, CBLUE                        ; wagon right bottom edge
+            db  255, 255, 255, 254, 254, 252, 248, 224
+
+BK55DATA:   bksh CCYAN                                  ; wagon window
+            db  124, 254, 254, 254, 254, 254, 124, 0
+
+BK56DATA:   bksh CBLUE                                  ; wagon right top edge
+            db  255, 255, 15, 231, 243, 249, 253, 253
+
+BK57DATA:   bksh CBLUE                                  ; wagon left top edge
+            db  255, 255, 240, 231, 207, 159, 191, 191
+
+BK58DATA:   bksh CBLUE                                  ; wagon top
+            db  255, 255, 0, 255, 255, 255, 255, 255
+
+BK59DATA:   bksh CBLUE                                  ; wagon right
+            db  253, 253, 253, 253, 253, 253, 253, 253
+
+BK60DATA:   bksh CBLUE                                  ; wagon left
+            db  191, 191, 191, 191, 191, 191, 191, 191            
+
+BK61DATA:   bksh CYELLOW                                ; yellow block
+            db 255, 255, 255, 255, 255, 255, 255, 255   

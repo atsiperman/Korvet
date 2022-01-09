@@ -38,6 +38,7 @@ bwall   EQU 1
 bladder EQU 2 
 
 ; ---- background tile attributes
+bgtile  EQU 0       ; background tile
 fgtile	EQU 128		; tile must be drawn above moving sprites
 stotile EQU 64		; static object tile
 

@@ -430,3 +430,97 @@ tape4im:
         db CBLACK, 255, CMAIN
         db CBLACK, 219, CMAIN
         db CBLACK, 255, CMAIN
+
+wgnbtml:
+        db 3,8
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+
+wgnbtmr:
+        db 3,8
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN        
+
+wgncynl:
+        db 3,8
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+        db CCYAN, 127, 255, 255, CMAIN
+
+wgncynr:
+        db 3,8
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN
+        db CCYAN, 255, 255, 254, CMAIN                
+
+wgnmdl:
+        db 1,8
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+        db CBLUE, 127, CMAIN
+
+wgnmdr:
+        db 1,8
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN
+        db CBLUE, 254, CMAIN        
+
+wgntopl:
+        db 3,8
+        db CBLUE, 192, 0, 0, CMAIN
+        db CBLUE, 191, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+        db CBLUE, 127, 255, 255, CMAIN
+
+wgntopr:
+        db 3,8
+        db CBLUE, 0, 0, 3, CMAIN
+        db CBLUE, 255, 255, 253, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+        db CBLUE, 255, 255, 254, CMAIN
+
+wgnwind:
+        db CMAINREG
+        db 2,4
+        db 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255
+        db 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255, 0,131, 124,1, 124,1, 124,1, 124,1, 124,1, 0,131, 0,255

@@ -60,7 +60,7 @@ CRED        EQU 2
 CGREEN		EQU 2   ; CRED + text
 CYELLOW		EQU 3
 CCYAN		EQU 3   ; CYELLOW + text
-CWHITE		EQU 8   ; CBLACK + text
+CWHITE		EQU 0   ; CBLACK + text
 
 CMAIN 		EQU 4			; color of the main character
 
