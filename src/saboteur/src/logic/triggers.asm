@@ -6,9 +6,29 @@ trigrun:
         jp   (hl)           ; call trigger
         ret
 
-; ---- check for the triggers on the screen
+; ---- runs auto trigger
+;
+; result:
+;       A - 1 if trigger action is in progress
 ;
 trigact:
+        ld  a,(trtype)
+        or  a
+        ret z               ; return if no triggers set
+        cp  trgauto
+        jp  z,.tract1
+        xor a        
+        ret
+
+.tract1:
+        ld  hl,(trproc)     ; load trigger proc
+        jp  (hl)
+        xor a               ; stop trigger
+        ret 
+
+; ---- check for the triggers on the screen
+;
+trigtst:
         ld hl,(trigmap)
         ld a,h
         or l 
@@ -54,9 +74,8 @@ trigact:
         jp nz,.tract5       ; not equal, go to the next iteration
 
         pop  af
-        ld   (trigchd),a    ; set flag, trigger changed, A != 0 here
 
-        inc  hl             ; move to the image address
+        inc  hl             
         load_de_hl          ; load trigger's procedure
         ex   de,hl
         ld   (trproc),hl    ; save current trigger's procedure
@@ -69,6 +88,11 @@ trigact:
 
         pop  hl             ; restore pointer to the trigger
         ld   (curtrig),hl   ; save pointer to the current trigger
+
+        cp  trgauto
+        ret z               ; do not set flag if this is auto trigger
+
+        ld   (trigchd),a    ; set flag, trigger changed, A != 0 here
         ret
 
 .tract5:
@@ -115,6 +139,53 @@ itmproc:
         ld   (trigchd),a    ; refresh triggered image
         ld   (sbhldch),a    ; refresh held object image
         ret
+
+; ---- rails data
+rails:
+        macro mkrail colnum
+            db colnum
+            mkscradr colnum, 15
+        endm
+
+        mkrail 19
+        mkrail 16
+        mkrail 15
+        mkrail 4
+        mkrail 1
+        mkrail 0
+
+; ---- procedure for left trigger in wagon-1
+;      wagon starts moving left when it fires
+;
+wgn1trl:
+        GRMODON
+
+        ld  hl,rails
+
+        dup 6
+            inc hl          
+            load_de_hl
+            ld  bc,railimg
+            push hl
+            call drawsto
+            pop  hl
+        edup
+
+        GRMODOFF
+        
+        xor a
+        ld  (trtype),a          ; clear trigger
+
+        ld  hl,s25trm + 1
+        ld  (hl),trdisab        
+        ret
+
+; ---- procedure for right trigger in wagon-1
+;      wagon starts moving right when it fires
+;
+wgn1trr:
+        ret
+
 
 
 ; ---- draws image of the triggered object

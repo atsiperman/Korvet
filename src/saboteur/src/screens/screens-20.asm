@@ -318,7 +318,12 @@ smap23e:
 			db 0
 		;edup
 
-		mscrend
+		db SCREND
+        db TRIGMAP
+        dw s23trm
+        db MSKOMAP
+        dw s23mom
+        db SCREND
 		
 ; --- end of scrbk23
 
@@ -559,6 +564,8 @@ smap25e:
 		;edup
 		
 		db SCREND
+        db TRIGMAP
+        dw s25trm
         db MSKOMAP
         dw s64mom		
         db STOMAP

@@ -109,11 +109,15 @@ mobjsz  EQU	4					; size of the masked object
 		dw address												; image address
 		endm
 
+        macro mkscradr colnum, rownum
+        dw SCRADDR + colnum + (rownum) * 64 * 8		; address in video RAM
+        endm
+
         macro mkstobj address,colnum,rownum
         db colnum
         db rownum
-        dw address									; pointer to image data
-        dw SCRADDR + colnum + (rownum) * 64 * 8		; start address in video RAM
+        dw address							    	; pointer to image data
+        mkscradr colnum, rownum             		; start address in video RAM
         endm
 
 
@@ -144,7 +148,11 @@ trsize  EQU 7 		; trigger size
 		endm
 
 		macro mktrig colnum, rownum, trtype, objtype, procaddr
-		db tractiv				; trigger state, active by default
+        mktrig2 tractiv, colnum, rownum, trtype, objtype, procaddr
+        endm
+
+        macro mktrig2 trstate, colnum, rownum, trtype, objtype, procaddr
+		db trstate				
 		db colnum
 		db rownum
 		dw procaddr

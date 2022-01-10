@@ -37,6 +37,10 @@ s7mom:
 		mkmasko fencert,23,10
 		mkmasko fencertl,24,10
 
+s23mom:
+        db 1
+        mkmasko trash,5,12
+
 s36mom:
 		db 6
 		mkmasko s36wfrml, 6, 8

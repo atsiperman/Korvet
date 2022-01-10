@@ -1,13 +1,17 @@
 		
 ; ---- main game logic
-; result: A - 0 to stop
+; result: A - 0 to stop, 1 - continue game
 
 gmain:
+        call trigact
+        or  a
+        ret nz
+
         call movthrn        ; move thrown object if any
 		call gaction		; process objects        		
 		call sbmain			; process saboteur
 		push af
-		call trigact		; process triggers
+		call trigtst		; process triggers
 		pop	 af
 		ret
 

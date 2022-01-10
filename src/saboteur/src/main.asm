@@ -8,7 +8,18 @@
         include "const.asm"
 		include "sbmacro.asm"	
 		include "object_def.asm"
-; -----------------------------------------------------------
+
+		include "sprites/gun_sprites.asm"
+        include "sprites/background_sprites.asm"
+		include "control_data.asm"						
+
+		include "sprites/dog_sprites.asm"		
+		include "sprites/saboteur_sprites.asm"				
+		include "sprites/frame_sprites.asm"				
+		include "sprites/strings.asm"
+		include "sprites/guard_sprites.asm"
+		include "sprites/static_object_sprites.asm"
+        include "sprites/trigger_sprites.asm"
 
 mirtable EQU 0c000h
 sabspml1 EQU mirtable + 256
@@ -24,25 +35,13 @@ sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
 sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
 sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
 
-; -----------------------------------------------------------
 scrbuf:									; screen buffer		
+; -----------------------------------------------------------
         dup (ROWNUM * ROWWIDB) - 256 ; 256 - size of the mirror table, which will be copied into upper memory page
         db 0
         edup
-
 		include "drawing/mirror_table.asm"
-
-		include "sprites/gun_sprites.asm"
-        include "sprites/background_sprites.asm"
-		include "control_data.asm"						
-
-		include "sprites/dog_sprites.asm"		
-		include "sprites/saboteur_sprites.asm"				
-		include "sprites/frame_sprites.asm"				
-		include "sprites/strings.asm"
-		include "sprites/guard_sprites.asm"
-		include "sprites/static_object_sprites.asm"
-        include "sprites/trigger_sprites.asm"
+; -----------------------------------------------------------
 
 		include "sound.asm"	
 
@@ -72,8 +71,16 @@ scrbuf:									; screen buffer
 		
 		include "logic/dog_control.asm"
 		include "logic/guard_control.asm"
-		
+		        
 		include "tiles_control.asm"
+
+		include "drawing/scrbuf_utils.asm"
+		include "drawing/drawsprite.asm"
+		include "drawing/draw_frame.asm"		
+        include "drawing/screen_utils.asm"		
+		include "drawing/screen_draw.asm"
+		include "drawing/object_draw.asm"		
+
 		include "logic/saboteur_utils.asm"
 		include "logic/saboteur_fall.asm"
 		include "logic/saboteur_ladder.asm"
@@ -84,15 +91,7 @@ scrbuf:									; screen buffer
 		include "logic/health.asm"
 		include "logic/gun_logic.asm"
 		include "logic/triggers.asm"
-		
-		include "drawing/scrbuf_utils.asm"
-		include "drawing/drawsprite.asm"
-		include "drawing/draw_frame.asm"		
-        include "drawing/screen_utils.asm"		
-		include "drawing/screen_draw.asm"
-		
-		include "drawing/object_draw.asm"		
-		
+				
 		include "keyboard.asm"
 		include "game.asm"
 				

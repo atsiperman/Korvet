@@ -487,7 +487,14 @@ scr64txd:
 		mkbyte TXLINEH,15
 			mktxtaddr 15, 7
 			db CHFULL
-		
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 8
+			db CHTOP
+
         db SCREND
 
 ; --- end of scrbk64

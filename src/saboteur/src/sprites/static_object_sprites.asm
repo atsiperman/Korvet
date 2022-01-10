@@ -562,3 +562,14 @@ wgnnm2:
         db CBLUE, 127, 254, CWHITE
         db CBLUE, 127, 254, CWHITE
         db CBLUE, 0, 0, CWHITE
+
+railimg:
+        db 1,8
+        db CMAIN, 195, CWHITE
+        db CMAIN, 153, CWHITE
+        db CMAIN, 189, CWHITE
+        db CMAIN, 60, CWHITE
+        db CMAIN, 126, CWHITE
+        db CMAIN, 126, CWHITE
+        db CMAIN, 255, CWHITE
+        db CMAIN, 255, CWHITE
