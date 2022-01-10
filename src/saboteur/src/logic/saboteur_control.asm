@@ -79,36 +79,35 @@ sbnoactn:
 		pop hl
 		
 		cp sbstay
-		jp nz,sbnoact1
+		jp nz,.sbnoact
 							; player is staying, no action									
 		call hlinc			; update health 
 		ret
 
-sbnoact1:		
+.sbnoact:		
 		cp sbstmov			; check if just started moving
-		jp nz,_sbnoact1		; no
+		jp nz,.sbnoac1		; no
 
 							; yes, need to do at least one step
 		sblddir				; load current direction
 		ld c,a
 		call sbdomove		; do at least one movement since it was allowed
 
-_sbnoact1:
+.sbnoac1:
 		cp sbladr			
-		jp nz,sbnoact2
+		jp nz,.sbnoac2
 							; player is on the ladder
 		call sbstplna		
 		ret
 		
-sbnoact2:		
-
+.sbnoac2:		
 		sblddir
 		cp dirrt
-		jp nz,sbnoact5
+		jp nz,.sbnoac5
 							; was moving right
 		ldstate	
 		cp sbsquat
-		jp nz,sbnoact4
+		jp nz,.sbnoac4
 							; player is squatting, now stand up									
 							
 							; player is looking right, decrease column
@@ -117,17 +116,17 @@ sbnoact2:
 		dec a
 		ld (hl),a
 		
-sbnoact4:							
+.sbnoac4:							
 		ld de,sabsprt 
 		sbscursp			; stop, look at right		
-		jp sbststop
+		jp .sbstop
 		
-sbnoact5:
+.sbnoac5:
 							; was moving left
 		ld de,sabsplt
 		sbscursp			; stop, look at left
 
-sbststop:
+.sbstop:
 		sbscurst sbstay		; is staying now
 		
 		sblprvsp		
@@ -144,7 +143,7 @@ sbststop:
 		sbscursr
 		ret
 		
-sbnoacte:		
+.sbnoace:		
 		pop hl		
 		ret
 		
