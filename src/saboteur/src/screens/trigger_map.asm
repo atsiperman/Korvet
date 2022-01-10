@@ -30,7 +30,7 @@ s23trm:
 s25trm:
     db 2
     mktrig 13, 14, trgauto, 0, wgn1trl
-    mktrig2 trdisab, 16, 14, trgauto, 0, wgn1trr        ; right trigger is disabled 
+    mktrig2 trdisab, 15, 14, trgauto, 0, wgn1trr        ; right trigger is disabled 
 
 s70trm:
     db 1

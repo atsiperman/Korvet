@@ -91,6 +91,7 @@ scrbuf:									; screen buffer
 		include "logic/health.asm"
 		include "logic/gun_logic.asm"
 		include "logic/triggers.asm"
+        include "logic/wagons.asm"
 				
 		include "keyboard.asm"
 		include "game.asm"
