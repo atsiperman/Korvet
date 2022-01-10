@@ -1,10 +1,10 @@
 
 
 ; ----- calculates address of a tile with specified column and row in screen buffer
-; args: 	D - column
+; args: D - column
 ;		E - row
 ; result: 	
-;               HL - pointer to a byte with sprite attributes
+;       HL - pointer to a byte with sprite attributes
 ;			
 shscradr:
         ld a,e          ; load current row index
@@ -141,9 +141,9 @@ startdrw:
 ; ----- draws background tile in video memory
 ; args: DE - address of the tile in screen buffer
 ;       HL - address in video memory
-;	C  - number of sprites to draw starting from the current one 
+;	    C  - number of sprites to draw starting from the current one 
 ; result:
-;	HL - address of the last byte written in video memory
+;	    HL - address of the last byte written in video memory
 ;		
 drawbktl:
 
@@ -187,7 +187,7 @@ _drwbkt2:
         push bc         ; save address in screen buffer
 
         ld a,(de)	; read back color
-        ld c,a          ; save back color in C
+        ld c,a      ; save back color in C
         inc de
 	        
         ld a,(de)	; read foreground color
@@ -234,7 +234,7 @@ _drwbkt2:
 
 nextline:
         pop hl          ; restore address of the last column
-	ret	
+	    ret	
 		
 
 ; ----- marks tiles, occupied by static objects

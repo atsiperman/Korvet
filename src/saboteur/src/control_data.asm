@@ -10,7 +10,7 @@ LUTVAL:
 		db 01000010b	; CRED
 		db 01100011b    ; CYELLOW   
     
-        ; with text latyer
+        ; with text layer
 		db 01111000b	; CWHITE
 		db 00011001b	; CBLUE   
         db 00101010b	; CGREEN = CRED

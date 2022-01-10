@@ -32,6 +32,8 @@ GRAMLEN 	EQU 4000h
 
 ROWNUM  	EQU 17			; number of rows on the working screen
 COLNUM  	EQU 30         	; number of columns on the working screen
+MAXCOL      EQU COLNUM - 1  ; max column index
+MAXROW      EQU ROWNUM - 1  ; max row index
 
 COLWIDB		EQU 2 + 1 + 1 + 8	; size of one column in screen buffer, bytes
                                 ; 2, sprite address

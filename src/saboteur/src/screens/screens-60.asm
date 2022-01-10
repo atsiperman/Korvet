@@ -465,6 +465,8 @@ smap64e:
 		;edup
 		
 		db SCREND
+        db TRIGMAP
+        dw s64trm
         db MSKOMAP
         dw s64mom		
         db STOMAP

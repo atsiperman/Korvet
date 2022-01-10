@@ -23,7 +23,10 @@ trigact:
 .tract1:
         ld  hl,(trproc)     ; load trigger proc
         jp  (hl)
-        xor a               ; stop trigger
+        or  a
+        ret nz              ; return, trigger is in progress
+        
+        ld  (trtype),a          ; clear trigger
         ret 
 
 ; ---- check for the triggers on the screen
@@ -139,53 +142,6 @@ itmproc:
         ld   (trigchd),a    ; refresh triggered image
         ld   (sbhldch),a    ; refresh held object image
         ret
-
-; ---- rails data
-rails:
-        macro mkrail colnum
-            db colnum
-            mkscradr colnum, 15
-        endm
-
-        mkrail 19
-        mkrail 16
-        mkrail 15
-        mkrail 4
-        mkrail 1
-        mkrail 0
-
-; ---- procedure for left trigger in wagon-1
-;      wagon starts moving left when it fires
-;
-wgn1trl:
-        GRMODON
-
-        ld  hl,rails
-
-        dup 6
-            inc hl          
-            load_de_hl
-            ld  bc,railimg
-            push hl
-            call drawsto
-            pop  hl
-        edup
-
-        GRMODOFF
-        
-        xor a
-        ld  (trtype),a          ; clear trigger
-
-        ld  hl,s25trm + 1
-        ld  (hl),trdisab        
-        ret
-
-; ---- procedure for right trigger in wagon-1
-;      wagon starts moving right when it fires
-;
-wgn1trr:
-        ret
-
 
 
 ; ---- draws image of the triggered object
