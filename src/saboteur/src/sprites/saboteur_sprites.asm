@@ -1,19 +1,6 @@
 ; sprites of main character
 ;	all sprites are working in plain mode
 		
-sabspml1 EQU 0c200h
-sabspml2 EQU sabspml1 + (sabspmr2 - sabspmr1)
-sabspml3 EQU sabspml2 + (sabspmr2 - sabspmr1)
-sabspml4 EQU sabspml3 + (sabspmr2 - sabspmr1)
-
-sabsplt  EQU sabspml4 + (sabspmr2 - sabspmr1)
-
-sabjmpl1 EQU sabsplt + (sabspmr1 - sabsprt)
-sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
-
-sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
-sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
-
 ; table of addresses of saboteur sprites when moving right
 ;
 sbmvrttb:										

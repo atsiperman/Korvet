@@ -35,11 +35,6 @@ mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
 otramdef:	dw 0		; pointer to definition of text ram for old screen
-
-scrbuf:									; screen buffer		
-			dup ROWNUM * ROWWIDB
-			db 0
-			edup
 	
 	macro skip_buf_tile_head reg_pair
 		dup 4

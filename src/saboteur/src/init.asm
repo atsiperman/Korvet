@@ -4,6 +4,8 @@
 
         
 sabinit:
+        call cpmirtab
+        
         ld  hl,sabspmr1
         ld  de,sabspml1
 		call mirrspr

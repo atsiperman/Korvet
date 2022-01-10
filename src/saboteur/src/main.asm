@@ -9,11 +9,31 @@
 		include "sbmacro.asm"	
 		include "object_def.asm"
 ; -----------------------------------------------------------
+
+mirtable EQU 0c000h
+sabspml1 EQU mirtable + 256
+sabspml2 EQU sabspml1 + (sabspmr2 - sabspmr1)
+sabspml3 EQU sabspml2 + (sabspmr2 - sabspmr1)
+sabspml4 EQU sabspml3 + (sabspmr2 - sabspmr1)
+
+sabsplt  EQU sabspml4 + (sabspmr2 - sabspmr1)
+
+sabjmpl1 EQU sabsplt + (sabspmr1 - sabsprt)
+sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
+
+sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
+sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
+
 ; -----------------------------------------------------------
-		include "sprites/gun_sprites.asm"
-        include "sprites/background_sprites.asm"				
+scrbuf:									; screen buffer		
+        dup (ROWNUM * ROWWIDB) - 256 ; 256 - size of the mirror table, which will be copied into upper memory page
+        db 0
+        edup
+
 		include "drawing/mirror_table.asm"
 
+		include "sprites/gun_sprites.asm"
+        include "sprites/background_sprites.asm"
 		include "control_data.asm"						
 
 		include "sprites/dog_sprites.asm"		
