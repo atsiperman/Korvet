@@ -16,8 +16,7 @@ rails:
         mkrail 1
         mkrail 0
 
-railit:
-        db RAILITN
+railit: db RAILITN
 
         macro RAILITRS       ; resets number of rail iterations
         ld  a,RAILITN
@@ -112,17 +111,22 @@ wgtr4:
 wgnmove:
         push af
         GRMODON
-        ld  hl,rails
-        dup RAILNUM
-        call clrrail
-        edup
-
+        call clrrails
         pop af
         call drwrail
         GRMODOFF
         ret
 
 ; ---- clear rails
+;
+clrrails:
+        ld  hl,rails
+        dup RAILNUM
+        call clrrail
+        edup
+        ret 
+
+; ---- clear rail
 ;
 clrrail:
         ld  d,(hl)      ; load current column
@@ -146,6 +150,16 @@ clrrail:
         call drawbktl
         pop hl
 
+        ret
+
+; ---- draw rails after first screen render
+;       
+pfrrail:
+        ld  a,dirlt
+        call drwrail
+        call clrrails
+        ld  a,dirrt
+        call drwrail
         ret
 
 ; ---- draw rails

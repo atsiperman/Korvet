@@ -473,6 +473,8 @@ smap64e:
         dw s64stom
         db TXTSMAP
         dw scr64txd
+        db FSTRDRP
+        dw pfrrail
         db SCREND
 		
 scr64txd:

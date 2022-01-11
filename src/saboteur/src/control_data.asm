@@ -34,8 +34,10 @@ sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
+fstrdrp:    dw 0        ; pointer to first render post processing procedure
 otramdef:	dw 0		; pointer to definition of text ram for old screen
-	
+; otramdef MUST be the last one
+
 	macro skip_buf_tile_head reg_pair
 		dup 4
 			inc reg_pair

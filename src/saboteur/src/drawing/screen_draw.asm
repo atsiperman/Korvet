@@ -163,6 +163,15 @@ decmprs5:
         jp   .decmp6
 
 .decmp11:
+        cp  FSTRDRP
+        jp  nz,.decmp12
+		load_de_hl			; load text first render post processing procedure address
+		ex  de,hl
+		ld  (fstrdrp),hl
+        ex  de,hl		
+        jp  .decmp6
+
+.decmp12:
         inc  hl
         jp   .decmp6
 			
@@ -446,6 +455,21 @@ drawstos:
 		
 		ret
 
+; ----- call first render post processor
+;
+postproc:
+        ld  hl,(fstrdrp)
+        ld  a,h
+        or  l
+        ret z
+        ; ex  de,hl           ; save proc address in DE
+        ; ld  hl,0
+        ; ld  (fstrdrp),hl    ; clear proc address
+        ; ex  de,hl
+        jp  (hl)
+        ret 
+        
+
 ; ----- draws current screen	
 ;
 drawscr:
@@ -469,6 +493,7 @@ scrch1_:
         GRMODON
 		call drawstos		; draw static objects
         call drawbkgr		; draw background
+        call postproc
         GRMODOFF
 		call drawtram		; draw text ram for new screen
 

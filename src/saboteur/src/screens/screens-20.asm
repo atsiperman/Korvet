@@ -572,6 +572,8 @@ smap25e:
         dw s25stom
         db TXTSMAP
         dw scr64txd
+        db FSTRDRP
+        dw pfrrail
         db SCREND
 
 ; --- end of scrbk25
