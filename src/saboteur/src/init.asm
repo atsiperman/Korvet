@@ -5,7 +5,23 @@
         
 sabinit:
         call cpmirtab
-        
+
+        ld  hl,dogspmr1
+        ld  de,dogspml1
+		call mirrspr
+
+        ld  hl,dogspmr2
+        ld  de,dogspml2
+		call mirrspr
+
+        ld  hl,dogspmr3
+        ld  de,dogspml3
+		call mirrspr
+
+        ld  hl,dogspmr4
+        ld  de,dogspml4
+		call mirrspr
+
         ld  hl,sabspmr1
         ld  de,sabspml1
 		call mirrspr

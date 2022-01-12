@@ -35,6 +35,11 @@ sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
 sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
 sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
 
+dogspml1 EQU sabkckl2 + sabfall - sabkckr2
+dogspml2 EQU dogspml1 + dogspmr2 - dogspmr1
+dogspml3 EQU dogspml2 + dogspmr3 - dogspmr2
+dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
+
 scrbuf:									; screen buffer		
 ; -----------------------------------------------------------
         dup (ROWNUM * ROWWIDB) - 256 ; 256 - size of the mirror table, which will be copied into upper memory page

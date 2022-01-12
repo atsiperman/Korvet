@@ -879,54 +879,6 @@ smap57e:
             mkbyte 1,1
             mkline 6
             mkbyte 1,1
-
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
-		
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
-		
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
-		
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
-		
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
-		
-		; mkline 6
-		; mkbyte 1,1
-		; mkbyte 1,0
-		; mkbyte 0,0
-		; mkbyte 0,1
-		; mkline 6
-		; mkbyte 1,1
 		
 		mkdup 2
 		mkline 14
