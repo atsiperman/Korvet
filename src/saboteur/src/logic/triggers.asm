@@ -66,10 +66,10 @@ trigtst:
         push hl             ; save pointer to the current trigger
 
 .tract2:
-        inc hl             ; move to colnum
-        ld  a,(hl)         ; load trigger location X
-        cp  c              ; compare to saboteur's X coordinate
-        jp  nz,.tract5     ; not equal, go to the next iteration
+        inc hl              ; move to colnum
+        ld  a,(hl)          ; load trigger location X
+        cp  c               ; compare to saboteur's X coordinate
+        jp  nz,.tract5      ; not equal, go to the next iteration
 
         inc hl              ; move to trigger type
         ld  a,(hl)          ; load trigger type
@@ -86,23 +86,31 @@ trigtst:
         ld  a,c 
         ld  (trtype),a      ; save current trigger's type
 
-        inc hl             ; move to trigger object type
-        ld  (trotptr),hl   ; save pointer to current trigger's object type
+        inc hl              ; move to trigger object type
+        ld  (trotptr),hl    ; save pointer to current trigger's object type
         inc hl
 
-        inc hl             ; move to trigger procedure
-        load_de_hl         ; load trigger's procedure
+        inc hl              ; move to trigger procedure
+        load_de_hl          ; load trigger's procedure
         ex  de,hl
-        ld  (trproc),hl    ; save current trigger's procedure
+        ld  (trproc),hl     ; save current trigger's procedure
 
-        pop hl             ; restore pointer to the trigger
-        ld  (curtrig),hl   ; save pointer to the current trigger
-        pop hl             ; clear stack
+        pop hl              ; restore pointer to the trigger
+        ld  (curtrig),hl    ; save pointer to the current trigger
+        pop hl              ; clear stack
 
         and trgmanl
-        ret z              ; do not set flag if this is auto trigger
+        jp  nz,.tract7      ; do not set flag if this is auto trigger
+        ld  hl,(trotptr)
+        load_de_hl          ; load activation procedure address
+        ex  de,hl
+        ld  a,h
+        or  l
+        ret z               ; exit if no activation procedure specified
+        jp  (hl)            ; call activation procedure
 
-        ld  (trigchd),a    ; set flag, trigger changed, A != 0 here
+.tract7:
+        ld  (trigchd),a     ; set flag, trigger changed, A != 0 here
         ret
 
 .tract5:

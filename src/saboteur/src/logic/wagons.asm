@@ -251,3 +251,17 @@ drwrrt:
         pop  hl
         
         ret             
+
+
+; ---- auto trigger activation procedure
+;        
+wgntract:
+        ld  hl,(curtrig)
+        inc hl
+        inc hl
+        inc hl          ; move to trigger row
+        ld  a,(hl)      ; load trigger row
+        sub SBHI-1      
+        sbscursr        ; save current row 
+        call sbstopst
+        ret

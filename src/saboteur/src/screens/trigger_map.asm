@@ -29,13 +29,13 @@ s23trm:
 
 s25trm:
     db 2
-    mktrig 13, 14, trgauto + trxonly, 0, wgn1trl
-    mktrig2 trdisab, 15, 14, trgauto + trxonly, 0, wgn1trr        ; right trigger is disabled 
+    mktrig           13, 14, trgauto + trxonly, wgntract, wgn1trl
+    mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn1trr        ; right trigger is disabled 
 
 s64trm:
     db 2
-    mktrig 13, 14, trgauto + trxonly, 0, wgn2trl
-    mktrig2 trdisab, 15, 14, trgauto + trxonly, 0, wgn2trr        ; right trigger is disabled 
+    mktrig           13, 14, trgauto + trxonly, wgntract, wgn2trl
+    mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn2trr        ; right trigger is disabled 
 
 s70trm:
     db 1
