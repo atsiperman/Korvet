@@ -41,6 +41,10 @@ s23mom:
         db 1
         mkmasko trash,5,12
 
+s30mom:
+        db 1
+        mkmasko desk, 17, 9
+
 s36mom:
 		db 6
 		mkmasko s36wfrml, 6, 8

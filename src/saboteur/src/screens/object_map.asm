@@ -81,6 +81,10 @@ s54objm:
 		db 1
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
 
+s58objm:
+		db 1
+		mkgun dirdn, 9, 1
+
 s60objm:
 		db 1
 		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21

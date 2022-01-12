@@ -600,3 +600,30 @@ s57hrt:
         db CMAINREG
         db 1,1
         db 195,24, 3,24, 3,152, 3,248, 3,248, 3,152, 3,24, 195,24
+
+grndexp:
+        db 3,24
+        db CRED, 4, 72, 1, CYELLOW
+        db CRED, 102, 8, 4, CYELLOW
+        db CRED, 6, 24, 96, CYELLOW
+        db CRED, 3, 24, 192, CYELLOW
+        db CRED, 75, 57, 134, CYELLOW
+        db CRED, 227, 187, 28, CYELLOW
+        db CRED, 195, 255, 248, CYELLOW
+        db CRED, 67, 255, 241, CYELLOW
+        db CRED, 3, 136, 224, CYELLOW
+        db CRED, 127, 1, 200, CYELLOW
+        db CRED, 31, 129, 130, CYELLOW
+        db CRED, 3, 1, 134, CYELLOW
+        db CRED, 67, 101, 132, CYELLOW
+        db CRED, 199, 231, 196, CYELLOW
+        db CRED, 15, 239, 225, CYELLOW
+        db CRED, 175, 224, 240, CYELLOW
+        db CRED, 15, 125, 241, CYELLOW
+        db CRED, 158, 56, 249, CYELLOW
+        db CRED, 188, 56, 56, CYELLOW
+        db CRED, 48, 48, 28, CYELLOW
+        db CRED, 97, 16, 6, CYELLOW
+        db CRED, 195, 17, 3, CYELLOW
+        db CRED, 131, 16, 16, CYELLOW
+        db CRED, 16, 80, 65, CYELLOW

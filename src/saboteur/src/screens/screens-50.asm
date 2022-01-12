@@ -1050,6 +1050,8 @@ smap58e:
 		;edup
 		
         db SCREND
+        db OBJMAP
+        dw s58objm
         db STOMAP
         dw s58stom
         db TXTSMAP

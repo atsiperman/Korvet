@@ -135,6 +135,7 @@ troshrk EQU 2       ; shuriken
 troknif EQU 3       ; knife
 troston EQU 4       ; stone
 tropipe EQU 5       ; pipe
+trogrnd EQU 6       ; granade
 
 ; ---- trigger state
 ;

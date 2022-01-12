@@ -103,7 +103,14 @@ smap30e:
 			db 0		
 		;edup
 		
-		mscrend
+		db SCREND
+        db TRIGMAP
+        dw s30trm
+        db STOMAP
+        dw s30stom
+        db MSKOMAP
+        dw s30mom
+        db SCREND
 		
 ; --- end of scrbk30
 

@@ -97,6 +97,13 @@ s25stom:
         mkstobj wgntopr, 15, 8
         mkstobj wgnnm1, 14, 12
 
+s30stom:
+        db 12
+        mkbox43 2,9
+        mkbox33 5, 10
+        mkbox33 11, 10
+        mkbox33 24, 10
+
 s46stom:
         db 3
         mkbox33 2, 9

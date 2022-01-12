@@ -8,6 +8,7 @@ trimglst:
         dw knife
         dw stone
         dw pipe
+        dw granade
 
 ; ---- list of objects which can be thrown
 othrwlst:
@@ -16,6 +17,12 @@ othrwlst:
         dw smknife      ; small knife
         dw smstone
         dw smpipe
+        dw smgrnd
+
+smgrnd:
+        db CMAINREG
+        db 1,1
+        db 0,0, 0,56, 0,24, 0,44, 0,60, 0,60, 0,28, 0,0
 
 smbrick:
         db CMAINREG
@@ -178,3 +185,30 @@ pipe:
         db CYELLOW, 32, 8, 64, 64, CBLACK
         db CYELLOW, 32, 62, 64, 124, CBLACK
         db CYELLOW, 0, 0, 0, 0, CBLACK
+
+granade:
+        db 4,24
+        db CGREEN, 0, 0, 0, 0, CBLUE
+        db CGREEN, 0, 0, 0, 0, CBLUE
+        db CGREEN, 0, 0, 0, 224, CBLUE
+        db CGREEN, 0, 0, 57, 176, CBLUE
+        db CGREEN, 0, 0, 13, 24, CBLUE
+        db CGREEN, 0, 15, 246, 24, CBLUE
+        db CGREEN, 0, 126, 123, 112, CBLUE
+        db CGREEN, 0, 207, 157, 160, CBLUE
+        db CGREEN, 1, 242, 109, 192, CBLUE
+        db CGREEN, 3, 253, 246, 192, CBLUE
+        db CGREEN, 7, 114, 246, 192, CBLUE
+        db CGREEN, 15, 111, 106, 192, CBLUE
+        db CGREEN, 15, 95, 170, 192, CBLUE
+        db CGREEN, 27, 191, 190, 192, CBLUE
+        db CGREEN, 27, 95, 220, 192, CBLUE
+        db CGREEN, 58, 239, 220, 192, CBLUE
+        db CGREEN, 61, 247, 172, 192, CBLUE
+        db CGREEN, 61, 251, 105, 192, CBLUE
+        db CGREEN, 22, 253, 249, 128, CBLUE
+        db CGREEN, 31, 98, 113, 128, CBLUE
+        db CGREEN, 12, 159, 227, 0, CBLUE
+        db CGREEN, 15, 231, 199, 0, CBLUE
+        db CGREEN, 3, 255, 142, 0, CBLUE
+        db CGREEN, 0, 254, 0, 0, CBLUE
