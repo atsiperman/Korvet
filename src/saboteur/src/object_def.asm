@@ -125,6 +125,7 @@ mobjsz  EQU	4					; size of the masked object
 ;
 trgmanl	EQU 1		; manual trigger
 trgauto	EQU 2		; auto trigger
+trxonly EQU 128     ; trigger on X position only
 
 ; ---- object type in trigger
 ;
@@ -139,7 +140,7 @@ troston EQU 4       ; stone
 trdisab EQU 0		; trigger disabled, picture must not be shown, trigger procedure must not be called
 tractiv EQU 1		; trigger is active
 
-trsize  EQU 7 		; trigger size
+trsize  EQU 8 		; trigger size
 
 		macro skip_trigger regpair
 			dup trsize 
@@ -154,10 +155,10 @@ trsize  EQU 7 		; trigger size
         macro mktrig2 trstate, colnum, rownum, trtype, objtype, procaddr
 		db trstate				
 		db colnum
-		db rownum
-		dw procaddr
 		db trtype               ; trigger type - manual/auto
-        db objtype              ; object type (brick, desk, etc.)
+		db rownum
+        dw objtype              ; object type (brick, desk, etc.) / trigger activation procedure
+		dw procaddr
 		endm
 
 ; ---- displacement of the attributes for the thrown object

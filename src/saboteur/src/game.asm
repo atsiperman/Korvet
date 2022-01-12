@@ -120,9 +120,9 @@ gifspace:                   ; action
         ld   a,(trtype)  
         or   a          
         jp   z,.gifsp1      ; no triggers, continue
-        cp   trgmanl
-        jp   nz,.gifsp1     ; trigger is not manual, continue
-        call trigrun
+        and  trgmanl
+        jp   z,.gifsp1      ; trigger is not manual, continue
+        call trigrun        ; run manual trigger
         jp   gend
 
 .gifsp1:
