@@ -134,6 +134,7 @@ trobrck EQU 1       ; brick
 troshrk EQU 2       ; shuriken
 troknif EQU 3       ; knife
 troston EQU 4       ; stone
+tropipe EQU 5       ; pipe
 
 ; ---- trigger state
 ;

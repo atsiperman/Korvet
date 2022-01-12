@@ -58,6 +58,16 @@ s37mom:
 		mkmasko	s36wfrm, 15, 8
 		mkmasko	s36wfrm, 19, 8
 		mkmasko s36wfrmr, 23, 8
+
+s57mom:
+        db 6
+        mkmasko s57hndl, 13, 9
+        mkmasko s57hlt, 13, 11
+        mkmasko s57hndl, 13, 12
+        mkmasko s57hndl, 16, 9
+        mkmasko s57hrt, 16, 11
+        mkmasko s57hndl, 16, 12
+
 s64mom:
         db 1
         mkmasko wgnwind, 13, 9

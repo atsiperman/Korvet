@@ -7,6 +7,7 @@ trimglst:
         dw shuriken
         dw knife
         dw stone
+        dw pipe
 
 ; ---- list of objects which can be thrown
 othrwlst:
@@ -14,6 +15,7 @@ othrwlst:
         dw smshrkn      ; small shuriken
         dw smknife      ; small knife
         dw smstone
+        dw smpipe
 
 smbrick:
         db CMAINREG
@@ -34,6 +36,11 @@ smstone:
         db CMAINREG
         db 1,1
         db 0,0, 0,60, 0,76, 0,118, 0,118, 0,118, 0,62, 0,0
+
+smpipe:
+        db CMAINREG
+        db 1,1
+        db 255,0, 255,0, 0,0, 0,126, 0,126, 0,0, 255,0, 255,0
 
 shuriken:
         db 4,24
@@ -143,3 +150,31 @@ stone:
         db CBLUE, 255, 255, 255, 255,CYELLOW
         db CBLUE, 255, 255, 255, 255,CYELLOW
         db CBLUE, 255, 255, 255, 255,CYELLOW
+
+pipe:
+        db 4,24
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 127, 255, 255, 254, CBLUE
+        db CYELLOW, 96, 0, 0, 2, CBLUE
+        db CYELLOW, 113, 62, 7, 202, CBLUE
+        db CYELLOW, 127, 255, 255, 250, CBLUE
+        db CYELLOW, 127, 255, 255, 242, CBLUE
+        db CYELLOW, 127, 255, 255, 254, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+
+        db CYELLOW, 0, 0, 0, 0, CBLACK
+        db CYELLOW, 63, 62, 126, 124, CBLACK
+        db CYELLOW, 33, 8, 66, 64, CBLACK
+        db CYELLOW, 33, 8, 66, 124, CBLACK
+        db CYELLOW, 63, 8, 126, 64, CBLACK
+        db CYELLOW, 32, 8, 64, 64, CBLACK
+        db CYELLOW, 32, 62, 64, 124, CBLACK
+        db CYELLOW, 0, 0, 0, 0, CBLACK

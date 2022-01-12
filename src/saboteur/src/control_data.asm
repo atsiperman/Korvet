@@ -99,7 +99,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn25 		; pointer to current screen
+curscr: 	dw scrn57 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -108,7 +108,7 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,5,3
-            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,24,9
+            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,2,9
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed

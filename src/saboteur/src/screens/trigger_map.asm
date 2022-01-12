@@ -1,5 +1,9 @@
 ; ---- map of triggers 
 
+    macro mkpipe colnum, rownum
+    mktrig colnum, rownum, trgmanl, tropipe, itmproc
+    endm
+
     macro mkbrick colnum, rownum
     mktrig colnum, rownum, trgmanl, trobrck, itmproc
     endm
@@ -31,6 +35,10 @@ s25trm:
     db 2
     mktrig           13, 14, trgauto + trxonly, wgntract, wgn1trl
     mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn1trr        ; right trigger is disabled 
+
+s57trm:
+    db 1
+    mkpipe 5, 14
 
 s64trm:
     db 2

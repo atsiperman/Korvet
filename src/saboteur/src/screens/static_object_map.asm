@@ -116,6 +116,19 @@ s49stom:
         mkbox44 14, 10
         mkbox33 25, 11
 
+s57stom:
+        db 17
+        mkbox34 1,12
+        mkbox33 6,12
+        mkbox33 4,9
+        mkstobj s57hx,14,8
+        mkstobj s57hx,14,9
+        mkstobj s57hx,14,10
+        mkstobj s57hx,14,11
+        mkstobj s57hx,14,12
+        mkstobj s57hx,14,13
+        mkstobj s57hx,14,14
+
 s58stom:
         db tapeimn * 3
         mktapem 4, 11

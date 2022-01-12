@@ -872,61 +872,61 @@ smap57e:
 			db 0
 		;edup
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+        mkdup 7
+            mkline 7
+            mkbyte 1,1
+            mkbyte 0,0
+            mkbyte 1,1
+            mkline 6
+            mkbyte 1,1
 
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
-		mkline 6
-		mkbyte 1,1
-		mkbyte 1,0
-		mkbyte 0,0
-		mkbyte 0,1
-		mkline 6
-		mkbyte 1,1
+		; mkline 6
+		; mkbyte 1,1
+		; mkbyte 1,0
+		; mkbyte 0,0
+		; mkbyte 0,1
+		; mkline 6
+		; mkbyte 1,1
 		
 		mkdup 2
 		mkline 14
@@ -934,7 +934,29 @@ smap57e:
 			db 0
 		;edup
 
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s57mom
+        db TRIGMAP
+        dw s57trm
+        db STOMAP
+        dw s57stom
+        db TXTSMAP
+        dw scr57txd
+		db SCREND
+		
+scr57txd:
+        mkbyte TXLINEH,2
+			mktxtaddr 14, 4
+			db CHBOTM
+		mkbyte TXLINEV,3
+			mktxtaddr 14, 5
+			db CHFULL
+		mkbyte TXLINEV,3
+			mktxtaddr 15, 5
+			db CHFULL
+
+        db SCREND
 		
 ; --- end of scrbk57
 

@@ -337,7 +337,7 @@ smap24b:
 		bkindex BK16ADDR	; 4, blue tube 
 		bkindex BK10ADDR	; 5, blue small bricks
 		bkindex BK4ADDR		; 6, blue bricks
-		bkindex BK22ADDR	; 7, solid white
+		bkindex BK51ADDR	; 7, white block        
 smap24e:
 		mkdup 5
 			mkline 3
@@ -432,8 +432,18 @@ smap24e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw scr24txd
+		db SCREND
 		
+scr24txd:
+		mkbyte TXLINEH,5
+			mktxtaddr 0, 7
+			db CHFULL
+
+		db SCREND
+
 ; --- end of scrbk24
 
 
@@ -583,7 +593,7 @@ scrbk26:
 smap26b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK4ADDR		; 1, blue bricks
-		bkindex BK22ADDR	; 2, solid white
+		bkindex BK51ADDR	; 2, solid white
 smap26e:
 		mkdup 5
 			mkline 13
@@ -639,7 +649,18 @@ smap26e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw scr26txd
+		db SCREND
+		
+scr26txd:
+		mkbyte TXLINEH,8
+			mktxtaddr 22, 7
+			db CHFULL
+
+		db SCREND
+
 ; --- end of scrbk26
 
 scrbk27:

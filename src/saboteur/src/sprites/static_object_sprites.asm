@@ -573,3 +573,30 @@ railimg:
         db CMAIN, 126, CWHITE
         db CMAIN, 255, CWHITE
         db CMAIN, 255, CWHITE
+
+s57hx:
+        db 2,8
+        db CCYAN, 15, 248, CMAIN
+        db CCYAN, 51, 228, CMAIN
+        db CCYAN, 60, 156, CMAIN
+        db CCYAN, 62, 124, CMAIN
+        db CCYAN, 57, 156, CMAIN
+        db CCYAN, 39, 228, CMAIN
+        db CCYAN, 31, 248, CMAIN
+        db CCYAN, 63, 252, CMAIN
+
+s57hndl:
+        db CMAINREG
+        db 2,1
+        db 129,60, 129,60, 195,24, 195,24, 195,24, 195,24, 129,60, 129,60
+        db 129,60, 129,60, 195,24, 195,24, 195,24, 195,24, 129,60, 129,60
+
+s57hlt:
+        db CMAINREG
+        db 1,1
+        db 195,24, 192,24, 192,25, 192,31, 192,31, 192,25, 192,24, 195,24
+
+s57hrt:
+        db CMAINREG
+        db 1,1
+        db 195,24, 3,24, 3,152, 3,248, 3,248, 3,152, 3,24, 195,24

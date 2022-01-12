@@ -232,6 +232,7 @@ smap63b:
 		bkindex BK4ADDR		; 1, blue bricks
 		bkindex BK8ADDR		; 2, blue ladder left bottom
 		bkindex BK9ADDR		; 3, blue ladder right bottom
+        bkindex BK51ADDR    ; 4, white block
 smap63e:
 		mkdup 2
 			db 0
@@ -319,22 +320,36 @@ smap63e:
 
 		mkline 7			; 14
 		db 0
-		mkbyte 0,1
+		mkbyte 0,4
 		mkline 7
-		mkbyte 1,1
+		mkbyte 4,4
 
 		mkline 8			; 15
 		db 0
 		mkline 7
-		mkbyte 1,1
+		mkbyte 4,4
 		
 		mkdup 2
 			mkline 14
 			db 0
 			db 0
 		;edup
-		mscrend
+
+		db SCREND
+        db TXTSMAP
+        dw scr63txd
+		db SCREND
 		
+scr63txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 7
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 29, 7
+			db CHFULL
+
+		db SCREND
+
 ; --- end of scrbk63
 
 
@@ -510,6 +525,7 @@ smap65b:
 		bkindex BK4ADDR		; 1, blue bricks
 		bkindex BK8ADDR		; 2, blue ladder left bottom
 		bkindex BK9ADDR		; 3, blue ladder right bottom
+        bkindex BK51ADDR    ; 4, white block
 smap65e:
 		mkline 12
 		db 0
@@ -602,13 +618,13 @@ smap65e:
 		db 0
 
 		mkline 9			; 14
-		mkbyte 1,1
+		mkbyte 4,4
 		mkline 6
 		db 0
 
 		mkline 8			; 15
-		mkbyte 1,1
-		mkbyte 1,0
+		mkbyte 4,4
+		mkbyte 4,0
 		mkline 6
 		db 0
 		
@@ -618,7 +634,20 @@ smap65e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db TXTSMAP
+        dw scr65txd
+		db SCREND
+		
+scr65txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 15, 7
+			db CHFULL
+
+		db SCREND
 		
 ; --- end of scrbk65
 
