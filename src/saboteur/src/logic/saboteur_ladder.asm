@@ -1,6 +1,29 @@
+; ----- checks whether it is free above 
+; result:
+;		A - 0 if there is a wall above 
+;
+freeabov:
+        sblcursr        ; load row
+        or  a
+        jp  z,.cango    ; top row, can go up, screen border will be checked in other place
+        dec a
+        ld  e,a
+        sblcursc        ; load column
+        inc a
+        ld  d,a
+        call shscradr
+        ld  a,(hl)
+        and  bwall
+        jp  z,.cango    ; no wall, can go up
+        xor a
+        ret 
+.cango:
+        inc a           ; can go up
+        ret
+
+
 ; ----- check, if saboteur can go up or down on the ladder
 ; args: HL - address of control block
-;		;;;B  - state
 ;		C  - vertical direction
 ; result:
 ;		A - 0 if not a ladder
@@ -144,15 +167,39 @@ sbdoladr:
 		or a
 		jp z,sbdolad2		; first row -> change screen		
 		
-		push bc
 		ld c,e
 		call cangolad
-		pop bc
 		or a
 		jp z,sbdolade		
-		
-		dec c				; go up
-		ld a,c
+
+        call freeabov       ; is free above ?
+
+        or  a
+        jp  nz,.sbgup1      ; free, go up
+
+        ; temporary change one row up
+        sblcursr
+        dec a
+        sbscursr
+        pop  hl
+        push hl             ; reload control block
+		ld c,dirup
+		call cangolad
+        ld  c,a             ; save result
+        ; restore current row
+        sblcursr        
+        inc a               
+        sbscursr            
+        ld  a,c             ; get result back
+        or  a               ; check if row above feet is a ladder
+        jp  z,.sbgup1       ; 0 - ladder ends on the current row, so we need to allow to go one row up        
+        xor a               ; 1 - ladder will continue, do not move since it is not free above
+        pop hl
+        ret
+
+.sbgup1:
+        sblcursr            ; reload row
+        dec a               ; go up
 		sbscursr
 		jp sbdolad4
 		
