@@ -202,7 +202,7 @@ smap85b:
 		bkindex BK1ADDR		; 1, yellow L
 smap85e:
 		mkline 5
-		db 0
+		mkbyte 1,1
 		mkline 6
 		db 0
 		mkbyte 0,1
@@ -234,10 +234,23 @@ smap85e:
 		;edup
 
 		db SCREND
+        db MSKOMAP
+        dw s85mom
         db STOMAP
         dw s85stom
+        db TXTSMAP
+        dw scr85txd
         db SCREND
 
+scr85txd:						; description of the text RAM used by this screen
+		mkbyte TXLINEH,3
+			mktxtaddr 14, 1
+			db CHBOTM
+		mkbyte TXLINEH,3
+			mktxtaddr 14, 3
+			db CHBOTM
+        db SCREND
+        
 ; --- end of scrbk85
 
 scrbk86:
@@ -311,6 +324,8 @@ smap87e:
 		db 0
 
 		db SCREND
+        db OBJMAP
+        dw s87objm
         db STOMAP
         dw s87stom
         db SCREND

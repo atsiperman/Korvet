@@ -100,6 +100,12 @@ s70mom:
 		mkmasko smlplate,25,14
 		mkmasko smlplate,25,13
 
+s85mom:
+        db 3
+        mkmasko cranehk, 15,7
+        mkmasko cranwir, 14,3
+        mkmasko cranwir, 16,3
+
 s92mom:
 		db 12
         mkmasko bigplate,7,14
@@ -141,6 +147,11 @@ s97mom:
         mkmasko desk, 12, 3
         mkmasko desk, 15, 3
         mkmasko desk, 18, 3
+
+s98mom:
+		db 2
+        mkmasko bigplate,15,9
+        mkmasko smlplate,15,8
 
 s99mom:
 		db 4

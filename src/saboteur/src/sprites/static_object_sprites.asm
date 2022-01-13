@@ -2,6 +2,18 @@
 maskoproc:
         ret 
 
+cranehk:
+        db CMAINREG
+        db 1,1
+        db 0,248, 0,24, 192,28, 32,14, 0,134, 0,198, 0,254, 0,124
+
+cranwir:
+        db CMAINREG
+        db 3,1
+        db 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24
+        db 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24
+        db 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24, 195,24
+
 bigplate:
         db CMAINREG
         db 1,3
@@ -627,3 +639,14 @@ grndexp:
         db CRED, 195, 17, 3, CYELLOW
         db CRED, 131, 16, 16, CYELLOW
         db CRED, 16, 80, 65, CYELLOW
+
+crane:
+        db 3,8
+        db CCYAN, 224, 0, 7, CMAIN
+        db CCYAN, 5, 85, 80, CMAIN
+        db CCYAN, 0, 0, 0, CMAIN
+        db CCYAN, 95, 255, 250, CMAIN
+        db CCYAN, 95, 255, 250, CMAIN
+        db CCYAN, 0, 0, 0, CMAIN
+        db CCYAN, 10, 170, 168, CMAIN
+        db CCYAN, 224, 0, 7, CMAIN

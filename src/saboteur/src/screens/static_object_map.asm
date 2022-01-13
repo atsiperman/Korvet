@@ -14,6 +14,14 @@
         mkstobj box33img, colnum + 3, rownum
         endm
 
+        macro mkbox35 colnum, rownum
+        mkstobj box31img, colnum, rownum
+        mkstobj box32img, colnum + 1, rownum
+        mkstobj box32img, colnum + 2, rownum
+        mkstobj box32img, colnum + 3, rownum
+        mkstobj box33img, colnum + 4, rownum
+        endm
+
         macro mkbox43 colnum, rownum
         mkstobj box41img, colnum, rownum
         mkstobj box42img, colnum + 1, rownum
@@ -228,10 +236,12 @@ s84stom:
         mkbox33 25, 13
 
 s85stom:
-        db 9
+        db 12
+        mkstobj crane, 14, 2
+        mkstobj crane, 14, 6
         mkstobj barelimg, 2, 12
         mkstobj barelimg, 3, 9
-        mkbox34 4, 12
+        mkbox35 4, 12
         mkbox33 21, 12
 
 s86stom:
@@ -280,6 +290,19 @@ s89stom:
 s97stom:
         db tapeimn
         mktapem 1, 3
+
+s98stom:
+        db 29
+        mkbox34 3,7
+        mkstobj box22img, 5,5
+        mkstobj box22img, 7,5
+        mkbox33 8,7
+        mkbox34 23,7
+        mkbox34 19,7
+        mkbox33 20,4
+        mkbox34 23,4
+        mkbox35 21,1
+
 
 s99stom:
         db 4

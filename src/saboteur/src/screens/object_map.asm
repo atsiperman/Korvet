@@ -106,6 +106,10 @@ s84objm:
 		db 1
 		mkdog dirlt,dogspml1,0,23,13,6,23
 
+s87objm:
+		db 1
+        mkgun dirdn, 18, 1
+
 s92objm:
         db 1
         mkdog dirrt,dogspml1,0,1,12,1,15

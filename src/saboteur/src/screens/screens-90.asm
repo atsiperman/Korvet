@@ -763,7 +763,12 @@ smap98e:
 			db 0			
 		;edup
 		
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s98mom
+        db STOMAP
+        dw s98stom
+        db SCREND
 ; --- end of scrbk98
 
 
