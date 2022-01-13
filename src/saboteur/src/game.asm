@@ -321,6 +321,9 @@ gkright1:
 
 		ld a,c				; else switch direction and stay
 		sbsdir
+        sblcurst
+        cp  sbstay
+        call nz,sbdecrow    ; decrement row if not staying, since staying sprite is taller
 		call sbstopst
 		ret		
 		
@@ -330,7 +333,7 @@ gkmvstay:
 		jp nz,gkrstmv		; if not staying then continue moving
 
 gkmvstmv:					; else start movement
-		ld b,sbstmov		; B - state, C - direction
+		            		; C - direction
 		call sbstmove
 		ret
 		

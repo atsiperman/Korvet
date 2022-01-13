@@ -1,9 +1,9 @@
 ; ---- start to move
 ; args: 
-;		B  - new state
 ;		C  - direction to move
 ;
 sbstmove:
+        ld b,sbstmov
 		push bc
 		
 		ld hl,sbctrlb
