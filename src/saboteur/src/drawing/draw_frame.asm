@@ -53,23 +53,23 @@ drwfrm3:
 	
 ; ---- draws static text 	
 drfrmtxt:		
-		ld hl,FRMADDR + (FRMHIGT-2)*8*64 + 22
-		ld de,strtime
-		call drawspr
+		ld de,FRMADDR + (FRMHIGT-2)*8*64 + 22
+		ld bc,strtime
+        call drawsto
         call drnoner
         jp drnohld
 
 ; ---- draws 'NOTHING NEAR;
 drnoner:
-		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 27
-		ld de,nthnear
-		jp drawspr		
+		ld de,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 27
+		ld bc,nthnear
+		jp drawsto		
 
 ; ---- draws 'NOTHING HELD;
 drnohld:
-		ld hl,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 1
-		ld de,nthnheld
-		jp drawspr
+		ld de,FRMADDR + ((FRMHIGT-3)*8 - 1)*64 + 1
+		ld bc,nthnheld
+		jp drawsto
 
 ; ----- draws frame around working screen
 drawfrm:		

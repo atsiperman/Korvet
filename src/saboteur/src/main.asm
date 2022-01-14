@@ -80,7 +80,6 @@ scrbuf:									; screen buffer
 		include "tiles_control.asm"
 
 		include "drawing/scrbuf_utils.asm"
-		include "drawing/drawsprite.asm"
 		include "drawing/draw_frame.asm"		
         include "drawing/screen_utils.asm"		
 		include "drawing/screen_draw.asm"
