@@ -51,30 +51,30 @@ smpipe:
 
 shuriken:
         db 4,24
-        db 2, 0, 0, 0, 0, CBLUE
-        db 2, 0, 0, 128, 0, CBLUE
-        db 2, 0, 0, 128, 0, CBLUE
-        db 2, 0, 0, 128, 0, CBLUE
-        db 2, 0, 1, 128, 0, CBLUE
-        db 2, 0, 1, 128, 0, CBLUE
-        db 2, 0, 3, 192, 0, CBLUE
-        db 2, 0, 127, 240, 0, CBLUE
-        db 2, 0, 15, 254, 0, CBLUE
-        db 2, 0, 3, 192, 0, CBLUE
-        db 2, 0, 1, 128, 0, CBLUE
-        db 2, 0, 1, 128, 0, CBLUE
-        db 2, 0, 1, 0, 0, CBLUE
-        db 2, 0, 1, 0, 0, CBLUE
-        db 2, 0, 1, 0, 0, CBLUE
-        db 2, 0, 0, 0, 0, CBLUE
-        db 2, 0, 0, 0, 0, CBLACK
-        db 2, 0, 0, 0, 0, CBLACK
-        db 2, 117, 86, 85, 210, CBLACK
-        db 2, 69, 85, 85, 26, CBLACK
-        db 2, 119, 86, 89, 158, CBLACK
-        db 2, 21, 85, 85, 22, CBLACK
-        db 2, 117, 37, 85, 210, CBLACK
-        db 2, 0, 0, 0, 0, CBLACK
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 128, 0, CBLUE
+        db CCYAN, 0, 0, 128, 0, CBLUE
+        db CCYAN, 0, 0, 128, 0, CBLUE
+        db CCYAN, 0, 1, 128, 0, CBLUE
+        db CCYAN, 0, 1, 128, 0, CBLUE
+        db CCYAN, 0, 3, 192, 0, CBLUE
+        db CCYAN, 0, 127, 240, 0, CBLUE
+        db CCYAN, 0, 15, 254, 0, CBLUE
+        db CCYAN, 0, 3, 192, 0, CBLUE
+        db CCYAN, 0, 1, 128, 0, CBLUE
+        db CCYAN, 0, 1, 128, 0, CBLUE
+        db CCYAN, 0, 1, 0, 0, CBLUE
+        db CCYAN, 0, 1, 0, 0, CBLUE
+        db CCYAN, 0, 1, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLACK
+        db CYELLOW, 0, 0, 0, 0, CBLACK
+        db CYELLOW, 105, 57, 42, 202, CBLACK
+        db CYELLOW, 138, 165, 106, 42, CBLACK
+        db CYELLOW, 142, 165, 172, 110, CBLACK
+        db CYELLOW, 138, 185, 42, 42, CBLACK
+        db CYELLOW, 105, 33, 42, 202, CBLACK
+        db CYELLOW, 0, 0, 0, 0, CBLACK
 
 ; ---- big red brick in the right bottom corner
 redbrick:
@@ -160,30 +160,30 @@ stone:
 
 pipe:
         db 4,24
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 127, 255, 255, 254, CBLUE
-        db CYELLOW, 96, 0, 0, 2, CBLUE
-        db CYELLOW, 113, 62, 7, 202, CBLUE
-        db CYELLOW, 127, 255, 255, 250, CBLUE
-        db CYELLOW, 127, 255, 255, 242, CBLUE
-        db CYELLOW, 127, 255, 255, 254, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
-        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 127, 255, 255, 254, CBLUE
+        db CCYAN, 96, 0, 0, 2, CBLUE
+        db CCYAN, 113, 62, 7, 202, CBLUE
+        db CCYAN, 127, 255, 255, 250, CBLUE
+        db CCYAN, 127, 255, 255, 242, CBLUE
+        db CCYAN, 127, 255, 255, 254, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
+        db CCYAN, 0, 0, 0, 0, CBLUE
 
         db CYELLOW, 0, 0, 0, 0, CBLACK
-        db CYELLOW, 63, 62, 126, 124, CBLACK
-        db CYELLOW, 33, 8, 66, 64, CBLACK
-        db CYELLOW, 33, 8, 66, 124, CBLACK
-        db CYELLOW, 63, 8, 126, 64, CBLACK
-        db CYELLOW, 32, 8, 64, 64, CBLACK
-        db CYELLOW, 32, 62, 64, 124, CBLACK
+        db CYELLOW, 125, 244, 223, 60, CBLACK
+        db CYELLOW, 17, 20, 208, 100, CBLACK
+        db CYELLOW, 17, 54, 223, 68, CBLACK
+        db CYELLOW, 49, 243, 209, 76, CBLACK
+        db CYELLOW, 49, 128, 211, 124, CBLACK
+        db CYELLOW, 49, 131, 159, 100, CBLACK
         db CYELLOW, 0, 0, 0, 0, CBLACK
 
 granade:
