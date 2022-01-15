@@ -462,7 +462,7 @@ _sbchknp:
 		
 		add hl,de			; Y + 4, neighbour
 		ld a,(hl)
-		and bwall
+		and bkroof
 		jp z,.sbchke		; no wall, no movement
 
 .sbchky:

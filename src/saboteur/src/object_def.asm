@@ -36,6 +36,10 @@ dirdn	EQU 8
 ; ---- background type
 bwall   EQU 1
 bladder EQU 2 
+broof   EQU 4       ; roof, works as bwall but doesn't prevent from moving left/right 
+                    ; when it is in the middle of saboteur's figure
+
+bkroof EQU bwall + broof    ; background is a kind of roof
 
 ; ---- background tile attributes
 bgtile  EQU 0       ; background tile
@@ -427,11 +431,12 @@ odfrown EQU 4       ; rownum
 		endm
 		
 		
-; --- checks type of a sprite
+; --- checks whether sprite is a kind of floor
 ; args:		A - sprite type
 ; result:	A - 0 if not a floor type (something to walk on)
 ;
         macro isfloor
-	  		and bwall + bladder
+	  		and bwall + bladder + broof
         endm
+		
 		

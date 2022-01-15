@@ -28,6 +28,7 @@ BK20ADDR:	DW BK20DATA
 BK21ADDR:	DW BK21DATA
 BK22ADDR:	DW BK22DATA
 BK23ADDR:	DW BK23DATA
+BK23_1AD:	DW BK23_1DT
 BK24ADDR:	DW BK24DATA
 BK25ADDR:	DW BK25DATA
 BK26ADDR:	DW BK26DATA
@@ -133,10 +134,13 @@ BK22DATA:	bksh CBLUE									; solid white
 			
 BK23DATA:	bksh2 CRED,bwall							; red beam
 			DB 255,255,255,255,0,0,255,0
-			
+
+BK23_1DT:	bksh2 CRED,broof							; red beam as a roof
+			DB 255,255,255,255,0,0,255,0
+
 BK24DATA:	bksh2 CYELLOW,bladder						; yellow ladder left
 			DB 16,115,83,80,80,115,19,240			
-			
+
 BK25DATA:	bksh2 CYELLOW,bladder						; yellow ladder right
 			DB 9,205,205,13,13,205,201,15
 
@@ -158,7 +162,7 @@ BK30DATA:	bksh CGREEN									; solid green
 BK31DATA:	bksh2 CWHITE,bwall							; black and white dots
 			DB 50,46,123,38,50,46,123,38 
 			
-BK32DATA:	bksh CGREEN									; green vertical tube
+BK32DATA:	bksh2 CGREEN,bwall							; green vertical tube
 			DB 76,78,68,70,76,76,76,76
 
 BK33DATA:	bksh2 CBLUE, fgtile							; solid blue, foreground

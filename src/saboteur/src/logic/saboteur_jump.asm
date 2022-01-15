@@ -367,7 +367,7 @@ sblandv:
 			ld bc,COLWIDB
 			dup 3
 				ld a,(hl)
-				and bwall	
+				and bkroof	
 				jp nz,_stlnd1	; wall, land on this row
 				add hl,bc		; next column
 			edup

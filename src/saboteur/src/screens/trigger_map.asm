@@ -56,3 +56,7 @@ s64trm:
 s70trm:
     db 1
     mkknife 18, 15
+
+s113trm:
+    db 1
+    mkpipe 2, 10

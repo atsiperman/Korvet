@@ -381,6 +381,7 @@ smap112b:
 		bkindex BK24ADDR    ; 6, yellow ladder left
 		bkindex BK25ADDR    ; 7, yellow ladder right		
 		bkindex BK32ADDR    ; 8, green vertical tube		
+        bkindex BK23_1AD    ; 9, red beam as a roof
 smap112e:
 		mkdup 8
 			mkbyte 1,1
@@ -404,8 +405,8 @@ smap112e:
 			mkbyte 1,1
 		;edup
 
-		mkbyte 3,3
-		mkbyte 3,3
+		mkbyte 9,9
+		mkbyte 9,9
 		mkbyte 1,1
 		mkbyte 1,2
 		mkbyte 1,1
@@ -456,8 +457,8 @@ smap112e:
 		mkbyte 1,1
 		mkbyte 2,1
 		mkbyte 1,1
-		mkbyte 3,3
-		mkbyte 3,3
+		mkbyte 9,9
+		mkbyte 9,9
 		mkbyte 1,1
 		mkbyte 1,2
 		mkbyte 1,1
@@ -607,7 +608,8 @@ smap113b:
 		bkindex BK26ADDR    ; 2, cyan vertical tube		
 		bkindex BK23ADDR    ; 3, red beam
 		bkindex BK32ADDR    ; 4, green vertical tube	
-        bkindex BK48ADDR    ; 5, cyan horizontal tube			
+        bkindex BK48ADDR    ; 5, cyan horizontal tube	
+        bkindex BK23_1AD    ; 6, red beam as a roof		
 
 smap113e:
 		mkdup 4
@@ -735,8 +737,8 @@ smap113e:
 		mkbyte 4,1
 		mkbyte 1,1
 		mkbyte 1,1
-		mkbyte 3,3
-		mkbyte 3,1
+		mkbyte 6,6
+		mkbyte 6,1
 		mkbyte 1,2
 		mkline 3
 		mkbyte 1,1
@@ -796,6 +798,8 @@ smap113e:
 		db SCREND
         db TXTSMAP
         dw s113txd
+        db TRIGMAP
+        dw s113trm
         db SCREND
 
 s113txd:
@@ -1153,7 +1157,8 @@ smap115b:
 		bkindex BK23ADDR    ; 3, red beam
 		bkindex BK24ADDR    ; 4, yellow ladder left
 		bkindex BK25ADDR    ; 5, yellow ladder right		
-		bkindex BK32ADDR    ; 6, green vertical tube				
+		bkindex BK32ADDR    ; 6, green vertical tube		
+        bkindex BK23_1AD    ; 7, red beam as a roof	
 smap115e:
 		db 0
 		mkline 14
@@ -1207,7 +1212,9 @@ smap115e:
 		mkbyte 3,1
 		mkline 3
 		mkbyte 1,1
-		mkline 4
+		mkbyte 7,7
+		mkbyte 7,7
+		mkbyte 3,3
 		mkbyte 3,3
 
 		db 0
