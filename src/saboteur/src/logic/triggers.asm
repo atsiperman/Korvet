@@ -95,6 +95,9 @@ trigtst:
         ex  de,hl
         ld  (trproc),hl     ; save current trigger's procedure
 
+        ex  de,hl
+        ld  (trdtptr),hl    ; save pointer to triggers custom data
+
         pop hl              ; restore pointer to the trigger
         ld  (curtrig),hl    ; save pointer to the current trigger
         pop hl              ; clear stack
@@ -134,6 +137,7 @@ trigtst:
         ld  (trproc),hl
         ld  (curtrig),hl
         ld  (trotptr),hl
+        ld  (trdtptr),hl
         ld  (trtype),a
 
         inc a
@@ -141,7 +145,40 @@ trigtst:
         ret
 
 
-; ---- procedure for simple items triggers (brick, desk, etc.)
+; ---- procedure for desk triggers
+;
+deskproc:
+        ld  hl,(trotptr)    ; load pointer to current trigger's object type
+        ld  a,(hl)          ; load current desk type
+        cp  trodskn         ; is normal ?
+        jp  z,.dskp1        ; yes, switch to pressed                            
+        ld  c,trodskn       ; otherwise switch back to normal
+        jp  .dskp2
+
+.dskp1:
+        ld  c,trodskp       ; switch to pressed
+
+.dskp2:
+        ld  hl,(trdtptr)    ; load pointer to triggers data
+        load_de_hl          ; load data
+        ld  a,e
+        or  d
+        ret z               ; return if no data specified, then do not change image
+
+        cpl                     ; invert bits
+        and doorcls + dooropn   ; leave allowed bits
+        dec hl
+        dec hl                  ; save low byte only
+        ld  (hl),a              ; save new value
+
+.dskpe:
+        ld  hl,(trotptr)    ; load pointer to current trigger's object type
+        ld  (hl),c          ; save new trigger type
+        ld  a,c
+        ld  (trigchd),a     ; refresh triggered image
+        ret
+
+; ---- procedure for simple items triggers (brick, pipe, etc.)
 ;
 itmproc:
         ld   hl,(trotptr)   ; load pointer to current trigger's object type
@@ -153,11 +190,10 @@ itmproc:
         ld   a,b            ; save new object type in A
         ld   (de),a         ; give new object type to saboteur
 
-        ld   a,1
+        inc  a
         ld   (trigchd),a    ; refresh triggered image
         ld   (sbhldch),a    ; refresh held object image
         ret
-
 
 ; ---- draws image of the triggered object
 ;

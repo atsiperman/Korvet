@@ -41,6 +41,8 @@ COLWIDB		EQU 2 + 1 + 1 + 8	; size of one column in screen buffer, bytes
                                 ; 1, attributes
                                 ; 8 sprite data
 
+TLMDATR     EQU 3               ; displacement to tile attributes
+
 ROWWIDB		EQU COLNUM * COLWIDB	; width of the row in screen buffer, bytes  
 
 FRMADDR		EQU GRAM + 16 + 64*32
@@ -71,6 +73,3 @@ CMAIN 		EQU 4			; color of the main character
 COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
-
-
-        

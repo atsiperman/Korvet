@@ -556,7 +556,9 @@ smap105e:
 			db 0
 		;edup
 
-        db SCREND		
+        db SCREND	
+        db TRIGMAP
+        dw s105trm	
         db MSKOMAP
         dw s105mom
         db SCREND
@@ -787,6 +789,8 @@ smap107e:
 		db 0
 		
 		db SCREND
+        db FSTRDRP
+        dw s107rndr
         db MSKOMAP
         dw s107mom
         db TXTSMAP

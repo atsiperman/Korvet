@@ -49,7 +49,7 @@ scrbuf:									; screen buffer
 ; -----------------------------------------------------------
 
 		include "sound.asm"	
-
+        
 		include "screens/object_map.asm"
         include "screens/masked_object_map.asm"
 		include "screens/static_object_map.asm"
@@ -74,6 +74,7 @@ scrbuf:									; screen buffer
 		include "mem_utils.asm"
 		include "init.asm"
 		
+        include "logic/first_render_procs.asm"
 		include "logic/dog_control.asm"
 		include "logic/guard_control.asm"
 		        

@@ -63,6 +63,10 @@ s37mom:
 		mkmasko	s36wfrm, 19, 8
 		mkmasko s36wfrmr, 23, 8
 
+s51mom:
+        db 1
+        mkmasko desk, 19, 12
+        
 s57mom:
         db 6
         mkmasko s57hndl, 13, 9

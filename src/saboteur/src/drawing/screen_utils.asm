@@ -122,7 +122,7 @@ drawbkgr:
         ld de,scrbuf
         ld hl,SCRADDR
         ld bc,(ROWNUM << 8) + COLNUM  	; B=ROWNUM lines on screen
-					; C=COLNUM sprites in line
+                                        ; C=COLNUM sprites in line
 startdrw:
         call drawbktl
 

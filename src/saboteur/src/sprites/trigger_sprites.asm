@@ -9,6 +9,8 @@ trimglst:
         dw stone
         dw pipe
         dw granade
+        dw desknorm
+        dw deskprsd
 
 ; ---- list of objects which can be thrown
 othrwlst:
@@ -215,54 +217,54 @@ granade:
 
 desknorm:
         db 4,24
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 12, 6, 0, 3
-        db 4, 0, 12, 6, 0, 3
-        db 4, 0, 63, 255, 192, 3
-        db 4, 0, 48, 0, 192, 3
-        db 4, 0, 55, 255, 248, 3
-        db 4, 3, 232, 0, 24, 3
-        db 4, 31, 15, 255, 216, 3
-        db 4, 24, 254, 0, 88, 3
-        db 4, 25, 255, 255, 152, 3
-        db 4, 31, 242, 2, 120, 3
-        db 4, 0, 3, 254, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 254, 0, 3
-        db 4, 0, 0, 0, 0, 3
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 12, 6, 0, CBLACK 
+        db CCYAN, 0, 12, 6, 0, CBLACK 
+        db CCYAN, 0, 63, 255, 192, CBLACK 
+        db CCYAN, 0, 48, 0, 192, CBLACK 
+        db CCYAN, 0, 55, 255, 248, CBLACK 
+        db CCYAN, 3, 232, 0, 24, CBLACK 
+        db CCYAN, 31, 15, 255, 216, CBLACK 
+        db CCYAN, 24, 254, 0, 88, CBLACK 
+        db CCYAN, 25, 255, 255, 152, CBLACK 
+        db CCYAN, 31, 242, 2, 120, CBLACK 
+        db CCYAN, 0, 3, 254, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 254, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
 
 deskprsd:
         db 4,24
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 0, 0, 3
-        db 4, 0, 0, 6, 0, 3
-        db 4, 0, 0, 6, 0, 3
-        db 4, 0, 63, 255, 192, 3
-        db 4, 0, 48, 0, 192, 3
-        db 4, 0, 55, 255, 248, 3
-        db 4, 3, 232, 0, 24, 3
-        db 4, 31, 15, 255, 216, 3
-        db 4, 24, 254, 0, 88, 3
-        db 4, 25, 255, 255, 152, 3
-        db 4, 31, 242, 2, 120, 3
-        db 4, 0, 3, 254, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 250, 0, 3
-        db 4, 0, 3, 254, 0, 3
-        db 4, 0, 0, 0, 0, 3
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 6, 0, CBLACK 
+        db CCYAN, 0, 0, 6, 0, CBLACK 
+        db CCYAN, 0, 63, 255, 192, CBLACK 
+        db CCYAN, 0, 48, 0, 192, CBLACK 
+        db CCYAN, 0, 55, 255, 248, CBLACK 
+        db CCYAN, 3, 232, 0, 24, CBLACK 
+        db CCYAN, 31, 15, 255, 216, CBLACK 
+        db CCYAN, 24, 254, 0, 88, CBLACK 
+        db CCYAN, 25, 255, 255, 152, CBLACK 
+        db CCYAN, 31, 242, 2, 120, CBLACK 
+        db CCYAN, 0, 3, 254, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 250, 0, CBLACK 
+        db CCYAN, 0, 3, 254, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, CBLACK 

@@ -141,12 +141,22 @@ troston EQU 4       ; stone
 tropipe EQU 5       ; pipe
 trogrnd EQU 6       ; granade
 
+trodskn EQU 7       ; desk normal
+trodskp EQU 8       ; desk pressed
+
 ; ---- trigger state
 ;
 trdisab EQU 0		; trigger disabled, picture must not be shown, trigger procedure must not be called
 tractiv EQU 1		; trigger is active
 
-trsize  EQU 8 		; trigger size
+; ---- door state
+;
+dooropn EQU 1       ; door open
+doorcls EQU 2       ; door closed
+
+trdotyp EQU 4       ; displacement to object type
+trdodat EQU 8       ; displacement to trigger's data
+trsize  EQU 10 		; trigger size
 
 		macro skip_trigger regpair
 			dup trsize 
@@ -159,12 +169,17 @@ trsize  EQU 8 		; trigger size
         endm
 
         macro mktrig2 trstate, colnum, rownum, trtype, objtype, procaddr
+        mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, 0
+        endm
+
+        macro mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, data
 		db trstate				
 		db colnum
 		db trtype               ; trigger type - manual/auto
 		db rownum
         dw objtype              ; object type (brick, desk, etc.) / trigger activation procedure
 		dw procaddr
+        dw data                 ; custom data
 		endm
 
 ; ---- displacement of the attributes for the thrown object

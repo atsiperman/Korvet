@@ -166,7 +166,7 @@ scrbk51:
 smap51b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
-		bkindex BK7ADDR     ; 2, big yellow brick
+		bkindex BK7_1ADR    ; 2, big yellow brick as wall
 		bkindex BK5ADDR		; 3, solid blue 
 smap51e:
 		mkbyte 3,3			; 1
@@ -318,6 +318,10 @@ smap51e:
 		db 0
 		
         db SCREND
+        db MSKOMAP
+        dw s51mom
+        db TRIGMAP
+        dw s51trm
         db OBJMAP
         dw s51objm
         db SCREND
@@ -720,7 +724,10 @@ smap55e:
 			db 0
 		;edup
 		
-		mscrend
+		db SCREND
+        db FSTRDRP
+        dw s55rndr
+        db SCREND
 		
 ; --- end of scrbk55
 

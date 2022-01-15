@@ -12,6 +12,7 @@ BK4ADDR:	DW BK4DATA
 BK5ADDR:	DW BK5DATA
 BK6ADDR:	DW BK6DATA
 BK7ADDR:	DW BK7DATA
+BK7_1ADR:	DW BK7_1DT
 BK8ADDR:	DW BK8DATA
 BK9ADDR:	DW BK9DATA
 BK10ADDR:	DW BK10DATA
@@ -86,8 +87,11 @@ BK5DATA:	bksh CBLUE			; solid blue
 BK6DATA:	bksh2 CYELLOW,fgtile	; 2 yellow bricks 
 			DB 0,0,126,126,0,126,126,126
 			
-BK7DATA:	bksh2 CYELLOW,fgtile	; big yellow brick
+BK7DATA:	bksh2 CYELLOW,fgtile	            ; big yellow brick
 			DB 0,126,126,126,126,126,126,126
+
+BK7_1DT:	bksh2 CYELLOW,bwall	                ; big yellow brick as wall
+            DB 0,126,126,126,126,126,126,126
 
 BK8DATA:	bksh2 CBLUE,bladder							; blue ladder left bottom
 			DB 16,115,115,112,16,243,243,240			

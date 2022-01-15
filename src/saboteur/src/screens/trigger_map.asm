@@ -20,6 +20,10 @@
     mktrig colnum, rownum, trgmanl, troston, itmproc    
     endm
 
+    macro mkdesk colnum, rownum, data
+    mktrig3 tractiv, colnum, rownum, trgmanl, trodskn, deskproc, data
+    endm    
+
 s3trm:
     db 2
     mkstone 24, 6
@@ -44,6 +48,10 @@ s30trm:
     db 1
     mkgrnd 6, 12
 
+s51trm:
+    db 1
+    mkdesk 19,15,dooropn
+
 s57trm:
     db 1
     mkpipe 5, 14
@@ -56,6 +64,10 @@ s64trm:
 s70trm:
     db 1
     mkknife 18, 15
+
+s105trm:
+    db 1
+    mkdesk 23,8,dooropn
 
 s113trm:
     db 1

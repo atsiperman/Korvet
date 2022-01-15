@@ -32,10 +32,10 @@ namespace SpriteEditor.Code.Storage
             {
                 var width = vm.ScreenWidth / 8;
                 var height = vm.ScreenHeight / 8;
-                stream.WriteLine("      db {0},{1}", height, width);
+                stream.WriteLine("db {0},{1}", height, width);
                 for (var line = 0; line < vm.ScreenHeight / 8; line++)
                 {
-                    stream.Write("      db");
+                    stream.Write("db");
                     var firstByte = true;
 
                     for (int w = 0; w < vm.ScreenWidth / 8; w++)
@@ -45,7 +45,7 @@ namespace SpriteEditor.Code.Storage
                         {
                             byte mask = vm.GetMaskOfByte(w, h, maskColor);
                             byte data = vm.GetMaskOfByte(w, h, inkColor);
-                            stream.Write("{0}{1},{2}", firstByte ? " " : ", ", mask, data);
+                            stream.Write("{0}{1},{2} ", firstByte ? " " : ", ", mask, data);
                             firstByte = false;
                         }
                     }
@@ -59,14 +59,14 @@ namespace SpriteEditor.Code.Storage
         {
             using (var stream = new StreamWriter(path))
             {
-                stream.Write("      db ");
+                stream.Write("db ");
                 var firstByte = true;
                 for (int w = 0; w < vm.ScreenWidth / 8; w++)
                 {
                     for (var h = 0; h < 8; h++)
                     {
                         byte data = vm.GetMaskOfByte(w, h, inkColor);
-                        stream.Write("{0}{1}", firstByte ? " " : ", ", data);
+                        stream.Write("{0}{1} ", firstByte ? " " : ", ", data);
                         firstByte = false;
                     }
                 }
@@ -81,17 +81,17 @@ namespace SpriteEditor.Code.Storage
             {
                 var width = vm.ScreenWidth / 8;
                 var height = vm.ScreenHeight;
-                stream.WriteLine("        db {0},{1}", width, height);
+                stream.WriteLine("db {0},{1}", width, height);
                 for (var line = 0; line < vm.ScreenHeight; line++)
                 {
-                    stream.Write($"        db {inkColor}");
+                    stream.Write($"db {inkColor}");
                     for (int w = 0; w < width; w++)
                     {
                         byte data = vm.GetMaskOfByte(w, line, inkColor);
                         stream.Write($", {data}");
                     }
 
-                    stream.WriteLine($", {paperColor}");
+                    stream.WriteLine($", {paperColor} ");
                 }
             }
         }
