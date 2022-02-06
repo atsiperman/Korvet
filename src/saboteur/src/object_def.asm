@@ -1,30 +1,32 @@
 
+objdead	EQU 1				; dead
+
 ; ---- saboteur state
 ;
-sbstay	EQU 1				; staying 
-sbkick	EQU 3				; kicking
+;sbdead	EQU 1				; dead
 sbmove	EQU 2				; moving 
-sbjump	EQU 4				; jumping
+sbkick	EQU 3				; kicking
+sbstay	EQU 4				; staying 
 sbfall	EQU 5				; falling down
 sbladr	EQU 6				; moving on the ladder
-sbdead	EQU 7				; dead
+sbjump	EQU 7				; jumping
 sbsquat EQU 8				; squatting
 sbshjmp EQU 9				; short jump
 sbstmov EQU 10				; start moving
 
 ; ---- dog state
 ;
-dogstay	EQU 1				; staying 
+;dogdead	EQU 1			; dead
 dogmove	EQU 2				; moving 
 dogtrn  EQU 3				; turning
-dogdead	EQU 4				; dead
+dogstay	EQU 4				; staying 
 
 ; ---- guard state
 ;
-gdstay	EQU 1				; staying 
+;gddead	EQU 1				; dead
 gdmove	EQU 2				; moving 
 gdkick	EQU 3				; kicking
-gddead	EQU 4				; dead
+gdstay	EQU 4				; staying 
 
 ; ---- directions
 ;
@@ -225,8 +227,11 @@ odfrown EQU 4       ; rownum
 ; args: HL - address of control block 
 ; 
 		macro ldstate
-		ld bc,odcurst
-		add hl,bc
+		;ld bc,odcurst
+		;add hl,bc
+        inc hl
+        inc hl
+        inc hl
 		ld a,(hl)		
 		endm
 

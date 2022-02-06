@@ -26,7 +26,7 @@
 
 s3trm:
     db 2
-    mkstone 24, 6
+    mkdesk 24, 6, 0
     mkbrick 22, 15
 
 s16trm:

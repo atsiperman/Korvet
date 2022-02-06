@@ -162,14 +162,6 @@ drawobj:
 		ldcurspr			; load address of the current sprite into DE		
 		pop hl
 		
-		;push hl
-		;lddir				; load objects direction into A
-		;pop hl
-		;cp dirrt
-		;jp z,_drwob1		; no mirror if right direction
-		;call mirrspr
-
-;_drwob1:		
 		pop hl				; restore position in screen buffer
 		call putspr			; put sprite to screen buffer
 

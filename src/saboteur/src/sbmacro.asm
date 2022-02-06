@@ -109,18 +109,18 @@ DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
 		ld (hl),a
 	endm
 	
-	macro ldsprt
-		ld d,0
-		ld e,(hl)			; sprite index
-		ld hl,BKSPRTAB
-		add hl,de
-		add hl,de			; address of the current sprite
-		load_de_hl			; in DE
+	; macro ldsprt
+	; 	ld d,0
+	; 	ld e,(hl)			; sprite index
+	; 	ld hl,BKSPRTAB
+	; 	add hl,de
+	; 	add hl,de			; address of the current sprite
+	; 	load_de_hl			; in DE
 
-		inc de				; skip back color
-		inc de				; skip color 
-		ld a,(de)			; sprite type
-	endm
+	; 	inc de				; skip back color
+	; 	inc de				; skip color 
+	; 	ld a,(de)			; sprite type
+	; endm
 ;	
 ;	macro ldscrst			; loads start of the screen into HL
 ;		ld hl,(curscr)		; pointer to screen control block
