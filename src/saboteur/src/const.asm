@@ -25,7 +25,7 @@ TVIREG		EQU TVRGBASE + 3ah
 
 ATRSET  	EQU 10h 		; set inversion attr
 ATRRES  	EQU 20h			; reset inversion attr
-ALTCHAR		EQU 4			; alternative character set
+ALTCHAR		EQU 4 + 32		; alternative character set + inversion bit off
 
 GRAM    	EQU 0c000h
 GRAMLEN 	EQU 4000h
