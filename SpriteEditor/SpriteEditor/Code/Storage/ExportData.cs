@@ -21,8 +21,29 @@ namespace SpriteEditor.Code.Storage
                     StaticObject(path, vm, inkColor, 3);
                     break;
 
+                case ImageType.Text:
+                    SaveText(path, vm, inkColor);
+                    break;
+
                 default:
                     break;
+            }
+        }
+
+        private static void SaveText(string path, IVideoMemory vm, uint inkColor)
+        {
+            using (var stream = new StreamWriter(path))
+            {
+                for (int xPos = 0; xPos < vm.ScreenWidth / 8; xPos++)
+                {
+                    stream.Write("db");
+                    for (var yPos = 0; yPos < vm.ScreenHeight; yPos++)
+                    {
+                        byte data = vm.GetMaskOfByte(xPos, yPos, inkColor);
+                        stream.Write("{0} {1}", yPos == 0 ? "" : ",", data);
+                    }
+                    stream.WriteLine();
+                }
             }
         }
 

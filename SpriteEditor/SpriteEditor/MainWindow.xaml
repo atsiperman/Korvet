@@ -80,6 +80,7 @@
                 <RadioButton Name="m_rbImageTypeSprite" GroupName="ImageType" Checked="ImageType_Checked" Tag="Sprite" Margin="0 5 0 5">Sprite</RadioButton>
                 <RadioButton Name="m_rbImageTypeBackTile" GroupName="ImageType" Checked="ImageType_Checked" Tag="BackgroundTile" Margin="0 5 0 5">Background</RadioButton>
                 <RadioButton Name="m_rbImageTypeStaticObject" GroupName="ImageType" Checked="ImageType_Checked" Tag="StaticObject" Margin="0 5 0 5">Static Object</RadioButton>
+                <RadioButton Name="m_rbImageTypeText" GroupName="ImageType" Checked="ImageType_Checked" Tag="Text" Margin="0 5 0 5">Text</RadioButton>
             </StackPanel>
         </Grid>
     </DockPanel>
