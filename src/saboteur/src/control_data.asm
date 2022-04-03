@@ -91,7 +91,7 @@ SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
-HLCOLRRM	EQU CBLUE 		;	(80h + (CBLUE << 1)) ; color register to clear health bar
+HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
@@ -116,6 +116,8 @@ sbctrlb:
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
+
+curtime:    db 2, 4, 5  ; current time: 2 digits, from high digit to low
 
 ; ---- object thrown by saboteur
 ;

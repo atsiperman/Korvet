@@ -212,16 +212,16 @@ _drwbkt2:
                 ld (hl),c	; set background color
                 
                 ex de,hl	; HL - screen address
-                cpl		; get bits to be drawn as background
+                cpl         ; get bits to be drawn as background
                 ld (hl),a	; move data byte
 
                 pop de		; restore data address                        
-                inc de          ; next byte from sprite
+                inc de      ; next byte from sprite
                 
-                ld bc,64        ; add 64
-                add hl,bc       ; move to the next line on screen
+                ld bc,64    ; add 64
+                add hl,bc   ; move to the next line on screen
                 
-                pop bc          ; restore fg color
+                pop bc      ; restore fg color
         edup
 
         pop de

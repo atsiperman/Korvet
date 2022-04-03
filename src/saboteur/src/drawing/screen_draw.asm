@@ -469,6 +469,15 @@ postproc:
         jp  (hl)
         ret 
         
+; ----- draws current time
+;
+drwtime:
+        ld  hl,curtime
+        ld  de,TIMESCRA
+        ld  b,80h + (CRED << 1)
+        ld  c,COLORCLR
+        call pntnum
+        ret        
 
 ; ----- draws current screen	
 ;
@@ -521,6 +530,7 @@ drawobj2:
         call drwheldo       ; draw an object being held by saboteur
 		call showscr		; show buffer on the screen		
 		call hldraw			; draw health bar
+        call drwtime        ; draw current time
 
         GRMODOFF
 

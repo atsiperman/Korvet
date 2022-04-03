@@ -84,7 +84,8 @@ scrbuf:									; screen buffer
 		include "drawing/draw_frame.asm"		
         include "drawing/screen_utils.asm"		
 		include "drawing/screen_draw.asm"
-		include "drawing/object_draw.asm"		
+		include "drawing/object_draw.asm"
+        include "drawing/draw_digits.asm"
 
 		include "logic/saboteur_utils.asm"
 		include "logic/saboteur_fall.asm"
