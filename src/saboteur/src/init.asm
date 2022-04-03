@@ -63,8 +63,26 @@ sabinit:
 ; ----- text ram init for constant places like timer
 ;
 txtrinit:
+        ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
+        dup 15
+            ld (hl),CHBOTM
+            inc hl
+        edup
+
         ld hl,TRAM + TSTARTC + 22 + 64*(TSTARTR + 10)
         ld (hl),CHFULL
         inc hl
         ld (hl),CHFULL
         ret
+
+; ----- print text strings
+;
+ptexts:
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+
+        ld de,PAYSCRA
+        ld hl,paystr
+        call prntstr
+        
+        ret 

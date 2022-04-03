@@ -55,6 +55,7 @@ SCRADDR 	EQU GRAM + 17 + 64*32 + 64*8 	; start of the working screen
 TRIMADR     EQU SCRADDR + 64 * 8 * 18 + 26  ; start of the memory to show triggered image
 HELDADR     EQU SCRADDR + 64 * 8 * 18       ; start of the memory to show an object being held
 TIMESCRA    EQU SCRADDR + 64 * 8 * 19 + 22
+PAYSCRA     EQU SCRADDR + 64 * 8 * 18 + 5   ; start of the memory to print 'PAY' text
 
 NEWSTK  	EQU 0beffh		; new address of stack
 

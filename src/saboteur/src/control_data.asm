@@ -100,7 +100,6 @@ HLDOGHIT	EQU 6			; hit by the dog
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 			
-
 ; ---- screen control block
 ;
 curscr: 	dw scrn3 		; pointer to current screen

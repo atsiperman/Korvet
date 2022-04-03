@@ -125,6 +125,7 @@ start:
         call fillvram	; clear screen with black
 
 		call drawfrm	; draw frame
+        call ptexts     ; print const text 
 		
         GRMODOFF
 

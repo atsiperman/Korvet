@@ -1,10 +1,34 @@
+; ----- prints text string 
+; args: DE - address in video memory to print at
+;		HL - address of the text string
+;       B  - foreground color
+;       C  - background color
+;
+prntstr:
+        ld  a,(hl)      ; load string length
+        inc hl          ; move pointer to the first digit
+
+.prnts1:
+        push af
+        push hl
+        push de
+        call prnchar    ; print char
+        pop  de
+        pop  hl
+        pop  af
+        dec  a
+        ret  z
+        inc  de         ; move pointer to the next column
+        inc  hl         ; move pointer to the next digit
+        jp .prnts1
+
 ; ----- prints numerical string 
 ; args: DE - address in video memory to print at
 ;		HL - address of the numerical string
 ;       B  - foreground color
 ;       C  - background color
 ;
-pntnum:
+prntnum:
         ld  a,(hl)      ; load string length
         inc hl          ; move pointer to the first digit
 
@@ -22,6 +46,24 @@ pntnum:
         inc  hl         ; move pointer to the next digit
         jp .prnt1
 
+; ----- prints character
+; args: DE - address in video memory to print at
+;		HL - address of the char to print
+;       B  - foreground color
+;       C  - background color
+prnchar:
+        push de
+        xor  a
+        ld   d,a
+        ld   a,(hl)     ; read symbol's code
+        sub  'A'        ; get index of the char in data array 
+        rla
+        rla
+        rla
+        ld   e,a
+        ld   hl,chars
+        jp   prnsymb
+
 ; ----- prints numerical string 
 ; args: DE - address in video memory to print at
 ;		HL - address of the digit to print
@@ -31,12 +73,15 @@ prndigt:
         push de
         xor  a
         ld   d,a
-        ld   a,(hl)     ; read digit code
+        ld   a,(hl)     ; read symbol's code
         rla
         rla
         rla
         ld   e,a
         ld   hl,digits
+        jp   prnsymb
+
+prnsymb:
         add  hl,de      ; move pointer to digit data
         pop  de         ; restore video memory address
         ex   de,hl      ; HL - screen address

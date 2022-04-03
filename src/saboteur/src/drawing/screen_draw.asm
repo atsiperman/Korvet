@@ -476,7 +476,7 @@ drwtime:
         ld  de,TIMESCRA
         ld  b,NUMFGC
         ld  c,NUMBKC
-        call pntnum
+        call prntnum
         ret        
 
 ; ----- draws current screen	
