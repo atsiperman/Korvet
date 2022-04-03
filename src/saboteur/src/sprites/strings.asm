@@ -99,7 +99,7 @@ chars:
 
         db 0, 94, 82, 114, 82, 90, 94, 0        ; _ Ю
         db 0, 96, 32, 62, 38, 38, 62, 0         ; ` Ъ
-        db 8, 62, 40, 62, 10, 10, 62, 8         ; `+1 - $
+        db 0, 8, 62, 40, 62, 10, 62, 8          ; `+1 - $
         db 0, 0, 8, 0, 0, 8, 0, 0               ; `+2 :
         db 0, 0, 0, 0, 0, 0, 0, 0               ; `+3 ' '
 
@@ -109,5 +109,5 @@ SPACECH EQU '`' + 3
 
 paystr:
         db .paystr - paystr - 1
-        ABYTE 0 "DENEG",SPACECH,COLONCH,SPACECH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
+        ABYTE 0 SPACECH,"DENEG",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
 .paystr

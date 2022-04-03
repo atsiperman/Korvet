@@ -365,7 +365,10 @@ gtimer:
         ret
 
 .gt1:
-        ld  (hl),TIMEFRM    ; reload timer
+        inc a
+        ld  (ctimechg),a    ; set flag
+
+        ld  (hl),TIMEGFRM   ; reload timer
         ld  hl,curtime + 2  ; pointer to the last digit of the timer
         ld  a,(hl)
         or  a               ; is zero from the last frame ?

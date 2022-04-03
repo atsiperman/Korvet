@@ -116,9 +116,13 @@ sbctrlb:
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
-TIMEFRM     EQU 25
-curtime:    db 2, 9, 9  ; current time: 2 digits, from high digit to low
-curtimef:   db TIMEFRM  ; current game frame
+TIMEGFRM    EQU 10
+curtime:    db 2, 9, 9          ; current time: 2 digits, from high digit to low
+curtimef:   db TIMEGFRM         ; current game frame
+ctimechg:   db 1                ; current time changed
+
+score:      db 5, 0,0,0,0,0     ; score digits, from high to low
+scorchg:    db 1                ; score changed
 
 ; ---- object thrown by saboteur
 ;

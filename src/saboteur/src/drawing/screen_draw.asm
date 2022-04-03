@@ -469,14 +469,32 @@ postproc:
         jp  (hl)
         ret 
         
-; ----- draws current time
+; ----- draws numbers (time, score)
 ;
-drwtime:
+drwnums:
+        ld  a,(ctimechg)
+        or  a
+        jp  z,.drn1        ; no change, skip drawing
         ld  hl,curtime
         ld  de,TIMESCRA
         ld  b,NUMFGC
         ld  c,NUMBKC
         call prntnum
+        xor a
+        ld  (ctimechg),a
+        
+.drn1:  
+        ld  a,(scorchg)
+        or  a
+        ret z              ; no change, skip drawing
+        ld  hl,score
+        ld  de,SCORSCRA
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+        call prntnum
+        xor a
+        ld  (scorchg),a
+
         ret        
 
 ; ----- draws current screen	
@@ -530,7 +548,7 @@ drawobj2:
         call drwheldo       ; draw an object being held by saboteur
 		call showscr		; show buffer on the screen		
 		call hldraw			; draw health bar
-        call drwtime        ; draw current time
+        call drwnums        ; draw current time
 
         GRMODOFF
 
