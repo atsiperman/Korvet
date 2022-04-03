@@ -497,7 +497,7 @@ clrtxscr:
         or l
         ret z			    ; address is zero, nothing to draw
         
-        ld a,0AFh                   ; xor a
+        ld a,0AFh           ; xor a
         ld (_drtrm2_),a
         ld (_drtrm3_),a
         jp _drtrams
@@ -508,7 +508,7 @@ drawtram:
         ld hl,(tramdef)
         ld a,h
         or l
-        ret z				; address is zero, nothing to draw
+        ret z				    ; address is zero, nothing to draw
 
         ld a,7eh                ; ld a,(hl)
         ld (_drtrm2_),a
@@ -529,12 +529,12 @@ _drtram1:
         jp z,_drtram3           ; process vertical line
 
         ld a,c                  ; reload data byte
-        and 0Fh			; leave counter
+        and 0Fh			        ; leave counter
         ld c,a
         load_de_hl              ; load text RAM address
 
 _drtrm2_:
-        ld a,(hl)		; load byte
+        ld a,(hl)		        ; load byte
         inc hl
 
 _drtram2:
@@ -546,11 +546,11 @@ _drtram2:
 
 _drtram3:
         ld a,c                  ; reload data byte
-        and 0Fh			; leave counter
+        and 0Fh			        ; leave counter
         ld c,a
         load_de_hl              ; load text RAM address
 _drtrm3_:
-        ld a,(hl)		; load byte
+        ld a,(hl)		        ; load byte
         inc hl
         push hl
 

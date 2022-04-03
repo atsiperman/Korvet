@@ -474,8 +474,8 @@ postproc:
 drwtime:
         ld  hl,curtime
         ld  de,TIMESCRA
-        ld  b,80h + (CRED << 1)
-        ld  c,COLORCLR
+        ld  b,NUMFGC
+        ld  c,NUMBKC
         call pntnum
         ret        
 

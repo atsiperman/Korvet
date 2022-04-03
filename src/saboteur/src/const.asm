@@ -74,3 +74,5 @@ CMAIN 		EQU 4			; color of the main character
 COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
+NUMFGC      EQU 80h + (CWHITE << 1)
+NUMBKC      EQU 80h + (CBLUE << 1)
