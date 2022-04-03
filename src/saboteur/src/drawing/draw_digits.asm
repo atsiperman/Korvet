@@ -57,10 +57,15 @@ prnchar:
         ld   d,a
         ld   a,(hl)     ; read symbol's code
         sub  'A'        ; get index of the char in data array 
+
         rla
         rla
-        rla
-        ld   e,a
+        rla             
+        ld  e,a         ; save low byte
+        ld  a,d         ; load hi byte
+        rla             ; shift hi byte with CY
+        ld  d,a         ; save hi byte
+
         ld   hl,chars
         jp   prnsymb
 
