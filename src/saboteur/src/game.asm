@@ -353,3 +353,41 @@ gkrmove:
 		
 ; ---- end of gkmoveh
 
+; ---- game timer
+;
+gtimer:
+        ld  hl,curtimef     
+        ld  a,(hl)          ; load current timer frame
+        or  a
+        jp  z,.gt1          ; already zero, reload timer
+        dec a
+        ld  (hl),a          ; save new value
+        ret
+
+.gt1:
+        ld  (hl),TIMEFRM    ; reload timer
+        ld  hl,curtime + 2  ; pointer to the last digit of the timer
+        ld  a,(hl)
+        or  a               ; is zero from the last frame ?
+        jp  z,.gt2
+        dec a        
+        ld  (hl),a
+        ret
+.gt2:
+        dec hl              ; move pointer to the high digit
+        ld  a,(hl)
+        or  a               ; is zero from the last frame ?
+        jp  z,.gtend
+        dec a
+        ld  (hl),a
+        inc hl
+        ld  (hl),9          ; reload low digit
+        ret
+        
+.gtend:
+        ; --- end of time, make saboteur dead
+        xor a
+        ld  (sbhealth),a
+        ret
+
+        

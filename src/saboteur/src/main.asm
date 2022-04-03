@@ -135,6 +135,7 @@ main:					; main cycle
 					
 		call sbstsnd
 
+        call gtimer
 		call gmain		; test keyboard 
 		or a		
 		jp nz,main		; continue if not zero
