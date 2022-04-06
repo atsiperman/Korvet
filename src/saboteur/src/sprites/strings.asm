@@ -100,8 +100,8 @@ chars:
         db 0, 94, 82, 114, 82, 90, 94, 0        ; _ Ю
         db 0, 96, 32, 62, 38, 38, 62, 0         ; ` Ъ
         db 0, 8, 62, 40, 62, 10, 62, 8          ; `+1 - $
-        db 0, 0, 8, 0, 0, 8, 0, 0               ; `+2 :
-        db 0, 0, 0, 0, 0, 0, 0, 0               ; `+3 ' '
+        db 0, 0, 8, 0, 0, 8, 0, 0               ; `+2 - :
+        db 0, 0, 0, 0, 0, 0, 0, 0               ; `+3 - ' ' space
 
 DOLRCH  EQU '`' + 1
 COLONCH EQU '`' + 2
@@ -109,5 +109,41 @@ SPACECH EQU '`' + 3
 
 paystr:
         db .paystr - paystr - 1
-        ABYTE 0 SPACECH,"DENEG",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
+        db "GONORAR",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
 .paystr
+
+menu:
+        dw MNSTSCRA, txtlvl1
+        dw MNSTSCRA + (VERTDISP * 2), txtlvl2
+        dw MNSTSCRA + (VERTDISP * 4), txtlvl3
+        dw MNSTSCRA + VERTDISP * 6, txtlvl4
+menue:
+
+menuptr:
+        db 1        ; number of the current menu item
+        dw menu
+
+MENUITS EQU 4                               ; menu item size, bytes
+MENUITN EQU (menue - menu) / MENUITS 
+
+menutit:
+        db .menut - menutit - 1, "WYBERITE", SPACECH, "UROWENX"
+.menut:
+
+
+txtlvl1:
+        db .txlvl1 - txtlvl1 - 1, "LEGKIJ"
+.txlvl1:
+
+txtlvl2:        
+        db .txlvl2 - txtlvl2 - 1, "SREDNIJ"
+.txlvl2:        
+
+txtlvl3:
+        db .txlvl3 - txtlvl3 - 1, "TRUDNYJ"
+.txlvl3:        
+
+txtlvl4:
+        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
+.txlvl4:        
+

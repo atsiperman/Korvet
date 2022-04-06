@@ -71,8 +71,8 @@ scrbuf:									; screen buffer
 		include "screens/screen_map.asm"		
 		
 		include "screen_control.asm"
-		include "mem_utils.asm"
 		include "init.asm"
+		include "mem_utils.asm"
 		
         include "logic/first_render_procs.asm"
 		include "logic/dog_control.asm"
@@ -101,6 +101,7 @@ scrbuf:									; screen buffer
 				
 		include "keyboard.asm"
 		include "game.asm"
+        include "menu.asm"
 				
 start:
 		di
@@ -120,28 +121,22 @@ start:
 
         GRMODON
 		call lutsetup
-	
-        ld a,COLORCLR 
-        call fillvram	; clear screen with black
-
-		call drawfrm	; draw frame
-        call ptexts     ; print const text 
-		
         GRMODOFF
 
-main:					; main cycle
-		DISSND
+.main:
+        call runmenu
+        or  a
+        jp  z,.exit
 
-		call drawscr
+        GRMODON
+        call ginitscr   ; init game screen		
+        GRMODOFF
 					
-		call sbstsnd
+        call gcycle     ; main cycle
+        
+        jp  .main
 
-        call gtimer
-		call gmain		; test keyboard 
-		or a		
-		jp nz,main		; continue if not zero
-
-exit:
+.exit:
 						; exit to cp/m
         ld hl,(OLDSTK)
         ld sp,hl

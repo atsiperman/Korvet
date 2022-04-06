@@ -56,7 +56,11 @@ TRIMADR     EQU SCRADDR + 64 * 8 * 18 + 26  ; start of the memory to show trigge
 HELDADR     EQU SCRADDR + 64 * 8 * 18       ; start of the memory to show an object being held
 TIMESCRA    EQU SCRADDR + 64 * 8 * 19 + 22
 PAYSCRA     EQU SCRADDR + 64 * 8 * 18 + 5   ; start of the memory to print 'PAY' text
-SCORSCRA    EQU PAYSCRA + 9                 ; start of the memory to print scores
+SCORSCRA    EQU PAYSCRA + 10                ; start of the memory to print scores
+
+VERTDISP    EQU 64*8
+MNTITSCR    EQU SCRADDR + 20
+MNSTSCRA    EQU MNTITSCR + (VERTDISP * 3)
 
 NEWSTK  	EQU 0beffh		; new address of stack
 

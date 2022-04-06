@@ -1,7 +1,30 @@
-		
-; ---- main game logic
-; result: A - 0 to stop, 1 - continue game
+; ---- init main game screen
+ginitscr:
+        ld a,COLORCLR 
+        call fillvram	; clear screen with black
+		call drawfrm	; draw frame
+        call ptexts     ; print const text         
+        ret
 
+; ---- main game cycle
+;
+gcycle:
+		DISSND
+
+		call drawscr
+					
+		call sbstsnd
+
+        call gtimer         
+		call gmain          ; main game logic
+		or a		
+        ret z
+		jp gcycle           ; continue if not zero
+
+
+; ---- main game logic
+; result: A - 0 to stop, other - continue game
+;
 gmain:
         call trigact
         or  a
