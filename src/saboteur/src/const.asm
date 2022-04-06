@@ -60,7 +60,7 @@ SCORSCRA    EQU PAYSCRA + 10                ; start of the memory to print score
 
 VERTDISP    EQU 64*8
 MNTITSCR    EQU SCRADDR + 20
-MNSTSCRA    EQU MNTITSCR + (VERTDISP * 3)
+MNSTSCRA    EQU MNTITSCR + (VERTDISP * 4)
 
 NEWSTK  	EQU 0beffh		; new address of stack
 

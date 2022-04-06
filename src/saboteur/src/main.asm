@@ -133,7 +133,7 @@ start:
         GRMODOFF
 					
         call gcycle     ; main cycle
-        
+        call mkpause
         jp  .main
 
 .exit:

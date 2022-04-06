@@ -127,7 +127,7 @@ MENUITS EQU 4                               ; menu item size, bytes
 MENUITN EQU (menue - menu) / MENUITS 
 
 menutit:
-        db .menut - menutit - 1, "WYBERITE", SPACECH, "UROWENX"
+        db .menut - menutit - 1, "UROWENX", SPACECH, "SLOVNOSTI"
 .menut:
 
 
