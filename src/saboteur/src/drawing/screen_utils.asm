@@ -510,6 +510,10 @@ drawtram:
         or l
         ret z				    ; address is zero, nothing to draw
 
+; ----- draws text ram in coded form
+;args: HL - address of text ram definition
+;
+drwtram:
         ld a,7eh                ; ld a,(hl)
         ld (_drtrm2_),a
         ld (_drtrm3_),a

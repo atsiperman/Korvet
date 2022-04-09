@@ -61,3 +61,15 @@ dvd8:
 		rra 
 		and 31
 		ret
+
+; ---- fills line in text ram with a character provided
+; args: C  - character to print
+;       A  - number of bytes to fill in
+;       HL - start address
+;
+filtline:
+        ld (hl),c
+        inc hl
+        dec a
+        jp  nz,filtline
+        ret

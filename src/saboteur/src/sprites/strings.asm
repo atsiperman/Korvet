@@ -107,43 +107,20 @@ DOLRCH  EQU '`' + 1
 COLONCH EQU '`' + 2
 SPACECH EQU '`' + 3
 
-paystr:
-        db .paystr - paystr - 1
-        db "GONORAR",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
-.paystr
 
-menu:
-        dw MNSTSCRA, txtlvl1
-        dw MNSTSCRA + (VERTDISP * 2), txtlvl2
-        dw MNSTSCRA + (VERTDISP * 4), txtlvl3
-        dw MNSTSCRA + VERTDISP * 6, txtlvl4
-menue:
+authinfo:
+        db .ainfo - authinfo - 1
+        db "AWTOR",SPACECH,"WERSII",SPACECH,"DLQ",SPACECH,"PK",SPACECH,"KORWET",SPACECH,"CIPERMAN",SPACECH,"ALEKSEJ"
+.ainfo        
 
-menuptr:
-        db 1        ; number of the current menu item
-        dw menu
+authdate:
+        db 4
+        db 2,0,2,2
+        
+cliveinf:
+        db .clivinf - cliveinf - 1
+        db "AWTOR",SPACECH,"ORIGINALXNOJ",SPACECH,"IGRY",SPACECH,"KLAJW",SPACECH,"TAUNSEND"
+.clivinf
 
-MENUITS EQU 4                               ; menu item size, bytes
-MENUITN EQU (menue - menu) / MENUITS 
-
-menutit:
-        db .menut - menutit - 1, "UROWENX", SPACECH, "SLOVNOSTI"
-.menut:
-
-
-txtlvl1:
-        db .txlvl1 - txtlvl1 - 1, "LEGKIJ"
-.txlvl1:
-
-txtlvl2:        
-        db .txlvl2 - txtlvl2 - 1, "SREDNIJ"
-.txlvl2:        
-
-txtlvl3:
-        db .txlvl3 - txtlvl3 - 1, "TRUDNYJ"
-.txlvl3:        
-
-txtlvl4:
-        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
-.txlvl4:        
-
+clivdate:
+        db 4, 1,9,8,6

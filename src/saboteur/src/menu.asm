@@ -1,11 +1,95 @@
+paystr:
+        db .paystr - paystr - 1
+        db "GONORAR",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
+.paystr
+
+menu:
+        dw MNSTSCRA, txtlvl1
+        dw MNSTSCRA + (VERTDISP * 2), txtlvl2
+        dw MNSTSCRA + (VERTDISP * 4), txtlvl3
+        dw MNSTSCRA + VERTDISP * 6, txtlvl4
+        dw MNSTSCRA + VERTDISP * 10, txtexit
+menue:
+
+menuptr:
+        db 1        ; number of the current menu item
+        dw menu
+
+MENUITS EQU 4                               ; menu item size, bytes
+MENUITN EQU (menue - menu) / MENUITS 
+
+menutit:
+        db .menut - menutit - 1, "UROWENX", SPACECH, "SLOVNOSTI"
+.menut:
+
+
+txtlvl1:
+        db .txlvl1 - txtlvl1 - 1, "LEGKIJ"
+.txlvl1:
+
+txtlvl2:        
+        db .txlvl2 - txtlvl2 - 1, "SREDNIJ"
+.txlvl2:        
+
+txtlvl3:
+        db .txlvl3 - txtlvl3 - 1, "TRUDNYJ"
+.txlvl3:        
+
+txtlvl4:
+        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
+.txlvl4:        
+
+txtexit:
+        db .txtext - txtexit - 1, "WYJTI",SPACECH,"IZ",SPACECH,"IGRY"
+.txtext:
+
+menutxt:
+        mkbyte TXLINEH,15
+			mktxtaddr 7, 1
+			db CHFULL
+        mkbyte TXLINEH,2
+			mktxtaddr 22, 1
+			db CHFULL
+
+        mkbyte TXLINEH,7
+			mktxtaddr 7, 3
+			db CHFULL
+        mkbyte TXLINEH,7
+			mktxtaddr 7, 4
+			db CHFULL
+        mkbyte TXLINEH,7
+			mktxtaddr 7, 5
+            db CHFULL
+        mkbyte TXLINEH,7
+			mktxtaddr 7, 6
+			db CHFULL
+        mkbyte TXLINEH,13
+			mktxtaddr 7, 8
+			db CHFULL
+        db SCREND
+
 ; ----- runs menu
 ; result: A - 0 to exit, non-zero - start game
 ;
 runmenu:
+        call clrtscr
+
+        ld   hl,menutxt
+        call drwtram
+
+        ; fill in text ram for author's information
+        ld hl,TRAM + 9 + 64*14
+        ld  a,(authinfo)
+        add 6               ; total length text and date
+        ld  c,CHFULL
+        call filtline
+        
         GRMODON
-        ld a,COLORCLR 
+        ld a,NUMBKC 
         call fillvram	; clear screen with black
+        call prauthor
         GRMODOFF
+        
 
         call mnshow
 
@@ -27,8 +111,14 @@ runmenu:
         jp  z,.mndown
 
         cp  KSPACE
-        ret z           ; KSPACE - start game, return current A (>0)
-        jp  .mnkb
+        ;ret z           ; KSPACE - start game, return current A (>0)
+        jp  nz,.mnkb
+
+        ld  a,(menuptr) ; load selected item number
+        cp  MENUITN
+        ret nz          ; A != 0 and not the last item -> start game
+        xor a           ; last item is selected - exit game -> return 0 to exit
+        ret 
 
 .mnup:
         ld  a,(menuptr)
@@ -115,4 +205,33 @@ mkpause:
         call waitblnk
         dec  c
         jp   nz,.mkp
+        ret
+
+; ----- prints author information
+;
+prauthor:
+        ld  b,CLIVEFGC
+        ld  c,NUMBKC
+        ld   de,CLIVSCRA
+        ld   hl,cliveinf
+        call prntstr
+
+        ld  b,CLIVEFGC
+        ld  c,NUMBKC
+        ld  de,CLIVSCRA + 027h
+        ld  hl,clivdate
+        call prntnum
+
+        ld  b,AUTHFGC
+        ld  c,NUMBKC
+        ld   de,AUTHSCRA
+        ld   hl,authinfo
+        call prntstr
+
+        ld  b,AUTHFGC
+        ld  c,NUMBKC
+        ld  de,AUTHSCRA + 02Dh
+        ld  hl,authdate
+        call prntnum
+
         ret

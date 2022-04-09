@@ -57,22 +57,20 @@ sabinit:
         ld  de,sabkckl2               
 		call mirrspr
 
-        call txtrinit
 		ret
 		
 ; ----- text ram init for constant places like timer
 ;
 txtrinit:
-        ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
-        dup 15
-            ld (hl),CHBOTM
-            inc hl
-        edup
-
         ld hl,TRAM + TSTARTC + 22 + 64*(TSTARTR + 10)
         ld (hl),CHFULL
         inc hl
         ld (hl),CHFULL
+
+        ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
+        ld  a,15
+        ld  c,CHBOTM
+        call filtline
         ret
 
 ; ----- print text strings

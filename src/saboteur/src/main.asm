@@ -108,9 +108,6 @@ start:
 				
 		ld a, ALTCHAR
 		ld (TVIREG),a
-        call clrtscr
-
-		;call drawfrmt	; draw frame in text ram 		
 
         ld hl,0
         add hl,sp
@@ -128,9 +125,7 @@ start:
         or  a
         jp  z,.exit
 
-        GRMODON
         call ginitscr   ; init game screen		
-        GRMODOFF
 					
         call gcycle     ; main cycle
         call mkpause

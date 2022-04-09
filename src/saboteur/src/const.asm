@@ -50,16 +50,15 @@ FRMWIDT		EQU COLNUM + 2
 FRMHIGT		EQU 24
 FRMADRT		EQU TRAM + 2*64 + 16	; address of the frame in text RAM
 
-
-SCRADDR 	EQU GRAM + 17 + 64*32 + 64*8 	; start of the working screen
-TRIMADR     EQU SCRADDR + 64 * 8 * 18 + 26  ; start of the memory to show triggered image
-HELDADR     EQU SCRADDR + 64 * 8 * 18       ; start of the memory to show an object being held
-TIMESCRA    EQU SCRADDR + 64 * 8 * 19 + 22
-PAYSCRA     EQU SCRADDR + 64 * 8 * 18 + 5   ; start of the memory to print 'PAY' text
+VERTDISP    EQU 64*8
+SCRADDR 	EQU GRAM + 17 + VERTDISP * 5      ; start of the working screen
+TRIMADR     EQU SCRADDR + VERTDISP * 18 + 26  ; start of the memory to show triggered image
+HELDADR     EQU SCRADDR + VERTDISP * 18       ; start of the memory to show an object being held
+TIMESCRA    EQU SCRADDR + VERTDISP * 19 + 22
+PAYSCRA     EQU SCRADDR + VERTDISP * 18 + 5   ; start of the memory to print 'PAY' text
 SCORSCRA    EQU PAYSCRA + 10                ; start of the memory to print scores
 
-VERTDISP    EQU 64*8
-MNTITSCR    EQU SCRADDR + 20
+MNTITSCR    EQU SCRADDR + VERTDISP * 2 + 7
 MNSTSCRA    EQU MNTITSCR + (VERTDISP * 4)
 
 NEWSTK  	EQU 0beffh		; new address of stack
@@ -82,3 +81,8 @@ CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 NUMFGC      EQU 80h + (CWHITE << 1)
 NUMBKC      EQU 80h + (CBLUE << 1)
+AUTHFGC     EQU 80h + (CGREEN << 1)
+CLIVEFGC    EQU 80h + (CYELLOW << 1)
+
+AUTHSCRA    EQU SCRADDR - 8 + VERTDISP * 23
+CLIVSCRA    EQU SCRADDR - 5 - VERTDISP * 2

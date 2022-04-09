@@ -1,9 +1,13 @@
 ; ---- init main game screen
 ginitscr:
+        call clrtscr
+        GRMODON
         ld a,COLORCLR 
         call fillvram	; clear screen with black
 		call drawfrm	; draw frame
         call ptexts     ; print const text         
+        GRMODOFF
+        call txtrinit
         ret
 
 ; ---- main game cycle
