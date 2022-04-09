@@ -61,23 +61,15 @@ ctslop: ld (hl),d
 ; -----  switches to graphics mode
 ;
         macro   GRMODON 
-
-        ;ld hl,TSYSREG
         ld a,GCONFIG
-        ;di
         ld (TSYSREG),a
-
         endm
 
 ; -----  switches back to CP/M
 ;
         macro   GRMODOFF 
-
-        ;ld hl,GSYSREG
-        ld a,1ch
+        ld a,DOSCONF
         ld (GSYSREG),a
-        ;ei
-
         endm
 
 ; ----- setup LUT

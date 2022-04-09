@@ -4,7 +4,6 @@ SYSREG  	EQU 7fh
 TVRGBASE	EQU 0fb00h
 TSYSREG 	EQU 0fa00h + SYSREG
 
-
 TRAM		EQU 0fc00h
 TSTARTC		EQU 17			; start colnum number in text RAM
 TSTARTR		EQU 2			; start row number in text RAM
@@ -14,6 +13,8 @@ CHFULL		EQU 171			; full character is occupied (two vertical tiles)
 CHBOTM		EQU 172         ; bottom half of the character is occupied
 CHTOP		EQU 175         ; top half of the character is occupied
 
+RESCONF     EQU 0h
+DOSCONF     EQU 1Ch
 GCONFIG 	EQU 6Ch
 GREGBASE 	EQU 0bf00h
 GSYSREG 	EQU GREGBASE + SYSREG 

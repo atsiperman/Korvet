@@ -35,6 +35,8 @@ scrbuf:									; screen buffer
 mirtable EQU 0c000h
 sabjmpr1 EQU mirtable + 256
 
+;sabjmpr1 EQU mirtable + 8192
+
 sabjmpr2 EQU sabjmpr1 + (_sabjmpr2 - _sabjmpr1)
 sabkckr1 EQU sabjmpr2 + (_sabkckr1 - _sabjmpr2)
 sabkckr2 EQU sabkckr1 + (_sabkckr2 - _sabkckr1)
@@ -156,8 +158,11 @@ start:
 						; exit to cp/m
         ld hl,(OLDSTK)
         ld sp,hl
-		ei
-		
+		;ei		
+
+        ld a,RESCONF
+        ld (TSYSREG),a
+
 		jp 0			; soft reset
 
 
