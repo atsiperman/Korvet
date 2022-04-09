@@ -4,11 +4,13 @@ paystr:
 .paystr
 
 menu:
-        dw MNSTSCRA, txtlvl1
-        dw MNSTSCRA + (VERTDISP * 2), txtlvl2
-        dw MNSTSCRA + (VERTDISP * 4), txtlvl3
-        dw MNSTSCRA + VERTDISP * 6, txtlvl4
-        dw MNSTSCRA + VERTDISP * 10, txtexit
+        dw MNSTSCRA, txtlvl0
+        dw MNSTSCRA + (VERTDISP * 2), txtlvl1
+        dw MNSTSCRA + (VERTDISP * 4), txtlvl2
+        dw MNSTSCRA + (VERTDISP * 6), txtlvl3
+        dw MNSTSCRA + VERTDISP * 8, txtlvl4
+        dw MNSTSCRA + VERTDISP * 10, txtlvl5
+        dw MNSTSCRA + VERTDISP * 13, txtexit
 menue:
 
 menuptr:
@@ -23,6 +25,10 @@ menutit:
 .menut:
 
 
+txtlvl0:
+        db .txlvl0 - txtlvl0 - 1, "O^ENX",SPACECH,"LEGKIJ"
+.txlvl0:
+
 txtlvl1:
         db .txlvl1 - txtlvl1 - 1, "LEGKIJ"
 .txlvl1:
@@ -36,8 +42,12 @@ txtlvl3:
 .txlvl3:        
 
 txtlvl4:
-        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
+        db .txlvl4 - txtlvl4 - 1, "O^ENX",SPACECH,"TRUDNYJ"
 .txlvl4:        
+
+txtlvl5:
+        db .txlvl5 - txtlvl5 - 1, "TQVELYJ"
+.txlvl5:        
 
 txtexit:
         db .txtext - txtexit - 1, "WYJTI",SPACECH,"IZ",SPACECH,"IGRY"
@@ -51,7 +61,7 @@ menutxt:
 			mktxtaddr 22, 1
 			db CHFULL
 
-        mkbyte TXLINEH,7
+        mkbyte TXLINEH,12
 			mktxtaddr 7, 3
 			db CHFULL
         mkbyte TXLINEH,7
@@ -64,7 +74,13 @@ menutxt:
 			mktxtaddr 7, 6
 			db CHFULL
         mkbyte TXLINEH,13
+			mktxtaddr 7, 7
+			db CHFULL
+        mkbyte TXLINEH,7
 			mktxtaddr 7, 8
+			db CHFULL
+        mkbyte TXLINEH,13
+			mktxtaddr 7, 10
 			db CHFULL
         db SCREND
 
