@@ -13,13 +13,23 @@
         include "sprites/background_sprites.asm"
 		include "control_data.asm"						
 
-		include "sprites/dog_sprites.asm"		
-		include "sprites/saboteur_sprites.asm"				
+		include "sprites/dog_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
 		include "sprites/guard_sprites.asm"
 		include "sprites/static_object_sprites.asm"
         include "sprites/trigger_sprites.asm"
+        include "sprites/saboteur_sprites.asm"
+
+scrbuf:									; screen buffer		
+; -----------------------------------------------------------
+		include "drawing/mirror_table.asm"
+        dup (ROWNUM * ROWWIDB) - MIRFLEN ; MIRFLEN - size of the file with mirroring procs & data
+        db 0
+        edup
+; -----------------------------------------------------------
+
+        include "sprites/sab_sprites_control.asm"
 
 mirtable EQU 0c000h
 sabspml1 EQU mirtable + 256
@@ -39,14 +49,6 @@ dogspml1 EQU sabkckl2 + sabfall - sabkckr2
 dogspml2 EQU dogspml1 + dogspmr2 - dogspmr1
 dogspml3 EQU dogspml2 + dogspmr3 - dogspmr2
 dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
-
-scrbuf:									; screen buffer		
-; -----------------------------------------------------------
-        dup (ROWNUM * ROWWIDB) - 256 ; 256 - size of the mirror table, which will be copied into upper memory page
-        db 0
-        edup
-		include "drawing/mirror_table.asm"
-; -----------------------------------------------------------
 
 		include "sound.asm"	
         

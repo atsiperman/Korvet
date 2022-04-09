@@ -1,4 +1,6 @@
 
+mirfilb:
+
 ; --------------------------
 ;
 ; table with bytes mirrored to their original values
@@ -121,6 +123,6 @@ mirrspr:
         pop de
         ret
 
+mirfile:
 
-
-
+MIRFLEN EQU mirfile - mirfilb
