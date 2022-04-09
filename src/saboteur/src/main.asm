@@ -32,10 +32,11 @@ scrbuf:									; screen buffer
         edup
 ; -----------------------------------------------------------
 
+		include "screens/trigger_map.asm"		
+		include "screens/object_map.asm"
+
 mirtable EQU 0c000h
 sabjmpr1 EQU mirtable + 256
-
-;sabjmpr1 EQU mirtable + 8192
 
 sabjmpr2 EQU sabjmpr1 + (_sabjmpr2 - _sabjmpr1)
 sabkckr1 EQU sabjmpr2 + (_sabkckr1 - _sabjmpr2)
@@ -69,11 +70,14 @@ dogspml2 EQU dogspml1 + dogspmr2 - dogspmr1
 dogspml3 EQU dogspml2 + dogspmr3 - dogspmr2
 dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
 
+ctrldata EQU dogspml4 + dogspmr4 - dogspmr3
+objmdata EQU ctrldata + cdataend - cdatast
+trmdata  EQU objmdata + objmend - objmst
+
         include "sprites/sab_sprites_control.asm"
 
 		include "sound.asm"	
-        
-		include "screens/object_map.asm"
+
         include "screens/masked_object_map.asm"
 		include "screens/static_object_map.asm"
         include "screens/screens.asm"
@@ -90,7 +94,6 @@ dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
 		include "screens/screens-110.asm"
 		include "screens/screens-120.asm"
 		
-		include "screens/trigger_map.asm"		
 		include "screens/screen_map.asm"		
 		
 		include "screen_control.asm"

@@ -24,6 +24,8 @@
     mktrig3 tractiv, colnum, rownum, trgmanl, trodskn, deskproc, data
     endm    
 
+trmapst:    ; start of trigger map
+
 s3trm:
     db 2
     mkdesk 24, 6, 0
@@ -72,3 +74,5 @@ s105trm:
 s113trm:
     db 1
     mkpipe 2, 10
+
+trmapend:    ; end of trigger map

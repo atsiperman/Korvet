@@ -1,3 +1,41 @@
+        macro savedata startptr, endptr, dest
+        ld  hl,startptr
+        ld  de,dest
+        ld  bc,endptr - startptr
+        call copymem
+        endm
+
+        macro rstordata startptr, endptr, dest
+        ld  hl,dest
+        ld  de,startptr
+        ld  bc,endptr - startptr
+        call copymem
+        endm
+
+        macro cpctrldata
+        savedata cdatast, cdataend, ctrldata
+        endm
+
+        macro rsctrldata
+        rstordata cdatast, cdataend, ctrldata
+        endm
+
+        macro cptrmap
+        savedata trmapst, trmapend, trmdata
+        endm
+
+        macro rstrmap
+        rstordata trmapst, trmapend, trmdata
+        endm
+
+        macro cpobjmap
+        savedata objmst, objmend, objmdata
+        endm
+
+        macro rsobjmap
+        rstordata objmst, objmend, objmdata
+        endm
+
 
 ; ----- initializes data
 ;
@@ -8,6 +46,10 @@ sabinit:
         ld  de,sabjmpr1
         ld  bc,_sabdead.sbdead - _sabjmpr1
         call copymem                        
+
+        cpctrldata
+        cptrmap
+        cpobjmap
 
         ; copy mirror table
         call cpmirtab

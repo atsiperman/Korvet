@@ -2,6 +2,8 @@
 ;	this file contains object definitions for all the screens
 ;
 
+objmst: ; start of objects map
+
 s3objm:
 		db 1								; number of objects
 		mkdog dirlt,dogspml1,0,20,4,1,22
@@ -130,3 +132,5 @@ s102om:
 s106om:
         db 1
         mkgun dirrt,17,0
+
+objmend: ; end of objects map

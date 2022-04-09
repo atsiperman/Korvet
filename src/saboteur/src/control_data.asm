@@ -99,7 +99,10 @@ HLDOGHIT	EQU 6			; hit by the dog
 
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
-			
+
+; start byte of the control data
+cdatast:
+
 ; ---- screen control block
 ;
 curscr: 	dw scrn3 		; pointer to current screen
@@ -132,7 +135,6 @@ othrown:
             db 0        ; colnum
             db 0        ; rownum
 
-
 trigchd:	db 0		; flag, = 1 when trigger has been changed 
 trtype:     db 0        ; trigger type (auto/manual)
 curtrig:	dw 0		; pointer to the current trigger data
@@ -140,12 +142,14 @@ trproc:	    dw 0		; pointer to the current trigger's procedure
 trotptr:    dw 0        ; pointer to trigger's object type
 trdtptr:    dw 0        ; pointer to trigger's custom data
 
-
 ; ----	saboteur health
 ;			
 sbhealth:
 		db HEALMAX			; 0, current health
 		db 0				; 1, old value
+
+; marker of the last data byte
+cdataend:
 
 		; ---- current state
 		macro sblcurst

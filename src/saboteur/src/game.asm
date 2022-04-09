@@ -1,6 +1,11 @@
 ; ---- init main game screen
 ginitscr:
         call clrtscr
+
+        rsctrldata
+        rstrmap
+        rsobjmap
+
         GRMODON
         ld a,COLORCLR 
         call fillvram	; clear screen with black
