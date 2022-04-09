@@ -3,8 +3,16 @@
 ;
         
 sabinit:
+        ; copy saboteur sprites into upper memory block
+        ld  hl,_sabjmpr1
+        ld  de,sabjmpr1
+        ld  bc,_sabdead.sbdead - _sabjmpr1
+        call copymem                        
+
+        ; copy mirror table
         call cpmirtab
 
+        ; mirror sprites 
         ld  hl,dogspmr1
         ld  de,dogspml1
 		call mirrspr

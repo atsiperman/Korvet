@@ -90,7 +90,6 @@ runmenu:
         call prauthor
         GRMODOFF
         
-
         call mnshow
 
 .mnkb:

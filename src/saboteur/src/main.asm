@@ -19,20 +19,37 @@
 		include "sprites/guard_sprites.asm"
 		include "sprites/static_object_sprites.asm"
         include "sprites/trigger_sprites.asm"
-        include "sprites/saboteur_sprites.asm"
 
 scrbuf:									; screen buffer		
 ; -----------------------------------------------------------
+        include "sprites/saboteur_sprites.asm"
 		include "drawing/mirror_table.asm"
-        dup (ROWNUM * ROWWIDB) - MIRFLEN ; MIRFLEN - size of the file with mirroring procs & data
+        ; MIRFLEN - size of the file with mirroring procs & data
+        ; minus total length of saboteur sprites data
+        ; this place will be reused as a screen buffer
+        dup (ROWNUM * ROWWIDB) - MIRFLEN - (_sabdead.sbdead - _sabjmpr1)
         db 0
         edup
 ; -----------------------------------------------------------
 
-        include "sprites/sab_sprites_control.asm"
-
 mirtable EQU 0c000h
-sabspml1 EQU mirtable + 256
+sabjmpr1 EQU mirtable + 256
+
+sabjmpr2 EQU sabjmpr1 + (_sabjmpr2 - _sabjmpr1)
+sabkckr1 EQU sabjmpr2 + (_sabkckr1 - _sabjmpr2)
+sabkckr2 EQU sabkckr1 + (_sabkckr2 - _sabkckr1)
+sabfall  EQU sabkckr2 + (_sabfall - _sabkckr2)
+sabsqtrt EQU sabfall + (_sabsqtrt - _sabfall)
+sablad1  EQU sabsqtrt + (_sablad1 - _sabsqtrt)
+sablad2  EQU sablad1 + (_sablad2 - _sablad1)
+sabsprt  EQU sablad2 + (_sabsprt - _sablad2)
+sabspmr1 EQU sabsprt + (_sabspmr1 - _sabsprt)
+sabspmr2 EQU sabspmr1 + (_sabspmr2 - _sabspmr1)
+sabspmr3 EQU sabspmr2 + (_sabspmr3 - _sabspmr2)
+sabspmr4 EQU sabspmr3 + (_sabspmr4 - _sabspmr3)
+sabdead  EQU sabspmr4 + (_sabdead - _sabspmr4)
+
+sabspml1 EQU sabdead + (_sabdead.sbdead - _sabdead)
 sabspml2 EQU sabspml1 + (sabspmr2 - sabspmr1)
 sabspml3 EQU sabspml2 + (sabspmr2 - sabspmr1)
 sabspml4 EQU sabspml3 + (sabspmr2 - sabspmr1)
@@ -45,10 +62,12 @@ sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
 sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
 sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
 
-dogspml1 EQU sabkckl2 + sabfall - sabkckr2
+dogspml1 EQU sabkckl2 + _sabfall - _sabkckr2
 dogspml2 EQU dogspml1 + dogspmr2 - dogspmr1
 dogspml3 EQU dogspml2 + dogspmr3 - dogspmr2
 dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
+
+        include "sprites/sab_sprites_control.asm"
 
 		include "sound.asm"	
         

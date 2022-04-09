@@ -59,7 +59,7 @@ sabjpslb:
 		dw sabjmpl1, sabjmpl2, sabjmpl2, sabjmpl2, sabjmpl1
 sabjpsle:
 
-SBKCKI1 EQU 2		; index of the sprite when 1-st phase changes 
-SBKCKI2 EQU 7		; index of the sprite when 2-nd phase changes 
-SBJPSPN	EQU (sabjmpre - sabjmprb - 1) / 2  
+SBKCKI1  EQU 2		; index of the sprite when 1-st phase changes 
+SBKCKI2  EQU 7		; index of the sprite when 2-nd phase changes 
+SBJPSPN	 EQU (sabjmpre - sabjmprb - 1) / 2  
 SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2  
