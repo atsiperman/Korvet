@@ -47,6 +47,11 @@ sabinit:
         ld  bc,_sabdead.sbdead - _sabjmpr1
         call copymem                        
 
+        ld  hl,_sabpnch
+        ld  de,sabpnchr
+        ld  bc,_sabpnch.endpnch - _sabpnch
+        call copymem                        
+
         cpctrldata
         cptrmap
         cpobjmap
@@ -112,6 +117,11 @@ sabinit:
         ld  hl,sabkckr2
         ld  de,sabkckl2               
 		call mirrspr
+
+        ld  hl,sabpnchr
+        ld  de,sabpnchl               
+		call mirrspr
+
         ret
 
 .initgdsp:
@@ -131,29 +141,4 @@ sabinit:
 		call mirrspr
 
 		ret
-		
-; ----- text ram init for constant places like timer
-;
-txtrinit:
-        ld hl,TRAM + TSTARTC + 22 + 64*(TSTARTR + 10)
-        ld (hl),CHFULL
-        inc hl
-        ld (hl),CHFULL
-
-        ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
-        ld  a,15
-        ld  c,CHBOTM
-        call filtline
-        ret
-
-; ----- print text strings
-;
-ptexts:
-        ld  b,NUMFGC
-        ld  c,NUMBKC
-
-        ld de,PAYSCRA
-        ld hl,paystr
-        call prntstr
-        
-        ret 
+.endinit		

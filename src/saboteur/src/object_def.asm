@@ -13,6 +13,7 @@ sbjump	EQU 7				; jumping
 sbsquat EQU 8				; squatting
 sbshjmp EQU 9				; short jump
 sbstmov EQU 10				; start moving
+sbpunch EQU 11              ; punch
 
 ; ---- dog state
 ;

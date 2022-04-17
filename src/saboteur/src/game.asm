@@ -1,3 +1,29 @@
+; ----- text ram init for constant places like timer
+;
+txtrinit:
+        ld hl,TRAM + TSTARTC + 22 + 64*(TSTARTR + 10)
+        ld (hl),CHFULL
+        inc hl
+        ld (hl),CHFULL
+
+        ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
+        ld  a,15
+        ld  c,CHBOTM
+        call filtline
+        ret
+
+; ----- print text strings
+;
+ptexts:
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+
+        ld de,PAYSCRA
+        ld hl,paystr
+        call prntstr
+        
+        ret 
+
 ; ---- init main game screen
 ginitscr:
         call clrtscr
@@ -158,7 +184,7 @@ gifspace:                   ; action
         jp   gend
 
 .gifsp1:
-        call sbthrow        ; throw the object being held or do a punch        
+        call sbhand        ; throw the object being held or do a punch        
 
 gend:		
 		ld a,1

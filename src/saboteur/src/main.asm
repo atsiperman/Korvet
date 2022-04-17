@@ -108,7 +108,10 @@ sabjmpl2 EQU sabjmpl1 + (sabjmpr2 - sabjmpr1)
 sabkckl1 EQU sabjmpl2 + (sabkckr1 - sabjmpr2)
 sabkckl2 EQU sabkckl1 + (sabkckr2 - sabkckr1)
 
-dogspml1 EQU sabkckl2 + _sabfall - _sabkckr2
+sabpnchr EQU sabkckl2 + _sabfall - _sabkckr2
+sabpnchl EQU sabpnchr + (_sabpnch.endpnch - _sabpnch)
+
+dogspml1 EQU sabpnchl + (_sabpnch.endpnch - _sabpnch)
 dogspml2 EQU dogspml1 + dogspmr2 - dogspmr1
 dogspml3 EQU dogspml2 + dogspmr3 - dogspmr2
 dogspml4 EQU dogspml3 + dogspmr4 - dogspmr3
@@ -125,13 +128,13 @@ gdsplt   EQU gdsprt + sabspmr1 - sabsprt
         ; minus total length of saboteur sprites data
         ; this place will be reused as a screen buffer
 
-TMPDLEN EQU MIRFLEN + (_sabdead.sbdead - _sabjmpr1) + (guarde - guardst)        
+TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) 
         dw TMPDLEN
         dw ROWNUM * ROWWIDB
         dup (ROWNUM * ROWWIDB) - TMPDLEN
         db 0
         edup
-                        
+
 		include "keyboard.asm"
 		include "game.asm"
         include "menu.asm"

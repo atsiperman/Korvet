@@ -166,8 +166,6 @@ sbstplna:
 ;
 sbthrow:
         ld   a,(sbholds)
-        or   a
-        ret  z                          ; nothing is held, return
 
         ld   hl,othrwlst
         dec  a                          ; get image index from object type
@@ -416,5 +414,17 @@ movthrn:
         jp   .mvdn1
 
 
-        
+; ---- throw the object being held or do a punch        
+; args: HL - address of control block 
+;
+sbhand:
+        ld   a,(sbholds)
+        or   a
+        jp   z,.hand1   ; nothing is held, return
+        call sbthrow
+        ret
 
+.hand1:
+        ld  a,sbpunch   ; set new state
+        sbscurst
+        ret        
