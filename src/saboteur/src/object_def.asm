@@ -78,6 +78,7 @@ objsize EQU	odcbend - odtype
 stobjsz EQU 6					; size of the static object
 mobjsz  EQU	4					; size of the masked object
 
+SPRHLEN EQU 3       ; sprite head length
 
 ; ----	makes control block for an object
 ;
@@ -142,9 +143,9 @@ troknif EQU 3       ; knife
 troston EQU 4       ; stone
 tropipe EQU 5       ; pipe
 trogrnd EQU 6       ; granade
-
 trodskn EQU 7       ; desk normal
 trodskp EQU 8       ; desk pressed
+trobomb EQU 9       ; bomb
 
 ; ---- trigger state
 ;

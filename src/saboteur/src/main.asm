@@ -16,24 +16,67 @@
 		include "sprites/dog_sprites.asm"				
 		include "sprites/frame_sprites.asm"				
 		include "sprites/strings.asm"
-		include "sprites/guard_sprites.asm"
 		include "sprites/static_object_sprites.asm"
         include "sprites/trigger_sprites.asm"
-
-scrbuf:									; screen buffer		
-; -----------------------------------------------------------
-        include "sprites/saboteur_sprites.asm"
-		include "drawing/mirror_table.asm"
-        ; MIRFLEN - size of the file with mirroring procs & data
-        ; minus total length of saboteur sprites data
-        ; this place will be reused as a screen buffer
-        dup (ROWNUM * ROWWIDB) - MIRFLEN - (_sabdead.sbdead - _sabjmpr1)
-        db 0
-        edup
-; -----------------------------------------------------------
-
 		include "screens/trigger_map.asm"		
 		include "screens/object_map.asm"
+
+        include "sprites/sab_sprites_control.asm"
+
+		include "sound.asm"	
+
+        include "screens/masked_object_map.asm"
+		include "screens/static_object_map.asm"
+        include "screens/screens.asm"
+		include "screens/screens-11.asm"
+		include "screens/screens-20.asm"
+		include "screens/screens-30.asm"
+		include "screens/screens-40.asm"
+		include "screens/screens-50.asm"
+		include "screens/screens-60.asm"
+		include "screens/screens-70.asm"
+		include "screens/screens-80.asm"
+		include "screens/screens-90.asm"
+		include "screens/screens-100.asm"
+		include "screens/screens-110.asm"
+		include "screens/screens-120.asm"
+		
+		include "screens/screen_map.asm"		
+		
+		include "screen_control.asm"
+		include "mem_utils.asm"
+		
+        include "logic/first_render_procs.asm"
+		include "logic/dog_control.asm"
+		include "logic/guard_control.asm"
+		        
+		include "tiles_control.asm"
+
+		include "drawing/scrbuf_utils.asm"
+		include "drawing/draw_frame.asm"		
+        include "drawing/screen_utils.asm"		
+		include "drawing/screen_draw.asm"
+		include "drawing/object_draw.asm"
+        include "drawing/draw_digits.asm"
+
+		include "logic/saboteur_utils.asm"
+		include "logic/saboteur_fall.asm"
+		include "logic/saboteur_ladder.asm"
+		include "logic/saboteur_action.asm"
+		include "logic/saboteur_control.asm"
+		include "logic/saboteur_movements.asm"
+		include "logic/saboteur_jump.asm"
+		include "logic/health.asm"
+		include "logic/gun_logic.asm"
+		include "logic/triggers.asm"
+        include "logic/wagons.asm"
+				
+;------ screen buffer		
+;
+scrbuf:
+		include "sprites/guard_sprites.asm"
+        include "sprites/saboteur_sprites.asm"
+		include "drawing/mirror_table.asm"
 
 mirtable EQU 0c000h
 sabjmpr1 EQU mirtable + 256
@@ -74,61 +117,27 @@ ctrldata EQU dogspml4 + dogspmr4 - dogspmr3
 objmdata EQU ctrldata + cdataend - cdatast
 trmdata  EQU objmdata + objmend - objmst
 
-        include "sprites/sab_sprites_control.asm"
+gdsprt   EQU trmdata + trmapend - trmapst
+gdsplt   EQU gdsprt + sabspmr1 - sabsprt        
 
-		include "sound.asm"	
-
-        include "screens/masked_object_map.asm"
-		include "screens/static_object_map.asm"
-        include "screens/screens.asm"
-		include "screens/screens-11.asm"
-		include "screens/screens-20.asm"
-		include "screens/screens-30.asm"
-		include "screens/screens-40.asm"
-		include "screens/screens-50.asm"
-		include "screens/screens-60.asm"
-		include "screens/screens-70.asm"
-		include "screens/screens-80.asm"
-		include "screens/screens-90.asm"
-		include "screens/screens-100.asm"
-		include "screens/screens-110.asm"
-		include "screens/screens-120.asm"
-		
-		include "screens/screen_map.asm"		
-		
-		include "screen_control.asm"
 		include "init.asm"
-		include "mem_utils.asm"
-		
-        include "logic/first_render_procs.asm"
-		include "logic/dog_control.asm"
-		include "logic/guard_control.asm"
-		        
-		include "tiles_control.asm"
+        ; MIRFLEN - size of the file with mirroring procs & data
+        ; minus total length of saboteur sprites data
+        ; this place will be reused as a screen buffer
 
-		include "drawing/scrbuf_utils.asm"
-		include "drawing/draw_frame.asm"		
-        include "drawing/screen_utils.asm"		
-		include "drawing/screen_draw.asm"
-		include "drawing/object_draw.asm"
-        include "drawing/draw_digits.asm"
-
-		include "logic/saboteur_utils.asm"
-		include "logic/saboteur_fall.asm"
-		include "logic/saboteur_ladder.asm"
-		include "logic/saboteur_action.asm"
-		include "logic/saboteur_control.asm"
-		include "logic/saboteur_movements.asm"
-		include "logic/saboteur_jump.asm"
-		include "logic/health.asm"
-		include "logic/gun_logic.asm"
-		include "logic/triggers.asm"
-        include "logic/wagons.asm"
-				
+TMPDLEN EQU MIRFLEN + (_sabdead.sbdead - _sabjmpr1) + (guarde - guardst)        
+        dw TMPDLEN
+        dw ROWNUM * ROWWIDB
+        dup (ROWNUM * ROWWIDB) - TMPDLEN
+        db 0
+        edup
+                        
 		include "keyboard.asm"
 		include "game.asm"
         include "menu.asm"
-				
+
+; -----------------------------------------------------------
+
 start:
 		di
 				

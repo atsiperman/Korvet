@@ -51,10 +51,16 @@ sabinit:
         cptrmap
         cpobjmap
 
+        call .initsbsp
+        call .initgdsp
+        ret
+
+.initsbsp:
         ; copy mirror table
         call cpmirtab
 
         ; mirror sprites 
+
         ld  hl,dogspmr1
         ld  de,dogspml1
 		call mirrspr
@@ -105,6 +111,23 @@ sabinit:
 
         ld  hl,sabkckr2
         ld  de,sabkckl2               
+		call mirrspr
+        ret
+
+.initgdsp:
+        ; guard sprites
+        ld  hl,sabsplt
+        ld  de,gdsplt
+        ld  bc,sabspmr1 - sabsprt
+        call copymem
+
+        ld  hl,gdhead
+        ld  de,gdsplt + SPRHLEN
+        ld  bc,gdhead.heade - gdhead
+        call copymem
+
+        ld  hl,gdsplt
+        ld  de,gdsprt               
 		call mirrspr
 
 		ret

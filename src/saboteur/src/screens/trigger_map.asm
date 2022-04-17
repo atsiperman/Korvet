@@ -55,9 +55,10 @@ s25trm:
     mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn1trr        ; right trigger is disabled 
 
 s30trm:
-    db 2
+    db 3
     mkgrnd 6, 12
     mkdesk 17,12,0
+    mktrig 24, 12, trgmanl, trobomb, itmproc
 
 s41trm:
     db 1

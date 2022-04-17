@@ -11,6 +11,7 @@ trimglst:
         dw granade
         dw desknorm
         dw deskprsd
+        dw bombspr
 
 ; ---- list of objects which can be thrown
 othrwlst:
@@ -268,3 +269,31 @@ deskprsd:
         db CCYAN, 0, 3, 250, 0, CBLACK 
         db CCYAN, 0, 3, 254, 0, CBLACK 
         db CCYAN, 0, 0, 0, 0, CBLACK 
+
+bombspr:
+        db 4,24
+        db CRED, 0, 0, 0, 0, CBLUE
+        db CRED, 0, 6, 128, 0, CBLUE
+        db CRED, 0, 137, 64, 0, CBLUE 
+        db CRED, 1, 104, 32, 0, CBLUE
+        db CRED, 2, 16, 51, 0, CBLUE
+        db CRED, 7, 119, 18, 0, CBLUE
+        db CRED, 7, 119, 127, 192, CBLUE
+        db CRED, 7, 119, 127, 192, CBLUE
+        db CRED, 7, 119, 110, 192, CBLUE
+        db CRED, 7, 119, 85, 80, CBLUE
+        db CRED, 7, 119, 85, 80, CBLUE
+        db CRED, 7, 119, 85, 80, CBLUE
+        db CRED, 7, 119, 110, 208, CBLUE
+        db CRED, 7, 119, 127, 192, CBLUE
+        db CRED, 7, 119, 127, 192, CBLUE
+        db CRED, 7, 119, 127, 192, CBLUE
+        
+        db CYELLOW, 0, 0, 0, 0, CBLACK
+        db CYELLOW, 60, 242, 39, 142, CBLACK
+        db CYELLOW, 32, 147, 100, 18, CBLACK
+        db CYELLOW, 60, 146, 167, 146, CBLACK
+        db CYELLOW, 36, 146, 36, 158, CBLACK
+        db CYELLOW, 36, 146, 36, 146, CBLACK
+        db CYELLOW, 60, 242, 39, 146, CBLACK
+        db CYELLOW, 0, 0, 0, 0, CBLACK
