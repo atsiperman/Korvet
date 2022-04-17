@@ -22,6 +22,15 @@ s4mom:
 		mkmasko fencert,17,6
 		mkmasko fencertl,18,6
 
+s5mom:
+		db 6
+		mkmasko fenceltl,14,6
+		mkmasko fencelt,15,6
+		mkmasko fencelt,16,7
+		mkmasko fencelt,17,8
+		mkmasko fencelt,18,9
+		mkmasko fencelt,19,10
+
 s6mom:
 		db 5
 		mkmasko bigplate,3,13
@@ -36,6 +45,20 @@ s7mom:
 		mkmasko fencert,22,11
 		mkmasko fencert,23,10
 		mkmasko fencertl,24,10
+
+s8mom:
+		db 1
+		mkmasko trash,18,14
+
+s9mom:
+		db 2
+        mkmasko smlplate,16,12
+		mkmasko bigplate,16,13
+
+s16mom:
+		db 2
+		mkmasko trash,9,13
+        mkmasko trash,20,13
 
 s23mom:
         db 1
@@ -63,6 +86,18 @@ s37mom:
 		mkmasko	s36wfrm, 19, 8
 		mkmasko s36wfrmr, 23, 8
 
+s41mom:
+		db 1
+        mkmasko desk, 4, 10
+
+s45mom:
+		db 5
+		mkmasko fenceltl,16,9
+		mkmasko fencelt,17,9
+		mkmasko fencelt,18,10
+		mkmasko fencelt,19,11
+		mkmasko fencelt,20,12
+
 s51mom:
         db 1
         mkmasko desk, 19, 12
@@ -75,6 +110,15 @@ s57mom:
         mkmasko s57hndl, 16, 9
         mkmasko s57hrt, 16, 11
         mkmasko s57hndl, 16, 12
+
+s60mom:
+        db 1
+        mkmasko desk, 24, 11
+
+s61mom:
+        db 2
+        mkmasko desk, 13, 11
+        mkmasko desk, 19, 11
 
 s64mom:
         db 1

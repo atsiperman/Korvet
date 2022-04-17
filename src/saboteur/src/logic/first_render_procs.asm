@@ -11,6 +11,13 @@ ylwdorst:
         edup
         ret
 
+; ---- first render post processor for screen N-45.
+;
+s45rndr:
+        ld  hl, scrbuf + COLWIDB * 10 + ROWWIDB * 5 + TLMDATR        
+        ld  a,doorcls
+        jp  doorprc
+
 ; ---- first render post processor for screen N-55.
 ;
 s55rndr:

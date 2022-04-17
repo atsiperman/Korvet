@@ -31,9 +31,17 @@ s3trm:
     mkdesk 24, 6, 0
     mkbrick 22, 15
 
+s8trm:
+    db 1
+    mkbrick 21, 15
+
+s9trm:
+    db 1
+    mkknife 17, 13
+
 s16trm:
     db 3    
-    mkstone 12,14
+    mkstone 11,14
     mkstone 21,14
     mkbrick 23,14
 
@@ -47,8 +55,17 @@ s25trm:
     mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn1trr        ; right trigger is disabled 
 
 s30trm:
-    db 1
+    db 2
     mkgrnd 6, 12
+    mkdesk 17,12,0
+
+s41trm:
+    db 1
+    mkdesk 4,13,0
+
+s45trm:
+    db 1
+    mkknife 23, 15
 
 s51trm:
     db 1
@@ -58,10 +75,23 @@ s57trm:
     db 1
     mkpipe 5, 14
 
+s60trm:
+    db 1
+    mkdesk 24,14,0
+
+s61trm:
+    db 2
+    mkdesk 13,14,0
+    mkdesk 19,14,0
+
 s64trm:
     db 2
     mktrig           13, 14, trgauto + trxonly, wgntract, wgn2trl
     mktrig2 trdisab, 15, 14, trgauto + trxonly, wgntract, wgn2trr        ; right trigger is disabled 
+
+s65trm:
+    db 1
+    mkbrick 8, 14
 
 s70trm:
     db 1

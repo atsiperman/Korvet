@@ -147,7 +147,24 @@ smap41e:
         db SCREND
         db OBJMAP
         dw s41objm
+        db MSKOMAP
+        dw s41mom
+        db TRIGMAP
+        dw s41trm
+        db TXTSMAP
+        dw scr41txd
         db SCREND
+
+scr41txd:
+		mkbyte TXLINEV,5
+			mktxtaddr 26, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 26, 8
+			db CHBOTM
+
+		db SCREND
 		
 ; --- end of scrbk41
 		
@@ -246,8 +263,23 @@ smap42e:
 		mkbyte 1,0
 		mkline 7
 		db 0
-		
-		mscrend
+
+		db SCREND		
+        db TXTSMAP
+        dw scr42txd
+        db SCREND
+
+scr42txd:
+		mkbyte TXLINEV,5
+			mktxtaddr 1, 3
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 8
+			db CHBOTM
+
+		db SCREND
+
 		
 ; --- end of scrbk42
 
@@ -300,7 +332,37 @@ smap43e:
 			db 0			
 		;edup
 		
-		mscrend
+		db SCREND		
+        db TXTSMAP
+        dw scr43txd
+        db SCREND
+
+scr43txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 1, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 1, 4
+			db CHTOP
+
+		mkbyte TXLINEV,4
+			mktxtaddr 1, 5
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 6, 4
+			db CHTOP
+
+		mkbyte TXLINEV,4
+			mktxtaddr 6, 5
+			db CHFULL
+
+		db SCREND
 		
 ; --- end of scrbk43
 
@@ -345,7 +407,29 @@ smap44e:
 			mkbyte 1,1
 		;edup
 		
-		mscrend
+		db SCREND		
+        db TXTSMAP
+        dw scr44txd
+        db SCREND
+
+scr44txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 26, 0
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 26, 1
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 26, 4
+			db CHTOP
+
+		mkbyte TXLINEV,4
+			mktxtaddr 26, 5
+			db CHFULL
+
+        db SCREND
 		
 ; --- end of scrbk44
 
@@ -545,7 +629,14 @@ smap45e:
 		mkline 10
 		db 0		
 		
-		mscrend
+        db SCREND
+        db MSKOMAP
+        dw s45mom
+        db TRIGMAP
+        dw s45trm
+        db FSTRDRP
+        dw s45rndr
+        db SCREND
 		
 ; --- end of scrbk45
 

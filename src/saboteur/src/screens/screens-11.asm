@@ -522,6 +522,8 @@ smap16e:
         db SCREND		
         db TRIGMAP
         dw s16trm
+        db MSKOMAP
+        dw s16mom
         db SCREND
 
 ; --- end of scrbk16
@@ -683,7 +685,13 @@ smap18e:
 		mkbyte 6,0
 		db 0
 
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s8mom
+        db TRIGMAP
+        dw s8trm
+        db SCREND
+
 ; --- end of scrbk18
 
 scrbk19:

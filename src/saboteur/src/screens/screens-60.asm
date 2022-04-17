@@ -75,6 +75,10 @@ smap60e:
 		db SCREND
         db OBJMAP        
         dw s60objm
+        db MSKOMAP
+        dw s60mom
+        db TRIGMAP
+        dw s60trm
         db SCREND
 		
 ; --- end of scrbk60
@@ -145,7 +149,28 @@ smap61e:
 			db 0
 			db 0
 		;edup
-		mscrend
+
+		db SCREND
+        db OBJMAP
+        dw s61objm
+        db MSKOMAP
+        dw s61mom
+        db TRIGMAP
+        dw s61trm
+        ;db TXTSMAP
+        ;dw scr63txd
+		db SCREND
+		
+; scr63txd:
+; 		mkbyte TXLINEH,15
+; 			mktxtaddr 15, 7
+; 			db CHFULL
+; 		mkbyte TXLINEH,1
+; 			mktxtaddr 29, 7
+; 			db CHFULL
+
+; 		db SCREND
+
 		
 ; --- end of scrbk61
 
@@ -635,7 +660,9 @@ smap65e:
 		;edup
 		
 		db SCREND
-        db TXTSMAP
+        db TRIGMAP
+        dw s65trm
+        db TXTSMAP        
         dw scr65txd
 		db SCREND
 		

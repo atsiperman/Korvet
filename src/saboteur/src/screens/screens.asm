@@ -432,6 +432,8 @@ smap5e:
 		db SCREND
         db TXTSMAP
         dw scr5txd
+        db MSKOMAP
+        dw s5mom
 		db SCREND
 
 scr5txd:
@@ -623,6 +625,7 @@ smap7b:
 		bkindex BK7ADDR     ; 5, big yellow brick
 		bkindex BK11ADDR	; 6, blue ladder top left
 		bkindex BK12ADDR	; 7, blue ladder top right		
+        bkindex BK62ADDR    ; 8, horizontal white door
 smap7e:				
 		mkdup 5
 			mkline 5
@@ -636,8 +639,8 @@ smap7e:
 		mkline 5
 		db 0
 							; ladder
-		mkbyte 0,2
-		mkbyte 3,0		
+		mkbyte 0,8
+		mkbyte 8,0		
 		mkline 8
 		db 0
 							;
@@ -1054,6 +1057,10 @@ smap9e:
         dw s9objm
         db TXTSMAP
         dw scr9txd
+        db TRIGMAP
+        dw s9trm
+        db MSKOMAP
+        dw s9mom
         db SCREND
 		
 scr9txd:
