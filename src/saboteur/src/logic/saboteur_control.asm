@@ -427,12 +427,22 @@ setdead:
 ; args: HL - address of control block 
 ;
 sbhand:
+        sbscurst sbpunch    ; set punch state
+        ld  de,sabpnchr
+        sblddir             ; load direction
+        cp  dirrt
+        jp  z,.hand1
+        ld  de,sabpnchl
+
+.hand1:
+        sbscursp 
+
         ld   a,(sbholds)
         or   a
-        jp   z,.hand1   ; nothing is held, return
+        jp   z,.hand2   ; nothing is held
         call sbthrow
         ret
 
-.hand1:
-        sbscurst sbpunch    ; set punch state
+.hand2:
+        call tstokick
         ret        
