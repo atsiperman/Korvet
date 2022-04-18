@@ -61,5 +61,7 @@ sabjpsle:
 
 SBKCKI1  EQU 2		; index of the sprite when 1-st phase changes 
 SBKCKI2  EQU 7		; index of the sprite when 2-nd phase changes 
+SBKICKI  EQU 3      ; index of the sprite when it is necessary to check whether some object is kicked
+
 SBJPSPN	 EQU (sabjmpre - sabjmprb - 1) / 2  
 SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2  

@@ -124,17 +124,30 @@ sbmain:
 		
         call kbread
 		and 255
-		jp nz,gkifesc
+		jp nz,gifspace
 		call sbnoactn
 		jp gend
 				
-gkifesc:		
-		cp KESC
-		jp nz,gifrtup
-		xor a
-		ret z			; exit button - end game	
+gifspace:       
+        ld  c,a
+        and KSPACE
+        jp  z,gifrtup      ; not space, do text test 
+
+                            ; action
+        ld   a,(trtype)  
+        or   a          
+        jp   z,.gifsp1      ; no triggers, continue
+        and  trgmanl
+        jp   z,.gifsp1      ; trigger is not manual, continue
+        call trigrun        ; run manual trigger
+        jp   gend
+
+.gifsp1:
+        call sbhand        ; throw the object being held or do a punch        
+        jp   gend
 						
-gifrtup:				
+gifrtup:
+        ld a,c
 		cp KRIGHT + KUP	; right + up
 		jp z,gifupdo
 		cp KLEFT + KUP	; left + up
@@ -170,21 +183,16 @@ gifup:
 gifdown:
 		ld a,c
 		and KDOWN
-		jp z,gifspace
+		jp z,gkifesc
 		call gkdown
 		jp gend
 
-gifspace:                   ; action
-        ld   a,(trtype)  
-        or   a          
-        jp   z,.gifsp1      ; no triggers, continue
-        and  trgmanl
-        jp   z,.gifsp1      ; trigger is not manual, continue
-        call trigrun        ; run manual trigger
-        jp   gend
-
-.gifsp1:
-        call sbhand        ; throw the object being held or do a punch        
+gkifesc:		
+		ld a,c
+		cp KESC
+		jp nz,gend
+		xor a
+		ret z			; exit button - end game	
 
 gend:		
 		ld a,1

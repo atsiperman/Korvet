@@ -89,6 +89,13 @@ sbdokick:
 		
 		sblcursi			; load sprite index
 		inc a
+        cp  SBKICKI
+        jp  nz,.kick1
+        push af
+        call tstokick       ; test if an object is kicked
+        pop  af
+
+.kick1:        
 		cp c
 		jp z,sbdokcke		; last sprite, stop kicking
 
@@ -159,3 +166,107 @@ sbdokcke:
 		ret z
 		jp sbdokck2			; go to initial column
 	
+
+; ---- makes a test whether saboteur is kicking someone
+;
+tstokick:
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+        sblcursp            ; load saboteur sprite 
+        ex  de,hl           ; into HL
+		inc hl			    ; skip color
+        inc hl
+        ld c,(hl)		    ; sprite width        
+
+        sblcursr            ; load saboteur's row
+        inc a               ; get kick row
+        inc a
+        ld  b,a             ; save row into B
+        sblcursc            ; load saboteur's column
+        ld  e,a             ; into E
+        sblddir             ; load direction
+        cp dirlt
+        jp  z,.tst1
+        ld  a,c             ; load sprite width into A
+        add e               ; calculate right column
+        dec a
+        ld  e,a             ; save it in E
+        
+.tst1:
+        ld  c,e             ; save feet column in C
+
+		ld hl,(objlist)		; HL - address of the object list
+		ld a,(hl)			; load number of objects
+		
+		inc hl				; set to the first object
+		
+.loop:
+		push hl
+		push af
+        push bc
+		call .tstobj
+        pop bc
+		pop af
+		pop hl
+		
+		ld de,objsize	
+		add hl,de
+		
+		dec a
+		jp nz,.loop
+		ret
+
+; args: HL - object control block
+;       B  - feet row
+;       C  - feet column
+.tstobj:        
+        push hl         ; save control block        
+        push bc
+
+        ldcursr         ; load screen row
+        ld  d,a         ; save it in D
+        pop bc
+        ld  a,b         ; feet row into A
+        cp  d           ; compare with object's start row
+        jp  c,.endtst   ; exit if start row is greater than feet row - object is under feet
+
+        pop  hl
+        push hl
+        push bc         ; save row/col
+
+        push de         ; save row
+		ldcurspr		; load address of the current sprite into DE				        
+		inc de			; skip color
+		ld a,(de)		; sprite height
+        pop de          ; restore row in D
+        add d
+        dec a
+        pop bc          ; restore saboteur's row/col
+        cp  b           ; compare sab's row with obj's bottom row in E
+        jp  c,.endtst
+
+        pop  hl
+        push hl
+        ld  e,c         ; save saboteur's column in E
+        ldcursc         ; load screen column
+        inc  a          ; check for column inside body
+        cp   e
+        jp   z,.mkdead
+        inc  a          ; check for column inside body
+        cp   e
+        jp   nz,.endtst
+
+.mkdead:
+        pop  hl
+        call setdead
+        ret
+
+.endtst:        
+        pop hl
+        ret
+
+
+

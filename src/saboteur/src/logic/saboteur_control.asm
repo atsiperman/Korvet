@@ -314,23 +314,9 @@ movthrn:
 
         pop  hl
         pop  af
-        push hl
-        scurst objdead
-        pop  hl
-        ld   a,(hl)         ; load object type
-        cp   oguard
-        jp   nz,.chokil1     ; set guard sprite
-        ld   de,sabdead
-        jp   .chokil2
+        
+        call setdead
 
-.chokil1:
-        ld   de,dogdedsp     ; set dog dead
-
-.chokil2:        
-        push hl
-        scurspr 
-        pop  hl
-        call .mvdown
         xor  a
         ld   (othrown),a            ; movement is finished
         ret
@@ -347,10 +333,33 @@ movthrn:
 		
 		ret
 
+; ---- makes object dead: sets state and sprite for dead object
+; args: HL - address of control block 
+;
+setdead:
+        push hl
+        scurst objdead
+        pop  hl
+        ld   a,(hl)         ; load object type
+        cp   oguard
+        jp   nz,.std1     ; set guard sprite
+        ld   de,sabdead
+        jp   .std2
+
+.std1:
+        ld   de,dogdedsp     ; set dog dead
+
+.std2:        
+        push hl
+        scurspr 
+        pop  hl
+        call .mvdead
+        ret
+
 ; ---- moves down dead sprite until wall tile is found
 ; args: HL - address of control block 
 ;
-.mvdown:
+.mvdead:
         push hl
         ldcurspr        
         ex   de,hl      ; sprite pointer into HL
@@ -425,6 +434,5 @@ sbhand:
         ret
 
 .hand1:
-        ld  a,sbpunch   ; set new state
-        sbscurst
+        sbscurst sbpunch    ; set punch state
         ret        
