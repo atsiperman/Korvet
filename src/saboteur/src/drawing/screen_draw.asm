@@ -523,7 +523,7 @@ scrch1_:
         call postproc
         GRMODOFF
 		call drawtram		; draw text ram for new screen
-
+        call clrscrch       ; clear data before moving to another screen
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
 				

@@ -38,10 +38,6 @@ fstrdrp:    dw 0        ; pointer to first render post processing procedure
 otramdef:	dw 0		; pointer to definition of text ram for old screen
 ; otramdef MUST be the last one
 
-            ; macro mktiladr colnum, rownum
-            ; dw scrbuf + (colnum * COLWIDB) + (rownum * ROWWIDB)
-            ; endm
-
             macro skip_buf_tile_head reg_pair
                 dup 4
                     inc reg_pair
@@ -129,6 +125,19 @@ scorchg:    db 1                ; score changed
 ; ---- object thrown by saboteur
 ;
 othrown:    
+            db 0        ; direction where object has been thrown            
+            dw 0        ; image address of an object thrown
+            db 0        ; colnum
+            db 0        ; rownum
+
+; ---- flag, whether object has been already thrown by guard
+;
+gfthrwn:
+            db 0
+            
+; ---- object thrown by guard
+;
+gthrown:
             db 0        ; direction where object has been thrown            
             dw 0        ; image address of an object thrown
             db 0        ; colnum

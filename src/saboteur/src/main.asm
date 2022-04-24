@@ -70,6 +70,7 @@
 		include "logic/gun_logic.asm"
 		include "logic/triggers.asm"
         include "logic/wagons.asm"
+        include "logic/helpers.asm"        
 				
 ;------ screen buffer		
 ;
