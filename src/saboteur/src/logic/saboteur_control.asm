@@ -162,7 +162,7 @@ sbstplna:
 		call sbstopst
 		ret
 
-; ---- saboteur throws an object
+; ---- saboteur throws a weapon object
 ;
 sbthrow:
         ld   a,(sbholds)
@@ -190,7 +190,7 @@ sbthrow:
 
 .sbthr1:       
         ld   a,c
-        ld   de,othrown + odfcoln        
+        ld   de,othrown + odfcoln       ; save address in DE, it will be used for storing rownum
         ld   (de),a                     ; save colnum
 
         sblcursr
@@ -198,39 +198,60 @@ sbthrow:
         inc  de                         ; move to rownum
         ld   (de),a
 
-.sbthre:
         xor  a
         ld   (sbholds),a    ; object is thrown
         inc  a
         ld   (sbhldch),a    ; redraw object
 
-        jp   movthrn        ; check next column to 
+        jp   movthrnw        ; check next column to move
 
 
-
-; ---- moving thrown object
+; ---- moving weapon thrown by saboteur
 ;
-movthrn:
+movthrnw:
         ld   a,(othrown)
         or   a
-        ret  z                      ; 0 direction means no object is moving
+        ret  z              ; 0 direction means no object is moving
 
-        ld   d,a                    ; save direction in D
+        ld  hl,othrown
+        ld  (wpobjp),hl
+        ld  hl,othrown + odfcoln
+        ld  (wpcolp),hl
+        ld  hl,othrown + odfrown
+        ld  (wprowp),hl
 
-        ld   a,(othrown + odfcoln)  ; load colnum
-        ld   c,a                    ; save in C
+        ld  hl,movweap.chkokil       ; start address of the code to test against guard/dog
+        ld  (movweap.kiljp + 1),hl
 
-        ld   a,d                    ; restore direction in A
+        jp  movweap
+
+
+wpobjp:  dw 0       ; pointer to object
+wpcolp:  dw 0       ; pointer to object's column
+wprowp:  dw 0       ; pointer to object's row
+
+; ---- move thrown weapon
+;
+movweap:
+        ld   hl,(wpobjp)
+        ld   d,(hl)            ; save direction in D
+
+        ld   hl,(wpcolp)
+        ld   a,(hl)         ; load colnum
+        ld   c,a            ; save in C
+
+        ld   a,d            ; restore direction in A
         cp   dirrt
         jp   z,.mvthr1
 
-        ld   a,c                    ; moving left
-        cp   2                      ; last column on the left, stop moving
+        ld   a,c            ; moving left
+        cp   2              ; last column on the left, stop moving
         jp   c,.mvthre
 
         dec  a
         dec  a
-        ld   (othrown + odfcoln),a
+        ld   hl,(wpcolp)
+        ld   (hl),a
         jp   .mvthr2
 
 .mvthr1:
@@ -240,22 +261,31 @@ movthrn:
 
         inc  a
         inc  a
-        ld   (othrown + odfcoln),a
+        ld   hl,(wpcolp)
+        ld   (hl),a
 
 .mvthr2:
         ld   d,a
-        ld   a,(othrown + odfrown)  ; load row 
+        ld   hl,(wprowp)
+        ld   a,(hl)         ; load row 
         ld   e,a
         call shscradr
 
         ld   a,(hl)
         and  bwall
-        jp   z,.chkokil             ; no wall - keep flying, check if alive object is on the way
+.kiljp:        
+        jp   z,.chkokil     ; no wall - keep flying, check if alive object is on the way
 
 .mvthre:
         xor  a
-        ld   (othrown),a            ; movement is finished
+        ld   hl,(wpobjp)
+        ld   (hl),a         ; movement is finished
         ret
+
+.chksbkl:
+        ld  a,1             ; number of objects - saboteur only
+        ld  hl,sbctrlb
+        jp  .chokil         
 
 .chkokil:
 		ld hl,(objlist)		; HL - address of the object list
@@ -282,13 +312,16 @@ movthrn:
         inc  hl
         ld   c,(hl)          ; save row in C
 
-        ld   a,(othrown + odfrown)  ; load weapon's Y
+        ld   hl,(wprowp)
+        ld   a,(hl)         ; load weapon's Y
+
         cp   c
-        jp   c,.chokile    ; less than object's Y, fying over the object
-        
-        ld   a,(othrown + odfcoln)  ; load weapon's X
+        jp   c,.chokile     ; less than object's Y, fying over the object
+
+        ld   hl,(wpcolp)
+        ld   a,(hl)         ; load weapon's X
         cp   b
-        jp   c,.chokile    ; less than object's X, has not reached object yet
+        jp   c,.chokile     ; less than object's X, has not reached object yet
 
         pop  hl
         push hl
@@ -300,17 +333,24 @@ movthrn:
         ld   a,c            ; load object's row into A
         add  a,(hl)         ; get Y under feet
         ld   e,a            ; save Y in E
-        ld   a,(othrown + odfrown)  ; load weapon's Y
+
+        push hl
+        ld   hl,(wprowp)
+        ld   a,(hl)         ; load weapon's Y
+        pop  hl
+        
         cp   e
-        jp   nc,.chokile     ; greater or equal to object's Y, fying under the object
+        jp   nc,.chokile    ; greater or equal to object's Y, fying under the object
 
         inc  hl             ; move to object sprite width
         ld   a,b            ; load object's column into A
         add  a,(hl)         ; get X after objects right border
         ld   e,a            ; save X in E
-        ld   a,(othrown + odfcoln)  ; load weapon's X
+
+        ld   hl,(wpcolp)
+        ld   a,(hl)         ; load weapon's X
         cp   e
-        jp   nc,.chokile     ; greater or equal to object's right border, not inside object's box
+        jp   nc,.chokile    ; greater or equal to object's right border, not inside object's box
 
         pop  hl
         pop  af
@@ -318,7 +358,8 @@ movthrn:
         call setdead
 
         xor  a
-        ld   (othrown),a            ; movement is finished
+        ld   hl,(wpobjp)
+        ld   (hl),a         ; movement is finished
         ret
 
 .chokile:
@@ -341,8 +382,8 @@ setdead:
         scurst objdead
         pop  hl
         ld   a,(hl)         ; load object type
-        cp   oguard
-        jp   nz,.std1     ; set guard sprite
+        cp   odog
+        jp   z,.std1        ; set dog sprite
         ld   de,sabdead
         jp   .std2
 

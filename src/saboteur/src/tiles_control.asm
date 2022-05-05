@@ -180,10 +180,18 @@ utlmmobj:
 		pop hl
 		ret
 
+; ---- update tile map for object thrown by guard
+;
+utlmthog:
+        ld   hl,gthrown
+        jp   utlmtho.utlm1
+
 ; ---- update tile map for thrown object
 ;
 utlmtho:
         ld   hl,othrown
+
+.utlm1:
         ld   a,(hl)
         or   a
         ret  z                      

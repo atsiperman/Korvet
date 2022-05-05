@@ -66,6 +66,7 @@ gmain:
         ret nz
 
         call movthrn        ; move thrown object if any
+        call movgweap       ; move guard's weapon if any
 		call gaction		; process objects        		
 		call sbmain			; process saboteur
 		push af

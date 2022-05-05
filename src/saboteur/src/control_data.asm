@@ -130,7 +130,7 @@ othrown:
             db 0        ; colnum
             db 0        ; rownum
 
-; ---- flag, whether object has been already thrown by guard
+; ---- flag, whether object has been already thrown by guard on the current screen
 ;
 gfthrwn:
             db 0
