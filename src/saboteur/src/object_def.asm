@@ -229,8 +229,6 @@ odfrown EQU 4       ; rownum
 ; args: HL - address of control block 
 ; 
 		macro ldstate
-		;ld bc,odcurst
-		;add hl,bc
         inc hl
         inc hl
         inc hl

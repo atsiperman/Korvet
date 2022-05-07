@@ -3,9 +3,71 @@
 ;
 
 ; ---- guard control procedure
-; args: HL - address of control block
+; args: DE - address of control block
 ;
 guardact:
+        ex   de,hl                       ; load control block into HL
+
+        push hl
+        ldstate
+        pop  hl
+        cp   objdead        
+        ret z
+        
+        ld   a,(gfsbseen)                
+        or   a                          ; seen saboteur ?
+        jp   nz,.gdact1                 ; do action if yes
+
+        call gdseesab                   ; otherwise check whether he is visible or not
+        ret
+
+.gdact1:
+        call gdtrythr                
+        ret
+
+
+; ---- checks whether guard sees saboteur
+; args: HL - address of control block
+; result:
+;       A - 1 - yes, 0 - no
+gdseesab:
+        push hl
+
+        ldcursc
+        ld   d,a                        ; save column in D
+        pop  hl
+        push hl
+
+        ldcursr
+        ld   e,a                        ; save row in E
+        pop  hl
+        push hl
+
+        lddir                           ; load guard's direction
+        pop  hl
+        cp   dirlt
+        jp   z,.gdslt
+                                        ; looking right
+        sblcursc                        ; load saboteur's column
+        sub  d
+        jp   nc,.gdsyes
+        ret
+
+.gdslt:                                 ; looking left
+        sblcursc                        ; load saboteur's column
+        sub  d
+        jp   c,.gdsyes
+        ret
+
+.gdsyes:
+        ld   a,1
+        ld   (gfsbseen),a
+        ret
+
+; ---- try to throw guard's weapon
+; args: HL - address of control block
+;
+gdtrythr:
         ld   a,(gfthrwn)                ; is object thrown ?
         or   a
         ret  nz                         ; yes, go back
@@ -14,14 +76,13 @@ guardact:
         or   a
         ret  nz                         ; yes, go back
 
-        ex   de,hl                       ; load control block into HL
-        call gdthrow
-		ret
+;         call gdthrow
+; 		ret
 
-; ---- guard throws a weapon object
-; args: HL - address of control block
-;
-gdthrow:
+; ; ---- guard throws a weapon object
+; ; args: HL - address of control block
+; ;
+; gdthrow:
         push hl                         ; save control block
 
         ld   hl,smknife
@@ -66,7 +127,7 @@ gdthrow:
 movgweap:
         ld   a,(gthrown)
         or   a
-        ret  z              ; 0 direction means no object is moving
+        ret  z                      ; 0 direction means no object is moving
 
         ld  hl,gthrown
         ld  (wpobjp),hl
@@ -78,5 +139,5 @@ movgweap:
         ld  hl,movweap.chksbkl      ; start address of the code to test against saboteur
         ld  (movweap.kiljp + 1),hl
 
-        jp  movweap         ; check next column to move on
+        jp  movweap                 ; check next column to move on
 

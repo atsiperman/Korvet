@@ -355,7 +355,7 @@ movweap:
         pop  hl
         pop  af
         
-        call setdead
+        call trydamge
 
         xor  a
         ld   hl,(wpobjp)
@@ -373,6 +373,17 @@ movweap:
 		jp nz,.chokil
 		
 		ret
+
+; ---- makes damage to the object (guard or saboteur)
+; args: HL - address of control block 
+;
+trydamge:
+        ld  a,(hl)          ; load object type
+        cp  osabotr         ; is saboteur ?
+        jp  nz,setdead      ; no, set dead
+        ld  a,HLKNFHIT
+        call hldec
+        ret
 
 ; ---- makes object dead: sets state and sprite for dead object
 ; args: HL - address of control block 

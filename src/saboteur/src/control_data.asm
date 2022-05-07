@@ -92,6 +92,7 @@ HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 6			; hit by the dog
+HLKNFHIT	EQU 15			; hit by the guard's knife
 
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
@@ -101,7 +102,7 @@ cdatast:
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn30 		; pointer to current screen
+curscr: 	dw scrn35 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -109,7 +110,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7
+            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
+            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
@@ -132,13 +134,15 @@ othrown:
 
 ; ---- flag, whether object has been already thrown by guard on the current screen
 ;
-gfthrwn:
-            db 0
-            
+gfthrwn:    db 0
+
+; ---- flag, whether guard has seen the saboteur
+;
+gfsbseen:   db 0
+
 ; ---- object thrown by guard
 ;
-gthrown:
-            db 0        ; direction where object has been thrown            
+gthrown:    db 0        ; direction where object has been thrown            
             dw 0        ; image address of an object thrown
             db 0        ; colnum
             db 0        ; rownum

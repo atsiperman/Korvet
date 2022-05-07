@@ -44,7 +44,7 @@ s35objm:
 
 s36objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,9,9,8,22
+		mkguard gdstay,dirlt,scrbuf,gdsplt,0,9,9,8,22
 
 s38objm:
 		db 1
@@ -60,7 +60,7 @@ s41objm:
 
 s46objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,12,6,5,20
+		mkguard gdstay,dirlt,scrbuf,gdsplt,0,12,6,5,20
 
 s48objm:
 		db 2
@@ -89,7 +89,7 @@ s58objm:
 
 s60objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
+		mkguard gdstay,dirrt,scrbuf,gdsprt,0,7,9,7,21
 
 s61objm:
 		db 1
