@@ -127,6 +127,12 @@ gdsplt   EQU gdsprt + sabspmr1 - sabsprt
 gdpnchr  EQU gdsplt + sabspmr1 - sabsprt
 gdpnchl  EQU gdpnchr + (_sabpnch.endpnch - _sabpnch)
 
+gdkckl1  EQU gdpnchl + (_sabpnch.endpnch - _sabpnch)
+gdkckl2  EQU gdkckl1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+
+gdkckr1  EQU gdkckl2 + (_sabkckr2.sabkckr2 - _sabkckr2)
+gdkckr2  EQU gdkckr1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+
 		include "init.asm"
         ; MIRFLEN - size of the file with mirroring procs & data
         ; minus total length of saboteur sprites data

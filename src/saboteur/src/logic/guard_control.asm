@@ -48,19 +48,109 @@ guardact:
 gdstact:
         ld   a,d
 
-        cp   PNCHDST                    ; close enough to do punch ?
-        jp   c,gddopnch                 ; yes, do punch
+        cp   PNCHDST                    ; close enough to punch ?
+        jp   c,gdstpnch                 ; yes, do punch
 
-        cp   KICKDST                    ; close enough to do kick ?
-        jp   c,gddokick                 ; yes, do kick
+        cp   KICKDST                    ; close enough to kick ?
+        jp   c,gdstkick                 ; yes, do kick
 
-        call gdtrythr                   ; otherwise throw weapon
+        cp   THRWDST                    ; close enough to throw weapon ?
+        call c,gdtrythr                 ; yes, throw weapon
+
         ret
 
-gddopnch:
+; ---- continue guard's action
+; args: HL - address of control block
+;       A  - current state
+gdconact:
+        push hl
+        push af
+        call .gconact
+        pop  de
+        pop  hl
+        or   a
+        ret  z                          ; action has finished
+
+        ld   a,d                        ; check action type
+        cp   sbkick
+        call z,gdchkck                  ; make column correction if this is a kick
+        ret
+
+; ---- continue guard's action
+; args: HL - address of control block
+;       A  - current state
+; result:
+;       A  - 0 if action has finished
+.gconact:
+        push hl
+        ldcurspi                        ; load current sprite index
+        inc  a                          ; move to the next sprite
+        pop  hl
+        push hl
+        scurspi                         ; save new sprite index
+
+        ld   b,a                        ; save it in B
+
+        ld   hl,(gsprtab)               ; load address of sprite table for current action
+        ld   a,(hl)                     ; load total number of sprites
+
+        cp   b                          ; is it the last one ?
+        jp   z,.gdact1                  ; yes, stop action
+        
+        ld   a,b                        ; save current index in A
+        inc  hl                         ; move to the pointer on the first sprite
+        add  a                          ; get diplacement to the sprite with current index
+        ld   d,0
+        ld   e,a
+        add  hl,de                      ; move pointer to the next sprite address
+        load_de_hl                      ; load address into DE
+
+        pop  hl
+        scurspr                         ; save next sprite
+        ret
+
+.gdact1:
+        pop  hl
+        push hl
+        ldstate
+        pop  hl
+        cp   sbkick
+        jp   nz,.gdst
+
+        push hl
+        ldcursr                         ; load current screen row into A
+        inc  a                          ; increase row
+        ld   (hl),a     
+        pop  hl
+        push hl
+        lddir
+        pop  hl
+        cp   dirrt
+        jp   z,.gdst
+        push hl
+        ldcursc
+        dec  a
+        ld   (hl),a
+        pop  hl        
+
+.gdst:
+        call gdststay                   ; stay and stop   
+        xor  a     
+        ret
+
+; ---- guard starts punch action
+; args: HL - address of control block
+;       
+gdstpnch:
         push hl
         scurst sbpunch         
         pop  hl
+
+        push hl
+        xor  a
+        scurspi 
+        pop  hl
+
         push hl
         lddir
         pop  hl
@@ -68,25 +158,106 @@ gddopnch:
         jp   z,.dopnchl
         ld   de,gdpnchr
         scurspr 
+        ld   hl,gdpnchrb
+        ld   (gsprtab),hl
         ret
+
 .dopnchl:
         ld   de,gdpnchl
         scurspr 
+        ld   hl,gdpnchlb
+        ld   (gsprtab),hl
         ret
 
-gddokick:
-        ret
-
-; ---- continue guard's action
+; ---- guard starts kick action
 ; args: HL - address of control block
-;       A  - current state
-gdconact:
-        cp  sbpunch
-        jp  nz,.gdact1
-        call gdststay
+;       
+gdstkick:
+        push hl
+        scurst sbkick         
+        pop  hl
+        push hl
+        lddir
+        pop  hl
+        push hl
+        cp   dirlt
+        jp   z,.do1
+        ld   de,gdkckr1
+        scurspr         
+        ld   hl,gdkckrb
+        ld   (gsprtab),hl
+        jp   .do2
+.do1:
+        ld   de,gdkckl1
+        scurspr
+        ld   hl,gdkcklb
+        ld   (gsprtab),hl
+
+        pop  hl
+        push hl
+        ldcursc
+        inc  a                          ; increase column if kick in the left direction
+        ld   (hl),a        
+
+.do2:        
+        pop  hl
+        push hl
+        xor  a
+        scurspi
+
+        pop  hl        
+        ldcursr         ; load current screen row into A
+        dec  a          ; decrease row
+        ld   (hl),a     
         ret
 
-.gdact1:        
+; ---- change column if guard is kicking
+; args: HL - address of control block
+;       
+gdchkck:
+        push hl
+        lddir   
+        pop  hl
+        cp   dirlt
+        jp   z,.gdcl1
+
+        push hl
+        ldcurspi
+        pop  hl
+        cp   2
+        jp   nz,.gdcr2
+        ldcursc         ; starts kick, decrease column for left direction
+        dec  a
+        ld   (hl),a
+        ret
+
+.gdcr2:
+        cp  ((gdkckre - gdkckrb - 1) / 2) - 2
+        ret nz
+        ldcursc         ; ends kick, increase column for left direction
+        inc  a
+        ld   (hl),a
+        ret
+
+.gdcl1:
+        push hl
+        ldcurspi
+        pop  hl
+        cp   2
+        jp   nz,.gdcl2
+        ldcursc         ; starts kick, decrease column for left direction
+        dec  a
+        dec  a
+        ld   (hl),a
+        ret
+
+.gdcl2:
+        cp  ((gdkckre - gdkckrb - 1) / 2) - 2
+        ret nz
+        ldcursc         ; ends kick, increase column for left direction
+        inc  a
+        inc  a
+        ld   (hl),a
         ret
 
 ; ---- set guard into stay state

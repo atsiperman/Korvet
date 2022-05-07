@@ -87,7 +87,8 @@ SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
-KICKDST     EQU 6           ; threshold in columns, on which guard may do kick
+KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
+THRWDST     EQU 15          ; threshold in columns, on which guard may throw weapon
 BKSEEDST    EQU 3           ; threshold in columns, on which guard sees saboteur when that is moving from back side
 
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
@@ -136,20 +137,17 @@ othrown:
             db 0        ; colnum
             db 0        ; rownum
 
-; ---- flag, whether object has been already thrown by guard on the current screen
-;
-gfthrwn:    db 0
-
-; ---- flag, whether guard has seen the saboteur
-;
-gfsbseen:   db 0
-
 ; ---- object thrown by guard
 ;
 gthrown:    db 0        ; direction where object has been thrown            
             dw 0        ; image address of an object thrown
             db 0        ; colnum
             db 0        ; rownum
+
+; ----  flags
+gfthrwn:    db 0        ; whether object has been already thrown by guard on the current screen
+gfsbseen:   db 0        ; whether guard has seen the saboteur
+gsprtab:    dw 0        ; sprite table for current guard's action
 
 trigchd:	db 0		; flag, = 1 when trigger has been changed 
 trtype:     db 0        ; trigger type (auto/manual)

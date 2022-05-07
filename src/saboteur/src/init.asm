@@ -152,7 +152,27 @@ sabinit:
         ld  hl,gdpnchr
         ld  de,gdpnchl              
 		call mirrspr
-
         ; ---- guard punch sprite/left ---
+
+        ; ---- guard kick sprite/left 
+        ld  hl,sabkckl1
+        ld  de,gdkckl1
+        ld  bc,_sabkckr1.sabkckr1 - _sabkckr1
+        call copymem
+
+        ld  hl,sabkckl2
+        ld  de,gdkckl2
+        ld  bc,_sabkckr2.sabkckr2 - _sabkckr2
+        call copymem
+
+        ld  hl,gdkckl1
+        ld  de,gdkckr1
+		call mirrspr
+
+        ld  hl,gdkckl2
+        ld  de,gdkckr2
+		call mirrspr
+        ; ---- guard kick sprite/left ---
+
 		ret
 .endinit		

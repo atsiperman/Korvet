@@ -65,3 +65,36 @@ SBKICKI  EQU 3      ; index of the sprite when it is necessary to check whether 
 
 SBJPSPN	 EQU (sabjmpre - sabjmprb - 1) / 2  
 SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2  
+
+
+; ----------- guard actions ----------------
+
+; table of addresses of guard sprites when kicking right
+;		
+gdkckrb:
+		db (gdkckre - gdkckrb - 1) / 2
+		dw gdkckr1, gdkckr1, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr1, gdkckr1
+gdkckre:
+
+; table of addresses of guard sprites when kicking left
+;		
+gdkcklb:
+		db (gdkckle - gdkcklb - 1) / 2
+		dw gdkckl1, gdkckl1, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl1, gdkckl1
+gdkckle:
+
+
+; table of addresses of guard sprites when punching right
+;		
+gdpnchrb:
+		db (gdpnchre - gdpnchrb - 1) / 2
+		dw gdpnchr, gdpnchr, gdpnchr ;, gdpnchr
+gdpnchre:
+
+; table of addresses of guard sprites when punching left
+;		
+gdpnchlb:
+		db (gdpnchle - gdpnchlb - 1) / 2
+		dw gdpnchl, gdpnchl, gdpnchl ;, gdpnchl
+gdpnchle:
+
