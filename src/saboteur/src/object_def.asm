@@ -25,9 +25,9 @@ dogstay	EQU 4				; staying
 ; ---- guard state
 ;
 ;gddead	EQU 1				; dead
-gdmove	EQU 2				; moving 
-gdkick	EQU 3				; kicking
-gdstay	EQU 4				; staying 
+;gdmove	EQU 2				; moving 
+;gdkick	EQU 3				; kicking
+;gdstay	EQU 4				; staying 
 
 ; ---- directions
 ;

@@ -122,7 +122,10 @@ objmdata EQU ctrldata + cdataend - cdatast
 trmdata  EQU objmdata + objmend - objmst
 
 gdsprt   EQU trmdata + trmapend - trmapst
-gdsplt   EQU gdsprt + sabspmr1 - sabsprt        
+gdsplt   EQU gdsprt + sabspmr1 - sabsprt
+
+gdpnchr  EQU gdsplt + sabspmr1 - sabsprt
+gdpnchl  EQU gdpnchr + (_sabpnch.endpnch - _sabpnch)
 
 		include "init.asm"
         ; MIRFLEN - size of the file with mirroring procs & data

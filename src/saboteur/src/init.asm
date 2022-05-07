@@ -126,6 +126,8 @@ sabinit:
 
 .initgdsp:
         ; guard sprites
+
+        ; ---- guard stays sprite/left 
         ld  hl,sabsplt
         ld  de,gdsplt
         ld  bc,sabspmr1 - sabsprt
@@ -139,6 +141,18 @@ sabinit:
         ld  hl,gdsplt
         ld  de,gdsprt               
 		call mirrspr
+        ; ---- guard stays sprite/left --- 
 
+        ; ---- guard punch sprite/left 
+        ld  hl,sabpnchr
+        ld  de,gdpnchr
+        ld  bc,_sabpnch.endpnch - _sabpnch
+        call copymem
+
+        ld  hl,gdpnchr
+        ld  de,gdpnchl              
+		call mirrspr
+
+        ; ---- guard punch sprite/left ---
 		ret
 .endinit		

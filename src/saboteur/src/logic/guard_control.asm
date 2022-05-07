@@ -13,28 +13,108 @@ guardact:
         pop  hl
         cp   objdead        
         ret z
-        
-        ld   a,(gfsbseen)                
-        or   a                          ; seen saboteur ?
-        jp   z,.gdact1                  ; no, continue watching
-        call gdseesab                   ; otherwise check whether he is visible or not
 
-        call gdtrythr                
+        cp   sbstay
+        jp   z,.gdact1                  ; is staying, check for next action
+        call gdconact                   ; continue action
         ret
 
 .gdact1:
+        ld   a,(gfsbseen)                
+        or   a                          ; seen saboteur ?
+        jp   z,.gdact2                  ; no, continue watching
+
+        push hl
+        call gdseesab                   ; otherwise check whether he is visible or not
+        pop  hl
+        or   a
+        ret  z                          ; doesn't see saboteur, do nothing
+        and  c                          ; changed direction ?
+        ret  nz                         ; yes, do nothing
+
+        call gdstact                    ; see saboteur, direction not changed - start action
+        ret
+
+.gdact2:
         call gdseesab                   ; otherwise check whether he is visible or not
         or   a
         ret  z
         ld   (gfsbseen),a
         ret
 
+; ---- start guard action
+; args: HL - address of control block
+;       D  - distance to saboteur
+gdstact:
+        ld   a,d
 
+        cp   PNCHDST                    ; close enough to do punch ?
+        jp   c,gddopnch                 ; yes, do punch
+
+        cp   KICKDST                    ; close enough to do kick ?
+        jp   c,gddokick                 ; yes, do kick
+
+        call gdtrythr                   ; otherwise throw weapon
+        ret
+
+gddopnch:
+        push hl
+        scurst sbpunch         
+        pop  hl
+        push hl
+        lddir
+        pop  hl
+        cp   dirlt
+        jp   z,.dopnchl
+        ld   de,gdpnchr
+        scurspr 
+        ret
+.dopnchl:
+        ld   de,gdpnchl
+        scurspr 
+        ret
+
+gddokick:
+        ret
+
+; ---- continue guard's action
+; args: HL - address of control block
+;       A  - current state
+gdconact:
+        cp  sbpunch
+        jp  nz,.gdact1
+        call gdststay
+        ret
+
+.gdact1:        
+        ret
+
+; ---- set guard into stay state
+; args: HL - address of control block
+;       
+gdststay:
+        push hl
+        scurst sbstay         
+        pop  hl
+        push hl
+        lddir
+        pop  hl
+        cp   dirlt
+        jp   z,.gs1
+        ld   de,gdsprt
+        scurspr 
+        ret
+.gs1:
+        ld   de,gdsplt
+        scurspr 
+        ret
 
 ; ---- checks whether guard sees saboteur
 ; args: HL - address of control block
 ; result:
 ;       A - 1 - yes, 0 - no
+;       D - distance to the saboteur
+;       C - 1 - yes, 0 - no, flag, whether direction has been changed
 gdseesab:
         push hl
 
@@ -61,12 +141,15 @@ gdseesab:
         cp   BKSEEDST                   ; exceed minimal visibility distance ?
         jp   nc,.gdno                   ; no, do nothing
 
+        or   a
+        jp   z,.gdsyes                  ; column matches
+
         push hl
         scurdir dirlt
         pop  hl
         ld   de,gdsplt
         scurspr
-        jp   .gdsyes                    ; yes
+        jp   .gdsyesc                   ; yes, with direction change
 
 .gdslt:                                 ; looking left
         sblcursc                        ; load saboteur's column
@@ -75,14 +158,27 @@ gdseesab:
         cp   BKSEEDST                   ; exceed minimal visibility distance ?
         jp   nc,.gdno                   ; no, do nothing
 
+        or   a
+        jp   z,.gdsyes                  ; column matches
+
         push hl
         scurdir dirrt
         pop  hl
         ld   de,gdsprt
         scurspr
 
-.gdsyes:
+.gdsyesc:                               ; see saboteur, changed direction
+        ld   d,a
         ld   a,1
+        ld   c,a
+        ret
+
+.gdsyes:                                ; see saboteur, no direction change
+        cpl
+        inc  a                          ; get positive distance
+        ld   d,a
+        ld   a,1
+        ld   c,0
         ret
 
 .gdno:

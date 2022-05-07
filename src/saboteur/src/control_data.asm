@@ -86,7 +86,9 @@ SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 
-BKSEEDST    EQU 3           ; distance in columns, on which guard sees saboteur when that is moving from back side
+PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
+KICKDST     EQU 6           ; threshold in columns, on which guard may do kick
+BKSEEDST    EQU 3           ; threshold in columns, on which guard sees saboteur when that is moving from back side
 
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar

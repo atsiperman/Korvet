@@ -18,7 +18,7 @@ s7objm:
 
 s8objm:
 		db 2
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,4,7,4,20	
+		mkguard sbstay,dirlt,scrbuf,gdsprt,0,4,7,4,20	
 		mkdog dirlt,dogspml1,0,23,10,3,22		
 
 s9objm:
@@ -27,7 +27,7 @@ s9objm:
 
 s10objm:
 		db 2
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,3,8,3,20	
+		mkguard sbstay,dirlt,scrbuf,gdsprt,0,3,8,3,20	
 		mkdog dirlt,dogspml1,0,23,11,3,22		
 
 s28objm:
@@ -36,15 +36,15 @@ s28objm:
 
 s32objm:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,12,5,5,22
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,12,5,5,22
 
 s35objm:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,15,9,10,22
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,15,9,10,22
 
 s36objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsplt,0,9,9,8,22
+		mkguard sbstay,dirlt,scrbuf,gdsplt,0,9,9,8,22
 
 s38objm:
 		db 1
@@ -52,7 +52,7 @@ s38objm:
 
 s39objm:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,6,7,6,22
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,6,7,6,22
 		
 s41objm:
 		db 1
@@ -60,20 +60,20 @@ s41objm:
 
 s46objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsplt,0,12,6,5,20
+		mkguard sbstay,dirlt,scrbuf,gdsplt,0,12,6,5,20
 
 s48objm:
 		db 2
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,19,2,9,20
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,19,2,9,20
 		mkdog dirlt,dogspml1,0,16,13,4,17
 
 s49objm:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,14,8,8,21
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,14,8,8,21
 		
 s51objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,20,10,16,21
+		mkguard sbstay,dirlt,scrbuf,gdsprt,0,20,10,16,21
 		
 s52objm:
 		db 1		
@@ -81,7 +81,7 @@ s52objm:
 		
 s54objm:
 		db 1
-		mkguard gdstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
+		mkguard sbstay,dirlt,scrbuf,gdsprt,0,7,9,7,21
 
 s58objm:
 		db 1
@@ -89,7 +89,7 @@ s58objm:
 
 s60objm:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,7,9,7,21
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,7,9,7,21
 
 s61objm:
 		db 1
@@ -101,7 +101,7 @@ s62objm:
 
 s70objm:
 		db 2
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,12,1,3,24
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,12,1,3,24
 		mkdog dirlt,dogspml1,0,24,4,0,24
 
 s71objm:
@@ -131,7 +131,7 @@ s100om:
 
 s102om:
 		db 1
-		mkguard gdstay,dirrt,scrbuf,gdsprt,0,21,3,2,25
+		mkguard sbstay,dirrt,scrbuf,gdsprt,0,21,3,2,25
 
 s106om:
         db 1
