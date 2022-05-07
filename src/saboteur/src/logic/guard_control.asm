@@ -16,14 +16,19 @@ guardact:
         
         ld   a,(gfsbseen)                
         or   a                          ; seen saboteur ?
-        jp   nz,.gdact1                 ; do action if yes
-
+        jp   z,.gdact1                  ; no, continue watching
         call gdseesab                   ; otherwise check whether he is visible or not
+
+        call gdtrythr                
         ret
 
 .gdact1:
-        call gdtrythr                
+        call gdseesab                   ; otherwise check whether he is visible or not
+        or   a
+        ret  z
+        ld   (gfsbseen),a
         ret
+
 
 
 ; ---- checks whether guard sees saboteur
@@ -49,20 +54,40 @@ gdseesab:
         jp   z,.gdslt
                                         ; looking right
         sblcursc                        ; load saboteur's column
-        sub  d
-        jp   nc,.gdsyes
-        ret
+        ld   c,a
+        ld   a,d
+        sub  c                          ; A = guard col - sab col
+        jp   c,.gdsyes
+        cp   BKSEEDST                   ; exceed minimal visibility distance ?
+        jp   nc,.gdno                   ; no, do nothing
+
+        push hl
+        scurdir dirlt
+        pop  hl
+        ld   de,gdsplt
+        scurspr
+        jp   .gdsyes                    ; yes
 
 .gdslt:                                 ; looking left
         sblcursc                        ; load saboteur's column
         sub  d
         jp   c,.gdsyes
-        ret
+        cp   BKSEEDST                   ; exceed minimal visibility distance ?
+        jp   nc,.gdno                   ; no, do nothing
+
+        push hl
+        scurdir dirrt
+        pop  hl
+        ld   de,gdsprt
+        scurspr
 
 .gdsyes:
         ld   a,1
-        ld   (gfsbseen),a
         ret
+
+.gdno:
+        xor  a
+        ret        
 
 ; ---- try to throw guard's weapon
 ; args: HL - address of control block

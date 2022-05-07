@@ -86,6 +86,8 @@ SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 
+BKSEEDST    EQU 3           ; distance in columns, on which guard sees saboteur when that is moving from back side
+
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar
 
@@ -102,7 +104,7 @@ cdatast:
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn35 		; pointer to current screen
+curscr: 	dw scrn30 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -110,8 +112,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
-            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
+            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
+            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
