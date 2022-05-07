@@ -149,6 +149,11 @@ sabinit:
         ld  bc,_sabpnch.endpnch - _sabpnch
         call copymem
 
+        ld  hl,gdhdpnch
+        ld  de,gdpnchr + SPRHLEN
+        ld  bc,gdhdpnch.heade - gdhdpnch
+        call copymem
+
         ld  hl,gdpnchr
         ld  de,gdpnchl              
 		call mirrspr
@@ -160,9 +165,19 @@ sabinit:
         ld  bc,_sabkckr1.sabkckr1 - _sabkckr1
         call copymem
 
+        ld  hl,gdhdkick1
+        ld  de,gdkckl1 + SPRHLEN
+        ld  bc,gdhdkick1.heade - gdhdkick1
+        call copymem
+
         ld  hl,sabkckl2
         ld  de,gdkckl2
         ld  bc,_sabkckr2.sabkckr2 - _sabkckr2
+        call copymem
+
+        ld  hl,gdhdkick2
+        ld  de,gdkckl2 + SPRHLEN
+        ld  bc,gdhdkick2.heade - gdhdkick2
         call copymem
 
         ld  hl,gdkckl1
