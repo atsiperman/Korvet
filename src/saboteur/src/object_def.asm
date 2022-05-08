@@ -98,7 +98,7 @@ SPRHLEN EQU 3       ; sprite head length
 		endm
 
 		macro mkguard curstat,direct,curpos,curspr,curspri,curscol,cursrow,mincol,maxcol
-		mkctrlb oguard,guardact,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		mkctrlb oguard,guardprc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
 		db mincol,maxcol
 		endm 
 		

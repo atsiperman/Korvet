@@ -49,6 +49,7 @@
         include "logic/first_render_procs.asm"
 		include "logic/dog_control.asm"
 		include "logic/guard_control.asm"
+        include "logic/guard_action.asm"
 		        
 		include "tiles_control.asm"
 
