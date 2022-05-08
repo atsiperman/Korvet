@@ -15,7 +15,10 @@ guardact:
         ret z
 
         cp   sbstay
-        jp   z,.gdact1                  ; is staying, check for next action
+        jp   z,.gdact1                  ; is staying
+        ; cp   sbmove
+        ; jp   z,.gdact1                  ; or moving, check for next action
+
         call gdconact                   ; continue action
         ret
 
@@ -37,8 +40,6 @@ guardact:
 
 .gdact2:
         call gdseesab                   ; otherwise check whether he is visible or not
-        or   a
-        ret  z
         ld   (gfsbseen),a
         ret
 
@@ -308,10 +309,18 @@ gdseesab:
         ld   c,a
         ld   a,d
         sub  c                          ; A = guard col - sab col
-        jp   c,.gdsyes
-        cp   BKSEEDST                   ; exceed minimal visibility distance ?
+        jp   c,.gdsyes                  ; saboteur is on the right - return yes
+
+        ld   d,a                        ; save current distance
+        ld   a,(gfsbseen)
+        or   a                          ; seen saboteur already ?
+        ld   a,d
+        jp   nz,.gdsr1                  ; if yes then just change direction
+                                        
+        cp   BKSEEDST                   ; if no then: exceed minimal visibility distance ?
         jp   nc,.gdno                   ; no, do nothing
 
+.gdsr1:
         or   a
         jp   z,.gdsyes                  ; column matches
 
@@ -326,9 +335,17 @@ gdseesab:
         sblcursc                        ; load saboteur's column
         sub  d
         jp   c,.gdsyes
-        cp   BKSEEDST                   ; exceed minimal visibility distance ?
+
+        ld   d,a                        ; save current distance
+        ld   a,(gfsbseen)
+        or   a                          ; seen saboteur already ?
+        ld   a,d
+        jp   nz,.gdsrl1                 ; if yes then just change direction
+
+        cp   BKSEEDST                   ; if no then: exceed minimal visibility distance ?
         jp   nc,.gdno                   ; no, do nothing
 
+.gdsrl1:
         or   a
         jp   z,.gdsyes                  ; column matches
 

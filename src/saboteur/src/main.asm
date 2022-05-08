@@ -133,6 +133,13 @@ gdkckl2  EQU gdkckl1 + (_sabkckr1.sabkckr1 - _sabkckr1)
 gdkckr1  EQU gdkckl2 + (_sabkckr2.sabkckr2 - _sabkckr2)
 gdkckr2  EQU gdkckr1 + (_sabkckr1.sabkckr1 - _sabkckr1)
 
+gdspml1  EQU gdkckr2 + (_sabkckr2.sabkckr2 - _sabkckr2)
+gdspml2  EQU gdspml1 + (sabspmr2 - sabspmr1)
+gdspml3  EQU gdspml2 + (sabspmr2 - sabspmr1)
+gdspml4  EQU gdspml3 + (sabspmr2 - sabspmr1)
+
+; ----- no more space in upper memory block
+
 		include "init.asm"
         ; MIRFLEN - size of the file with mirroring procs & data
         ; minus total length of saboteur sprites data
@@ -142,6 +149,24 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         dw TMPDLEN
         dw ROWNUM * ROWWIDB
         dup (ROWNUM * ROWWIDB) - TMPDLEN
+        db 0
+        edup
+
+; --- reserve space for other sprites here, there is no more space in upper memory block
+gdspmr1:
+        dup  sabspmr2 - sabspmr1
+        db 0
+        edup
+gdspmr2:
+        dup  sabspmr2 - sabspmr1
+        db 0
+        edup
+gdspmr3:
+        dup  sabspmr2 - sabspmr1
+        db 0
+        edup
+gdspmr4:
+        dup  sabspmr2 - sabspmr1
         db 0
         edup
 

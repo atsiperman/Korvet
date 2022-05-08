@@ -189,5 +189,42 @@ sabinit:
 		call mirrspr
         ; ---- guard kick sprite/left ---
 
+        ; ---- guard move sprite/left 
+
+        ld  hl,sabspml1
+        ld  de,gdspml1
+        ld  bc,sabspml2 - sabspml1
+        call copymem
+
+        ld  hl,sabspml2
+        ld  de,gdspml2
+        ld  bc,sabspml2 - sabspml1
+        call copymem
+
+        ld  hl,sabspml3
+        ld  de,gdspml3
+        ld  bc,sabspml2 - sabspml1
+        call copymem
+
+        ld  hl,sabspml4
+        ld  de,gdspml4
+        ld  bc,sabspml2 - sabspml1
+        call copymem
+        
+        ld  hl,gdspml1
+        ld  de,gdspmr1
+		call mirrspr
+        ld  hl,gdspml2
+        ld  de,gdspmr2
+		call mirrspr
+
+        ld  hl,gdspml3
+        ld  de,gdspmr3
+		call mirrspr
+        ld  hl,gdspml4
+        ld  de,gdspmr4
+		call mirrspr
+
+        ; ---- guard move sprite/left ---
 		ret
 .endinit		
