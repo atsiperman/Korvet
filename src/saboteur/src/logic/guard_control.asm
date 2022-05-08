@@ -16,8 +16,8 @@ guardact:
 
         cp   sbstay
         jp   z,.gdact1                  ; is staying
-        ; cp   sbmove
-        ; jp   z,.gdact1                  ; or moving, check for next action
+        cp   sbmove
+        jp   z,.gdact1                  ; or moving, check for next action
 
         call gdconact                   ; continue action
         ret
@@ -33,14 +33,26 @@ guardact:
         or   a
         ret  z                          ; doesn't see saboteur, do nothing
         and  c                          ; changed direction ?
-        ret  nz                         ; yes, do nothing
+        push af
+        call nz,gdststay                ; change sprite if yes
+        pop  af
+        ret  nz                         ; and return
 
-        call gdstact                    ; see saboteur, direction not changed - start action
+        call gdstact                    ; otherwise: seen saboteur, direction not changed - start action
         ret
 
 .gdact2:
+        push hl
         call gdseesab                   ; otherwise check whether he is visible or not
         ld   (gfsbseen),a
+        pop  hl
+        or   a
+        ret  z                          ; doesn't see saboteur, do nothing
+        and  c                          ; changed direction ?
+        ret  z                          ; no, do nothing
+
+        call gdststay                   ; change sprite
+
         ret
 
 ; ---- start guard action
@@ -58,6 +70,7 @@ gdstact:
         cp   THRWDST                    ; close enough to throw weapon ?
         call c,gdtrythr                 ; yes, throw weapon
 
+        ;call gdstmov                    ; start move otherwise 
         ret
 
 ; ---- continue guard's action
@@ -137,6 +150,43 @@ gdconact:
 .gdst:
         call gdststay                   ; stay and stop   
         xor  a     
+        ret
+
+; ---- guard starts moving
+; args: HL - address of control block
+;       
+gdstmov:
+        push hl
+        ldcursr                         ; load screen row
+        inc  a                          ; increase it
+        ld   (hl),a                     ; and save
+        pop hl
+
+        push hl
+        lddir
+        cp   dirlt
+        jp   z,.gdmlt
+                                        ; start moving right
+        ld   hl,gdmvrttb
+        ld   (gsprtab),hl               ; save sprite table address
+        pop  hl
+        push hl
+        ld   de,gdspmr1                 ; save sprite address
+        scurspr     
+        jp   .gdme
+
+.gdmlt: 
+        ld   hl,gdmvlttb
+        ld   (gsprtab),hl               ; save sprite table address
+        pop  hl
+        push hl
+        ld   de,gdspml1                 ; save sprite address
+        scurspr 
+
+.gdme:
+        pop  hl
+        xor  a
+        scurspi
         ret
 
 ; ---- guard starts punch action
@@ -324,11 +374,11 @@ gdseesab:
         or   a
         jp   z,.gdsyes                  ; column matches
 
-        push hl
+        ; push hl
         scurdir dirlt
-        pop  hl
-        ld   de,gdsplt
-        scurspr
+        ; pop  hl
+        ; ld   de,gdsplt
+        ; scurspr
         jp   .gdsyesc                   ; yes, with direction change
 
 .gdslt:                                 ; looking left
@@ -349,11 +399,11 @@ gdseesab:
         or   a
         jp   z,.gdsyes                  ; column matches
 
-        push hl
+        ;push hl
         scurdir dirrt
-        pop  hl
-        ld   de,gdsprt
-        scurspr
+        ; pop  hl
+        ; ld   de,gdsprt
+        ; scurspr
 
 .gdsyesc:                               ; see saboteur, changed direction
         ld   d,a

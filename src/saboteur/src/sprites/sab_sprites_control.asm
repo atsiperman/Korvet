@@ -98,3 +98,15 @@ gdpnchlb:
 		dw gdpnchl, gdpnchl, gdpnchl ;, gdpnchl
 gdpnchle:
 
+
+; table of addresses of guard sprites when moving right
+;
+gdmvrttb:										
+		db (gdmvrtte - gdmvrttb - 1) / 2
+		dw gdspmr1,gdspmr2,gdspmr3,gdspmr4
+gdmvrtte:										
+
+gdmvlttb:
+		db (gdmvltte - gdmvlttb - 1) / 2
+		dw gdspml1,gdspml2,gdspml3,gdspml4
+gdmvltte:										
