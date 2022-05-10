@@ -170,7 +170,13 @@ gfcontmv:
         pop  hl
         or   a
         ret  nz                         ; not the last sprite, do nothing
+        push hl
         scurspi                         ; set index to 0
+        ld   hl,(gsprtab)
+        inc  hl                         ; move to the first sprite address
+        load_de_hl                      ; load sprite address
+        pop  hl
+        scurspr
         ret
 
 .gfcm1:

@@ -191,6 +191,23 @@ sabinit:
 
         ; ---- guard move sprite/left 
 
+        ld  hl,gdhdwalk
+        ld  de,sabspml1 + SPRHLEN
+        ld  bc,gdhdwalk.heade - gdhdwalk
+        call copymem
+        ld  hl,gdhdwalk
+        ld  de,sabspml2 + SPRHLEN
+        ld  bc,gdhdwalk.heade - gdhdwalk
+        call copymem
+        ld  hl,gdhdwalk
+        ld  de,sabspml3 + SPRHLEN
+        ld  bc,gdhdwalk.heade - gdhdwalk
+        call copymem
+        ld  hl,gdhdwalk
+        ld  de,sabspml4 + SPRHLEN
+        ld  bc,gdhdwalk.heade - gdhdwalk
+        call copymem
+
         ld  hl,sabspml1
         ld  de,gdspml1
         ld  bc,sabspml2 - sabspml1
