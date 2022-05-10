@@ -15,17 +15,22 @@ guardprc:
         ret z
 
         cp   sbstay
-        jp   z,.gdact1                  ; is staying
+        jp   z,.gdact2                  ; if staying then check for the next action
+
         cp   sbmove
-        jp   z,.gdact1                  ; or moving, check for next action
+        jp   z,.gdact1                  ; if moving then continue moving
 
         call gdconact                   ; continue action
         ret
 
 .gdact1:
+        call gfcontmv                   ; continue moving
+        ret
+
+.gdact2:
         ld   a,(gfsbseen)                
         or   a                          ; seen saboteur ?
-        jp   z,.gdact2                  ; no, continue watching
+        jp   z,.gdact3                  ; no, continue watching
 
         push hl
         call gdseesab                   ; otherwise check whether he is visible or not
@@ -41,9 +46,9 @@ guardprc:
         call gdstact                    ; otherwise: seen saboteur, direction not changed - start action
         ret
 
-.gdact2:
+.gdact3:
         push hl
-        call gdseesab                   ; otherwise check whether he is visible or not
+        call gdseesab                   ; check whether saboteur is visible or not
         ld   (gfsbseen),a
         pop  hl
         or   a
@@ -104,6 +109,84 @@ gdstopmv:
         pop  hl
         jp   gdststay                   ; stop and stay
 
+
+; ---- guard continues moving
+; args: HL - address of control block
+;       
+gfcontmv:
+        push hl
+        call gdseesab                   ; otherwise check whether he is visible or not
+        pop  hl
+        push de                         ; save distance between sab and guard
+        push hl
+
+        or   a
+        jp   z,.gfcm1                   ; doesn't see saboteur, stop moving
+        and  c                          ; changed direction ?
+        jp   z,.gfcmv                   ; no, continue movement
+                                        ; otherwise switch direction
+        lddir
+        cp   dirlt
+        jp   z,.gfclt1
+        ld   hl,gdmvlttb                ; is moving right, change to sprite table for left dir
+        jp   .gfclt2
+
+.gfclt1:        
+        ld   hl,gdmvrttb                ; is moving left, change to sprite table for right dir
+.gfclt2:
+        ld   (gsprtab),hl               ; save new sprite table
+
+.gfcmv:
+        pop  hl                         ; restore control block
+        pop  de                         ; restore distance
+        ld   a,d        
+        cp   PNCHDST
+        jp   c,.gfcm2                   ; close enough, stop moving        
+                                        ; too far, keep moving
+
+        push hl
+        ldcursc
+        pop  hl
+        push af                         ; save column
+        push hl
+        lddir
+        pop  hl
+        cp   dirlt
+        jp   z,.gfcmlt
+        pop  af                         ; restore column
+        inc  a                          ; moving right, inc column
+        jp   .gfcmlt2
+.gfcmlt:
+        pop  af                         ; restore column
+        dec  a                          ; moving left, dec column
+
+.gfcmlt2:
+        push hl                 
+        scursc                          ; save current column
+        pop  hl
+
+        push hl
+        call gchgspr                    ; change sprite index
+        pop  hl
+        or   a
+        ret  nz                         ; not the last sprite, do nothing
+        scurspi                         ; set index to 0
+        ret
+
+.gfcm1:
+                                        ; stop moving, clear stack
+        pop  hl                         ; restore control block
+        pop  de                         ; restore distance
+
+.gfcm2:                                        
+        push hl        
+        ldcursr                         ; load screen row
+        dec  a                          ; increase it
+        ld   (hl),a                     ; and save
+        pop  hl
+
+        call gdststay                   ; stop and stay
+        ret
 
 ; ---- continue guard's action
 ; args: HL - address of control block
@@ -287,11 +370,7 @@ gdseesab:
         or   a
         jp   z,.gdsyes                  ; column matches
 
-        ; push hl
         scurdir dirlt
-        ; pop  hl
-        ; ld   de,gdsplt
-        ; scurspr
         jp   .gdsyesc                   ; yes, with direction change
 
 .gdslt:                                 ; looking left
@@ -311,13 +390,8 @@ gdseesab:
 .gdsrl1:
         or   a
         jp   z,.gdsyes                  ; column matches
-
-        ;push hl
         scurdir dirrt
-        ; pop  hl
-        ; ld   de,gdsprt
-        ; scurspr
-
+        
 .gdsyesc:                               ; see saboteur, changed direction
         ld   d,a
         ld   a,1

@@ -50,18 +50,9 @@ gdstact:
         jp   z,.gd1                     ; no, start movement
         push de                         ; save action procedure address
         ret                             ; return to action procedure - start it
-        
-.gd1:
-;         push hl
-;         ldstate
-;         pop  hl
-;         cp   sbmove
-;         jp   nz,.gd2
-;         call gdconact
-;         ret
 
-; .gd2:
-        ;call gdstmov                    ; start move otherwise 
+.gd1:
+        call gdstmov                    ; start move otherwise 
         ret
 
 ; ---- guard starts punch action
