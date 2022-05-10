@@ -391,7 +391,8 @@ smap123b:
 		bkindex BK3ADDR		; 1, green squares
 		bkindex BK6ADDR     ; 2, 2 yellow bricks 
 		bkindex BK7ADDR     ; 3, big yellow brick 
-		bkindex BK23ADDR    ; 4, red beam		
+		bkindex BK63ADDR    ; 4, copter plate
+        bkindex BK64ADDR    ; 5, copter roof
 smap123e:
 
 		db 0
@@ -401,9 +402,9 @@ smap123e:
 		db 0
 		db 0
 		
-		mkbyte 0,4
+		mkbyte 0,5
 		mkline 13
-		mkbyte 4,4
+		mkbyte 5,5
 		db 0
 
 		db 0
@@ -450,7 +451,100 @@ smap123e:
 		mkline 14
 		db 0
 		
-		mscrend
+		db SCREND
+        db MSKOMAP
+        dw s123mom
+        db FSTRDRP
+        dw s123rnd
+        db TXTSMAP
+        dw s123txd
+        db SCREND
+
+s123txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 0
+			db CHBOTM
+		mkbyte TXLINEH,8
+			mktxtaddr 18, 0
+			db CHBOTM
+
+		mkbyte TXLINEH,2
+			mktxtaddr 1, 1
+			db CHTOP
+		mkbyte TXLINEH,2
+			mktxtaddr 26, 1
+			db CHTOP
+
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 1
+			db CHFULL
+		mkbyte TXLINEH,8
+			mktxtaddr 18, 1
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 2
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 3
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 4
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 4
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 5
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 6
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 7
+			db CHFULL
+		mkbyte TXLINEH,10
+			mktxtaddr 17, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 8
+			db CHTOP
+		mkbyte TXLINEH,6
+			mktxtaddr 17, 8
+			db CHTOP
+
+		mkbyte TXLINEH,2
+			mktxtaddr 28, 4
+			db CHBOTM
+
+		mkbyte TXLINEV,3
+			mktxtaddr 28, 5
+			db CHFULL
+
+		mkbyte TXLINEV,3
+			mktxtaddr 29, 5
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk123
 
 

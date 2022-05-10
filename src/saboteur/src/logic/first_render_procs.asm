@@ -32,6 +32,29 @@ s107rndr:
         ld  a,(s105trm + 1 + trdodat)
         jp  doorprc
 
+; ---- first render post processor for screen N-123.
+;
+s123rnd:
+        ; --- set left border
+        ld  hl, scrbuf + COLWIDB * 10 + ROWWIDB * 7 + TLMDATR
+        ld  a,bwall
+        ld  bc, ROWWIDB
+        dup 7
+            ld  (hl),a
+            add hl,bc       ; move to next row
+        edup
+
+        ; --- set wall above plate to make saboteur go in
+        ld  hl, scrbuf + COLWIDB * 10 + ROWWIDB * 14 + TLMDATR
+        ld  bc, COLWIDB
+        dup 5
+            ld  (hl),a
+            add hl,bc       ; move to next row
+        edup
+
+        call cptcabin
+        ret
+        
 ; ---- door open/close procedure
 ;
 ; args: A - current door state
@@ -51,3 +74,4 @@ doorprc:
         or  bwall
         call ylwdorst
         ret
+

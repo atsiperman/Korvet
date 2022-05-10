@@ -105,9 +105,13 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ; start byte of the control data
 cdatast:
 
+; ---- helicopter data
+;
+cptglass:   dw scrbuf + COLWIDB * 11 + ROWWIDB * 8      ; address of copter's cabin (front glass)
+
 ; ---- screen control block
 ;
-curscr: 	dw scrn30 		; pointer to current screen
+curscr: 	dw scrn122 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -115,8 +119,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
-            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
+            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
+            mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed

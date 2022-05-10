@@ -279,3 +279,7 @@ s109mom:
 		mkmasko fencelt, 8, 10
 		mkmasko fencelt, 9, 11
 		mkmasko fencelt, 10, 12
+
+s123mom:
+        db 1
+        mkmasko cabinimg, 9, 7

@@ -69,6 +69,8 @@ BK59ADDR:   DW BK59DATA
 BK60ADDR:   DW BK60DATA
 BK61ADDR:   DW BK61DATA
 BK62ADDR:   DW BK62DATA
+BK63ADDR:   DW BK63DATA
+BK64ADDR:   DW BK64DATA
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
@@ -259,3 +261,9 @@ BK61DATA:   bksh CYELLOW                                ; yellow block
 
 BK62DATA:   bksh2 CYELLOW, bwall                        ; horizontal white door
             db  0, 34, 255, 0, 255, 34, 0, 0 
+
+BK63DATA:   bksh3 CGREEN, CBLUE, bwall
+            db  254, 254, 198, 56, 40, 40, 40, 124            
+
+BK64DATA:   bksh_b CCYAN, CBLUE
+            db  153, 0, 0, 102, 153, 0, 0, 85            
