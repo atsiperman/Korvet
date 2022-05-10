@@ -24,14 +24,14 @@ sbladtbe:
 ;		
 sabkckrb:
 		db (sabkckre - sabkckrb - 1) / 2
-		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
+		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
 sabkckre:
 
 ; table of addresses of saboteur sprites when kicking left
 ;		
 sabkcklb:
 		db (sabkckle - sabkcklb - 1) / 2
-		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
+		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
 sabkckle:
 
 ; table of addresses of saboteur sprites for long jump
@@ -60,7 +60,7 @@ sabjpslb:
 sabjpsle:
 
 SBKCKI1  EQU 2		; index of the sprite when 1-st phase changes 
-SBKCKI2  EQU 7		; index of the sprite when 2-nd phase changes 
+SBKCKI2  EQU 6		; index of the sprite when 2-nd phase changes 
 SBKICKI  EQU 3      ; index of the sprite when it is necessary to check whether some object is kicked
 
 SBJPSPN	 EQU (sabjmpre - sabjmprb - 1) / 2  
@@ -73,14 +73,14 @@ SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2
 ;		
 gdkckrb:
 		db (gdkckre - gdkckrb - 1) / 2
-		dw gdkckr1, gdkckr1, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr1, gdkckr1
+		dw gdkckr1, gdkckr1, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr1, gdkckr1
 gdkckre:
 
 ; table of addresses of guard sprites when kicking left
 ;		
 gdkcklb:
 		db (gdkckle - gdkcklb - 1) / 2
-		dw gdkckl1, gdkckl1, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl1, gdkckl1
+		dw gdkckl1, gdkckl1, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl1, gdkckl1
 gdkckle:
 
 
@@ -88,14 +88,14 @@ gdkckle:
 ;		
 gdpnchrb:
 		db (gdpnchre - gdpnchrb - 1) / 2
-		dw gdpnchr, gdpnchr, gdpnchr ;, gdpnchr
+		dw gdpnchr, gdpnchr, gdpnchr, gdpnchr
 gdpnchre:
 
 ; table of addresses of guard sprites when punching left
 ;		
 gdpnchlb:
 		db (gdpnchle - gdpnchlb - 1) / 2
-		dw gdpnchl, gdpnchl, gdpnchl ;, gdpnchl
+		dw gdpnchl, gdpnchl, gdpnchl, gdpnchl
 gdpnchle:
 
 

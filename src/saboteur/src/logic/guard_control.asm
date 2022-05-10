@@ -140,7 +140,7 @@ gfcontmv:
         pop  hl                         ; restore control block
         pop  de                         ; restore distance
         ld   a,d        
-        cp   PNCHDST
+        cp   KICKDST
         jp   c,.gfcm2                   ; close enough, stop moving        
                                         ; too far, keep moving
 
@@ -197,28 +197,8 @@ gfcontmv:
 ; ---- continue guard's action
 ; args: HL - address of control block
 ;       A  - current state
-gdconact:      
-        push af
-        push hl
-
-        ldstate 
-        cp   sbmove                     ; moving ?
-        jp   nz,.gdc2                   ; no, continue action
-
-        call gdseesab                   ; see saboteur ?
-        or   a
-        pop  hl
-        jp   z,.gdc1                    ; doesn't see saboteur, stop and stay
-        and  c                          ; changed direction ?
-        jp   z,.gdc2                    ; no, continue action
-
-.gdc1:
-        pop  af
-        jp gdststay
-
-.gdc2:
-        pop  hl
-        pop af
+gdconact:
+        cp   sbkick
 
         push hl
         push af
