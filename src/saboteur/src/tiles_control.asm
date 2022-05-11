@@ -1,3 +1,5 @@
+TLOCUPID EQU 1000b      ; tile occupied
+TLRELESD EQU 10000b     ; tile released
 
 ; ----- saves current tile map
 ;		makes a copy of low half byte (current state) into hi half byte (old state)
@@ -13,7 +15,7 @@ stilm1:
 		jp z,stilm2		; not occupied - continue
 		
 		rla				; shift to hi half byte - old state
-		and 10000b		; clear current state
+		and TLRELESD	; clear current state
 		ld (hl),a		; save byte
 		
 stilm2:
@@ -95,7 +97,7 @@ updtilem:
 		push bc			; save width in C
 		
 uptlm1:	
-		ld a,1000b		; mark as occupied
+		ld a,TLOCUPID   ; mark as occupied
 
 uptlm2:		
 		ld (hl),a
@@ -155,7 +157,7 @@ utlmmobj:
 		push bc			; save width in C
 
 .utlmo1:
-		ld a,1000b		; mark as occupied
+		ld a,TLOCUPID		; mark as occupied
 		ld (hl),a
 
 		skip_buf_tile hl	; move to the next tile
@@ -207,7 +209,7 @@ utlmtho:
         call shscradr               ; get pointer to a tile for thrown object
 
         dec  hl                     ; move to tile state
-		ld   a,1000b		        ; mark as occupied
+		ld   a,TLOCUPID		        ; mark as occupied
 		ld   (hl),a
 
         dec  hl

@@ -262,8 +262,8 @@ BK61DATA:   bksh CYELLOW                                ; yellow block
 BK62DATA:   bksh2 CYELLOW, bwall                        ; horizontal white door
             db  0, 34, 255, 0, 255, 34, 0, 0 
 
-BK63DATA:   bksh3 CGREEN, CBLUE, bwall
+BK63DATA:   bksh3 CGREEN, CBLUE, bwall                  ; plate under helicopter
             db  254, 254, 198, 56, 40, 40, 40, 124            
 
-BK64DATA:   bksh_b CCYAN, CBLUE
+BK64DATA:   bksh_b CCYAN, CBLUE                         ; horizontal door above helicopter
             db  153, 0, 0, 102, 153, 0, 0, 85            

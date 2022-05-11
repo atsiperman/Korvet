@@ -51,6 +51,17 @@ gcycle:
 		call sbstsnd
 
         call gtimer         
+
+        sblcurst
+        cp   sbescap        ; escaping ?
+        jp   nz,.gmc1       ; no, continue game
+
+        call doescape       ; run escape process
+        or   a              ; finished ?
+        ret  z              ; yes, stop game
+        jp gcycle           ; continue if not zero
+
+.gmc1:
 		call gmain          ; main game logic
 		or a		
         ret z
@@ -60,7 +71,7 @@ gcycle:
 ; ---- main game logic
 ; result: A - 0 to stop, other - continue game
 ;
-gmain:
+gmain:        
         call trigact
         or  a
         ret nz
@@ -291,14 +302,29 @@ gkup3:
 		call cangolad		; if can go upstairs
 		pop bc
 		pop hl		
-		or a
-		jp z,gkstkick		; start kicking if no
+		or a        
+		jp z,gkescap		; check can escape
 
 		pop hl
 		push hl		
 		call sbstladr		; start moving on the ladder
 		jp gkupe
-				
+
+gkescap:
+        ld  de,scrn123      ; last screen in DE
+        ld  hl,(curscr)     ; current screen in HL
+        ld  a,e             ; check low byte
+        cp  l               ; are equal ?
+        jp  nz,gkstkick		; start kicking if no
+        ld  a,d             ; check high byte
+        cp  h               ; are equal ?
+        jp  nz,gkstkick		; start kicking if no
+        sblcursc            ; load current column
+        cp  ESCAPCOL        ; is it the last one ?
+        jp  nz,gkstkick		; start kicking if no
+        pop hl
+        jp  strtescp        ; start escape process
+
 gkstkick:
 		pop hl
 		push hl		

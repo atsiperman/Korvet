@@ -86,6 +86,8 @@ SBJMPHI		EQU 4			; height of the saboteur sprite when jumping
 SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
+ESCAPCOL    EQU 11          ; column on the last screen saboteur may escape from 
+CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
 KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
@@ -108,7 +110,13 @@ cdatast:
 
 ; ---- helicopter data
 ;
-cptglass:   dw scrbuf + COLWIDB * 11 + ROWWIDB * 8      ; address of copter's cabin (front glass)
+cptglass:   dw scrbuf + COLWIDB * 11 + ROWWIDB * 8          ; address of copter's cabin (front glass)
+cptdradl:   dw scrbuf + COLWIDB * CPTDRCOL + ROWWIDB        ; address of the column in screen buffer where helicopter's door starts opening
+cptdradr:   dw scrbuf + COLWIDB * (CPTDRCOL + 1) + ROWWIDB  ; address of the right column of helicopter's door
+cptdsadl:   dw SCRADDR + CPTDRCOL + VERTDISP
+cptdsadr:   dw SCRADDR + CPTDRCOL + 1 + VERTDISP
+
+cptdritr:   db 10           ; number of iterations to open helicopter's door
 
 ; ---- screen control block
 ;
