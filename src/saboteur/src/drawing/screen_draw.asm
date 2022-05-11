@@ -172,6 +172,15 @@ decmprs5:
         jp  .decmp6
 
 .decmp12:
+        cp   BMSOMAP
+        jp   nz,.decmp13
+		load_de_hl			; load background masked object map address to DE
+		ex de,hl
+		ld (bmobjlst),hl		; save pointer to the list of masked objects
+        ex   de,hl		
+        jp   .decmp6
+
+.decmp13:
         inc  hl
         jp   .decmp6
 			
@@ -353,7 +362,6 @@ drawobjs:
 							; draw saboteur
 		ld hl,sbctrlb
 		call drawobj
-		;ret					;;;;; remove this after debug
 
 		ld hl,(objlist)		; HL - address of the object list
 		ld a,h
@@ -379,10 +387,17 @@ drwobjs1:
 		
 		ret
 
+; ----- draws background masked objects on the current screen	
+;		
+drwbkmob:
+        ld hl,(bmobjlst)		; HL - address of the masked objects list
+        jp drwmobjs.drm1
+        
 ; ----- draws all masked objects on the current screen	
 ;		
 drwmobjs:		
 		ld hl,(mobjlst)		; HL - address of the masked objects list
+.drm1:
 		ld a,h
 		or l
 		ret z				; address is zero - exit
@@ -534,11 +549,13 @@ drawobj1:					; draw all objects
 
 drawobj2:
 		call updobjs		; update objects state		
-		call updmobjs		; update masked objects state
+        call updmobjs		; update masked objects state
+		call updbkmob		; update background masked objects state
 		call rsttiles		; restore tiles background according to current objects location
         call utlmtho        ; update thrown object state
         call utlmthog       ; update state of an object thrown by guard
-				
+
+        call drwbkmob		; draw background masked objects		
 		call drawobjs		; draw active objects
 		call drwmobjs		; draw masked objects
 

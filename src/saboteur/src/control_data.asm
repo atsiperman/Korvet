@@ -32,6 +32,7 @@ TILMAPLN	EQU	ROWNUM * COLNUM
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
+bmobjlst:	dw 0		; pointer to the list of background masked objects on the current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
 fstrdrp:    dw 0        ; pointer to first render post processing procedure

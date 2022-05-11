@@ -283,3 +283,7 @@ s109mom:
 s123mom:
         db 1
         mkmasko cabinimg, 9, 7
+
+s123bmom:
+        db 1
+        mkmasko cabinrt,15,7

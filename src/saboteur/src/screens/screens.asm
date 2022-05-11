@@ -11,6 +11,8 @@ MSKOMAP EQU 3       ; masked object map marker
 TRIGMAP EQU 4       ; trigger map
 TXTSMAP EQU 5       ; text screen map marker
 FSTRDRP EQU 6       ; first render post processing procedure
+BMSOMAP EQU 7       ; background masked object map marker
+
 
 		macro mktxtaddr colnum, rownum
 		dw TRAM + TSTARTC + colnum + 64*(TSTARTR + rownum)

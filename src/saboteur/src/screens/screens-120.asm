@@ -452,6 +452,8 @@ smap123e:
 		db 0
 		
 		db SCREND
+        db BMSOMAP
+        dw s123bmom
         db MSKOMAP
         dw s123mom
         db FSTRDRP

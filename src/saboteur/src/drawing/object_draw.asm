@@ -30,11 +30,20 @@ updobjs1:
 		
 		ret
 
+; ----- updates state of all the background masked objects on the screen
+;       updates tile map according to objects locations
+;
+updbkmob:
+		ld hl,(bmobjlst)		; HL - address of the masked objects list
+        jp updmobjs.updmo
+
 ; ----- updates state of all the masked objects on the screen
 ;       updates tile map according to objects locations
 ;
 updmobjs:
 		ld hl,(mobjlst)		; HL - address of the masked objects list
+
+.updmo:
 		ld a,h
 		or l
 		ret z				; address is zero - exit
