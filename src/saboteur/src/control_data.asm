@@ -39,6 +39,12 @@ fstrdrp:    dw 0        ; pointer to first render post processing procedure
 otramdef:	dw 0		; pointer to definition of text ram for old screen
 ; otramdef MUST be the last one
 
+            macro skip_buf_tile_spaddr reg_pair
+                dup 2
+                    inc reg_pair
+                edup
+            endm
+
             macro skip_buf_tile_head reg_pair
                 dup 4
                     inc reg_pair
@@ -87,7 +93,6 @@ SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 ESCAPCOL    EQU 11          ; column on the last screen saboteur may escape from 
-CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
 KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
@@ -101,6 +106,12 @@ HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 6			; hit by the dog
 HLKNFHIT	EQU 15			; hit by the guard's knife
+
+COPTCOL     EQU 9
+COPTROW     EQU 6           ; top row of the helicopter when staying
+COPTHI      EQU 9           ; full height of the helicopter
+COPTWID     EQU 9           ; full width of the helicopter
+CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
@@ -117,6 +128,10 @@ cptdsadl:   dw SCRADDR + CPTDRCOL + VERTDISP
 cptdsadr:   dw SCRADDR + CPTDRCOL + 1 + VERTDISP
 
 cptdritr:   db 10           ; number of iterations to open helicopter's door
+cptrow:     db COPTROW      ; top row of the helicopter
+cptheit:    db COPTHI       ; height of the helicopter
+cptaddr:    dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
+cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
 ; ---- screen control block
 ;

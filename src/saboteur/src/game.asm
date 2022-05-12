@@ -47,7 +47,7 @@ gcycle:
 		DISSND
 
 		call drawscr
-					
+
 		call sbstsnd
 
         call gtimer         
@@ -57,9 +57,11 @@ gcycle:
         jp   nz,.gmc1       ; no, continue game
 
         call doescape       ; run escape process
-        or   a              ; finished ?
-        ret  z              ; yes, stop game
-        jp gcycle           ; continue if not zero
+        xor  a
+        ret
+        ; or   a              ; finished ?
+        ; ret  z              ; yes, stop game
+        ; jp .gesc            ; continue if not zero
 
 .gmc1:
 		call gmain          ; main game logic
