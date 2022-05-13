@@ -137,11 +137,10 @@ cptfly:
         dec  a              ; decrease row
         ld   (cptrow),a     ; and save
 
+        call movprplr       ; move propeller
         call cptcpbuf       ; move up in the buffer
         call cptshow        ; copy buffer to the screen
-        dup 2
-        call mkpause        
-        edup
+        mkdelay 5
         jp   cptfly         ; repeat until copter reaches the top row
 
 ; ---- helicopter flies out when top row is reached
@@ -158,10 +157,62 @@ cptflybd
 
         call cptcpbuf       ; move up in the buffer
         call cptshow        ; copy buffer to the screen
-        dup 2
-        call mkpause        
-        edup
+        mkdelay 5
         jp   cptflybd         ; repeat until copter reaches the top row
+
+; ---- moves up propeller
+;
+movprplr:
+        ld   a,(prplrrow)
+        or   a
+        ret  z
+
+        dec  a
+        ld   (prplrrow),a
+
+        ld   hl,(prplradr)  ; load address into HL
+        push hl
+        ld   bc,ROWWIDB
+        sub_hl_bc
+
+        ex   de,hl
+        ld   (prplradr),hl   ; save new address of the top row
+        ex   de,hl
+
+        pop  hl                         ; restore old tile address
+        ld   bc,COLWIDB * PRPLRWID      ; width of the one line of tiles in bytes
+        call copymem
+         
+                            ; show on the screen
+        ld  hl,(prplvmem)
+        ld   bc,VERTDISP
+        sub_hl_bc
+
+        ex   de,hl
+        ld   (prplvmem),hl  ; save address for the next iteration
+        ex   de,hl
+
+        push de             ; save upper row
+        ld   hl,(prplradr)  ; load copter's tile address
+        ex   de,hl          ; into DE        
+        pop  hl             ; restore vmem address
+        
+        ld  c,PRPLRWID
+.cpt3:        
+        push bc
+            push hl
+            skip_buf_tile_spaddr de
+            GRMODON
+            call copytile
+            GRMODOFF
+            pop  hl
+            inc  hl            
+        pop bc
+        dec c
+        jp  nz,.cpt3
+
+        ret
+
 
 ; ---- moves up helicopter in screen buffer
 ;
@@ -229,7 +280,11 @@ cptshow:
         push bc
 
 .cpt2:
-        dup COPTWID
+        ;dup COPTWID
+        ld  c,COPTWID
+
+.cpt3:        
+        push bc
             push hl
             skip_buf_tile_spaddr de
             GRMODON
@@ -237,7 +292,9 @@ cptshow:
             GRMODOFF
             pop  hl
             inc  hl            
-        edup
+        pop bc
+        dec c
+        jp  nz,.cpt3
 
         pop  bc
         dec  c

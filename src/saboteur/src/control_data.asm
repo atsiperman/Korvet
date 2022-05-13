@@ -110,8 +110,11 @@ HLKNFHIT	EQU 15			; hit by the guard's knife
 COPTCOL     EQU 9
 COPTROW     EQU 6           ; top row of the helicopter when staying
 COPTHI      EQU 9           ; full height of the helicopter
-COPTWID     EQU 9           ; full width of the helicopter
+COPTWID     EQU 12          ; full width of the helicopter
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
+PRPLRCOL    EQU 6
+PRPLRROW    EQU 5
+PRPLRWID    EQU 17
 
 SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
@@ -124,14 +127,18 @@ cdatast:
 cptglass:   dw scrbuf + COLWIDB * 11 + ROWWIDB * 8          ; address of copter's cabin (front glass)
 cptdradl:   dw scrbuf + COLWIDB * CPTDRCOL + ROWWIDB        ; address of the column in screen buffer where helicopter's door starts opening
 cptdradr:   dw scrbuf + COLWIDB * (CPTDRCOL + 1) + ROWWIDB  ; address of the right column of helicopter's door
-cptdsadl:   dw SCRADDR + CPTDRCOL + VERTDISP
-cptdsadr:   dw SCRADDR + CPTDRCOL + 1 + VERTDISP
+cptdsadl:   dw SCRADDR + CPTDRCOL + VERTDISP                ; video address of the left part of the door
+cptdsadr:   dw SCRADDR + CPTDRCOL + 1 + VERTDISP            ; video address of the right part of the door
 
 cptdritr:   db 10           ; number of iterations to open helicopter's door
 cptrow:     db COPTROW      ; top row of the helicopter
 cptheit:    db COPTHI       ; height of the helicopter
 cptaddr:    dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
+
+prplrrow:   db PRPLRROW                                           ; top row of the propeller
+prplradr:   dw scrbuf + COLWIDB * PRPLRCOL + ROWWIDB * PRPLRROW   ; address of the propeller's first tile
+prplvmem:   dw SCRADDR + PRPLRCOL + PRPLRROW * VERTDISP           ; start address in video memory
 
 ; ---- screen control block
 ;

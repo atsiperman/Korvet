@@ -281,9 +281,30 @@ s109mom:
 		mkmasko fencelt, 10, 12
 
 s123mom:
-        db 1
+        db 19
         mkmasko cabinimg, 9, 7
+        mkmasko bushtop,14,5
+        mkmasko bushbtm,14,6
+
+        mkmasko propllr,6,5
+        mkmasko propllr,7,5
+        mkmasko propllr,8,5
+        mkmasko propllr,9,5
+        mkmasko propllr,10,5
+        mkmasko propllr,11,5
+        mkmasko propllr,12,5
+        mkmasko propllr,13,5
+
+        mkmasko propllr,15,5
+        mkmasko propllr,16,5
+        mkmasko propllr,17,5
+        mkmasko propllr,18,5
+        mkmasko propllr,19,5
+        mkmasko propllr,20,5
+        mkmasko propllr,21,5
+        mkmasko propllr,22,5
 
 s123bmom:
-        db 1
+        db 2
         mkmasko cabinrt,15,7
+        mkmasko cpttail,18,6
