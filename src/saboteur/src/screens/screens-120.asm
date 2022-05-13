@@ -379,8 +379,87 @@ smap122e:
 			mkline 9
 			db 0
 		;edup
-		
-		mscrend
+
+        db SCREND		
+        db TXTSMAP
+        dw s122txd
+        db SCREND
+
+s122txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 1
+			db CHBOTM
+		mkbyte TXLINEH,1
+			mktxtaddr 17, 1
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 2
+			db CHFULL
+		mkbyte TXLINEH,2
+			mktxtaddr 17, 2
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 19, 2
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 2, 3
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 17, 3
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 21, 3
+			db CHBOTM
+
+		mkbyte TXLINEH,2
+			mktxtaddr 0, 4
+			db CHBOTM
+		mkbyte TXLINEH,1
+			mktxtaddr 3, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 4, 4
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 19, 4
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 23, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 5
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 18, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 6
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 18, 6
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 3, 7
+			db CHFULL
+		mkbyte TXLINEH,7
+			mktxtaddr 18, 7
+			db CHFULL
+
+		mkbyte TXLINEV,3
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEV,3
+			mktxtaddr 1, 5
+			db CHFULL
+
+        db SCREND
+
 ; --- end of scrbk122
 
 
