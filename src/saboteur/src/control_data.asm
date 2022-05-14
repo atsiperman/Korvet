@@ -108,8 +108,8 @@ HLDOGHIT	EQU 6			; hit by the dog
 HLKNFHIT	EQU 15			; hit by the guard's knife
 
 COPTCOL     EQU 9
-COPTROW     EQU 6           ; top row of the helicopter when staying
-COPTHI      EQU 9           ; full height of the helicopter
+COPTROW     EQU 7           ; top row of the helicopter when staying
+COPTHI      EQU 8           ; full height of the helicopter
 COPTWID     EQU 12          ; full width of the helicopter
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 PRPLRCOL    EQU 6
@@ -136,6 +136,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptaddr:    dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
+prplheit:   db 2
 prplrrow:   db PRPLRROW                                           ; top row of the propeller
 prplradr:   dw scrbuf + COLWIDB * PRPLRCOL + ROWWIDB * PRPLRROW   ; address of the propeller's first tile
 prplvmem:   dw SCRADDR + PRPLRCOL + PRPLRROW * VERTDISP           ; start address in video memory
