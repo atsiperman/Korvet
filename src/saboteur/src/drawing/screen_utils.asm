@@ -155,7 +155,7 @@ drawbkt1:
         ld a,(hl)       ; load tile attributes
 
         and stotile     ; is static object ?
-        jp z,_drwbkt2   ; no, keep drawing
+        jp  z,_drwbkt2   ; no, keep drawing
 
         inc hl                  ; move to data byte
         skip_buf_tile_data hl   ; skip data in screen buffer

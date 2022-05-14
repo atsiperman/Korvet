@@ -71,7 +71,6 @@
 		include "logic/gun_logic.asm"
 		include "logic/triggers.asm"
         include "logic/wagons.asm"
-        include "logic/helicopter.asm"        
         include "logic/helpers.asm"
 				
 ;------ screen buffer		
@@ -141,7 +140,6 @@ gdspml3  EQU gdspml2 + (sabspmr2 - sabspmr1)
 gdspml4  EQU gdspml3 + (sabspmr2 - sabspmr1)
 
 ; ----- no more space in upper memory block
-
 		include "init.asm"
         ; MIRFLEN - size of the file with mirroring procs & data
         ; minus total length of saboteur sprites data
@@ -153,6 +151,10 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         dup (ROWNUM * ROWWIDB) - TMPDLEN
         db 0
         edup
+
+; ---- END OF SCREEN BUFFER ----
+
+        include "logic/helicopter.asm"        
 
 ; --- reserve space for other sprites here, there is no more space in upper memory block
 gdspmr1:

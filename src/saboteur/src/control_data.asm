@@ -107,23 +107,22 @@ HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 6			; hit by the dog
 HLKNFHIT	EQU 15			; hit by the guard's knife
 
-COPTCOL     EQU 9
-COPTROW     EQU 7           ; top row of the helicopter when staying
-COPTHI      EQU 8           ; full height of the helicopter
-COPTWID     EQU 12          ; full width of the helicopter
-CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
-PRPLRCOL    EQU 6
-PRPLRROW    EQU 5
-PRPLRWID    EQU 17
+CPTPAUS     EQU 1
+CPTPAUS2    EQU 4
 
-SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
-;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
+COPTCOL     EQU 6
+COPTROW     EQU 5           ; top row of the helicopter when staying
+COPTHI      EQU 10          ; full height of the helicopter
+COPTWID     EQU 17          ; full width of the helicopter
+
+CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
 ; start byte of the control data
 cdatast:
 
 ; ---- helicopter data
 ;
+cptpause:   db CPTPAUS
 cptglass:   dw scrbuf + COLWIDB * 11 + ROWWIDB * 8          ; address of copter's cabin (front glass)
 cptdradl:   dw scrbuf + COLWIDB * CPTDRCOL + ROWWIDB        ; address of the column in screen buffer where helicopter's door starts opening
 cptdradr:   dw scrbuf + COLWIDB * (CPTDRCOL + 1) + ROWWIDB  ; address of the right column of helicopter's door
@@ -133,19 +132,17 @@ cptdsadr:   dw SCRADDR + CPTDRCOL + 1 + VERTDISP            ; video address of t
 cptdritr:   db 10           ; number of iterations to open helicopter's door
 cptrow:     db COPTROW      ; top row of the helicopter
 cptheit:    db COPTHI       ; height of the helicopter
-cptaddr:    dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
+cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
-
-prplheit:   db 2
-prplrrow:   db PRPLRROW                                           ; top row of the propeller
-prplradr:   dw scrbuf + COLWIDB * PRPLRCOL + ROWWIDB * PRPLRROW   ; address of the propeller's first tile
-prplvmem:   dw SCRADDR + PRPLRCOL + PRPLRROW * VERTDISP           ; start address in video memory
 
 ; ---- screen control block
 ;
 curscr: 	dw scrn122 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
+
+SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
+;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 
 ; ----	saboteur control block			
 ;

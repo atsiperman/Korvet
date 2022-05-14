@@ -34,7 +34,7 @@ cptcabin:
             call mkpause.mkp
         endm
 
-        macro copt_draw_tile scrbufadr_ptr, video_adr_ptr, oper
+        macro coptdoor_draw_tile scrbufadr_ptr, video_adr_ptr, oper
             ld   hl,(scrbufadr_ptr)
             ex   de,hl
             ld   hl,(video_adr_ptr)
@@ -58,7 +58,7 @@ cptcabin:
         endm
 
         macro copt_open_door_left
-            copt_draw_tile cptdradl, cptdsadl, dec
+            coptdoor_draw_tile cptdradl, cptdsadl, dec
             copt_replace_tile cptdradl
             dup COLWIDB + 2                                 ; move pointer to the previous column for the next iteration
                 dec  hl
@@ -67,7 +67,7 @@ cptcabin:
         endm
 
         macro copt_open_door_right
-            copt_draw_tile cptdradr, cptdsadr, inc
+            coptdoor_draw_tile cptdradr, cptdsadr, inc
             copt_replace_tile cptdradr
             dup COLWIDB - 2                                 ; move pointer to the next column for the next iteration
                  inc  hl
@@ -79,8 +79,8 @@ cptcabin:
 ;
 strtescp:
         sbscurst sbescap
-        call rprepdor
         call rprepcpt
+        call rprepdor
         ret
 
 ; ---- prepare door
@@ -99,7 +99,6 @@ rprepdor:
         jp   nz,.stesc1
 
         copt_open_door_left
-        mkdelay 2
         ret 
 
 ; ---- restore border around copter in the screen buffer
@@ -107,12 +106,27 @@ rprepdor:
 rprepcpt:   
         ld   de,BK3DATA                                                 ; address of background data
         ld   c,TLOCUPID
+        ld   b,COPTHI - 1
 
-        ld   a,17
-        ld   hl,scrbuf + COLWIDB * PRPLRCOL + ROWWIDB * (PRPLRROW + 1)  ; address of the start column under propeller in screen buffer
+        ld   a,COPTWID
+        ld   hl,scrbuf + COLWIDB * COPTCOL + ROWWIDB * (COPTROW + 1)  ; address of the start column under propeller in screen buffer
+
+        push af
+        push bc
+
+.prp1:        
         call .prpbuf
+        pop  bc
+        pop  af
+        dec  b
+        ret  z
 
-        ret
+        push af
+        push bc
+        ld   bc,ROWWIDB - COLWIDB * COPTWID
+        add  hl,bc
+        jp   .prp1
+
 
 .prpbuf:
         skip_buf_tile_spaddr hl
@@ -128,9 +142,13 @@ rprepcpt:
 ; result:
 ;       A - 0 when escape process finished, 1 - not yet
 doescape:
-        call cptopndr
-        call cptfly
-        call cptflybd
+        call cptopndr       ; open top door
+        call flytop         ; fly to the top line
+        call flyout         ; fly out
+                                            ; clear top line after copter has gone
+        ld   hl,SCRADDR + COPTCOL
+        ld   de,scrbuf + COLWIDB * COPTCOL
+        call flytop.cpt5
         ret
 
 ; ---- open door above helicopter
@@ -148,214 +166,27 @@ cptopndr:
         copt_open_door_left
         copt_open_door_right
 
-        mkdelay 5
+        mkdelay 7
         jp   cptopndr           ; repeat until door is open
 
-; ---- helicopter flies out
+; ---- helicopter flies to the roof
 ;
-cptfly: 
-        ld   a,(cptrow)        
+flytop:
+        ld   a,(cptrow)
         or   a
         ret  z
 
+        call .movtop
+        call cptdelay
+        jp   flytop
+
+.movtop:
         dec  a              ; decrease row
         ld   (cptrow),a     ; and save
 
-        call movprplr       ; move propeller
-        call cptcpbuf       ; move up in the buffer
-        call cptshow        ; copy buffer to the screen
-        mkdelay 5
-        jp   cptfly         ; repeat until copter reaches the top row
-
-; ---- helicopter flies out when top row is reached
-;
-cptflybd
-        ld   a,(cptheit)        
-        or   a
-        ret  z
-
-        dec  a              ; decrease height
-        ld   (cptheit),a    ; and save
-        or   a
-        ret  z              
-
-        call cptcpbuf       ; move up in the buffer
-        call cptshow        ; copy buffer to the screen
-        mkdelay 5
-        jp   cptflybd       ; repeat until copter reaches the top row
-
-; ---- moves up propeller 
-;
-movprplr:        
-        ld   a,(prplheit)
-        or   a
-        ret  z              ; zero - do nothing
-
-        ld   c,a            ; save height
-
-        ld   a,(prplrrow)
-        or   a
-        jp   z,.mvp1
-        dec  a              ; decrease row
-        ld   (prplrrow),a   
-        jp   .mvp2
-
-.mvp1:
-        dec  c              ; decrease height
-        ld   a,c            
-        ld   (prplheit),a   ; and save
-        or   a              
-        ret  z              ; do nothing if this was the last line
-
-.mvp2:
-        call prpcpbuf
-        call prplshow
-        ret
-
-; ---- moves up propeller in buffer
-;
-prpcpbuf:
-        ld   hl,(prplradr)  ; load propeller address into HL
-        push hl
-        ld   bc,ROWWIDB
-        sub_hl_bc
-
-        ld   a,(prplrrow)   ; load row
-        or   a              ; the last one ?
-        jp   z,.cptm1       ; skip saving new address
-
-        ex   de,hl
-        ld   (prplradr),hl  ; save new address of the top row
-        ex   de,hl
-
-.cptm1:
-        pop  hl             ; restore old tile address
-
-        ld   a,(prplheit)   ; load height 
-        ld   c,a            ; into C
-
-        push bc             ; save counter
-
-.cptm2:        
-        ld   bc,COLWIDB * PRPLRWID              ; width of the one line of tiles in bytes
-        call copymem
-         
-        pop  bc
-        dec  c
-        ret  z
-
-        push bc                                 ; save counter
-        ld   bc,ROWWIDB - COLWIDB * PRPLRWID
-        ex   de,hl
-        add  hl,bc
-        ex   de,hl
-        add  hl,bc          ; move pointers to the next lines
-        jp   .cptm2
-
-; ---- show propeller on the screen
-;
-prplshow:
-        ld  hl,(prplvmem)
-        ld   bc,VERTDISP
-        sub_hl_bc
-
-        ld   a,(prplrrow)   ; load row
-        or   a              ; the last one ?
-        jp   z,.cpt1        ; skip saving new address
-
-        ex   de,hl
-        ld   (prplvmem),hl  ; save address for the next iteration
-        ex   de,hl
-
-.cpt1:        
-        push de             ; save upper row
-        ld   hl,(prplradr)  ; load copter's tile address
-        ex   de,hl          ; into DE        
-        pop  hl             ; restore vmem address
-        
-        ld   a,(prplheit)   ; load copter height 
-        ld   c,a            ; into C
-                
-        push bc
-
-.cpt2:
-        ld  c,PRPLRWID
-
-.cpt3:        
-        push bc
-            push hl
-            skip_buf_tile_spaddr de
-            GRMODON
-            call copytile
-            GRMODOFF
-            pop  hl
-            inc  hl            
-        pop bc
-        dec c
-        jp  nz,.cpt3
-
-        pop  bc
-        dec  c
-        ret  z
-        push bc
-
-        ld   bc,VERTDISP - PRPLRWID
-        add  hl,bc          ; move to the next screen line
-        ex   de,hl
-        ld   bc,ROWWIDB - PRPLRWID * COLWIDB    
-        add  hl,bc          ; move to the next line in buffer
-        ex   de,hl
-        jp   .cpt2
-
-; ---- moves up helicopter in screen buffer
-;
-cptcpbuf:
-        ld   hl,(cptaddr)   ; load copter's address into HL
-        push hl
-        ld   bc,ROWWIDB
-        sub_hl_bc
-
-        ld   a,(cptrow)     ; load row
-        or   a              ; the last one ?
-        jp   z,.cptm1       ; skip saving new address
-
-        ex   de,hl
-        ld   (cptaddr),hl   ; save new address of the top row
-        ex   de,hl
-
-.cptm1:
-        pop  hl             ; restore old tile address
-
-        ld   a,(cptheit)    ; load copter's height
-        ld   c,a            ; into C
-        push bc             ; save counter
-
-.cptm2:        
-        ld   bc,COLWIDB * COPTWID               ; width of the one line of tiles in bytes
-        call copymem
-         
-        pop  bc
-        dec  c
-        ret  z
-
-        push bc                                 ; save counter
-        ld   bc,ROWWIDB - COLWIDB * COPTWID
-        ex   de,hl
-        add  hl,bc
-        ex   de,hl
-        add  hl,bc          ; move pointers to the next lines
-        jp   .cptm2
-
-; ---- show helicopter on the screen
-;
-cptshow:
         ld  hl,(cptvmem)
         ld   bc,VERTDISP
         sub_hl_bc
-
-        ld   a,(cptrow)     ; load row
-        or   a              ; the last one ?
-        jp   z,.cpt1        ; skip saving new address
 
         ex   de,hl
         ld   (cptvmem),hl   ; save address for the next iteration
@@ -363,7 +194,7 @@ cptshow:
 
 .cpt1:        
         push de             ; save upper row
-        ld   hl,(cptaddr)   ; load copter's tile address
+        ld   hl,(cptbuf)    ; load copter's tile address
         ex   de,hl          ; into DE        
         pop  hl             ; restore vmem address
         
@@ -390,7 +221,7 @@ cptshow:
 
         pop  bc
         dec  c
-        ret  z
+        jp   z,.cpt4
         push bc
 
         ld   bc,VERTDISP - COPTWID
@@ -400,3 +231,89 @@ cptshow:
         add  hl,bc          ; move to the next line in buffer
         ex   de,hl
         jp   .cpt2
+
+.cpt4:                      ; restore line under the copter
+        ld   bc,VERTDISP - COPTWID
+        add  hl,bc          ; move to the next screen line        
+
+.cpt5:
+        ld   de,scrbuf + COLWIDB * COPTCOL
+
+        ld   c,COPTWID
+        GRMODON
+        call drawbktl
+        GRMODOFF
+
+        ret
+
+; ---- helicopter flies out
+;
+flyout:
+        ld   a,(cptheit)
+        dec  a              ; decrease height
+        ld   (cptheit),a    ; and save
+        ret  z
+
+        cp   a,COPTHI / 5
+        jp   nz,.flout
+        ld   a,CPTPAUS2
+        ld   (cptpause),a
+        ld   a,(cptheit)    ; restore height
+
+.flout:
+        call .movout
+        call cptdelay
+        jp   flyout
+
+.movout:
+        ; A - current height 
+        ld   hl,(cptbuf)
+        ld   bc,ROWWIDB
+        add  hl,bc
+        ld   (cptbuf),hl    ; save address for the next iteration
+        ex   de,hl
+        ld   hl,(cptvmem)   ; load video address        
+        ld   c,a            ; save copter's height into C                
+        push bc
+
+.cpt2:
+        ld  c,COPTWID
+
+.cpt3:        
+        push bc
+            push hl
+            skip_buf_tile_spaddr de
+            GRMODON
+            call copytile
+            GRMODOFF
+            pop  hl
+            inc  hl            
+        pop bc
+        dec c
+        jp  nz,.cpt3
+
+        pop  bc
+        dec  c
+        jp   z,.cpt4
+        push bc
+
+        ld   bc,VERTDISP - COPTWID
+        add  hl,bc                          ; move to the next screen line
+        ex   de,hl
+        ld   bc,ROWWIDB - COPTWID * COLWIDB    
+        add  hl,bc                          ; move to the next line in buffer
+        ex   de,hl
+        jp   .cpt2
+
+.cpt4:                                      ; restore line under the copter
+        ld   bc,VERTDISP - COPTWID
+        add  hl,bc                          ; move to the next screen line
+        jp flytop.cpt5
+
+; ---- makes a pause when copter is moving
+;
+cptdelay:
+        ld  a,(cptpause)
+        ld  c,a
+        call mkpause.mkp
+        ret
