@@ -572,7 +572,33 @@ smap36e:
         dw s36objm
         db MSKOMAP
         dw s36mom
+        db TXTSMAP
+        dw scr36txd
         db SCREND
+		
+scr36txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 6, 4
+			db CHBOTM
+		mkbyte TXLINEH,9
+			mktxtaddr 21, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 6, 5
+			db CHFULL
+		mkbyte TXLINEH,9
+			mktxtaddr 21, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 6, 6
+			db CHTOP
+		mkbyte TXLINEH,9
+			mktxtaddr 21, 6
+			db CHTOP
+
+		mscrend
 
 ; --- end of scrbk36
 
@@ -686,8 +712,35 @@ smap37e:
         db SCREND
         db MSKOMAP
         dw s37mom
+        db TXTSMAP
+        dw scr37txd
+        db FSTRDRP
+        dw s37rndr
         db SCREND
 
+scr37txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHBOTM
+		mkbyte TXLINEH,9
+			mktxtaddr 15, 4
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 5
+			db CHFULL
+		mkbyte TXLINEH,9
+			mktxtaddr 15, 5
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHTOP
+		mkbyte TXLINEH,9
+			mktxtaddr 15, 6
+			db CHTOP
+
+		mscrend
 		
 ; --- end of scrbk37
 

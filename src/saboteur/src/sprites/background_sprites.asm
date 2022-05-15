@@ -71,6 +71,10 @@ BK61ADDR:   DW BK61DATA
 BK62ADDR:   DW BK62DATA
 BK63ADDR:   DW BK63DATA
 BK64ADDR:   DW BK64DATA
+BK65ADDR:   DW BK65DATA
+BK66ADDR:   DW BK66DATA
+BK67ADDR:   DW BK67DATA
+BK68ADDR:   DW BK68DATA
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
@@ -163,7 +167,7 @@ BK28DATA:	bksh3 CYELLOW,CRED,bwall					; red left bottom edge
 BK29DATA:	bksh2 CRED, bwall							; solid red 
 			DB 255,255,255,255,255,255,255,255
 
-BK30DATA:	bksh CGREEN									; solid green
+BK30DATA:	bksh CCYAN									; solid green
 			DB 255,255,255,255,255,255,255,255
 
 BK31DATA:	bksh2 CWHITE,bwall							; black and white dots
@@ -187,10 +191,10 @@ BK36DATA:	bksh3 CYELLOW,CRED,bwall					; red right top edge
 BK37DATA:	bksh3 CYELLOW,CRED,bwall					; red right bottom edge
 			DB 255, 255, 255, 255, 254, 252, 248, 240
 
-BK38DATA:	bksh3 CGREEN,CBLACK,0   					; top black half
+BK38DATA:	bksh3 CCYAN,CBLACK,0   					; top black half
 			DB 255, 255, 255, 255, 0, 0, 0, 0
 
-BK39DATA:	bksh3 CBLACK,CGREEN,0   					; bottom black half
+BK39DATA:	bksh3 CBLACK,CCYAN,0   					; bottom black half
 			DB 255, 255, 255, 255, 0, 0, 0, 0
 
 BK40DATA:   bksh2 CYELLOW, bwall						; underwater floor
@@ -267,3 +271,15 @@ BK63DATA:   bksh3 CGREEN, CBLUE, bwall                  ; plate under helicopter
 
 BK64DATA:   bksh_b CCYAN, CBLUE                         ; horizontal door above helicopter
             db  153, 0, 0, 102, 153, 0, 0, 85            
+
+BK65DATA:   bksh_b CGREEN, CYELLOW                      ; green-yellow L right
+            db  63, 63, 127, 127, 127, 255, 255, 255
+
+BK66DATA:   bksh_b CCYAN, CYELLOW                       ; green-yellow L left
+            db  252, 252, 254, 254, 254, 255, 255, 255            
+
+BK67DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top right
+            db  255, 255, 255, 255, 240, 240, 240, 240            
+
+BK68DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top left
+            db  255, 255, 255, 255, 15, 15, 15, 15            

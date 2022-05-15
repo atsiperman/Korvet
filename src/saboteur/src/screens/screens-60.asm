@@ -10,6 +10,8 @@ smap60b:
 		bkindex BK38ADDR	; 6, top black half
 		bkindex BK39ADDR	; 7, bottom black half
 		bkindex BK30ADDR	; 8, solid green
+        bkindex BK65ADDR    ; 9, green-yellow L
+        bkindex BK67ADDR    ; 10, green-yellow L
 smap60e:
 							; 1
 		mkline 13
@@ -32,30 +34,32 @@ smap60e:
 							; 4		
 		mkline 10
 		mkbyte 8,8
-		mkbyte 8,1
+		mkbyte 9,1
 		mkline 4
 		mkbyte 1,1
 		
 							; 5		
-		mkline 10
+		mkline 9
 		mkbyte 8,8
+        mkbyte 8,10
 		mkline 5
 		mkbyte 1,1		
 							; 6
-		mkline 10
+		mkline 9
 		mkbyte 8,8
+        mkbyte 8,9
 		mkline 5			
 		mkbyte 1,1		
 							; 7
 		mkline 9	
 		mkbyte 8,8
-		mkbyte 8,1
+		mkbyte 10,1
 		mkline 5			
 		mkbyte 1,1		
 							; 8
 		mkline 9
 		mkbyte 7,7
-		mkbyte 7,1
+		mkbyte 9,1
 		mkline 5			
 		mkbyte 1,1		
 		
@@ -73,14 +77,49 @@ smap60e:
 		;edup
 
 		db SCREND
+        db STOMAP
+        dw s60stom
         db OBJMAP        
         dw s60objm
         db MSKOMAP
         dw s60mom
         db TRIGMAP
         dw s60trm
+        db TXTSMAP
+        dw scr60txd
         db SCREND
 		
+scr60txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 1
+			db CHBOTM
+		mkbyte TXLINEH,6
+			mktxtaddr 15, 1
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 2
+			db CHFULL
+		mkbyte TXLINEH,5
+			mktxtaddr 15, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 3
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 15, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 4
+			db CHTOP
+		mkbyte TXLINEH,3
+			mktxtaddr 15, 4
+			db CHTOP
+
+		db SCREND
+
 ; --- end of scrbk60
 
 scrbk61:
@@ -92,6 +131,11 @@ smap61b:
 		bkindex BK29ADDR    ; 3, solid red
 		bkindex BK27ADDR    ; 4, red left top edge
 		bkindex BK28ADDR    ; 5, red left bottom edge
+		bkindex BK38ADDR	; 6, top black half
+		bkindex BK39ADDR	; 7, bottom black half
+		bkindex BK30ADDR	; 8, solid green
+        bkindex BK66ADDR    ; 9, green-yellow L top 
+        bkindex BK68ADDR    ; 10, green-yellow L bottom
 smap61e:
 		mkbyte 1,1			; 1
 		mkbyte 4,3
@@ -105,37 +149,39 @@ smap61e:
 
 		mkline 4			; 3
 		mkbyte 1,1
-		mkbyte 1,2
+		mkbyte 1,6
 		mkline 10
-		mkbyte 2,2
+		mkbyte 6,6
 
 		mkline 4			; 4
 		mkbyte 1,1
-		mkbyte 1,2
+		mkbyte 1,9
 		mkline 10
-		mkbyte 2,2
+		mkbyte 8,8
 		
 		mkline 5			; 5
 		mkbyte 1,1
-		mkline 10
-		mkbyte 2,2
+        mkbyte 10,8
+		mkline 9
+		mkbyte 8,8
 
 		mkline 5			; 6
 		mkbyte 1,1
-		mkline 10
-		mkbyte 2,2
+        mkbyte 9,8
+		mkline 9
+		mkbyte 8,8
 		
 		mkline 5			; 7
 		mkbyte 1,1
-		mkbyte 1,2
+		mkbyte 1,10
 		mkline 9
-		mkbyte 2,2
+		mkbyte 8,8
 
 		mkline 5			; 8
 		mkbyte 1,1
-		mkbyte 1,2
+		mkbyte 1,9
 		mkline 9
-		mkbyte 2,2
+		mkbyte 7,7
 		
 		mkdup 7
 			mkline 6
@@ -151,25 +197,48 @@ smap61e:
 		;edup
 
 		db SCREND
+        db STOMAP
+        dw s61stom
         db OBJMAP
         dw s61objm
         db MSKOMAP
         dw s61mom
         db TRIGMAP
         dw s61trm
-        ;db TXTSMAP
-        ;dw scr63txd
+        db TXTSMAP
+        dw scr61txd
 		db SCREND
 		
-; scr63txd:
-; 		mkbyte TXLINEH,15
-; 			mktxtaddr 15, 7
-; 			db CHFULL
-; 		mkbyte TXLINEH,1
-; 			mktxtaddr 29, 7
-; 			db CHFULL
+scr61txd:
+		mkbyte TXLINEH,15
+			mktxtaddr 9, 1
+			db CHBOTM
+		mkbyte TXLINEH,6
+			mktxtaddr 24, 1
+			db CHBOTM
 
-; 		db SCREND
+		mkbyte TXLINEH,15
+			mktxtaddr 10, 2
+			db CHFULL
+		mkbyte TXLINEH,5
+			mktxtaddr 25, 2
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 11, 3
+			db CHFULL
+		mkbyte TXLINEH,4
+			mktxtaddr 26, 3
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 12, 4
+			db CHTOP
+		mkbyte TXLINEH,3
+			mktxtaddr 27, 4
+			db CHTOP
+
+		db SCREND
 
 		
 ; --- end of scrbk61

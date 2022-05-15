@@ -11,6 +11,20 @@ ylwdorst:
         edup
         ret
 
+; ---- first render post processor for screen N-37.
+;
+s37rndr:
+        ; --- set left border
+        ld  hl, scrbuf + COLWIDB * 25 + ROWWIDB * 7 + TLMDATR
+        ld  a,bwall
+        ld  bc, ROWWIDB
+        dup 7
+            ld  (hl),a
+            add hl,bc       ; move to next row
+        edup
+        ret
+
+
 ; ---- first render post processor for screen N-45.
 ;
 s45rndr:
