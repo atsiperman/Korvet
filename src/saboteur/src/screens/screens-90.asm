@@ -92,6 +92,12 @@ smap91e:
         db SCREND
         db TXTSMAP
         dw scr91txd
+        db STOMAP
+        dw s91stom
+        db MSKOMAP
+        dw s91mom
+        db TRIGMAP
+        dw s91trm
         db SCREND
 
 scr91txd:					; description of the text RAM used by this screen		
@@ -274,7 +280,7 @@ smap93e:
 		mkbyte 1,1
 		db 0
 
-		mkdup 7
+		mkdup 6
 			mkbyte 1,9
 			mkline 9
 			mkbyte 1,1
@@ -283,6 +289,15 @@ smap93e:
 			mkbyte 1,1
 			db 0
 		;edup
+
+        db 0
+        mkbyte 0,1
+        mkline 8
+        mkbyte 1,1
+        mkbyte 4,5
+        mkline 3
+        mkbyte 1,1
+        db 0
 
 		db 0
 		db 0
@@ -325,7 +340,15 @@ smap93e:
 			mkline 4
 			db 0		
 		;edup 
-		mscrend
+
+        db SCREND
+        db OBJMAP
+        dw s93objm
+        db MSKOMAP
+        dw s93mom
+        db STOMAP
+        dw s93stom
+        db SCREND
 		
 ; --- end of scrbk93
 

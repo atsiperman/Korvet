@@ -310,6 +310,62 @@ s77stom:
         mkstobj barelimg, 5, 13
         mkbox34 19, 13
 
+s78stom:
+        db 12
+        mkstobj barelimg, 7, 13
+        mkstobj barelimg, 25, 13
+        mkstobj barelimg, 22, 13
+        mkstobj barelimg, 23, 10
+        mkstobj barelimg, 17, 10
+        mkbox33 11, 13
+        mkbox34 16, 13
+
+s79stom:
+        db 13
+        mkstobj barelimg, 6, 13
+        mkstobj barelimg, 9, 13
+        mkstobj barelimg, 8, 10
+        mkstobj barelimg, 19, 13
+        mkstobj barelimg, 22, 13
+        mkstobj barelimg, 25, 13
+        mkstobj barelimg, 21, 10
+        mkstobj barelimg, 25, 10
+        mkstobj barelimg, 23, 7
+        mkbox34 14, 13
+
+s80stom:
+        db 18
+        mkstobj barelimg, 2, 13
+        mkstobj barelimg, 5, 13
+        mkstobj barelimg, 8, 13
+        mkstobj barelimg, 12, 13
+        mkstobj barelimg, 3, 10
+        mkstobj barelimg, 7, 10
+        mkstobj barelimg, 10, 10
+        mkstobj barelimg, 5, 7
+        mkbox33 16, 13
+        mkbox34 24, 13
+        mkbox33 25, 10
+
+s81stom:
+        db 20
+        mkstobj barelimg, 11, 13
+        mkstobj barelimg, 14, 13
+        mkstobj barelimg, 12, 10
+        mkstobj barelimg, 15, 10
+        mkstobj barelimg, 26, 13
+        mkbox33 7,13
+        mkbox34 15,13
+        mkbox34 20,13
+        mkbox34 18,10
+
+s82stom:
+        db 15
+        mkbox33 2,13
+        mkbox34 15,13
+        mkbox34 21,13
+        mkbox34 18,10
+
 s84stom:
         db 16
         mkbox33 2, 12
@@ -371,6 +427,16 @@ s89stom:
         mkstobj barelimg, 18, 13
         mkstobj barelimg, 22, 13
         mkstobj barelimg, 25, 13
+
+s91stom:
+        db 3
+        mkbox33 2,13
+
+s93stom:
+        db 3
+        mkstobj barelimg, 11, 9
+        mkstobj barelimg, 14, 9 
+        mkstobj barelimg, 25, 9
 
 s97stom:
         db tapeimn

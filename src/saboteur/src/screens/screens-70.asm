@@ -491,7 +491,8 @@ scr75txd:						; description of the text RAM used by this screen
 			mktxtaddr 28, 8
 			db CHTOP
 
-		mscrend
+		db SCREND
+
 ; --- end of scrbk75
 
 
@@ -548,6 +549,8 @@ smap77e:
 		db 0
 		
 		db SCREND
+        db OBJMAP
+        dw s77objm
         db MSKOMAP
         dw s77mom		
         db STOMAP        
@@ -556,13 +559,6 @@ smap77e:
         dw scr77txd
         db SCREND
 		
-s77mom:
-        db 4
-        mkmasko bigplate, 21, 15
-        mkmasko smlplate, 21, 14
-        mkmasko smlplate, 21, 13
-        mkmasko smlplate, 21, 12
-
 scr77txd:
 		mkbyte TXLINEH,2
 			mktxtaddr 9, 8
@@ -612,7 +608,15 @@ smap78e:
 		mkline 13
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s78objm
+        db MSKOMAP
+        dw s78mom
+        db STOMAP        
+        dw s78stom
+        db SCREND
+		
 		
 ; --- end of scrbk78
 
@@ -639,6 +643,15 @@ smap79e:
 		mkline 13
 		db 0
 		
-		mscrend
+		db SCREND
+        db OBJMAP
+        dw s79objm
+        db MSKOMAP
+        dw s79mom
+        db STOMAP        
+        dw s79stom
+        db TRIGMAP
+        dw s79trm
+        db SCREND
 		
 ; --- end of scrbk79

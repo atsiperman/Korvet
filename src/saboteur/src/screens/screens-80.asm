@@ -31,7 +31,13 @@ smap80e:
 		mkline 13
 		db 0
 		
-		mscrend
+		db SCREND
+        db STOMAP
+        dw s80stom
+        db OBJMAP
+        dw s80objm
+        db SCREND
+
 		
 ; --- end of scrbk80
 
@@ -59,7 +65,14 @@ smap81e:
 		mkline 13
 		db 0
 		
-		mscrend
+	    db SCREND
+        db MSKOMAP
+        dw s81mom
+        db STOMAP
+        dw s81stom
+        db OBJMAP
+        dw s81objm
+        db SCREND
 		
 ; --- end of scrbk81
 
@@ -113,6 +126,12 @@ smap82e:
 		db 0
 		
         db SCREND
+        db STOMAP
+        dw s82stom
+        db MSKOMAP
+        dw s82mom
+        db OBJMAP
+        dw s82objm
         db TXTSMAP
         dw scr82txd
         db SCREND

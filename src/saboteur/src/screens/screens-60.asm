@@ -774,7 +774,11 @@ smap66e:
 		mkline 13
 		db 0
 		
-		db SCREND		
+		db SCREND
+        db OBJMAP
+        dw s66objm
+        db TRIGMAP
+        dw s66trm
         db STOMAP
         dw s66stom
         db TXTSMAP
@@ -907,8 +911,8 @@ smap67e:
 		db 0
 		
 		db SCREND
-        ;db OBJMAP
-        ;dw s67objm
+        db OBJMAP
+        dw s67objm
         db STOMAP
         dw s67stom
         db MSKOMAP
@@ -917,22 +921,6 @@ smap67e:
         dw scr67txd
         db SCREND
 		
-s67mom:	
-		db 10
-   		mkmasko bigplate,0,15
-		mkmasko smlplate,0,14
-
-   		mkmasko bigplate,4,15
-		mkmasko smlplate,4,14
-        mkmasko smlplate,4,13
-
-   		mkmasko bigplate,22,15
-		mkmasko smlplate,22,14
-
-   		mkmasko bigplate,24,15
-		mkmasko smlplate,24,14
-        mkmasko smlplate,24,13
-
 scr67txd:
 		mkbyte TXLINEH,15
 			mktxtaddr 0, 1
@@ -1073,8 +1061,8 @@ smap68e:
 		db 0
 		
 		db SCREND
-        ;db OBJMAP
-        ;dw s68objm
+        db OBJMAP
+        dw s68objm
         db MSKOMAP
         dw s68mom
         db TXTSMAP

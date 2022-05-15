@@ -94,7 +94,19 @@ s65trm:
     db 1
     mkbrick 8, 14
 
+s66trm:
+    db 1
+    mkgrnd 24,15
+
 s70trm:
+    db 1
+    mkknife 18, 15
+
+s79trm:
+    db 1
+    mkdesk 3, 6, 0
+
+s91trm:
     db 1
     mkknife 18, 15
 

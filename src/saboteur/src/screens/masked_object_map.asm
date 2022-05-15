@@ -134,6 +134,22 @@ s64mom:
         db 1
         mkmasko wgnwind, 13, 9
 
+s67mom:	
+		db 10
+   		mkmasko bigplate,0,15
+		mkmasko smlplate,0,14
+
+   		mkmasko bigplate,4,15
+		mkmasko smlplate,4,14
+        mkmasko smlplate,4,13
+
+   		mkmasko bigplate,22,15
+		mkmasko smlplate,22,14
+
+   		mkmasko bigplate,24,15
+		mkmasko smlplate,24,14
+        mkmasko smlplate,24,13
+
 s70mom:
 		db 17
 		mkmasko bigplate,1,15
@@ -158,6 +174,42 @@ s70mom:
 		mkmasko smlplate,25,14
 		mkmasko smlplate,25,13
 
+s77mom:
+        db 4
+        mkmasko bigplate, 21, 15
+        mkmasko smlplate, 21, 14
+        mkmasko smlplate, 21, 13
+        mkmasko smlplate, 21, 12
+
+s78mom:
+        db 4
+        mkmasko bigplate, 2, 15
+        mkmasko smlplate, 2, 14
+        mkmasko smlplate, 2, 13
+        mkmasko smlplate, 2, 12
+
+s79mom:
+        db 1
+        mkmasko desk, 3, 12
+
+s81mom:
+        db 4
+		mkmasko bigplate,3,15
+		mkmasko smlplate,3,14
+		mkmasko smlplate,3,13
+        mkmasko smlplate,3,12
+
+s82mom:
+        db 8
+		mkmasko bigplate,4,15
+		mkmasko smlplate,4,14
+		mkmasko smlplate,4,13
+        mkmasko smlplate,4,12
+		mkmasko bigplate,24,15
+		mkmasko smlplate,24,14
+		mkmasko smlplate,24,13
+        mkmasko smlplate,24,12
+
 s85mom:
         db 3
         mkmasko cranehk, 15,7
@@ -179,6 +231,21 @@ s92mom:
         mkmasko fencert,23,6
         mkmasko fencert,24,5
 		mkmasko fencertl,25,5
+
+s91mom:
+        db 7
+		mkmasko bigplate,5,15
+		mkmasko smlplate,5,14
+		mkmasko smlplate,5,13
+		mkmasko bigplate,16,15
+		mkmasko smlplate,16,14
+		mkmasko smlplate,16,13
+        mkmasko smlplate,16,12
+
+s93mom:
+        db 2
+		mkmasko bigplate,7,11
+		mkmasko smlplate,7,10
 
 s95mom:
 		db 2

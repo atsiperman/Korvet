@@ -699,7 +699,11 @@ smap27e:
 			db 0
 		;edup
 		
-		mscrend
+        db SCREND
+        db OBJMAP
+        dw s27objm
+        db SCREND
+
 ; --- end of scrbk27
 
 scrbk28:

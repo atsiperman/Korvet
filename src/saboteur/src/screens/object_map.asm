@@ -30,6 +30,10 @@ s10objm:
 		mkguard sbstay,dirlt,scrbuf,gdsprt,0,3,8,3,20	
 		mkdog dirlt,dogspml1,0,23,11,3,22		
 
+s27objm:
+		db 1
+		mkguard sbstay, dirrt, scrbuf, gdsprt, 0,6,6, 3,20
+
 s28objm:
 		db 1
 		mkgun dirlt,7,5
@@ -99,6 +103,19 @@ s62objm:
 		db 1		
 		mkdog dirlt,dogspml1,0,3,8,3,15
 
+s66objm:
+		db 2
+        mkgun dirlt,13,1
+		mkdog dirlt,dogspml1,0,21,13,3,21
+
+s67objm:
+        db 1
+        mkguard sbstay,dirlt,scrbuf,gdsplt,0,23,10,7,21
+
+s68objm:
+        db 1
+        mkguard sbstay,dirlt,scrbuf,gdsplt,0,8,10,3,23
+
 s70objm:
 		db 2
 		mkguard sbstay,dirrt,scrbuf,gdsprt,0,12,1,3,24
@@ -107,6 +124,31 @@ s70objm:
 s71objm:
 		db 1
 		mkdog dirlt,dogspml1,0,15,5,5,15
+
+s77objm:
+		db 1		
+		mkdog dirrt,dogspmr1,0,11,13,4,23
+
+s78objm:
+		db 2
+		mkdog dirlt,dogspml1,0,10,13,2,23
+        mkguard sbstay,dirlt,scrbuf,gdsplt,0,19,10,3,24
+
+s79objm:
+		db 1
+		mkdog dirlt,dogspml1,0,10,13,2,23
+
+s80objm:
+		db 1
+		mkdog dirrt,dogspmr1,0,10,13,2,23
+
+s81objm:
+		db 1		
+        mkguard sbstay,dirrt,scrbuf,gdsprt,0,6,10,3,24
+
+s82objm:
+		db 1		
+		mkdog dirrt,dogspmr1,0,11,13,4,23
 
 s84objm:
 		db 1
@@ -118,7 +160,11 @@ s87objm:
 
 s92objm:
         db 1
-        mkdog dirrt,dogspml1,0,1,12,1,15
+        mkdog dirlt,dogspml1,0,10,12,1,15
+
+s93objm:
+        db 1
+        mkdog dirlt,dogspml1,0,22,9,7,23
 
 s96objm:
         db 2
