@@ -724,6 +724,8 @@ smap97e:
         db SCREND		
         db MSKOMAP
         dw s97mom
+        db OBJMAP
+        dw s97objm
         db STOMAP
         dw s97stom
         db TXTSMAP

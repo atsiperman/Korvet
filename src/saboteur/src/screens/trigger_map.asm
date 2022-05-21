@@ -110,6 +110,14 @@ s91trm:
     db 1
     mkknife 18, 15
 
+s101trm:
+    db 1
+    mkstone 5, 14
+
+s102trm:
+    db 1
+    mkknife 12, 8
+
 s105trm:
     db 1
     mkdesk 23,8,dooropn

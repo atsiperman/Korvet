@@ -175,6 +175,10 @@ s96objm:
         mkdog dirrt,dogspml1,0,13,13,13,25
         mkgun dirrt,13,1
 
+s97objm:
+        db 1
+        mkguard sbstay,dirlt,scrbuf,gdsplt,0,15,1,5,23
+
 s100om:
 		db 1
 		mkdog dirrt,dogspml1,0,2,5,3,14
@@ -182,6 +186,10 @@ s100om:
 s102om:
 		db 1
 		mkguard sbstay,dirrt,scrbuf,gdsprt,0,21,3,2,25
+
+s104om:
+        db 1
+        mkgun dirrt,13,1
 
 s106om:
         db 1

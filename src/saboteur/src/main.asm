@@ -8,16 +8,8 @@
         include "const.asm"
 		include "sbmacro.asm"	
 		include "object_def.asm"
-		include "control_data.asm"						
-
-		include "sprites/gun_sprites.asm"
-        include "sprites/background_sprites.asm"
 		include "sprites/dog_sprites.asm"				
-		include "sprites/frame_sprites.asm"				
-		include "sprites/strings.asm"
-		include "sprites/static_object_sprites.asm"
-        include "sprites/trigger_sprites.asm"
-
+		include "control_data.asm"						
 		include "screens/trigger_map.asm"		
 		include "screens/object_map.asm"
 
@@ -42,6 +34,14 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         edup
 
 ; ---- END OF SCREEN BUFFER ----
+
+		include "sprites/gun_sprites.asm"
+        include "sprites/background_sprites.asm"
+		include "sprites/frame_sprites.asm"				
+		include "sprites/strings.asm"
+		include "sprites/static_object_sprites.asm"
+        include "sprites/trigger_sprites.asm"
+
         include "sprites/sab_sprites_control.asm"
 
 		include "sound.asm"	
