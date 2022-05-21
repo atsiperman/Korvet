@@ -423,7 +423,13 @@ smap94e:
 			db 0		
 		;edup 
 		
-        mscrend
+        db SCREND
+        db OBJMAP
+        dw s94objm
+        db MSKOMAP
+        dw s94mom
+        db SCREND
+
 ; --- end of scrbk94
 
 

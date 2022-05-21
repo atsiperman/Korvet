@@ -247,6 +247,10 @@ s93mom:
 		mkmasko bigplate,7,11
 		mkmasko smlplate,7,10
 
+s94mom:
+		db 1
+        mkmasko desk,14,9
+
 s95mom:
 		db 2
         mkmasko desk,3,12

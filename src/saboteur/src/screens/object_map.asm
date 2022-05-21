@@ -166,6 +166,10 @@ s93objm:
         db 1
         mkdog dirlt,dogspml1,0,22,9,7,23
 
+s94objm:
+		db 1
+		mkguard sbstay,dirlt,scrbuf,gdsplt,0,23,7,3,23
+
 s96objm:
         db 2
         mkdog dirrt,dogspml1,0,13,13,13,25
