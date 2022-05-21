@@ -74,16 +74,12 @@ sbstgort:
 		or a
 		ret z
 
-		push hl
-		scurdir dirrt		
-		pop hl
+        ld  a,dirrt
+        sbsdir
 
-		; ; ld a,(sbmvrttb)			; total sprite count
-		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
-		; ; sbscursi
-		; ; call sbgort
-
-		ld a,1					; anything not zero
+        ld  de,sbhwalkr
+        sbshdspr
+               					; A = dirrt - anything not zero
 		ret		
 
 ; ---- saboteur starts going left
@@ -116,21 +112,16 @@ sbstgolt:
 		or a
 		ret z
 
-		push hl
-		scurdir dirlt
-		pop hl
-
-		push hl
 		xor a
-		scurspi
-		pop hl
+        sbscursi
 
-		; ; ld a,(sbmvlttb)			; total sprite count
-		; ; dec a					; set last sprite by default, it will be switched to 0 in sbgort
-		; ; sbscursi
-		; ; call sbgolt
+        ld   a,dirlt
+        sbsdir
 
-		ld a,1					; anything not zero
+        ld  de,sbhwalkl
+        sbshdspr
+
+                        ; A = dirlt - anything not zero
 		ret		
 
 

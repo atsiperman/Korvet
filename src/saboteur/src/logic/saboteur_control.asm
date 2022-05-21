@@ -3,15 +3,19 @@
 ;
 sbstopst:
 		sblddir
-		cp dirrt
-		jp nz,sbstpst1
-		ld de, sabsprt
+		cp  dirrt
+		jp  nz,sbstpst1
+		ld  de,sabsprt
 		sbscursp
+        ld  de,sbheadr
+        sbshdspr
 		jp sbstpste
 		
 sbstpst1:
 		ld de,sabsplt
 		sbscursp
+        ld  de,sbheadl
+        sbshdspr
 		
 sbstpste:
 		sbscurst sbstay
@@ -48,10 +52,6 @@ sbcnact2:
 sbcnact3:		
 		cp sbladr
 		jp z,sbcnacty
-		;;cp sbstay
-		;;jp nz,sbcnacty	; not staying, should not fall since is not falling already
-
-		;;jp sbcnacty
 
 		call sbcanfal	; check if he must fall down	
 		or a
@@ -117,14 +117,18 @@ sbnoactn:
 		ld (hl),a
 		
 .sbnoac4:							
-		ld de,sabsprt 
+		ld  de,sabsprt 
 		sbscursp			; stop, look at right		
+        ld  de,sbheadr
+        sbshdspr            ; set head sprite
 		jp .sbstop
 		
 .sbnoac5:
 							; was moving left
 		ld de,sabsplt
 		sbscursp			; stop, look at left
+        ld  de,sbheadl
+        sbshdspr            ; set head sprite
 
 .sbstop:
 		sbscurst sbstay		; is staying now

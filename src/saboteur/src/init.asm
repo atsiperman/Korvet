@@ -55,7 +55,7 @@ sabinit:
         cpctrldata
         cptrmap
         cpobjmap
-
+        
         call .initsbsp
         call .initgdsp
         ret
@@ -131,12 +131,12 @@ sabinit:
         ld  de,sbheadl
 		call mirrspr
 
-        ld  hl,_sabrth
-        ld  de,sbheadr
+        ld  hl,_sbmvrh
+        ld  de,sbhwalkr
         ld  bc,_sbmvrh.sbmvre - _sbmvrh
         call copymem
-        ld  hl,sbheadr
-        ld  de,sbheadl
+        ld  hl,sbhwalkr
+        ld  de,sbhwalkl
 		call mirrspr
 
         ld  hl,_skcrh1
@@ -166,6 +166,7 @@ sabinit:
         ret
 
 .initgdsp:
+        ret
         ; guard sprites
 
         ld  hl,_gdhead

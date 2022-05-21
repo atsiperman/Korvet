@@ -4,7 +4,18 @@
 ;			A - 1 if can fall
 ;
 sbcanfal:
-		sbcurrh			; get height
+		sbcurrh			; get height in A
+        ld   hl,sbctrlb
+        push af
+        ohdcorct .sbf1  ; need head height correction ?
+                        ; yes
+        pop  af
+        inc  a          ; make correction for head height
+        inc  a 
+        push  af        
+
+.sbf1:
+        pop  af
 		ld e,a
 		sblcursr		; current row in A
 		add e			; level below feet
@@ -18,15 +29,6 @@ sbcanfal:
 		pop de
 		or a
 		jp nz,_sbcnfal0 ; floor, return 0
-
-		; ld a,e			; save row in A
-		; inc a			; check Y + 1
-		; cp ROWNUM		; check if this is the last row
-		; ret nc			; return A > 0 to fall if below last row
-
-		; call _isfloor	
-		; or a
-		; jp nz,_sbcnfal0 ; floor, return 0
 
 		inc a
 		ret

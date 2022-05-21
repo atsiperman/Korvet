@@ -63,7 +63,7 @@ odtype	EQU 0		; 0, object type
 odproc	EQU 1       ; 1, control procedure
 odcurst EQU 3       ; 3, current state 
 oddir	EQU 4       ; 4, direction
-odprevp EQU 5       ; 5, previous position in screen memory
+odhdspr EQU 5       ; 5, head sprite address
 odcurp	EQU 7       ; 7, current position in screen memory, top left corner
 odcursp	EQU 9       ; 9, address of the current sprite to be drawn
 odcursi	EQU 11      ; 11, index of the current sprite to be drawn (if any)
@@ -255,11 +255,11 @@ odfrown EQU 4       ; rownum
 		ld a,(hl)		
 		endm
 
-; ----  loads previous position in screen memory into DE
+; ----  loads address of head sprite into DE
 ; args: HL - address of control block 
 ; 				
-		macro ldprevp
-		ld bc,odprevp
+		macro ldhdspr
+		ld bc,odhdspr
 		add hl,bc		
 		load_de_hl
 		endm
@@ -355,11 +355,11 @@ odfrown EQU 4       ; rownum
 		ld (hl),dir
 		endm
 
-; ----  set current position
+; ----  set address of head sprite
 ; args: HL - address of control block 
-; 		DE - new position
-		macro sprevp	
-		ld bc,odprevp
+; 		DE - head sprite address
+		macro shdspr	
+		ld bc,odhdspr
 		add hl,bc
 		ld (hl),e
 		inc hl
@@ -471,3 +471,25 @@ odfrown EQU 4       ; rownum
         endm
 		
 		
+; --- checks whether object needs to process head sprite separately
+; args:	A - object type
+;       skiplab - label to go to if object doesn't need special case
+;
+        macro ohashead skiplab
+        cp   ogun
+        jp   z,skiplab
+        cp   odog
+        jp   z,skiplab
+        endm
+
+
+; ---- checks whether object needs height correction due to its' state 
+; args:	HL - control block address
+;       skiplab - label to go to if object doesn't need special case
+; 		
+	    macro ohdcorct skiplab
+        ldhdspr         ; load head sprite address
+        ld  a,d         ; check whether 
+        or  e           ; it is zero
+        jp  z,skiplab   ; skip action if yes
+        endm

@@ -76,6 +76,9 @@ rsttile3:
 ;		HL - address of the object's control block
 ;		DE - address of the sprite
 updtilem:			
+        ld   a,(hl)     ; load object type
+        push af
+
 		push de			; save sprite address
 		call rdsprpos		
 		ex de,hl		; address of current position in screen buffer in HL
@@ -83,6 +86,7 @@ updtilem:
 		inc hl			; move to tile state
 		pop de			; pop sprite address
 
+        pop  af         ; restore object type
 		push hl			; save address of the tile state
 		
 		ex de,hl		; sprite address in HL
@@ -90,7 +94,12 @@ updtilem:
 		ld b,(hl)		; load height
 		inc hl
 		ld c,(hl)		; load width
+                                
+        ohashead .utlm1     ; skip if no separate head
+        inc  b              ; otherwise
+        inc  b              ; inc height 
 
+.utlm1:        
 		ex de,hl		; tile pointer in HL
 		ld de,ROWWIDB
 

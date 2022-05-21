@@ -156,5 +156,3 @@ DEFBLCK EQU ((7 & ~CMAIN) << 1) + 1
 		inc de		; skip color
 		ld a,(de)	; read height
 	endm
-
-	

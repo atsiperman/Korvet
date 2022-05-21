@@ -32,6 +32,10 @@ ginitscr:
         rstrmap
         rsobjmap
 
+        ld  hl,sbctrlb
+        ld  de,sbheadr
+        shdspr 
+
         GRMODON
         ld a,COLORCLR 
         call fillvram	; clear screen with black
@@ -59,9 +63,6 @@ gcycle:
         call doescape       ; run escape process
         xor  a
         ret
-        ; or   a              ; finished ?
-        ; ret  z              ; yes, stop game
-        ; jp .gesc            ; continue if not zero
 
 .gmc1:
 		call gmain          ; main game logic

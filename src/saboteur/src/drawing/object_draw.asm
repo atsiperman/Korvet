@@ -159,11 +159,34 @@ rdsprpos:
 ; ----	draws object
 ; args: HL - address of the object's control block
 ;
-drawobj:
+drawobj:        
 		push hl
 		ldcurp				; load current position in screen buffer to DE
 		pop hl				; restore control block address
 
+        ld   a,(hl)         ; load object type
+        ohashead .draw2     ; check object type
+
+        push hl
+        ;;ohdcorct .draw1 
+        pop  hl
+
+                            ; draw head sprite
+		push hl				; save control block
+		push de				; save pointer to screen buffer
+        ldhdspr 			; load address of the head sprite into DE				
+		pop  hl				; restore position in screen buffer
+        push hl             ; save it again for the body sprite
+		call putspr			; put sprite to screen buffer
+        pop  hl				; restore position in screen buffer
+        ld   bc,ROWWIDB * 2 ; move pointer
+        add  hl,bc          ; two lines down
+        ex   de,hl          ; save it in DE
+
+.draw1:        
+        pop  hl             ; restore control block
+
+.draw2:
 		push hl				; save control block
 		push de				; save pointer to screen buffer
 

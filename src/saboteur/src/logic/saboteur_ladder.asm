@@ -41,6 +41,16 @@ cangolad:
 		ldsprht				; load sprite height, it may be different depending on the current state
 		ld e,a				; save height in E
 		
+        push de
+        ld   hl,sbctrlb
+        ohdcorct .cng1
+        pop  de
+        inc  e
+        inc  e
+        push de
+
+.cng1:        
+        pop  de
 		sblcursr
 		add e				; Y + 1 from bottom position (under feet, for down direction by default)
 		ld b,a				; save Y in B
@@ -141,6 +151,9 @@ sbstlad2:
 		
 		xor a
 		sbscursi			
+
+        ld  de,0
+        sbshdspr            ; clear head sprite
 
 		ret		
 ;

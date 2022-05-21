@@ -101,6 +101,8 @@ _sbstj2:
 		xor a
 		sbscursi
 		call sbdecrow
+        ld  de,0
+        sbshdspr            ; clear head sprite
 		ret
 		
 ; ---- starts short jump
@@ -117,6 +119,9 @@ sbstshjp:
 		sbscursp
 		xor a
 		sbscursi
+
+        ld  de,0
+        sbshdspr            ; clear head sprite
 		ret
 
 ; ---- do short jump

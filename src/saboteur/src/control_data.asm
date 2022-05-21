@@ -211,7 +211,15 @@ cdataend:
 		ld a,newstate
 		ld (sbctrlb + odcurst),a
 		endm
-			
+
+        ; ---- save current head sprite
+        macro sbshdspr
+		ld hl,sbctrlb + odhdspr
+		ld (hl),e
+		inc hl
+		ld (hl),d
+        endm
+        
 		; ---- save current sprite 
 		macro sbscursp
 		ld hl,sbctrlb + odcursp

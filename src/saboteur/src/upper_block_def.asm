@@ -1,12 +1,12 @@
 mirtable EQU 0c000h
 
 sbheadr  EQU mirtable + 256
-sbheadl  EQU sbheadr + (_gdhead.heade - _gdhead)
+sbheadl  EQU sbheadr + (_sbmvrh.sbmvre - _sbmvrh)
 
-sbhpnchr EQU sbheadl + (_gdhead.heade - _gdhead)
-sbhpnchl EQU sbheadr + (_gdhpnch.heade - _gdhpnch)
+sbhpnchr EQU sbheadl + (_sbmvrh.sbmvre - _sbmvrh)
+sbhpnchl EQU sbhpnchr + (_sbpnch.sbpnche - _sbpnch)
 
-sbhdkk1r EQU sbhpnchl + (_gdhpnch.heade - _gdhpnch)
+sbhdkk1r EQU sbhpnchl + (_sbpnch.sbpnche - _sbpnch)
 sbhdkk1l EQU sbhdkk1r + (_gdhdkk1.heade - _gdhdkk1)
 
 sbhdkk2r EQU sbhdkk1l + (_gdhdkk1.heade - _gdhdkk1)
@@ -70,22 +70,5 @@ gdhdkk2l EQU gdhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
 
 gdhwalkr EQU gdhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
 gdhwalkl EQU gdhwalkr + (_gdhwalk.heade - _gdhwalk)
-
-; gdsprt   EQU trmdata + trmapend - trmapst
-; gdsplt   EQU gdsprt + sabspmr1 - sabsprt
-
-; gdpnchr  EQU gdsplt + sabspmr1 - sabsprt
-; gdpnchl  EQU gdpnchr + (_sabpnch.endpnch - _sabpnch)
-
-; gdkckl1  EQU gdpnchl + (_sabpnch.endpnch - _sabpnch)
-; gdkckl2  EQU gdkckl1 + (_sabkckr1.sabkckr1 - _sabkckr1)
-
-; gdkckr1  EQU gdkckl2 + (_sabkckr2.sabkckr2 - _sabkckr2)
-; gdkckr2  EQU gdkckr1 + (_sabkckr1.sabkckr1 - _sabkckr1)
-
-; gdspml1  EQU gdkckr2 + (_sabkckr2.sabkckr2 - _sabkckr2)
-; gdspml2  EQU gdspml1 + (sabspmr2 - sabspmr1)
-; gdspml3  EQU gdspml2 + (sabspmr2 - sabspmr1)
-; gdspml4  EQU gdspml3 + (sabspmr2 - sabspmr1)
 
 ; ----- no more space in upper memory block
