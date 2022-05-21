@@ -73,14 +73,14 @@ SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2
 ;		
 gdkckrb:
 		db (gdkckre - gdkckrb - 1) / 2
-		dw gdkckr1, gdkckr1, gdkckr2, gdkckr2, gdkckr2, gdkckr2, gdkckr1, gdkckr1
+		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
 gdkckre:
 
 ; table of addresses of guard sprites when kicking left
 ;		
 gdkcklb:
 		db (gdkckle - gdkcklb - 1) / 2
-		dw gdkckl1, gdkckl1, gdkckl2, gdkckl2, gdkckl2, gdkckl2, gdkckl1, gdkckl1
+		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
 gdkckle:
 
 
@@ -88,14 +88,14 @@ gdkckle:
 ;		
 gdpnchrb:
 		db (gdpnchre - gdpnchrb - 1) / 2
-		dw gdpnchr, gdpnchr, gdpnchr, gdpnchr
+		dw sabpnchr, sabpnchr, sabpnchr, sabpnchr
 gdpnchre:
 
 ; table of addresses of guard sprites when punching left
 ;		
 gdpnchlb:
 		db (gdpnchle - gdpnchlb - 1) / 2
-		dw gdpnchl, gdpnchl, gdpnchl, gdpnchl
+		dw sabpnchl, sabpnchl, sabpnchl, sabpnchl
 gdpnchle:
 
 
@@ -103,10 +103,10 @@ gdpnchle:
 ;
 gdmvrttb:										
 		db (gdmvrtte - gdmvrttb - 1) / 2
-		dw gdspmr1,gdspmr2,gdspmr3,gdspmr4
+		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
 gdmvrtte:										
 
 gdmvlttb:
 		db (gdmvltte - gdmvlttb - 1) / 2
-		dw gdspml1,gdspml2,gdspml3,gdspml4
+		dw sabspml1,sabspml2,sabspml3,sabspml4
 gdmvltte:										

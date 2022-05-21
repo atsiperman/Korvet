@@ -98,10 +98,20 @@ SPRHLEN EQU 3       ; sprite head length
 		dw curspr	; previous sprite address
 		endm
 
-		macro mkguard curstat,direct,curpos,curspr,curspri,curscol,cursrow,mincol,maxcol
-		mkctrlb oguard,guardprc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		macro mkgdrt curscol,cursrow,mincol,maxcol
+		mkctrlb oguard,guardprc,sbstay,dirrt,0,sabsprt,0,curscol,cursrow
 		db mincol,maxcol
 		endm 
+
+		macro mkgdlt curscol,cursrow,mincol,maxcol
+		mkctrlb oguard,guardprc,sbstay,dirlt,0,sabsplt,0,curscol,cursrow
+		db mincol,maxcol
+		endm 
+
+		; macro mkguard curstat,direct,curpos,curspr,curspri,curscol,cursrow,mincol,maxcol
+		; mkctrlb oguard,guardprc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		; db mincol,maxcol
+		; endm 
 		
 		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
 		mkctrlb odog,dogact,dogmove,direct,scrbuf,curspr,curspri,curscol,cursrow
@@ -408,14 +418,14 @@ odfrown EQU 4       ; rownum
 
 ; ---- set new state of the object
 ; args: HL - address of control block
-		macro setobj pos,spraddr,spridx
-		ld de,pos
-		scurp 
-		ld de,spraddr
-		savem_hl_de
-		ld c,spridx
-		ld (hl),c
-		endm
+		; macro setobj pos,spraddr,spridx
+		; ld de,pos
+		; scurp 
+		; ld de,spraddr
+		; savem_hl_de
+		; ld c,spridx
+		; ld (hl),c
+		; endm
 				
 ; ---- calculate and save new sprite address from sprite table
 ; args: HL - address to save new value

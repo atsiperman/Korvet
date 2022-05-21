@@ -29,7 +29,7 @@ scrbuf:
 TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) 
         dw TMPDLEN
         dw ROWNUM * ROWWIDB
-        dup (ROWNUM * ROWWIDB) - TMPDLEN
+        dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
         db 0
         edup
 
@@ -96,24 +96,6 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 			
 
         include "logic/helicopter.asm"        
-
-; --- reserve space for other sprites here, there is no more space in upper memory block
-gdspmr1:
-        dup  sabspmr2 - sabspmr1
-        db 0
-        edup
-gdspmr2:
-        dup  sabspmr2 - sabspmr1
-        db 0
-        edup
-gdspmr3:
-        dup  sabspmr2 - sabspmr1
-        db 0
-        edup
-gdspmr4:
-        dup  sabspmr2 - sabspmr1
-        db 0
-        edup
 
 		include "keyboard.asm"
 		include "game.asm"

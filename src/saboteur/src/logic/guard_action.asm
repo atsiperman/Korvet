@@ -73,14 +73,14 @@ gdstpnch:
         pop  hl
         cp   dirlt
         jp   z,.dopnchl
-        ld   de,gdpnchr
+        ld   de,sabpnchr
         scurspr 
         ld   hl,gdpnchrb
         ld   (gsprtab),hl
         ret
 
 .dopnchl:
-        ld   de,gdpnchl
+        ld   de,sabpnchl
         scurspr 
         ld   hl,gdpnchlb
         ld   (gsprtab),hl
@@ -100,13 +100,13 @@ gdstkick:
         push hl
         cp   dirlt
         jp   z,.do1
-        ld   de,gdkckr1
+        ld   de,sabkckr1
         scurspr         
         ld   hl,gdkckrb
         ld   (gsprtab),hl
         jp   .do2
 .do1:
-        ld   de,gdkckl1
+        ld   de,sabkckl1
         scurspr
         ld   hl,gdkcklb
         ld   (gsprtab),hl

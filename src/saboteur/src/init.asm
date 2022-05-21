@@ -122,123 +122,90 @@ sabinit:
         ld  de,sabpnchl               
 		call mirrspr
 
+        ; heads        
+        ld  hl,_sabrth
+        ld  de,sbheadr
+        ld  bc,_sabrth.sbrthe - _sabrth
+        call copymem
+        ld  hl,sbheadr
+        ld  de,sbheadl
+		call mirrspr
+
+        ld  hl,_sabrth
+        ld  de,sbheadr
+        ld  bc,_sbmvrh.sbmvre - _sbmvrh
+        call copymem
+        ld  hl,sbheadr
+        ld  de,sbheadl
+		call mirrspr
+
+        ld  hl,_skcrh1
+        ld  de,sbhdkk1r
+        ld  bc,_skcrh1.skcrhe1 - _skcrh1
+        call copymem
+        ld  hl,sbhdkk1r
+        ld  de,sbhdkk1l
+		call mirrspr
+
+        ld  hl,_skcrh2
+        ld  de,sbhdkk2r
+        ld  bc,_skcrh2.skcrhe2 - _skcrh2
+        call copymem
+        ld  hl,sbhdkk2r
+        ld  de,sbhdkk2l
+		call mirrspr
+
+        ld  hl,_sbpnch
+        ld  de,sbhpnchr
+        ld  bc,_sbpnch.sbpnche - _sbpnch
+        call copymem
+        ld  hl,sbhpnchr
+        ld  de,sbhpnchl
+		call mirrspr
+
         ret
 
 .initgdsp:
         ; guard sprites
 
-        ; ---- guard stays sprite/left 
-        ld  hl,sabsplt
-        ld  de,gdsplt
-        ld  bc,sabspmr1 - sabsprt
+        ld  hl,_gdhead
+        ld  de,gdheadl
+        ld  bc,_gdhead.heade - _gdhead
         call copymem
-
-        ld  hl,gdhead
-        ld  de,gdsplt + SPRHLEN
-        ld  bc,gdhead.heade - gdhead
-        call copymem
-
-        ld  hl,gdsplt
-        ld  de,gdsprt               
-		call mirrspr
-        ; ---- guard stays sprite/left --- 
-
-        ; ---- guard punch sprite/left 
-        ld  hl,sabpnchr
-        ld  de,gdpnchr
-        ld  bc,_sabpnch.endpnch - _sabpnch
-        call copymem
-
-        ld  hl,gdhdpnch
-        ld  de,gdpnchr + SPRHLEN
-        ld  bc,gdhdpnch.heade - gdhdpnch
-        call copymem
-
-        ld  hl,gdpnchr
-        ld  de,gdpnchl              
-		call mirrspr
-        ; ---- guard punch sprite/left ---
-
-        ; ---- guard kick sprite/left 
-        ld  hl,sabkckl1
-        ld  de,gdkckl1
-        ld  bc,_sabkckr1.sabkckr1 - _sabkckr1
-        call copymem
-
-        ld  hl,gdhdkick1
-        ld  de,gdkckl1 + SPRHLEN
-        ld  bc,gdhdkick1.heade - gdhdkick1
-        call copymem
-
-        ld  hl,sabkckl2
-        ld  de,gdkckl2
-        ld  bc,_sabkckr2.sabkckr2 - _sabkckr2
-        call copymem
-
-        ld  hl,gdhdkick2
-        ld  de,gdkckl2 + SPRHLEN
-        ld  bc,gdhdkick2.heade - gdhdkick2
-        call copymem
-
-        ld  hl,gdkckl1
-        ld  de,gdkckr1
+        ld  hl,gdheadl
+        ld  de,gdheadr
 		call mirrspr
 
-        ld  hl,gdkckl2
-        ld  de,gdkckr2
-		call mirrspr
-        ; ---- guard kick sprite/left ---
-
-        ; ---- guard move sprite/left 
-        ld  hl,sabspml1
-        ld  de,gdspml1
-        ld  bc,sabspml2 - sabspml1
+        ld  hl,_gdhpnch
+        ld  de,gdhpnchl
+        ld  bc,_gdhpnch.heade - _gdhpnch
         call copymem
-
-        ld  hl,sabspml2
-        ld  de,gdspml2
-        ld  bc,sabspml2 - sabspml1
-        call copymem
-
-        ld  hl,sabspml3
-        ld  de,gdspml3
-        ld  bc,sabspml2 - sabspml1
-        call copymem
-
-        ld  hl,sabspml4
-        ld  de,gdspml4
-        ld  bc,sabspml2 - sabspml1
-        call copymem
-        
-        ld  hl,gdhdwalk
-        ld  de,gdspml1 + SPRHLEN
-        ld  bc,gdhdwalk.heade - gdhdwalk
-        call copymem
-        ld  hl,gdhdwalk
-        ld  de,gdspml2 + SPRHLEN
-        ld  bc,gdhdwalk.heade - gdhdwalk
-        call copymem
-        ld  hl,gdhdwalk
-        ld  de,gdspml3 + SPRHLEN
-        ld  bc,gdhdwalk.heade - gdhdwalk
-        call copymem
-        ld  hl,gdhdwalk
-        ld  de,gdspml4 + SPRHLEN
-        ld  bc,gdhdwalk.heade - gdhdwalk
-        call copymem
-
-        ld  hl,gdspml1
-        ld  de,gdspmr1
-		call mirrspr
-        ld  hl,gdspml2
-        ld  de,gdspmr2
+        ld  hl,gdhpnchl
+        ld  de,gdhpnchr
 		call mirrspr
 
-        ld  hl,gdspml3
-        ld  de,gdspmr3
+        ld  hl,_gdhdkk1
+        ld  de,gdhdkk1l
+        ld  bc,_gdhdkk1.heade - _gdhdkk1
+        call copymem
+        ld  hl,gdhdkk1l
+        ld  de,gdhdkk1r
 		call mirrspr
-        ld  hl,gdspml4
-        ld  de,gdspmr4
+
+        ld  hl,_gdhdkk2
+        ld  de,gdhdkk1l
+        ld  bc,_gdhdkk2.heade - _gdhdkk1
+        call copymem
+        ld  hl,gdhdkk2l
+        ld  de,gdhdkk2r
+		call mirrspr
+
+        ld  hl,_gdhwalk
+        ld  de,gdhwalkl
+        ld  bc,_gdhwalk.heade - _gdhwalk
+        call copymem
+        ld  hl,gdhwalkl
+        ld  de,gdhwalkr
 		call mirrspr
 
         ; ---- guard move sprite/left ---

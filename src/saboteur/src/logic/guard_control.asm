@@ -77,7 +77,7 @@ gdstmov:
         ld   (gsprtab),hl               ; save sprite table address
         pop  hl
         push hl
-        ld   de,gdspmr1                 ; save sprite address
+        ld   de,sabspmr1                ; save sprite address
         scurspr     
         jp   .gdme
 
@@ -86,7 +86,7 @@ gdstmov:
         ld   (gsprtab),hl               ; save sprite table address
         pop  hl
         push hl
-        ld   de,gdspml1                 ; save sprite address
+        ld   de,sabspml1                ; save sprite address
         scurspr 
 
 .gdme:
@@ -305,11 +305,11 @@ gdststay:
         pop  hl
         cp   dirlt
         jp   z,.gs1
-        ld   de,gdsprt
+        ld   de,sabsprt
         scurspr 
         ret
 .gs1:
-        ld   de,gdsplt
+        ld   de,sabsplt
         scurspr 
         ret
 

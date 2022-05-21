@@ -1,5 +1,21 @@
 mirtable EQU 0c000h
-sabjmpr1 EQU mirtable + 256
+
+sbheadr  EQU mirtable + 256
+sbheadl  EQU sbheadr + (_gdhead.heade - _gdhead)
+
+sbhpnchr EQU sbheadl + (_gdhead.heade - _gdhead)
+sbhpnchl EQU sbheadr + (_gdhpnch.heade - _gdhpnch)
+
+sbhdkk1r EQU sbhpnchl + (_gdhpnch.heade - _gdhpnch)
+sbhdkk1l EQU sbhdkk1r + (_gdhdkk1.heade - _gdhdkk1)
+
+sbhdkk2r EQU sbhdkk1l + (_gdhdkk1.heade - _gdhdkk1)
+sbhdkk2l EQU sbhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
+
+sbhwalkr EQU sbhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
+sbhwalkl EQU sbhwalkr + (_gdhwalk.heade - _gdhwalk)
+
+sabjmpr1 EQU sbhwalkl + (_gdhwalk.heade - _gdhwalk)
 
 sabjmpr2 EQU sabjmpr1 + (_sabjmpr2 - _sabjmpr1)
 sabkckr1 EQU sabjmpr2 + (_sabkckr1 - _sabjmpr2)
@@ -40,21 +56,36 @@ ctrldata EQU dogspml4 + dogspmr4 - dogspmr3
 objmdata EQU ctrldata + cdataend - cdatast
 trmdata  EQU objmdata + objmend - objmst
 
-gdsprt   EQU trmdata + trmapend - trmapst
-gdsplt   EQU gdsprt + sabspmr1 - sabsprt
+gdheadr  EQU trmdata + trmapend - trmapst
+gdheadl  EQU gdheadr + (_gdhead.heade - _gdhead)
 
-gdpnchr  EQU gdsplt + sabspmr1 - sabsprt
-gdpnchl  EQU gdpnchr + (_sabpnch.endpnch - _sabpnch)
+gdhpnchr EQU gdheadl + (_gdhead.heade - _gdhead)
+gdhpnchl EQU gdheadr + (_gdhpnch.heade - _gdhpnch)
 
-gdkckl1  EQU gdpnchl + (_sabpnch.endpnch - _sabpnch)
-gdkckl2  EQU gdkckl1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+gdhdkk1r EQU gdhpnchl + (_gdhpnch.heade - _gdhpnch)
+gdhdkk1l EQU gdhdkk1r + (_gdhdkk1.heade - _gdhdkk1)
 
-gdkckr1  EQU gdkckl2 + (_sabkckr2.sabkckr2 - _sabkckr2)
-gdkckr2  EQU gdkckr1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+gdhdkk2r EQU gdhdkk1l + (_gdhdkk1.heade - _gdhdkk1)
+gdhdkk2l EQU gdhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
 
-gdspml1  EQU gdkckr2 + (_sabkckr2.sabkckr2 - _sabkckr2)
-gdspml2  EQU gdspml1 + (sabspmr2 - sabspmr1)
-gdspml3  EQU gdspml2 + (sabspmr2 - sabspmr1)
-gdspml4  EQU gdspml3 + (sabspmr2 - sabspmr1)
+gdhwalkr EQU gdhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
+gdhwalkl EQU gdhwalkr + (_gdhwalk.heade - _gdhwalk)
+
+; gdsprt   EQU trmdata + trmapend - trmapst
+; gdsplt   EQU gdsprt + sabspmr1 - sabsprt
+
+; gdpnchr  EQU gdsplt + sabspmr1 - sabsprt
+; gdpnchl  EQU gdpnchr + (_sabpnch.endpnch - _sabpnch)
+
+; gdkckl1  EQU gdpnchl + (_sabpnch.endpnch - _sabpnch)
+; gdkckl2  EQU gdkckl1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+
+; gdkckr1  EQU gdkckl2 + (_sabkckr2.sabkckr2 - _sabkckr2)
+; gdkckr2  EQU gdkckr1 + (_sabkckr1.sabkckr1 - _sabkckr1)
+
+; gdspml1  EQU gdkckr2 + (_sabkckr2.sabkckr2 - _sabkckr2)
+; gdspml2  EQU gdspml1 + (sabspmr2 - sabspmr1)
+; gdspml3  EQU gdspml2 + (sabspmr2 - sabspmr1)
+; gdspml4  EQU gdspml3 + (sabspmr2 - sabspmr1)
 
 ; ----- no more space in upper memory block

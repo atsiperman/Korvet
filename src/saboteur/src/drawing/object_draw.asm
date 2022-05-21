@@ -94,18 +94,18 @@ updobj:
 ;		 HL - address of the object's control block
 ;
 copystat:	
-		push hl
+		;push hl
 
-		ldcurp				; load address of the current position		
+		; ldcurp				; load address of the current position		
 		
-		pop hl	
-		push hl
-							; save to previous position		
-		sprevp
+		; pop hl	
+		; push hl
+		; 					; save to previous position		
+		; sprevp
 		
-		pop hl
-		push hl
-		
+		; pop hl
+
+		push hl		
 		ldcurspr			; load current sprite address
 		pop hl
 		sprvspr				; save as previous sprite address
