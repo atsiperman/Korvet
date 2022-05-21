@@ -164,12 +164,11 @@ drawobj:
 		ldcurp				; load current position in screen buffer to DE
 		pop hl				; restore control block address
 
-        ld   a,(hl)         ; load object type
-        ohashead .draw2     ; check object type
-
+        push de				; save pointer to screen buffer
         push hl
-        ;;ohdcorct .draw1 
+        ohdcorct .draw1 
         pop  hl
+        pop de				; restore pointer to screen buffer
 
                             ; draw head sprite
 		push hl				; save control block
@@ -182,9 +181,12 @@ drawobj:
         ld   bc,ROWWIDB * 2 ; move pointer
         add  hl,bc          ; two lines down
         ex   de,hl          ; save it in DE
+        pop  hl             ; restore control block
+        jp   .draw2
 
 .draw1:        
         pop  hl             ; restore control block
+        pop  de				; restore pointer to screen buffer
 
 .draw2:
 		push hl				; save control block

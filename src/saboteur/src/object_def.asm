@@ -89,7 +89,7 @@ SPRHLEN EQU 3       ; sprite head length
 		dw oproc
 		db curstat
 		db direct
-		dw curpos
+		dw 0
 		dw curpos
 		dw curspr
 		db curspri
