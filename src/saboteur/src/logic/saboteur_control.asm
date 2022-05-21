@@ -484,21 +484,31 @@ setdead:
 ;
 sbhand:
         sbscurst sbpunch    ; set punch state
-        ld  de,sabpnchr
         sblddir             ; load direction
+
         cp  dirrt
         jp  z,.hand1
+                            ; left direction
         ld  de,sabpnchl
+        sbscursp 
+        ld  de,sbhpnchl
+        sbshdspr
+        jp  .hand2
 
 .hand1:
+                            ; right direction
+        ld  de,sabpnchr
         sbscursp 
+        ld  de,sbhpnchr
+        sbshdspr
 
+.hand2:
         ld   a,(sbholds)
         or   a
-        jp   z,.hand2   ; nothing is held
+        jp   z,.hand3   ; nothing is held
         call sbthrow
         ret
 
-.hand2:
+.hand3:
         call tstokick
         ret        

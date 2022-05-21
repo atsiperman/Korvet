@@ -8,6 +8,9 @@
 sbdosquat:
 		sbscurst sbsquat	; set new state
 		
+        ld de,0
+        sbshdspr            ; clear head sprite
+
 		sblcursp			; load old sprite
 		inc de				; skip color
 		ld a,(de)			; old sprite height		
@@ -57,6 +60,9 @@ sbstkick:
 		sblddir
 		cp dirrt
 		jp nz,sbstkck1
+
+        ld  de,sbhdkk1r
+        sbshdspr
 							; kick in right direction
 		ld hl,sabkckrb + 1
 		jp sbstkcke
@@ -65,6 +71,9 @@ sbstkck1:
 		sblcursc			; correct X position when kicking in left direction, move sprite to the right
 		inc a
 		sbscursc
+        ld  de,sbhdkk1l
+        sbshdspr
+
 		ld hl,sabkcklb + 1
 		
 sbstkcke:		
@@ -103,22 +112,23 @@ sbdokick:
 		
 		ld c,a				; save sprite index
 		sblddir				; load direction
-		cp dirrt
-		jp nz,sbdokck1		; left direction
+		cp dirlt
+        ld a,c              ; move spriteindex back to a
+		jp z,sbdokck1		; left direction
 		
-		ld a,c
+		ld a,c              ; looking right
 		ld hl,sbctrlb + odcursp	
 		snewspa sabkckrb			; set address of the next sprite (index in A)
 
-		ld c,a				; save sprite index
-		cp SBKCKI2			; back to initial position
-		jp z,sbdokck3		; correct X position
+		;;ld c,a
+            				; save sprite index
 		cp SBKCKI1
 		jp z,sbdokck2		; phase change, correct X position
+		cp SBKCKI2			; back to initial position
+		jp z,sbdokck3		; correct X position
 		ret
 		
-sbdokck1:
-		ld a,c
+sbdokck1:                   ; looking left
 		ld hl,sbctrlb + odcursp	
 		snewspa sabkcklb			; set address of the next sprite (index in A)
 		
@@ -133,12 +143,16 @@ sbdokck2:
 		sblcursc			; correct X position, move sprite to the left
 		dec a
 		sbscursc
+        ld  de,sbhdkk2r
+        sbshdspr
 		ret
 		
 sbdokck3:		
 		sblcursc			; correct X position, move sprite to the right
 		inc a
 		sbscursc
+        ld  de,sbhdkk1r
+        sbshdspr
 		ret
 
 sbdokck4:
@@ -146,6 +160,8 @@ sbdokck4:
 		dec a
 		dec a
 		sbscursc
+        ld  de,sbhdkk2l
+        sbshdspr
 		ret
 
 sbdokck5:
@@ -153,6 +169,8 @@ sbdokck5:
 		inc a
 		inc a
 		sbscursc
+        ld  de,sbhdkk1l
+        sbshdspr
 		ret
 		
 sbdokcke:	
@@ -163,8 +181,13 @@ sbdokcke:
 		
 		sblddir				; load direction
 		cp dirrt
-		ret z
-		jp sbdokck2			; go to initial column
+		ret z        
+		;;jp sbdokck2		
+                        	; go to initial column
+		sblcursc			; correct X position, move sprite to the left
+		dec a
+		sbscursc
+        ret
 	
 
 ; ---- makes a test whether saboteur is kicking someone
