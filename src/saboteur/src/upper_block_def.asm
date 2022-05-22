@@ -15,8 +15,19 @@ sbhdkk2l EQU sbhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
 sbhwalkr EQU sbhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
 sbhwalkl EQU sbhwalkr + (_gdhwalk.heade - _gdhwalk)
 
-sabjmpr1 EQU sbhwalkl + (_gdhwalk.heade - _gdhwalk)
+sbhjmp1r EQU sbhwalkl + (_gdhwalk.heade - _gdhwalk)
+sbhjmp2r EQU sbhjmp1r + (_sbhjpr1.esabh - _sbhjpr1)
 
+sbhjmp1l EQU sbhjmp2r + (_sbhjpr2.esabh - _sbhjpr2)
+sbhjmp2l EQU sbhjmp1l + (_sbhjpr2.esabh - _sbhjpr2)
+
+sbhfall  EQU sbhjmp2l + (_sbhjpr2.esabh - _sbhjpr2)
+sbhsqtr  EQU sbhfall + (_sbhfall.esabh - _sbhfall)
+
+sbhlad1  EQU sbhsqtr + (_sbhsqtr.esabh - _sbhsqtr)
+sbhlad2  EQU sbhlad1 + (_sbhlad1.esabh - _sbhlad1)
+
+sabjmpr1 EQU sbhlad2 + (_sbhlad1.esabh - _sbhlad1)
 sabjmpr2 EQU sabjmpr1 + (_sabjmpr2 - _sabjmpr1)
 sabkckr1 EQU sabjmpr2 + (_sabkckr1 - _sabjmpr2)
 sabkckr2 EQU sabkckr1 + (_sabkckr2 - _sabkckr1)

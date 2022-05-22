@@ -163,6 +163,42 @@ sabinit:
         ld  de,sbhpnchl
 		call mirrspr
 
+        ld  hl,_sbhjpr1
+        ld  de,sbhjmp1r
+        ld  bc,_sbhjpr1.esabh - _sbhjpr1
+        call copymem
+        ld  hl,sbhjmp1r
+        ld  de,sbhjmp1l
+		call mirrspr
+
+        ld  hl,_sbhjpr2
+        ld  de,sbhjmp2r
+        ld  bc,_sbhjpr2.esabh - _sbhjpr2
+        call copymem
+        ld  hl,sbhjmp2r
+        ld  de,sbhjmp2l
+		call mirrspr
+
+        ld  hl,_sbhfall
+        ld  de,sbhfall
+        ld  bc,_sbhfall.esabh - _sbhfall
+        call copymem
+
+        ld  hl,_sbhsqtr
+        ld  de,sbhsqtr
+        ld  bc,_sbhsqtr.esabh - _sbhsqtr
+        call copymem
+
+        ld  hl,_sbhlad1
+        ld  de,sbhlad1
+        ld  bc,_sbhlad1.esabh - _sbhlad1
+        call copymem
+
+        ld  hl,_sbhlad2
+        ld  de,sbhlad2
+        ld  bc,_sbhlad2.esabh - _sbhlad2
+        call copymem
+
         ret
 
 .initgdsp:

@@ -474,15 +474,3 @@ odfrown EQU 4       ; rownum
         cp   odog
         jp   z,skiplab
         endm
-
-
-; ---- checks whether object needs height correction due to its' state 
-; args:	HL - control block address
-;       skiplab - label to go to if object doesn't need special case
-; 		
-	    macro ohdcorct skiplab
-        ldhdspr         ; load head sprite address
-        ld  a,d         ; check whether 
-        or  e           ; it is zero
-        jp  z,skiplab   ; skip action if yes
-        endm

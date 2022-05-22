@@ -105,11 +105,6 @@ sbnoactn:
 		cp sbsquat
 		jp nz,.sbnoac4
         
-        sblcursr            ; load row
-        dec  a              ; make correction
-        dec  a              ; for head
-        sbscursr            ; save new row
-
 		sblddir
 		cp   dirlt
 		jp   z,.sbnoac5

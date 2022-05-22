@@ -69,21 +69,6 @@ SBSJPSPN EQU (sabjpsre - sabjpsrb - 1) / 2
 
 ; ----------- guard actions ----------------
 
-; table of addresses of guard sprites when kicking right
-;		
-gdkckrb:
-		db (gdkckre - gdkckrb - 1) / 2
-		dw sabkckr1, sabkckr1, sabkckr2, sabkckr2, sabkckr2, sabkckr2, sabkckr1, sabkckr1
-gdkckre:
-
-; table of addresses of guard sprites when kicking left
-;		
-gdkcklb:
-		db (gdkckle - gdkcklb - 1) / 2
-		dw sabkckl1, sabkckl1, sabkckl2, sabkckl2, sabkckl2, sabkckl2, sabkckl1, sabkckl1
-gdkckle:
-
-
 ; table of addresses of guard sprites when punching right
 ;		
 gdpnchrb:
@@ -97,16 +82,3 @@ gdpnchlb:
 		db (gdpnchle - gdpnchlb - 1) / 2
 		dw sabpnchl, sabpnchl, sabpnchl, sabpnchl
 gdpnchle:
-
-
-; table of addresses of guard sprites when moving right
-;
-gdmvrttb:										
-		db (gdmvrtte - gdmvrttb - 1) / 2
-		dw sabspmr1,sabspmr2,sabspmr3,sabspmr4
-gdmvrtte:										
-
-gdmvlttb:
-		db (gdmvltte - gdmvlttb - 1) / 2
-		dw sabspml1,sabspml2,sabspml3,sabspml4
-gdmvltte:										

@@ -311,19 +311,9 @@ sbstepud:
 		ldsprht 			; load sprite height
 		ld e,a				; save height in E
 
-        push de             ; save height
-        ld   hl,sbctrlb
-        ohdcorct .sbs1
-        pop  de
-        inc  e
-        inc  e
-        push de
-.sbs1:  
-        pop  de      
+        inc  e              ; add only half of head height to stop on feet level
 		sblcursr			; load current screen row
 		add e
-		dec a				; feet level
-		;;dec a				; one block above feet
 		ld e,a				; save row in E
 
 		sblcursc			; load current column

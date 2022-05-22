@@ -5,17 +5,9 @@
 ;
 sbcanfal:
 		sbcurrh			; get height in A
-        push af
-        ld   hl,sbctrlb
-        ohdcorct .sbf1  ; need head height correction ?
-                        ; yes
-        pop  af
         inc  a          ; make correction for head height
         inc  a 
-        push  af        
 
-.sbf1:
-        pop  af
 		ld e,a
 		sblcursr		; current row in A
 		add e			; level below feet
@@ -171,6 +163,6 @@ sbfalle:
 		sbscursp			; save sprite address
 		sbscurst sbfall
 
-        ld   de,0
-        sbshdspr            ; clear head sprite
+        ld   de,sbhfall
+        sbshdspr            ; set head sprite
 		ret	

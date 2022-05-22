@@ -115,7 +115,7 @@ gdstkick:
         push hl
         ld   de,gdhdkk1r
         shdspr        
-        ld   hl,gdkckrb
+        ld   hl,sabkckrb
         ld   (gsprtab),hl
         jp   .do2
 .do1:
@@ -126,7 +126,7 @@ gdstkick:
         ld   de,gdhdkk1l
         shdspr        
 
-        ld   hl,gdkcklb
+        ld   hl,sabkcklb
         ld   (gsprtab),hl
 
         pop  hl
@@ -172,7 +172,7 @@ gdchkck:
         ret
 
 .gdcr2:
-        cp  ((gdkckre - gdkckrb - 1) / 2) - 2
+        cp  ((sabkckre - sabkckrb - 1) / 2) - 2
         ret nz
         push hl
         ld   de,gdhdkk1r
@@ -200,7 +200,7 @@ gdchkck:
         ret
 
 .gdcl2:
-        cp  ((gdkckre - gdkckrb - 1) / 2) - 2
+        cp  ((sabkckre - sabkckrb - 1) / 2) - 2
         ret nz
         push hl
         ld   de,gdhdkk1l

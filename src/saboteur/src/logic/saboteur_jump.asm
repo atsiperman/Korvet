@@ -90,10 +90,14 @@ sbstjmp:
 		sblddir
 		cp dirlt
 		jp z,_sbstj1
+        ld  de,sbhjmp1r
+        sbshdspr            ; set head sprite
 		ld de,sabjmpr1
 		jp _sbstj2
 
 _sbstj1:
+        ld  de,sbhjmp1l
+        sbshdspr            ; set head sprite
 		ld de,sabjmpl1
 
 _sbstj2:
@@ -101,8 +105,6 @@ _sbstj2:
 		xor a
 		sbscursi
 		call sbdecrow
-        ld  de,0
-        sbshdspr            ; clear head sprite
 		ret
 		
 ; ---- starts short jump
@@ -120,8 +122,6 @@ sbstshjp:
 		xor a
 		sbscursi
 
-        ld  de,0
-        sbshdspr            ; clear head sprite
 		ret
 
 ; ---- do short jump
@@ -137,10 +137,18 @@ sbdoshjp:
 		jp z,_sbdoshj
 		ld hl,sabjpsrb + 1
 		ld (sbdojp4 + 1),hl
+
+        ld  de,sbhjmp1r
+        sbshdspr            ; set head sprite
+
 		jp sbdojp
 _sbdoshj:
 		ld hl,sabjpslb + 1
 		ld (sbdojp4 + 1),hl
+
+        ld  de,sbhjmp1l
+        sbshdspr            ; set head sprite
+
 		jp sbdojp
 
 ; ---- do long jump

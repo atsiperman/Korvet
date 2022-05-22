@@ -12,16 +12,6 @@ sbdosquat:
 		inc de				; skip color
 		ld a,(de)			; old sprite height		
 		
-        push af
-        ld   hl,sbctrlb
-        ohdcorct .sbd1      ; has head ?
-        pop  af
-        inc  a
-        inc  a              ; increase sprite height for head
-        push af
-
-.sbd1:
-        pop  af
 		ld hl,sabsqtrt + 1	; new sprite, skip color
 		ld b,(hl)			; new sprite height
 		cp b
@@ -45,8 +35,8 @@ sbdsqt3:
 		ld de,sabsqtrt		; set new sprite 
 		sbscursp		
 
-        ld de,0
-        sbshdspr            ; clear head sprite
+        ld de,sbhsqtr
+        sbshdspr            ; set head sprite
 
 		sblddir
 		cp dirlt

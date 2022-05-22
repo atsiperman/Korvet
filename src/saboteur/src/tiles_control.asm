@@ -76,16 +76,13 @@ rsttile3:
 ;		HL - address of the object's control block
 ;		DE - address of the sprite
 updtilem:			
-        push de			; save sprite address
-        push hl
-        ohdcorct .utl1
+        ld  a,(hl)      ; load object type
+        ohashead .utl1
         ld   a,1        ; object needs correction for head        
         jp   .utl2
 .utl1:
-        xor  a          ; object has not head sprite
+        xor  a          ; object has no head sprite
 .utl2:
-        pop  hl
-        pop  de 		; save sprite address
         push af         ; save head flag
 
 		push de			; save sprite address

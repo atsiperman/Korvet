@@ -73,7 +73,7 @@ gdstmov:
         cp   dirlt
         jp   z,.gdmlt
                                         ; start moving right
-        ld   hl,gdmvrttb
+        ld   hl,sbmvrttb
         ld   (gsprtab),hl               ; save sprite table address
         pop  hl
         push hl
@@ -88,7 +88,7 @@ gdstmov:
         jp   .gdme
 
 .gdmlt: 
-        ld   hl,gdmvlttb
+        ld   hl,sbmvlttb
         ld   (gsprtab),hl               ; save sprite table address
         pop  hl
         push hl
@@ -138,11 +138,11 @@ gfcontmv:
         lddir
         cp   dirlt
         jp   z,.gfclt1
-        ld   hl,gdmvlttb                ; is moving right, change to sprite table for left dir
+        ld   hl,sbmvlttb                ; is moving right, change to sprite table for left dir
         jp   .gfclt2
 
 .gfclt1:        
-        ld   hl,gdmvrttb                ; is moving left, change to sprite table for right dir
+        ld   hl,sbmvrttb                ; is moving left, change to sprite table for right dir
 .gfclt2:
         ld   (gsprtab),hl               ; save new sprite table
 
