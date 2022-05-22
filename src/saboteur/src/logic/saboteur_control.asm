@@ -101,22 +101,31 @@ sbnoactn:
 		ret
 		
 .sbnoac2:		
-		sblddir
-		cp dirrt
-		jp nz,.sbnoac5
-							; was moving right
 		ldstate	
 		cp sbsquat
 		jp nz,.sbnoac4
-							; player is squatting, now stand up									
-							
-							; player is looking right, decrease column
-		ld hl,sbctrlb + odcursc	
-		ld a,(hl)			; load column
-		dec a
-		ld (hl),a
+        
+        sblcursr            ; load row
+        dec  a              ; make correction
+        dec  a              ; for head
+        sbscursr            ; save new row
+
+		sblddir
+		cp   dirlt
+		jp   z,.sbnoac5
+							; was moving right
+							        ; player is squatting, now stand up																
+							        ; player is looking right, decrease column
+		ld   hl,sbctrlb + odcursc	
+		ld   a,(hl)			        ; load column
+		dec  a
+		ld   (hl),a
 		
-.sbnoac4:							
+.sbnoac4:
+		sblddir
+		cp   dirlt
+		jp   z,.sbnoac5
+
 		ld  de,sabsprt 
 		sbscursp			; stop, look at right		
         ld  de,sbheadr
@@ -133,17 +142,19 @@ sbnoactn:
 .sbstop:
 		sbscurst sbstay		; is staying now
 		
-		sblprvsp		
-		ldsprht
-		push af				; save prev height
+		sblprvsp		    ; load previous
+		ldsprht             ; sprite height
+		push af			    ; save prev height
 		
-		sblcursp			; load cur sprite 
-		ldsprht				; current height
-		pop bc
-		sub b				; current is always bigger than previous
-		ld c,a				; save the difference
+        sblcursp			; load cur sprite 
+		ldsprht			    ; current height
+
+		pop  bc             ; restore prev height in B
+		sub  b				; current is always bigger than previous
+		
+        ld   c,a			; save the difference
 		sblcursr
-		sub c				; increase height 
+		sub  c				; increase height 
 		sbscursr
 		ret
 		

@@ -15,9 +15,9 @@ sbstmove:
 		ld hl,sbctrlb
 		push hl
 							; check right dir
-		ld a,dirrt
+		ld a,dirlt
 		cp c
-		jp nz,sbstmv1
+		jp z,sbstmv1
 		call sbstgort		
 		jp sbstmv2
 		
@@ -310,6 +310,15 @@ sbstepud:
 		sblcursp			; load current sprite address
 		ldsprht 			; load sprite height
 		ld e,a				; save height in E
+
+        push de             ; save height
+        ohdcorct .sbs1
+        pop  de
+        inc  e
+        inc  e
+        push de
+.sbs1:  
+        pop  de      
 		sblcursr			; load current screen row
 		add e
 		dec a				; feet level

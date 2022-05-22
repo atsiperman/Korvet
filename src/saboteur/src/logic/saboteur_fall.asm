@@ -167,7 +167,10 @@ sbfall1:
 
 sbfalle:
 		sbscursc
-		ld de,sabfall
+		ld   de,sabfall
 		sbscursp			; save sprite address
 		sbscurst sbfall
+
+        ld   de,0
+        sbshdspr            ; clear head sprite
 		ret	

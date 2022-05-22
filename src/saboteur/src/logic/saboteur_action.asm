@@ -8,19 +8,24 @@
 sbdosquat:
 		sbscurst sbsquat	; set new state
 		
-        ld de,0
-        sbshdspr            ; clear head sprite
-
 		sblcursp			; load old sprite
 		inc de				; skip color
 		ld a,(de)			; old sprite height		
 		
+        push af
+        ohdcorct .sbd1      ; has head ?
+        pop  af
+        inc  a
+        inc  a              ; increase sprite height for head
+        push af
+
+.sbd1:
+        pop  af
 		ld hl,sabsqtrt + 1	; new sprite, skip color
 		ld b,(hl)			; new sprite height
 		cp b
 		jp c,sbdsqt2		; if old h < new h
-		sub b				; new h (in B) < old h (in A)
-		
+		sub b				; new h (in B) < old h (in A)		
 		jp sbdsqt3		
 		
 sbdsqt2:					; old h < new h
@@ -39,18 +44,17 @@ sbdsqt3:
 		ld de,sabsqtrt		; set new sprite 
 		sbscursp		
 
+        ld de,0
+        sbshdspr            ; clear head sprite
+
 		sblddir
 		cp dirlt
-		jp nz,sbdsqt4
-
-		ret
-		
-sbdsqt4:
+        ret z
+        
 		ld hl,sbctrlb + odcursc
 		ld a,(hl)			; load column
 		inc a
 		ld (hl),a
-		
 		ret
 
 ;
