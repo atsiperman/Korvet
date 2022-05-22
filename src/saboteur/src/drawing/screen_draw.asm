@@ -533,8 +533,8 @@ scrch1_:
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
         GRMODON
-		call drawstos		; draw static objects
         call drawbkgr		; draw background
+		call drawstos		; draw static objects
         call postproc
         GRMODOFF
 		call drawtram		; draw text ram for new screen
@@ -562,9 +562,10 @@ drawobj2:
         ;call waitblnk
         GRMODON
 
+		call showscr		; show buffer on the screen		
+
 		call drawtrig		; draw triggered image, if any
         call drwheldo       ; draw an object being held by saboteur
-		call showscr		; show buffer on the screen		
 		call hldraw			; draw health bar
         call drwnums        ; draw current time
 

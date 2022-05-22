@@ -350,6 +350,18 @@ dogbitev:
 		ld d,a						; dog: E - top row, D - bottom row
 								
 		ld a,(sbctrlb + odcursr)
+        push de
+        push af        
+        ld  hl,sbctrlb
+        ohdcorct .dgbv1             ; add soboteur head height ?
+        pop  af
+        inc  a
+        inc  a
+        push af
+
+.dgbv1:        
+        pop  af
+        pop  de
 		ld c,a						; save saboteur top row
 					
 		ld hl,(sbctrlb + odcursp)	; load sprite address		

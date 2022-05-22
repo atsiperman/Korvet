@@ -137,7 +137,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn7 		; pointer to current screen
+curscr: 	dw scrn3 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -147,8 +147,8 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ; ----	saboteur control block			
 ;
 sbctrlb:	
-		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-            mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,15,10
+		    mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+            ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,15,10
             ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
 
