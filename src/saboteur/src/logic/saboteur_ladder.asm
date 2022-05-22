@@ -257,7 +257,12 @@ sbdolad5:
                             
         ld   hl,sbctrlb     ; calc and save new sprite address
         snewspa2 sbladtb
-		
+
+        ld   hl,sbctrlb     ; calc and save new sprite address for head
+		ld   bc,odhdspr
+		add  hl,bc
+		snewspa sbladhtb
+
 sbdolade:
 		ret
 

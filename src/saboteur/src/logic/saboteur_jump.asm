@@ -117,11 +117,23 @@ sbstshjp:
 		ret z
 		
 		sbscurst sbshjmp
-		ld de,sabjmpr1
-		sbscursp
 		xor a
 		sbscursi
 
+        sblddir
+        cp   a,dirlt
+        jp   z,.sbsj1
+		ld   de,sabjmpr1
+		sbscursp
+        ld   de,sbhjmp1r
+        sbshdspr
+        ret
+
+.sbsj1:        
+		ld de,sabjmpl1
+		sbscursp
+        ld   de,sbhjmp1l
+        sbshdspr
 		ret
 
 ; ---- do short jump
@@ -137,18 +149,11 @@ sbdoshjp:
 		jp z,_sbdoshj
 		ld hl,sabjpsrb + 1
 		ld (sbdojp4 + 1),hl
-
-        ld  de,sbhjmp1r
-        sbshdspr            ; set head sprite
-
 		jp sbdojp
+
 _sbdoshj:
 		ld hl,sabjpslb + 1
 		ld (sbdojp4 + 1),hl
-
-        ld  de,sbhjmp1l
-        sbshdspr            ; set head sprite
-
 		jp sbdojp
 
 ; ---- do long jump
@@ -184,7 +189,7 @@ _sbdjp2_:
 
 
 _sbdjp1_:		
-		cp (SBJPSPN - 1)	; check index of the next sprite 
+		cp (SBJPSPN - 1)	; check index of the current sprite 
 		jp z,_sbjstay		; jump has been finished, stay and be ready
 
 							; otherwise do check if we can move forward
@@ -210,28 +215,38 @@ sbdojp4:
 
 		cp 1
 		jp nz,sbdojp5
-		call sbdecrow
-		ret					; keep old column for the first small sprite 
+		jp sbjrdec
+						    ; keep old column for the first small sprite 
 		
 sbdojp5:		
 		sblddir
 		cp dirrt
 		jp z,sbdojp9
-		call sbdeccol		; do move left
-		ret
+		jp  sbdeccol		; do move left
 		
 sbdojp9:
-		call sbinccol		; do move right
-		ret
+		jp  sbinccol		; do move right
 			
 sbdojpe:
-		call sbstopjp
-		ret
+		jp  sbstopjp
 
 _sbjstay:		
-		call sbstopst		; jump finished, stop and stay
-		ret	
+		jp  sbstopst		; jump finished, stop and stay
 
+
+; ---- dec row when starts jumping, change head sprite
+;				
+sbjrdec:
+        sblddir             ; load direction
+        cp  dirrt
+        jp  z,.sbjr1
+        ld   de,sbhjmp2l
+        sbshdspr
+        jp sbdecrow
+.sbjr1: 
+        ld   de,sbhjmp2r
+        sbshdspr
+        jp sbdecrow
 
 ; ---- stop jump, check the place around and find row and column to land
 ;				
@@ -243,11 +258,15 @@ sbstopjp:
 		jp z,_sbstpjr
 
 _sbstpj1:
+        ld   de,sbhjmp1l
+        sbshdspr
 		call sblandlh
 		call sblandv
 		ret
 
 _sbstpjr:
+        ld   de,sbhjmp1r
+        sbshdspr
 		call sblandrh
 		call sblandv
 		ret

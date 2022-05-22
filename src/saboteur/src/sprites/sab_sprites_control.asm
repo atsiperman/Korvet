@@ -20,6 +20,13 @@ sbladtb:
 		dw sablad1,sablad2
 sbladtbe:
 
+; head sprites for ladder
+;
+sbladhtb:
+		db (sbladhtb.endtab - sbladhtb - 1) / 2
+		dw sbhlad1,sbhlad2
+.endtab:
+
 ; table of addresses of saboteur sprites when kicking right
 ;		
 sabkckrb:

@@ -19,7 +19,7 @@ sbhjmp1r EQU sbhwalkl + (_gdhwalk.heade - _gdhwalk)
 sbhjmp2r EQU sbhjmp1r + (_sbhjpr1.esabh - _sbhjpr1)
 
 sbhjmp1l EQU sbhjmp2r + (_sbhjpr2.esabh - _sbhjpr2)
-sbhjmp2l EQU sbhjmp1l + (_sbhjpr2.esabh - _sbhjpr2)
+sbhjmp2l EQU sbhjmp1l + (_sbhjpr1.esabh - _sbhjpr1)
 
 sbhfall  EQU sbhjmp2l + (_sbhjpr2.esabh - _sbhjpr2)
 sbhsqtr  EQU sbhfall + (_sbhfall.esabh - _sbhfall)

@@ -446,14 +446,12 @@ odfrown EQU 4       ; rownum
 ; args: HL - address of object control block
 ;		A  - current sprite index
 ;		
-		macro snewspa2 sprtab
-		
+		macro snewspa2 sprtab		
 		ld bc,odcursp
 		add hl,bc
-		snewspa sprtab
-		
+		snewspa sprtab		
 		endm
-		
+
 		
 ; --- checks whether sprite is a kind of floor
 ; args:		A - sprite type
