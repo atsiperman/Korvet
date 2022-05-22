@@ -52,6 +52,9 @@ sbstgort:
 		inc hl		
 		ld (hl),a				; save new sprite index
 		
+        ld  de,sbhwalkr         ; save
+        sbshdspr                ; sprite head
+
 		pop hl
 		push hl
 		
@@ -76,9 +79,6 @@ sbstgort:
 
         ld  a,dirrt
         sbsdir
-
-        ld  de,sbhwalkr
-        sbshdspr
                					; A = dirrt - anything not zero
 		ret		
 
@@ -92,7 +92,10 @@ sbstgolt:
 		snewspa2 sbmvlttb		; save new sprite address
 		inc hl		
 		ld (hl),a				; save new sprite index
-		
+
+        ld  de,sbhwalkl         ; save
+        sbshdspr                ; sprite head
+
 		pop hl
 		push hl
 		
@@ -117,9 +120,6 @@ sbstgolt:
 
         ld   a,dirlt
         sbsdir
-
-        ld  de,sbhwalkl
-        sbshdspr
 
                         ; A = dirlt - anything not zero
 		ret		
@@ -312,6 +312,7 @@ sbstepud:
 		ld e,a				; save height in E
 
         push de             ; save height
+        ld   hl,sbctrlb
         ohdcorct .sbs1
         pop  de
         inc  e

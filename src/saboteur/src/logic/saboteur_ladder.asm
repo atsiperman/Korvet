@@ -171,13 +171,11 @@ sbstlad2:
 ;		C  - vertical direction
 ;				
 sbdoladr:
-		push hl		
 		ld e,c				; save direction	
 		ldcursr						
 		ld c,a				; current row in C
 		
-		ld a,e
-		
+		ld a,e		
 		cp dirdn
 		jp z,sbdolad1		; go down	
 				
@@ -199,11 +197,10 @@ sbdoladr:
         sblcursr
         dec a
         sbscursr
-        pop  hl
-        push hl             ; reload control block
 		ld c,dirup
 		call cangolad
         ld  c,a             ; save result
+
         ; restore current row
         sblcursr        
         inc a               
@@ -212,7 +209,6 @@ sbdoladr:
         or  a               ; check if row above feet is a ladder
         jp  z,.sbgup1       ; 0 - ladder ends on the current row, so we need to allow to go one row up        
         xor a               ; 1 - ladder will continue, do not move since it is not free above
-        pop hl
         ret
 
 .sbgup1:
@@ -243,11 +239,9 @@ sbdolad2:					; change screen UP
 		or a
 		jp z,sbdolade		; screen not changed
 		
-		pop hl
-		push hl
 		ld a,ROWNUM
 		sub SBHILAD 		; row num on the new screen
-		scursr	
+		sbscursr	
 						
 		jp sbdolad4
 		
@@ -256,17 +250,12 @@ sbdolad3:					; change screen DOWN
 		or a
 		jp z,sbdolade		; screen not changed
 		
-		pop hl
-		push hl
 		xor a				; row num on the new screen				
-		scursr				
+        sbscursr
 		
 sbdolad4:
-		pop hl
-		push hl
 							; calculate new sprite index and address
-		ldcurspi			
-		push hl
+        sblcursi
 		
 		ld hl,sbladtb
 		ld e,(hl)			; total sprite count		
@@ -276,17 +265,12 @@ sbdolad4:
 		ld a,0
 		
 sbdolad5:
-		pop hl
-		ld (hl),a			; save sprite index		
-				
-		pop hl
-		push hl
-		ld bc,odcursp
-		add hl,bc
-		snewspa sbladtb		; calc and save new sprite address
+        sbscursi            ; save sprite index						
+                            
+        ld   hl,sbctrlb     ; calc and save new sprite address
+        snewspa2 sbladtb
 		
 sbdolade:
-		pop hl		
 		ret
 
 ;

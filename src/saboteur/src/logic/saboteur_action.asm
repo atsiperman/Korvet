@@ -13,6 +13,7 @@ sbdosquat:
 		ld a,(de)			; old sprite height		
 		
         push af
+        ld   hl,sbctrlb
         ohdcorct .sbd1      ; has head ?
         pop  af
         inc  a
@@ -50,7 +51,7 @@ sbdsqt3:
 		sblddir
 		cp dirlt
         ret z
-        
+
 		ld hl,sbctrlb + odcursc
 		ld a,(hl)			; load column
 		inc a

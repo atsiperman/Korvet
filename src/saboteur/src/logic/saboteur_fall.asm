@@ -5,8 +5,8 @@
 ;
 sbcanfal:
 		sbcurrh			; get height in A
-        ld   hl,sbctrlb
         push af
+        ld   hl,sbctrlb
         ohdcorct .sbf1  ; need head height correction ?
                         ; yes
         pop  af

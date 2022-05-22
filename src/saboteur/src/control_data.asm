@@ -148,6 +148,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ;
 sbctrlb:	
 		    mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
+            ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,15,10
             ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,SABSTADR,sabsprt,0,7,9 ; 35
 
