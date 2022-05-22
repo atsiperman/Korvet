@@ -407,6 +407,10 @@ setdead:
         push hl
         scurst objdead
         pop  hl
+        push hl
+        ld   de,0           ; clear sprite
+        shdspr              ; for head
+        pop  hl
         ld   a,(hl)         ; load object type
         cp   odog
         jp   z,.std1        ; set dog sprite

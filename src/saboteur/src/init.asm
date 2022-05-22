@@ -166,7 +166,6 @@ sabinit:
         ret
 
 .initgdsp:
-        ret
         ; guard sprites
 
         ld  hl,_gdhead
@@ -178,11 +177,11 @@ sabinit:
 		call mirrspr
 
         ld  hl,_gdhpnch
-        ld  de,gdhpnchl
+        ld  de,gdhpnchr
         ld  bc,_gdhpnch.heade - _gdhpnch
         call copymem
-        ld  hl,gdhpnchl
-        ld  de,gdhpnchr
+        ld  hl,gdhpnchr
+        ld  de,gdhpnchl
 		call mirrspr
 
         ld  hl,_gdhdkk1
@@ -194,8 +193,8 @@ sabinit:
 		call mirrspr
 
         ld  hl,_gdhdkk2
-        ld  de,gdhdkk1l
-        ld  bc,_gdhdkk2.heade - _gdhdkk1
+        ld  de,gdhdkk2l
+        ld  bc,_gdhdkk2.heade - _gdhdkk2
         call copymem
         ld  hl,gdhdkk2l
         ld  de,gdhdkk2r

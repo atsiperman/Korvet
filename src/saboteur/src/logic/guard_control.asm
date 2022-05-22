@@ -78,7 +78,13 @@ gdstmov:
         pop  hl
         push hl
         ld   de,sabspmr1                ; save sprite address
-        scurspr     
+        scurspr
+
+        pop  hl
+        push hl
+        ld   de,gdhwalkr
+        shdspr
+
         jp   .gdme
 
 .gdmlt: 
@@ -88,6 +94,10 @@ gdstmov:
         push hl
         ld   de,sabspml1                ; save sprite address
         scurspr 
+        pop  hl
+        push hl
+        ld   de,gdhwalkl
+        shdspr
 
 .gdme:
         pop  hl
@@ -306,11 +316,20 @@ gdststay:
         cp   dirlt
         jp   z,.gs1
         ld   de,sabsprt
-        scurspr 
+        push hl
+        scurspr
+        pop  hl
+        ld   de,gdheadr
+        shdspr
+
         ret
 .gs1:
         ld   de,sabsplt
-        scurspr 
+        push hl
+        scurspr
+        pop  hl
+        ld   de,gdheadl
+        shdspr
         ret
 
 ; ---- checks whether guard sees saboteur

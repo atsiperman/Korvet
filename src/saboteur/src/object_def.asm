@@ -23,13 +23,6 @@ dogmove	EQU 2				; moving
 dogtrn  EQU 3				; turning
 dogstay	EQU 4				; staying 
 
-; ---- guard state
-;
-;gddead	EQU 1				; dead
-;gdmove	EQU 2				; moving 
-;gdkick	EQU 3				; kicking
-;gdstay	EQU 4				; staying 
-
 ; ---- directions
 ;
 dirrt	EQU 1				
@@ -84,12 +77,12 @@ SPRHLEN EQU 3       ; sprite head length
 
 ; ----	makes control block for an object
 ;
-		macro mkctrlb otype,oproc,curstat,direct,curpos,curspr,curspri,curscol,cursrow
+		macro mkctrlb otype,oproc,curstat,direct,hdsprt,curpos,curspr,curspri,curscol,cursrow
 		db otype
 		dw oproc
 		db curstat
 		db direct
-		dw 0
+		dw hdsprt
 		dw curpos
 		dw curspr
 		db curspri
@@ -99,12 +92,12 @@ SPRHLEN EQU 3       ; sprite head length
 		endm
 
 		macro mkgdrt curscol,cursrow,mincol,maxcol
-		mkctrlb oguard,guardprc,sbstay,dirrt,0,sabsprt,0,curscol,cursrow
+		mkctrlb oguard,guardprc,sbstay,dirrt,gdheadr,0,sabsprt,0,curscol,cursrow
 		db mincol,maxcol
 		endm 
 
 		macro mkgdlt curscol,cursrow,mincol,maxcol
-		mkctrlb oguard,guardprc,sbstay,dirlt,0,sabsplt,0,curscol,cursrow
+		mkctrlb oguard,guardprc,sbstay,dirlt,gdheadl,0,sabsplt,0,curscol,cursrow
 		db mincol,maxcol
 		endm 
 
@@ -114,12 +107,12 @@ SPRHLEN EQU 3       ; sprite head length
 		; endm 
 		
 		macro mkdog direct,curspr,curspri,curscol,cursrow,mincol,maxcol
-		mkctrlb odog,dogact,dogmove,direct,scrbuf,curspr,curspri,curscol,cursrow
+		mkctrlb odog,dogact,dogmove,direct,0,0,curspr,curspri,curscol,cursrow
 		db mincol,maxcol
 		endm		
 		
 		macro mkgun direct,curscol,cursrow
-		mkctrlb ogun,gunact,0,direct,scrbuf,gundn,0,curscol,cursrow
+		mkctrlb ogun,gunact,0,direct,0,0,gundn,0,curscol,cursrow
 		db 0,0
 		endm
 

@@ -74,14 +74,23 @@ gdstpnch:
         cp   dirlt
         jp   z,.dopnchl
         ld   de,sabpnchr
-        scurspr 
+        push hl
+        scurspr
+        pop  hl
+        ld   de,gdhpnchr
+        shdspr
+
         ld   hl,gdpnchrb
         ld   (gsprtab),hl
         ret
 
 .dopnchl:
         ld   de,sabpnchl
-        scurspr 
+        push hl
+        scurspr
+        pop  hl
+        ld   de,gdhpnchl
+        shdspr
         ld   hl,gdpnchlb
         ld   (gsprtab),hl
         ret
@@ -100,14 +109,23 @@ gdstkick:
         push hl
         cp   dirlt
         jp   z,.do1
-        ld   de,sabkckr1
-        scurspr         
+        ld   de,sabkckr1        
+        scurspr
+        pop  hl
+        push hl
+        ld   de,gdhdkk1r
+        shdspr        
         ld   hl,gdkckrb
         ld   (gsprtab),hl
         jp   .do2
 .do1:
         ld   de,sabkckl1
         scurspr
+        pop  hl
+        push hl
+        ld   de,gdhdkk1l
+        shdspr        
+
         ld   hl,gdkcklb
         ld   (gsprtab),hl
 
@@ -144,6 +162,10 @@ gdchkck:
         pop  hl
         cp   2
         jp   nz,.gdcr2
+        push hl
+        ld   de,gdhdkk2r
+        shdspr        
+        pop  hl        
         ldcursc         ; starts kick, decrease column for left direction
         dec  a
         ld   (hl),a
@@ -152,6 +174,10 @@ gdchkck:
 .gdcr2:
         cp  ((gdkckre - gdkckrb - 1) / 2) - 2
         ret nz
+        push hl
+        ld   de,gdhdkk1r
+        shdspr        
+        pop  hl        
         ldcursc         ; ends kick, increase column for left direction
         inc  a
         ld   (hl),a
@@ -162,7 +188,11 @@ gdchkck:
         ldcurspi
         pop  hl
         cp   2
-        jp   nz,.gdcl2
+        jp   nz,.gdcl2        
+        push hl
+        ld   de,gdhdkk2l
+        shdspr        
+        pop  hl        
         ldcursc         ; starts kick, decrease column for left direction
         dec  a
         dec  a
@@ -172,6 +202,10 @@ gdchkck:
 .gdcl2:
         cp  ((gdkckre - gdkckrb - 1) / 2) - 2
         ret nz
+        push hl
+        ld   de,gdhdkk1l
+        shdspr        
+        pop  hl        
         ldcursc         ; ends kick, increase column for left direction
         inc  a
         inc  a

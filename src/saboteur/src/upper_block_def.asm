@@ -60,7 +60,7 @@ gdheadr  EQU trmdata + trmapend - trmapst
 gdheadl  EQU gdheadr + (_gdhead.heade - _gdhead)
 
 gdhpnchr EQU gdheadl + (_gdhead.heade - _gdhead)
-gdhpnchl EQU gdheadr + (_gdhpnch.heade - _gdhpnch)
+gdhpnchl EQU gdhpnchr + (_gdhpnch.heade - _gdhpnch)
 
 gdhdkk1r EQU gdhpnchl + (_gdhpnch.heade - _gdhpnch)
 gdhdkk1l EQU gdhdkk1r + (_gdhdkk1.heade - _gdhdkk1)

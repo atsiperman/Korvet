@@ -32,9 +32,9 @@ ginitscr:
         rstrmap
         rsobjmap
 
-        ld  hl,sbctrlb
-        ld  de,sbheadr
-        shdspr 
+        ; ; ld  hl,sbctrlb
+        ; ; ld  de,sbheadr
+        ; ; shdspr 
 
         GRMODON
         ld a,COLORCLR 
