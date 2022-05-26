@@ -312,7 +312,7 @@ movweap:
 		push hl
 
         ldstate
-        cp  objdead
+        cp  sbdead
         jp  z,.chokile      ; object is dead, no actions
         
         pop  hl
@@ -400,7 +400,7 @@ trydamge:
 ;
 setdead:
         push hl
-        scurst objdead
+        scurst sbdead
         pop  hl
         push hl
         ld   de,0           ; clear sprite
@@ -409,6 +409,8 @@ setdead:
         ld   a,(hl)         ; load object type
         cp   odog
         jp   z,.std1        ; set dog sprite
+        ld   a,odead
+        ld   (hl),a         ; change type to dead to make it easier to draw sprite without head
         ld   de,sabdead
         jp   .std2
 

@@ -11,7 +11,7 @@ guardprc:
         push hl
         ldstate
         pop  hl
-        cp   objdead        
+        cp   sbdead        
         ret z
 
         cp   sbstay

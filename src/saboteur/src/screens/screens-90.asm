@@ -691,20 +691,13 @@ smap97e:
 		mkline 13
 		db 0
 
-		mkdup 2
+		mkdup 6
 			db 0
 			db 0
 			mkline 13
 			mkbyte 1,1
 		;edup
 		
-		mkdup 4
-			db 0
-			db 0
-			mkline 13
-			mkbyte 1,1
-		;edup
-
 		mkdup 4
 			db 0
 			db 0
@@ -734,8 +727,8 @@ smap97e:
 
 scrn97txd:					; description of the text RAM used by this screen		
 		mkbyte TXLINEH,2
-			db CHBOTM
 			mktxtaddr 2, 2
+			db CHBOTM
 
 		mkbyte TXLINEH,4
 			mktxtaddr 1, 3

@@ -9,7 +9,7 @@ dogact:
 		ldstate 		; load state
 		pop hl
 		
-		cp objdead		
+		cp sbdead
 		ret z			; dead - do nothing
 		
 		push hl		

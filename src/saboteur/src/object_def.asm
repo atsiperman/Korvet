@@ -1,9 +1,7 @@
 
-objdead	EQU 1				; dead
-
 ; ---- saboteur state
 ;
-;sbdead	EQU 1				; dead
+sbdead	EQU 1				; dead
 sbmove	EQU 2				; moving 
 sbkick	EQU 3				; kicking
 sbstay	EQU 4				; staying 
@@ -49,6 +47,7 @@ osabotr	EQU 1		; saboteur
 odog	EQU 2		; dog
 oguard	EQU 3		; guard
 ogun	EQU 4		; gun
+odead   EQU 5       ; dead object, just to simplify drawing sprite without head
 
 ; ---- displacements from the beginning of the control block
 ;
@@ -137,7 +136,7 @@ SPRHLEN EQU 3       ; sprite head length
 ;
 trgmanl	EQU 1		; manual trigger
 trgauto	EQU 2		; auto trigger
-trxonly EQU 128     ; trigger on X position only
+trxonly EQU 128     ; trigger on X position only (like wagons)
 
 ; ---- object type in trigger
 ;
@@ -470,5 +469,7 @@ odfrown EQU 4       ; rownum
         cp   ogun
         jp   z,skiplab
         cp   odog
+        jp   z,skiplab
+        cp   odead              ; dead object has no dedicated head sprite 
         jp   z,skiplab
         endm

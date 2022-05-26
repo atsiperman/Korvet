@@ -27,11 +27,23 @@ scrbuf:
         ; this place will be reused as a screen buffer
 
 TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) 
-        dw TMPDLEN
         dw ROWNUM * ROWWIDB
         dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
         db 0
         edup
+
+        display "scrbuf start:   ", scrbuf
+        display "scrbuf end:     ", $
+        display "scrbuf free:    ", $ - scrbuf - TMPDLEN
+        display "scrbuf size:    ", $ - scrbuf
+        display "temp data size: ", TMPDLEN
+        display "upper page size:", 0fa00h - 0c000h
+        display "upper page top: ", uppertop
+        display "upper page free:", 0fa00h - uppertop
+
+        if uppertop > 0fa00h
+            error "Upper page size exceeded!!!"
+        endif
 
 ; ---- END OF SCREEN BUFFER ----
 

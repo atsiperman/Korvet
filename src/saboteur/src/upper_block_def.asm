@@ -82,4 +82,6 @@ gdhdkk2l EQU gdhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
 gdhwalkr EQU gdhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
 gdhwalkl EQU gdhwalkr + (_gdhwalk.heade - _gdhwalk)
 
+uppertop EQU gdhwalkl + (_gdhwalk.heade - _gdhwalk)
+
 ; ----- no more space in upper memory block

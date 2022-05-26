@@ -52,7 +52,7 @@ trigtst:
         load_bc_hl                      ; load Y,X into BC        
         inc  c                          ; use X + 1 cooridate 
         add  a,b                        ; add height to current Y
-        dec  a                          ; get feet level
+        inc  a                          ; only half height of the head to get to the feet level
         ld   b,a                        ; save feet level in B
         ex   de,hl                      ; get trigger pointer back into HL
         pop  af
@@ -78,7 +78,7 @@ trigtst:
         and trxonly         ; check if only X is required
         jp  nz,.tract6      ; X only trigger, go to trigger proc
 
-        ld a,(hl)           ; load trigger location Y
+        ld a,(hl)           ; load trigger location Y        
         cp b                ; compare to saboteur's Y coordinate
         jp nz,.tract5       ; not equal, go to the next iteration
 
