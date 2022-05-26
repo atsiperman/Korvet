@@ -57,7 +57,6 @@ sbcnact3:
 		or a
 		jp z,sbcnacty
 						; start falling down
-		ld hl,sbctrlb
 		call sbstfall
 		jp sbcnactn
 
@@ -72,12 +71,7 @@ sbcnactn:
 ; ---- logic when no button pressed
 ;
 sbnoactn:
-		ld hl,sbctrlb
-		push hl
-		
-		ldstate
-		pop hl
-		
+		sblcurst		
 		cp sbstay
 		jp nz,.sbnoact
 							; player is staying, no action									
@@ -101,7 +95,6 @@ sbnoactn:
 		ret
 		
 .sbnoac2:		
-		ldstate	
 		cp sbsquat
 		jp nz,.sbnoac4
         

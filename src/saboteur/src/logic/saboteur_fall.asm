@@ -12,9 +12,11 @@ sbcanfal:
 		sblcursr		; current row in A
 		add e			; level below feet
 
-		cp ROWNUM		; check if this is the last row
-		ret z			; return A > 0 to fall if saboteur is on the last row
+		;; cp ROWNUM   	; check if this is the last row
+		;; ;;ret z			; return A > 0 to fall if saboteur is on the last row
+        ;; jp  c,.sbcf1    ; not the last row -> check tiles under feet
 
+;;.sbcf1:
 		ld e,a			; save row in E
 		push de			; save row		
 		call _isfloor	
@@ -22,6 +24,14 @@ sbcanfal:
 		or a
 		jp nz,_sbcnfal0 ; floor, return 0
 
+        ld  a,e         ; row in A
+		cp  ROWNUM - 1 	; check if this is the last row
+        jp  nz,.sbcf1   ; not the last row, do nothing
+        sblcursr        ; increase height
+        dec a           ; to fit falling figure
+        sbscursr        ; save row
+
+.sbcf1:
 		inc a
 		ret
 
@@ -149,10 +159,9 @@ sbfall1:
 
 sbfalle:
 		sbscursc
+        sbscurst sbfall
 		ld   de,sabfall
 		sbscursp			; save sprite address
-		sbscurst sbfall
-
         ld   de,sbhfall
-        sbshdspr            ; set head sprite
+        sbshdspr            ; set head sprite        
 		ret	
