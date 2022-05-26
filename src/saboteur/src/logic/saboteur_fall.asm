@@ -57,24 +57,17 @@ _isflore:
 ;		A - 0 if is falling
 ;
 chkfalng:
-		ld hl,sbctrlb
-		push hl
-		ldstate				; load state
+        sblcurst            ; load state
 		
 		cp sbfall
-		pop hl
 		ret nz				; exit if not falling down
 		
-		push hl
-		ldcursc
+        sblcursc
 		ld d,a				; column in D
-		inc hl
-		ld a,(hl)			; row in E
+        sblcursr            ; row in E
 		ld e,a
 		
-		pop hl
 		push de				; save current coordinates
-		push hl
 		
 		add SBHILAD			; add height of the saboteur to get floor level
 		ld e,a				; row in E		
@@ -82,7 +75,6 @@ chkfalng:
 		jp c,chkfal1		; continue checking if row is less then ROWNUM
 		
 		call goscrndn		; row is equal or greater
-		pop hl
 		pop de		
 		or a
 		jp nz,chkfal_1
@@ -95,7 +87,7 @@ chkfal_1:
 		ret
 		
 chkfal1:		
-		call shscradr		; get address of the sprites' index
+		call shscradr		; get pointer to tile attributes
 		ld a,(hl)
 		isfloor				; is floor reached down
 		jp nz,chkfal2		; floor, stop falling
@@ -108,23 +100,21 @@ chkfal1:
 		jp nz,chkfal2		; floor, stop falling
 		
 					        ; continue falling down
-		pop hl
 		pop de
 		
 		ld a,e				; save next row	
 		inc a
-		scursr			
+		sbscursr
 		
 		xor a
 		ret
 		
 chkfal2:
-		pop hl
 		pop de
 
 		dec d				; decrease column
 		ld a,d
-		scursc
+		sbscursc
 		
 		call sbdosquat
 
