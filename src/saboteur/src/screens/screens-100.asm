@@ -451,6 +451,8 @@ smap104e:
 		;edup
 		
         db SCREND
+        db TRIGMAP
+        dw s104trm
         db OBJMAP
         dw s104om
         db STOMAP
@@ -626,6 +628,8 @@ smap106e:
 		;edup
 				
         db SCREND
+        db TRIGMAP
+        dw s106trm
         db OBJMAP
         dw s106om
         db MSKOMAP

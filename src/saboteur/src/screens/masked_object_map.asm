@@ -371,6 +371,10 @@ s109mom:
 		mkmasko fencelt, 9, 11
 		mkmasko fencelt, 10, 12
 
+s120mom:
+		db 1
+        mkmasko desk,13,9
+
 s123mom:
         db 19
         mkmasko cabinimg, 9, 7

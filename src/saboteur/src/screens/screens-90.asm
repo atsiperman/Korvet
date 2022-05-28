@@ -424,6 +424,8 @@ smap94e:
 		;edup 
 		
         db SCREND
+        db TRIGMAP
+        dw s94trm
         db OBJMAP
         dw s94objm
         db MSKOMAP
@@ -524,6 +526,8 @@ smap95e:
 		db 0
 		
         db SCREND
+        db TRIGMAP
+        dw s95trm	
         db MSKOMAP
         dw s95mom
         db TXTSMAP
@@ -714,7 +718,9 @@ smap97e:
 			db 0
 		;edup
 		
-        db SCREND		
+        db SCREND	
+        db TRIGMAP
+        dw s97trm	
         db MSKOMAP
         dw s97mom
         db OBJMAP

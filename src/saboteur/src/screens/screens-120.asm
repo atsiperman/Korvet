@@ -82,6 +82,10 @@ smap120e:
 		;edup
 		
 		db SCREND
+        db TRIGMAP
+        dw s120trm
+        db MSKOMAP
+        dw s120mom
         db TXTSMAP
         dw s120txd
         db SCREND

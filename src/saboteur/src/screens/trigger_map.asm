@@ -110,21 +110,55 @@ s91trm:
     db 1
     mkknife 18, 15
 
+s94trm:
+    db 1
+    mkdesk 14, 12, 0
+
+s95trm:
+    db 2
+    mkdesk 3, 15, 0
+    mkdesk 21, 14, 0
+
+s97trm:
+    db 5
+    mkdesk 6, 6, dooropn
+    mkdesk 9, 6, 0
+    mkdesk 12, 6, 0
+    mkdesk 15, 6, 0
+    mkdesk 18, 6, 0
+
 s101trm:
     db 1
     mkstone 5, 14
 
 s102trm:
-    db 1
+    db 2
     mkknife 12, 8
+    mkdesk 18, 8, 0
+
+s104trm:
+    db 4
+    mkdesk 6, 14, 0
+    mkdesk 8, 14, 0
+    mkdesk 11, 14, dooropn
+    mkdesk 14, 14, 0
 
 s105trm:
     db 1
     mkdesk 23,8,dooropn
 
+s106trm:
+    db 2
+    mkdesk 3,8,0
+    mkdesk 21,8,0
+
 s113trm:
     db 1
     mkpipe 2, 10
+
+s120trm:
+    db 1
+    mkdesk 13,12,0
 
 s122trm:
     db 1
