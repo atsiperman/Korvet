@@ -12,11 +12,6 @@ sbcanfal:
 		sblcursr		; current row in A
 		add e			; level below feet
 
-		;; cp ROWNUM   	; check if this is the last row
-		;; ;;ret z			; return A > 0 to fall if saboteur is on the last row
-        ;; jp  c,.sbcf1    ; not the last row -> check tiles under feet
-
-;;.sbcf1:
 		ld e,a			; save row in E
 		push de			; save row		
 		call _isfloor	

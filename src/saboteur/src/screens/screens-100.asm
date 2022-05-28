@@ -180,6 +180,8 @@ smap101e:
 		mkbyte 1,1
 		
         db SCREND
+        db MSKOMAP
+        dw s101mom
         db TRIGMAP
         dw s101trm
         db STOMAP
@@ -386,6 +388,8 @@ smap103e:
 		;edup
 		
 		db SCREND
+        db OBJMAP
+        dw s103om
         db STOMAP
         dw s103stom
         db TXTSMAP

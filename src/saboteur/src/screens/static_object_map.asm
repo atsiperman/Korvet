@@ -498,6 +498,15 @@ s104stom:
         mktapem 1, 11
         mktapem 17, 11
 
+s122stom:
+        db 18
+        mkbox33 4, 12
+        mkbox33 14, 12
+        mkbox33 17, 12
+        mkbox33 21, 12
+        mkbox33 15, 9
+        mkbox33 19, 9
+
 s124stom:
         db 3 + tapeimn * 2
         mkbox33 15, 13

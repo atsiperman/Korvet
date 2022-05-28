@@ -297,6 +297,8 @@ smap86e:
 		;edup
 
 		db SCREND
+        db OBJMAP
+        dw s86objm
         db STOMAP
         dw s86stom
         db SCREND
@@ -376,6 +378,8 @@ smap88e:
 		db 0
 		
 		db SCREND
+        db OBJMAP
+        dw s88objm
         db STOMAP
         dw s88stom
         db SCREND

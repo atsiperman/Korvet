@@ -301,6 +301,16 @@ s100mom:
 		mkmasko bigplate,12,15
 		mkmasko smlplate,12,14
 
+s101mom:	
+		db 7
+		mkmasko fencert,9,11
+		mkmasko fencert,10,10
+		mkmasko fencert,11,9
+		mkmasko fencert,12,8
+		mkmasko fencert,13,7
+		mkmasko fencert,14,6
+		mkmasko fencertl,15,6
+
 s102mom:
 		db 9
 		mkmasko bigplate,7,8

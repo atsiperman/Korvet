@@ -380,7 +380,13 @@ smap122e:
 			db 0
 		;edup
 
-        db SCREND		
+        db SCREND
+        db TRIGMAP
+        dw s122trm
+        db OBJMAP
+        dw s122om
+        db STOMAP
+        dw s122stom
         db TXTSMAP
         dw s122txd
         db SCREND
@@ -430,32 +436,55 @@ s122txd:
 			mktxtaddr 23, 4
 			db CHBOTM
 
-		mkbyte TXLINEH,15
-			mktxtaddr 3, 5
-			db CHFULL
-		mkbyte TXLINEH,7
-			mktxtaddr 18, 5
-			db CHFULL
-
-		mkbyte TXLINEH,15
-			mktxtaddr 3, 6
-			db CHFULL
-		mkbyte TXLINEH,7
-			mktxtaddr 18, 6
-			db CHFULL
-
-		mkbyte TXLINEH,15
-			mktxtaddr 3, 7
-			db CHFULL
-		mkbyte TXLINEH,7
-			mktxtaddr 18, 7
-			db CHFULL
-
 		mkbyte TXLINEV,3
 			mktxtaddr 0, 5
 			db CHFULL
 		mkbyte TXLINEV,3
 			mktxtaddr 1, 5
+			db CHFULL
+		mkbyte TXLINEV,3
+			mktxtaddr 3, 5
+			db CHFULL
+
+		mkbyte TXLINEH,11
+			mktxtaddr 4, 5
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 4, 6
+			db CHTOP
+		mkbyte TXLINEH,7
+			mktxtaddr 7, 6
+			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 14, 6
+			db CHTOP
+		mkbyte TXLINEH,7
+			mktxtaddr 7, 7
+			db CHFULL
+
+		mkbyte TXLINEV,1
+			mktxtaddr 18, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 18, 6
+			db CHTOP
+
+		mkbyte TXLINEH,3
+			mktxtaddr 22, 5
+			db CHFULL
+		mkbyte TXLINEH,3
+			mktxtaddr 22, 6
+			db CHTOP
+
+		mkbyte TXLINEH,1
+			mktxtaddr 20, 6
+			db CHBOTM
+		mkbyte TXLINEH,1
+			mktxtaddr 20, 7
+			db CHFULL
+
+		mkbyte TXLINEV,2
+			mktxtaddr 24, 6
 			db CHFULL
 
         db SCREND
@@ -733,6 +762,8 @@ smap125e:
 		db 0			
 		
 		db SCREND
+        db OBJMAP
+        dw s125objm
         db STOMAP
         dw s125stom
         db TXTSMAP
@@ -913,6 +944,8 @@ smap126e:
 		db 0
 		
 		db SCREND
+        db OBJMAP
+        dw s126om
         db STOMAP
         dw s126stom
         db TXTSMAP

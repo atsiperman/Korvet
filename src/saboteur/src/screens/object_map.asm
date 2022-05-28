@@ -154,9 +154,17 @@ s84objm:
 		db 1
 		mkdog dirlt,dogspml1,0,23,13,6,23
 
+s86objm:
+		db 1
+		mkgdlt 20,9,3,23
+
 s87objm:
 		db 1
         mkgun dirdn, 18, 1
+
+s88objm:
+		db 1
+		mkgdlt 15,10,3,23
 
 s92objm:
         db 1
@@ -187,6 +195,10 @@ s102om:
 		db 1
 		mkgdrt 21,3,2,25
 
+s103om:
+		db 1
+		mkdog dirrt,dogspml1,0,14,6,3,14
+
 s104om:
         db 1
         mkgun dirrt,13,1
@@ -194,5 +206,17 @@ s104om:
 s106om:
         db 1
         mkgun dirrt,17,0
+
+s125objm:
+        db 1
+        mkgdrt 19,10,5,23
+
+s122om:
+        db 1
+        mkgun dirrt,15,2
+
+s126om:
+        db 1
+        mkgun dirrt,15,2
 
 objmend: ; end of objects map

@@ -126,4 +126,8 @@ s113trm:
     db 1
     mkpipe 2, 10
 
+s122trm:
+    db 1
+    mkstone 21, 14
+
 trmapend:    ; end of trigger map
