@@ -741,3 +741,14 @@ propllr:
         db CMAINREG
         db 1,1
         db 255,0, 255,0, 0,0, 0,255, 0,255, 0,255, 0,0, 0,0
+
+; doortile:
+;         db 1,8
+;         db CWHITE, 66, CGREEN
+;         db CWHITE, 126, CGREEN
+;         db CWHITE, 66, CGREEN
+;         db CWHITE, 82, CGREEN
+;         db CWHITE, 66, CGREEN
+;         db CWHITE, 82, CGREEN
+;         db CWHITE, 66, CGREEN
+;         db CWHITE, 126, CGREEN

@@ -75,6 +75,7 @@ BK65ADDR:   DW BK65DATA
 BK66ADDR:   DW BK66DATA
 BK67ADDR:   DW BK67DATA
 BK68ADDR:   DW BK68DATA
+BKDOORTL:   DW DOORTILE
 
 BK1DATA: 	bksh CYELLOW		; yellow L
 			DB 1, 125, 93, 93, 69, 125, 1, 255			
@@ -167,7 +168,7 @@ BK28DATA:	bksh3 CYELLOW,CRED,bwall					; red left bottom edge
 BK29DATA:	bksh2 CRED, bwall							; solid red 
 			DB 255,255,255,255,255,255,255,255
 
-BK30DATA:	bksh CCYAN									; solid green
+BK30DATA:	bksh CGREEN									; solid green
 			DB 255,255,255,255,255,255,255,255
 
 BK31DATA:	bksh2 CWHITE,bwall							; black and white dots
@@ -283,3 +284,7 @@ BK67DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top rig
 
 BK68DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top left
             db  255, 255, 255, 255, 15, 15, 15, 15            
+
+
+DOORTILE:   bksh_b CGREEN, CWHITE
+            db  66, 126, 66, 82, 66, 82, 66, 126            

@@ -104,7 +104,7 @@ s70trm:
 
 s79trm:
     db 1
-    mkdesk 3, 6, 0
+    mkdesk 3, 6, dooropn
 
 s91trm:
     db 1
@@ -138,9 +138,9 @@ s102trm:
 
 s104trm:
     db 4
+    mkdesk 11, 14, dooropn
     mkdesk 6, 14, 0
     mkdesk 8, 14, 0
-    mkdesk 11, 14, dooropn
     mkdesk 14, 14, 0
 
 s105trm:

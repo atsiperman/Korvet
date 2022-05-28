@@ -435,6 +435,8 @@ smap52e:
 		db 0
 		
         db SCREND
+        db FSTRDRP
+        dw s52rndr
         db OBJMAP
         dw s52objm
         db TXTSMAP
@@ -450,6 +452,22 @@ scr52txd:
 			mktxtaddr 26, 1
 			db CHFULL
 
+		mkbyte TXLINEV,3
+			mktxtaddr 2, 5
+			db CHFULL
+		mkbyte TXLINEV,1
+			mktxtaddr 2, 8
+			db CHTOP
+
+        db SCREND
+
+scl52txd:
+		mkbyte TXLINEV,1
+			mktxtaddr 2, 5
+			db CHTOP
+		mkbyte TXLINEV,3
+			mktxtaddr 2, 6
+			db 0
         db SCREND
 
 ; --- end of scrbk52

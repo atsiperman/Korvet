@@ -385,6 +385,8 @@ smap122e:
 		;edup
 
         db SCREND
+        db FSTRDRP
+        dw s122rndr
         db TRIGMAP
         dw s122trm
         db OBJMAP

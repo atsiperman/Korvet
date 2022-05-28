@@ -1063,6 +1063,8 @@ smap9e:
         dw s9trm
         db MSKOMAP
         dw s9mom
+        db FSTRDRP
+        dw s9rndr
         db SCREND
 		
 scr9txd:
@@ -1144,7 +1146,7 @@ smap10b:
 		bkindex BK12ADDR	; 3, blue ladder top right		
 		bkindex BK8ADDR		; 4, blue ladder bottom left
 		bkindex BK9ADDR		; 5, blue ladder bottom right		
-		bkindex BK3ADDR		; 6, door
+		bkindex BKDOORTL    ; 6, door
 smap10e:		
 		mkdup 6
 			mkline 13

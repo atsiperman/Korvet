@@ -477,12 +477,7 @@ postproc:
         ld  a,h
         or  l
         ret z
-        ; ex  de,hl           ; save proc address in DE
-        ; ld  hl,0
-        ; ld  (fstrdrp),hl    ; clear proc address
-        ; ex  de,hl
         jp  (hl)
-        ret 
         
 ; ----- draws numbers (time, score)
 ;
@@ -532,12 +527,12 @@ scrch1_:
         call waitblnk
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
+        call postproc
         GRMODON
         call drawbkgr		; draw background
-		call drawstos		; draw static objects
-        call postproc
+		call drawstos		; draw static objects        
         GRMODOFF
-		call drawtram		; draw text ram for new screen
+		;;call drawtram		; draw text ram for new screen
         call clrscrch       ; clear data before moving to another screen
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
