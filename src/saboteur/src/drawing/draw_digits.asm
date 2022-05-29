@@ -91,33 +91,38 @@ prnsymb:
         pop  de         ; restore video memory address
         ex   de,hl      ; HL - screen address
                         ; DE - data address
+        ld   a,8
+        ;;dup 8
+.prn1:        
+        push af
+            push bc		; save fg color
 
-        dup 8
-                push bc		; save fg color
+            ld a,(de)	; load data byte			
+            push de		; save data address
+            
+            ex de,hl	; DE - screen address		
+                            
+            ld hl,COLRREG	; set color register		
+            ld (hl),b	; set main color
+            ex de,hl	; HL - screen address
+            ld (hl),255	; set main color by default
+            
+            ex de,hl	; DE - screen address				
+            ld (hl),c	; set background color
+            
+            ex de,hl	; HL - screen address
+            cpl         ; get bits to be drawn as background
+            ld (hl),a	; move data byte
 
-                ld a,(de)	; load data byte			
-                push de		; save data address
-                
-                ex de,hl	; DE - screen address		
-                                
-                ld hl,COLRREG	; set color register		
-                ld (hl),b	; set main color
-                ex de,hl	; HL - screen address
-                ld (hl),255	; set main color by default
-                
-                ex de,hl	; DE - screen address				
-                ld (hl),c	; set background color
-                
-                ex de,hl	; HL - screen address
-                cpl         ; get bits to be drawn as background
-                ld (hl),a	; move data byte
-
-                pop de		; restore data address                        
-                inc de      ; next byte from sprite
-                
-                ld bc,64    ; add 64
-                add hl,bc   ; move to the next line on screen
-                
-                pop bc      ; restore fg color
-        edup
+            pop de		; restore data address                        
+            inc de      ; next byte from sprite
+            
+            ld bc,64    ; add 64
+            add hl,bc   ; move to the next line on screen
+            
+            pop bc      ; restore fg color
+        ;;edup
+        pop  af
+        dec  a
+        jp   nz,.prn1
         ret

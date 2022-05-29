@@ -305,8 +305,8 @@ movweap:
 		push hl
 
         ldstate
-        cp  sbdead
-        jp  z,.chokile      ; object is dead, no actions
+        cp   sbdead
+        jp   z,.chokile      ; object is dead, no actions
         
         pop  hl
         push hl
@@ -358,8 +358,25 @@ movweap:
         pop  hl
         pop  af
         
-        call trydamge
+        ld  a,(hl)          ; load object type
+        cp  osabotr         ; is saboteur ?
+        jp  nz,.chok1       ; no, set dead
+        ld  a,HLKNFHIT
+        call hldec
+        jp   .chok3         ; goto exit
 
+.chok1:
+        cp   odog
+        jp   z,.chok2       ; skip adding scores for dog
+        push hl
+        ld   hl,killwpgd
+        call addscore
+        pop  hl
+
+.chok2:        
+        call setdead      
+
+.chok3:
         xor  a
         ld   hl,(wpobjp)
         ld   (hl),a         ; movement is finished
@@ -376,17 +393,6 @@ movweap:
 		jp nz,.chokil
 		
 		ret
-
-; ---- makes damage to the object (guard or saboteur)
-; args: HL - address of control block 
-;
-trydamge:
-        ld  a,(hl)          ; load object type
-        cp  osabotr         ; is saboteur ?
-        jp  nz,setdead      ; no, set dead
-        ld  a,HLKNFHIT
-        call hldec
-        ret
 
 ; ---- makes object dead: sets state and sprite for dead object
 ; args: HL - address of control block 

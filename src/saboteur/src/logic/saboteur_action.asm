@@ -279,6 +279,16 @@ tstokick:
 
 .mkdead:
         pop  hl
+        
+        ld   a,(hl)
+        cp   oguard
+        jp   nz,.mkd1       ; add scores for guard only
+        push hl
+        ld   hl,killguad
+        call addscore
+        pop  hl
+
+.mkd1:
         call setdead
         ret
 

@@ -94,6 +94,7 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 		include "drawing/object_draw.asm"
         include "drawing/draw_digits.asm"
 
+        include "logic/scores.asm"
 		include "logic/saboteur_utils.asm"
 		include "logic/saboteur_fall.asm"
 		include "logic/saboteur_ladder.asm"
