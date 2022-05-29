@@ -15,7 +15,7 @@ menue:
 
 menuptr:
         db 1        ; number of the current menu item
-        dw menu
+        dw menu     ; address of the menu item data
 
 MENUITS EQU 4                               ; menu item size, bytes
 MENUITN EQU (menue - menu) / MENUITS 

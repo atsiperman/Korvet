@@ -19,6 +19,7 @@ scrbuf:
 		include "drawing/mirror_table.asm"
 		include "sprites/guard_sprites.asm"
         include "sprites/saboteur_sprites.asm"
+        include "game_init.asm"
         include "upper_block_def.asm"
         
 		include "init.asm"
@@ -26,7 +27,7 @@ scrbuf:
         ; minus total length of saboteur sprites data
         ; this place will be reused as a screen buffer
 
-TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) 
+TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst)  + (ginitend - ginitst)
         dw ROWNUM * ROWWIDB
         dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
         db 0
@@ -108,7 +109,6 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 			
 
         include "logic/helicopter.asm"        
-
 		include "keyboard.asm"
 		include "game.asm"
         include "menu.asm"

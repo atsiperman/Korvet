@@ -24,17 +24,26 @@ ptexts:
         
         ret 
 
+; ---- set up game level
+setuplvl:
+        ld   hl,lvlproc
+        ld   a,(menuptr) 
+        dec  a              ; get menu item index
+        ld   b,0
+        ld   c,a
+        add  hl,bc
+        add  hl,bc          ; move pointer to the item address
+        load_de_hl
+        ex   de,hl
+        jp   (hl)           ; run game level setup procedure
+
 ; ---- init main game screen
 ginitscr:
         call clrtscr
-
         rsctrldata
         rstrmap
         rsobjmap
-
-        ; ; ld  hl,sbctrlb
-        ; ; ld  de,sbheadr
-        ; ; shdspr 
+        call setuplvl
 
         GRMODON
         ld a,COLORCLR 

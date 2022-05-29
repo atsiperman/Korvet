@@ -165,11 +165,11 @@ deskproc:
         or  d
         ret z               ; return if no data specified, then do not change image
 
-        cpl                     ; invert bits
-        and doorcls + dooropn   ; leave allowed bits
+        cpl                 ; invert bits
+        and doorcls         ; leave allowed bits
         dec hl
-        dec hl                  ; save low byte only
-        ld  (hl),a              ; save new value
+        dec hl              ; save low byte only
+        ld  (hl),a          ; save new value
 
 .dskpe:
         ld  hl,(trotptr)    ; load pointer to current trigger's object type

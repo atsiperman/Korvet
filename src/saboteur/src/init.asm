@@ -41,6 +41,24 @@
 ;
         
 sabinit:
+        ; copy level initialization code into upper memory block
+        ld  hl,ginitst
+        ld  de,ginitmem
+        ld  bc,ginitend - ginitst
+        call copymem              
+        ld   hl,lvlproc - (_lvlproc - setlvl1)
+        ld   (lvlproc),hl
+        ld   hl,lvlproc - (_lvlproc - setlvl2)
+        ld   (lvlproc + 2),hl
+        ld   hl,lvlproc - (_lvlproc - setlvl3)
+        ld   (lvlproc + 4),hl
+        ld   hl,lvlproc - (_lvlproc - setlvl4)
+        ld   (lvlproc + 6),hl
+        ld   hl,lvlproc - (_lvlproc - setlvl5)
+        ld   (lvlproc + 8),hl
+        ld   hl,lvlproc - (_lvlproc - setlvl6)
+        ld   (lvlproc + 10),hl
+
         ; copy saboteur sprites into upper memory block
         ld  hl,_sabjmpr1
         ld  de,sabjmpr1

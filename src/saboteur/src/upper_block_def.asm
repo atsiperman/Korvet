@@ -82,6 +82,12 @@ gdhdkk2l EQU gdhdkk2r + (_gdhdkk2.heade - _gdhdkk2)
 gdhwalkr EQU gdhdkk2l + (_gdhdkk2.heade - _gdhdkk2)
 gdhwalkl EQU gdhwalkr + (_gdhwalk.heade - _gdhwalk)
 
-uppertop EQU gdhwalkl + (_gdhwalk.heade - _gdhwalk)
+ginitmem EQU gdhwalkl + (_gdhwalk.heade - _gdhwalk)
+
+; ---- address of procs for setting up game level
+lvlproc  EQU ginitmem + (_lvlproc - ginitst)
+
+uppertop EQU ginitmem + (ginitend - ginitst)
+
 
 ; ----- no more space in upper memory block
