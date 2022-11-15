@@ -148,16 +148,59 @@ sbmain:
 		
         call kbread
 		and 255
-		jp nz,gifspace
+		jp nz,.sbm1
 		call sbnoactn
 		jp gend
 				
+.sbm1:
+        ld  b,a             ; save key bits
+        sblcurst
+        cp  sbmove          ; is moving ?
+        jp  z,.sbm2         ; yes, do check keys
+
+        cp  sbsquat         ; is squatting ?
+        jp  nz,.sbm1_1      ; no, stop checking for released keys
+        ld  a,b             ; restore key bits        
+        and KDOWN           ; is down button still pressed ?
+        jp  nz,.sbm1_1      ; go normal way if yes
+                            ; if not pressed any more
+        call sbnoactn       ; then stand up
+        jp gend
+
+.sbm1_1:
+        ld  a,b             ; restore key bits
+        jp  gifspace        ; go normal way
+.sbm2:
+        sblddir             ; load direction
+        cp  dirlt           ; left ?
+        ld  a,b             ; restore key bits        
+        jp  nz,.sbm3        ; no, then check right dir
+                            ; left dir
+        and KLEFT           ; is left button still pressed ?
+        jp  nz,.sbm5        ; yes, continue movement
+
+.sbm3:        
+        and KRIGHT          ; is right button still pressed ?
+        jp  nz,.sbm5        ; yes, continue movement
+
+.sbm4:  
+        call sbdecrow       ; decrement row, since staying sprite is taller
+        call sbstopst
+        jp   gend
+
+.sbm5:  
+        ld  a,b             ; restore key bits
+
 gifspace:       
         ld  c,a
         and KSPACE
-        jp  z,gifrtup      ; not space, do text test 
+        jp  z,gifrtup      ; not space, do next test 
 
-                            ; action
+        sblcurst            ; load state
+        cp  sbstay          ; is staying ?
+        jp  nz,gifrtup      ; do next test if no
+
+                            ; else do action
         ld   a,(trtype)  
         or   a          
         jp   z,.gifsp1      ; no triggers, continue
@@ -185,6 +228,11 @@ giflt:
 		ld c,a
 		and KLEFT
 		jp z,gifrt
+
+        sblcurst
+        cp  sbsquat     ; is squatting ?
+        jp  z,gend      ; yes, stop check, we can't move left-right
+
 		ld a,dirlt
 		call gkmoveh
 		jp gend
@@ -193,6 +241,11 @@ gifrt:
 		ld a,c
 		and KRIGHT
 		jp z,gifup
+
+        sblcurst
+        cp  sbsquat     ; is squatting ?
+        jp  z,gend      ; yes, stop check, we can't move left-right
+
 		ld a,dirrt
 		call gkmoveh
 		jp gend
@@ -384,8 +437,9 @@ gkdn3:
 gksquat:
 		pop hl
 		push hl		
-		cp sbsquat		
-		call nz,sbdosquat	; squat if is not squatting already
+        ld  a,b
+        cp  sbstay
+		call z,sbdosquat	; squat if staying
 		
 gkdne:
 		pop hl
