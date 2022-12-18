@@ -25,6 +25,7 @@ time /T
 exit 1
 
 :end
+echo Well done!
 
 forfiles /P out /M *.com  /C "cmd /c echo @file @fsize bytes"
 

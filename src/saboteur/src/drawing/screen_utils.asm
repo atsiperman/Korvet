@@ -58,20 +58,6 @@ ctslop: ld (hl),d
         jp nz, ctslop
         ret
 
-; -----  switches to graphics mode
-;
-        macro   GRMODON 
-        ld a,GCONFIG
-        ld (TSYSREG),a
-        endm
-
-; -----  switches back to CP/M
-;
-        macro   GRMODOFF 
-        ld a,DOSCONF
-        ld (GSYSREG),a
-        endm
-
 ; ----- setup LUT
 ;
 lutsetup:
@@ -87,24 +73,33 @@ lutset2:
         jp nz,lutset2
         ret
 		
-
+; -----  fills screen with black
+;
+clrscrn:
+        ld a,CBLACK + 128   ; set BLACK in color mode
+        ld (COLRREG),a       ; switch color mode
+        ld d,0
+        jp fillvram.fillvr
+        
 ; -----  fills screen with color mode in A
 ; args: A - color mode
 
 fillvram:
-        ld hl,COLRREG    ; color reg address
-        ld (hl),a       ; switch color mode
+        ;ld hl,COLRREG    ; color reg address
+        ld (COLRREG),a       ; switch color mode
+        ld d,255
 
+.fillvr:
         ld hl,GRAM
         ld bc,GRAMLEN
-        ld d,255
-fsloop:
+
+.fsloop:
         ld (hl),d
         inc hl
         dec bc
         ld a,b
         or c
-        jp nz,fsloop
+        jp nz,.fsloop
         ret
 
 ; ----- draws background for current screen

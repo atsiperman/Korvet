@@ -5,16 +5,16 @@ tmpstk: dw 0				; to save stack for some operations
 ; ---- LUT 
 LUTVAL:
 
-		db 00000000b	; CBLACK
-		db 00010001b	; CBLUE    
-		db 01000010b	; CRED
-		db 01100011b    ; CYELLOW   
+		db 00000000b	    ; CBLACK
+		db 00010001b	    ; CBLUE    
+		db 01000010b	    ; CRED
+		db 01100011b        ; CYELLOW   
     
         ; with text layer
-		db 01111000b	; CWHITE
-		db 00011001b	; CBLUE   
-        db 00101010b	; CGREEN = CRED
-		db 00111011b    ; CYELLOW = CYAN
+		db 01111000b	    ; CWHITE
+		db 00011001b	    ; CBLUE   
+        db 00101010b	    ; CGREEN = CRED
+		db 00111011b        ; CYELLOW = CYAN
 
 		; black color		
 		db 00000100b

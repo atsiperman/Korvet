@@ -68,16 +68,17 @@ NEWSTK  	EQU 0beffh		; new address of stack
 CBLACK		EQU 0                            
 CBLUE		EQU 1
 CRED        EQU 2           
-CGREEN		EQU 2   ; CRED + text
+CGREEN		EQU 2           ; CRED + text
 CYELLOW		EQU 3
-CCYAN		EQU 3   ; CYELLOW + text
-CWHITE		EQU 0   ; CBLACK + text
+CCYAN		EQU 3           ; CYELLOW + text
+CWHITE		EQU 0           ; CBLACK + text
 
 CMAIN 		EQU 4			; color of the main character
 
 
 ;COLORCLR	EQU 80h + ((7 & CMAIN) << 1)	; color to clear working screen
-COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
+;COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
+COLORCLR	EQU 128 + CBLACK        		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 NUMFGC      EQU 80h + (CWHITE << 1)

@@ -5,6 +5,31 @@
         ORG 100h
         jp start
 
+graph_mode_on:      
+        db 0
+
+; -----  switches to graphics mode
+;
+        macro   GRMODON 
+        di
+        ld   a,GCONFIG
+        ld   (TSYSREG),a
+        ld   (graph_mode_on),a
+        ei        
+        endm
+
+; -----  switches back to CP/M
+;
+        macro   GRMODOFF 
+        di
+        ld   a,DOSCONF
+        ld   (GSYSREG),a
+        xor  a
+        ld   (graph_mode_on),a        
+        ei
+        endm
+
+        include "interrupts.asm"
         include "const.asm"
 		include "sbmacro.asm"	
 		include "object_def.asm"
@@ -118,7 +143,8 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 
 start:
 		di
-				
+
+        call install_interrupt_handler
 		ld a, ALTCHAR
 		ld (TVIREG),a
 
@@ -130,9 +156,12 @@ start:
 		call sabinit
 
         GRMODON
+        di
 		call lutsetup
+        ei
         GRMODOFF
 
+        ;ei
 .main:
         call runmenu
         or  a
@@ -150,6 +179,7 @@ start:
         ld sp,hl
 		;ei		
 
+        di
         ld a,RESCONF
         ld (TSYSREG),a
 

@@ -46,6 +46,7 @@ ginitscr:
         call setuplvl
 
         GRMODON
+        ;call clrscrn
         ld a,COLORCLR 
         call fillvram	; clear screen with black
 		call drawfrm	; draw frame
@@ -77,6 +78,11 @@ gcycle:
 		call gmain          ; main game logic
 		or a		
         ret z
+
+        ld  a,(frame_counter)
+        inc a
+        ld  (frame_counter),a
+
 		jp gcycle           ; continue if not zero
 
 
