@@ -521,6 +521,10 @@ gkrmove:
 ; ---- game timer
 ;
 gtimer:
+		ld	a,(timractv)	; load timer state
+		or	a				; and test it
+		ret z				; exit if timer is disabled
+
         ld  hl,curtimef     
         ld  a,(hl)          ; load current timer frame
         or  a

@@ -13,7 +13,7 @@
     db colnum
     db trtype               ; trigger type - manual/auto
     db rownum
-    dw objtype              ; object type (brick, desk, etc.) / trigger activation procedure
+    dw objtype              ; object type (brick, desk, etc.) / auto trigger activation procedure
     dw procaddr
     dw data                 ; custom data
     endm
@@ -81,7 +81,11 @@ s30trm:
 s37trm:
     db 1
     ;mkdesk 22,14,0
-    mktrig 22, 14, trgmanl, trodisk, itmproc
+    ;mktrig 22, 14, trgmanl, trodisk, itmproc
+    mktrig3 tractiv, 22, 14, trgmanl, trodskn, dsktproc, trodisk
+
+s37trd:         ; data for trigger from screen 37
+    db 1        ; trigger is active
 
 s41trm:
     db 1

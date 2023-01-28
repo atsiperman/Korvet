@@ -156,6 +156,7 @@ sbholds:    db trobomb  ;troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 10
+timractv:	db 1				; timer state, 1 - active, 0 - disabled
 curtime:    db 2, 9, 9          ; current time: 2 digits, from high digit to low
 curtimef:   db TIMEGFRM         ; current game frame
 ctimechg:   db 1                ; current time changed
@@ -185,7 +186,7 @@ gsprtab:    dw 0        ; sprite table for current guard's action
 
 trigchd:	db 0		; flag, = 1 when trigger has been changed 
 trtype:     db 0        ; trigger type (auto/manual)
-curtrig:	dw 0		; pointer to the current trigger data
+curtrig:	dw 0		; pointer to the current trigger description
 trproc:	    dw 0		; pointer to the current trigger's procedure
 trotptr:    dw 0        ; pointer to trigger's object type
 trdtptr:    dw 0        ; pointer to trigger's custom data

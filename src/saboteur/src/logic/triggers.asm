@@ -41,7 +41,7 @@ trigtst:
         ld  (trigchd),a                 ; clear trigger changed flag         
 
         ld  a,(hl)
-        inc hl				            ; set to the first object
+        inc hl				; set to the first object
 
         push af
         ex   de,hl                      ; save trigger pointer in DE
@@ -195,6 +195,36 @@ itmproc:
         ld   (sbhldch),a    ; refresh held object image
         ret
 
+; ---- procedure for disk trigger
+;       activates it at the first call 
+;       set correct data in current trigger descriptor 
+;
+dsktproc:
+        ld      hl,s37trd
+        ld      a,(hl)          ; load trigger state
+        or      a               ; activated ?
+        jp      z,.dskrun       ; yes, run trigger
+
+                                ; activate trigger
+        xor     a               ; set a = 0
+        ld      (hl),a  	; save flag, tigger is activated
+        ;;; run trigger sound procedure        
+        
+        ld      a,(sbholds)     ; load what saboteur holds
+        or      trobomb         ; is it a bomb ?
+        jp      z,.dskp1        ; run new timer if yes
+
+        xor     a
+        ld      (timractv),a    ; disable game timer if no bomb planted
+        jp      .dskrun
+        
+.dskp1:        
+        
+.dskrun: 
+        ld      hl,(trdtptr)
+        ld      (trotptr),hl
+        jp itmproc
+
 ; ---- draws image of the triggered object
 ;
 ; args: HL - address of the image to be drawn
@@ -202,8 +232,7 @@ itmproc:
 drawtrim:
         ld   c,l
         ld   b,h
-        call drawsto
-        ret
+        jp drawsto
 
 ; ---- clear image of the triggered object
 ; args: HL - address of the image to be drawn
@@ -231,4 +260,3 @@ clrtrim:
 
         ex   de,hl
         jp   (hl)           ; restore text
-        ret        
