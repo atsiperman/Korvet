@@ -557,9 +557,43 @@ gtimer:
         ret
         
 .gtend:
+		ld  a,(timractv)	; load timer mode
+		cp	TIMRCNTD		; is in countdown mode ?
+		jp	nz,.gtdie		; no, just make it dead
+
+		GRMODON
+
+		ld	c,15			; number of iteration
+.gte2:		
+		push bc
+
+        ld c,16
+        ld de,LUTREG
+        ld hl,LUTVAL1
+		call lutset2
+		dup 8
+			halt
+		edup
+		
+        ld c,16
+        ld de,LUTREG
+        ld hl,LUTVAL
+		call lutset2
+		dup 8
+			halt
+		edup
+
+		pop	bc
+		dec	c
+		jp	nz,.gte2
+
+		GRMODOFF
+.gtdie:		
         ; --- end of time, make saboteur dead
         xor a
-        ld  (sbhealth),a
+        ld  (sbhealth),a		
+		ld  (timractv),a		; disable timer 
+
         ret
 
         

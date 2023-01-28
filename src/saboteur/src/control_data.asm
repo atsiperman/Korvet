@@ -4,7 +4,6 @@ tmpstk: dw 0				; to save stack for some operations
 	
 ; ---- LUT 
 LUTVAL:
-
 		db 00000000b	    ; CBLACK
 		db 00010001b	    ; CBLUE    
 		db 01000010b	    ; CRED
@@ -26,6 +25,29 @@ LUTVAL:
 		db 00001101b
 		db 00001110b
 		db 00001111b
+
+LUTVAL1:
+		db 010000000b	    ; CBLACK
+		db 01100001b	    ; CBLUE    
+		db 01100010b	    ; CRED
+		db 01100011b        ; CYELLOW   
+    
+        ; with text layer
+		db 01101000b	    ; CWHITE
+		db 01101001b	    ; CBLUE   
+        db 01101010b	    ; CGREEN = CRED
+		db 01101011b        ; CYELLOW = CYAN
+
+		; black color		
+		db 01000100b
+		db 01000101b
+		db 01000110b
+		db 01000111b
+
+		db 01001100b
+		db 01001101b
+		db 01001110b
+		db 01001111b
 
 TILMAPLN	EQU	ROWNUM * COLNUM
 
@@ -152,7 +174,7 @@ sbctrlb:
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,4 ; 35
 
-sbholds:    db troshrk; trobomb  ;troshrk  ; type of an object being held by saboteur
+sbholds:    db trobomb  ;troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 10
@@ -160,7 +182,7 @@ TIMRCNTD	EQU 2				; timer is in countdown mode
 
 timrfst:	db 0				; timer frame state
 timractv:	db 1				; timer state, 0 - disabled, 1 - active, TIMRCNTD - countdown mode
-curtime:    db 2, 9, 9          ; current time: 2 digits, from high digit to low
+curtime:    db 2,0,5	        ; current time: 2 digits, from high digit to low
 curtimef:   db TIMEGFRM         ; current game frame
 ctimechg:   db 1                ; current time changed
 
