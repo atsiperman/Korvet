@@ -8,10 +8,11 @@ trimglst:
         dw knife
         dw stone
         dw pipe
-        dw granade
+        dw stone; granade
         dw desknorm
         dw deskprsd
         dw bombspr
+        dw diskspr
 
 ; ---- list of objects which can be thrown
 othrwlst:
@@ -20,7 +21,7 @@ othrwlst:
         dw smknife      ; small knife
         dw smstone
         dw smpipe
-        dw smgrnd
+        dw smstone ;smgrnd
 
 smgrnd:
         db CMAINREG
@@ -189,32 +190,32 @@ pipe:
         db CYELLOW, 49, 131, 159, 100, CBLACK
         db CYELLOW, 0, 0, 0, 0, CBLACK
 
-granade:
-        db 4,24
-        db CGREEN, 0, 0, 0, 0, CBLUE
-        db CGREEN, 0, 0, 0, 0, CBLUE
-        db CGREEN, 0, 0, 0, 224, CBLUE
-        db CGREEN, 0, 0, 57, 176, CBLUE
-        db CGREEN, 0, 0, 13, 24, CBLUE
-        db CGREEN, 0, 15, 246, 24, CBLUE
-        db CGREEN, 0, 126, 123, 112, CBLUE
-        db CGREEN, 0, 207, 157, 160, CBLUE
-        db CGREEN, 1, 242, 109, 192, CBLUE
-        db CGREEN, 3, 253, 246, 192, CBLUE
-        db CGREEN, 7, 114, 246, 192, CBLUE
-        db CGREEN, 15, 111, 106, 192, CBLUE
-        db CGREEN, 15, 95, 170, 192, CBLUE
-        db CGREEN, 27, 191, 190, 192, CBLUE
-        db CGREEN, 27, 95, 220, 192, CBLUE
-        db CGREEN, 58, 239, 220, 192, CBLUE
-        db CGREEN, 61, 247, 172, 192, CBLUE
-        db CGREEN, 61, 251, 105, 192, CBLUE
-        db CGREEN, 22, 253, 249, 128, CBLUE
-        db CGREEN, 31, 98, 113, 128, CBLUE
-        db CGREEN, 12, 159, 227, 0, CBLUE
-        db CGREEN, 15, 231, 199, 0, CBLUE
-        db CGREEN, 3, 255, 142, 0, CBLUE
-        db CGREEN, 0, 254, 0, 0, CBLUE
+; granade:
+;         db 4,24
+;         db CGREEN, 0, 0, 0, 0, CBLUE
+;         db CGREEN, 0, 0, 0, 0, CBLUE
+;         db CGREEN, 0, 0, 0, 224, CBLUE
+;         db CGREEN, 0, 0, 57, 176, CBLUE
+;         db CGREEN, 0, 0, 13, 24, CBLUE
+;         db CGREEN, 0, 15, 246, 24, CBLUE
+;         db CGREEN, 0, 126, 123, 112, CBLUE
+;         db CGREEN, 0, 207, 157, 160, CBLUE
+;         db CGREEN, 1, 242, 109, 192, CBLUE
+;         db CGREEN, 3, 253, 246, 192, CBLUE
+;         db CGREEN, 7, 114, 246, 192, CBLUE
+;         db CGREEN, 15, 111, 106, 192, CBLUE
+;         db CGREEN, 15, 95, 170, 192, CBLUE
+;         db CGREEN, 27, 191, 190, 192, CBLUE
+;         db CGREEN, 27, 95, 220, 192, CBLUE
+;         db CGREEN, 58, 239, 220, 192, CBLUE
+;         db CGREEN, 61, 247, 172, 192, CBLUE
+;         db CGREEN, 61, 251, 105, 192, CBLUE
+;         db CGREEN, 22, 253, 249, 128, CBLUE
+;         db CGREEN, 31, 98, 113, 128, CBLUE
+;         db CGREEN, 12, 159, 227, 0, CBLUE
+;         db CGREEN, 15, 231, 199, 0, CBLUE
+;         db CGREEN, 3, 255, 142, 0, CBLUE
+;         db CGREEN, 0, 254, 0, 0, CBLUE
 
 desknorm:
         db 4,24
@@ -297,3 +298,30 @@ bombspr:
         db CYELLOW, 36, 146, 36, 146, CBLACK
         db CYELLOW, 60, 242, 39, 146, CBLACK
         db CYELLOW, 0, 0, 0, 0, CBLACK
+
+diskspr:
+        db 4,24
+        db CBLACK, 0, 0, 0, 0, CBLUE
+        db CBLACK, 7, 255, 255, 224, CBLUE
+        db CBLACK, 7, 255, 255, 224, CBLUE
+        db CBLACK, 7, 255, 255, 224, CBLUE 
+        db CBLACK, 7, 255, 255, 224, CBLUE
+        db CBLACK, 7, 255, 255, 224, CBLUE
+        db CBLACK, 7, 255, 231, 224, CBLUE 
+        db CBLACK, 7, 252, 63, 224, CBLUE 
+        db CBLACK, 7, 251, 223, 224, CBLUE
+        db CBLACK, 7, 247, 239, 224, CBLUE
+        db CBLACK, 4, 23, 239, 224, CBLUE 
+        db CBLACK, 4, 23, 239, 224, CBLUE 
+        db CBLACK, 7, 247, 239, 224, CBLUE 
+        db CBLACK, 7, 251, 223, 224, CBLUE 
+        db CBLACK, 7, 252, 63, 224, CBLUE 
+        db CBLACK, 7, 255, 255, 224, CBLUE 
+        db CBLACK, 255, 255, 255, 255, CYELLOW
+        db CBLACK, 240, 110, 64, 155, CYELLOW
+        db CBLACK, 243, 110, 78, 147, CYELLOW
+        db CBLACK, 243, 108, 79, 135, CYELLOW
+        db CBLACK, 243, 104, 79, 131, CYELLOW
+        db CBLACK, 224, 34, 78, 155, CYELLOW 
+        db CBLACK, 239, 166, 64, 155, CYELLOW 
+        db CBLACK, 255, 255, 255, 255, CYELLOW 

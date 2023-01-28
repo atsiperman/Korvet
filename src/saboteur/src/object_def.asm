@@ -146,10 +146,11 @@ troshrk EQU 2       ; shuriken
 troknif EQU 3       ; knife
 troston EQU 4       ; stone
 tropipe EQU 5       ; pipe
-trogrnd EQU 6       ; granade
+trogrnd EQU 4       ; stone / granade
 trodskn EQU 7       ; desk normal
 trodskp EQU 8       ; desk pressed
 trobomb EQU 9       ; bomb
+trodisk EQU 10      ; disk
 
 ; ---- trigger state
 ;
@@ -169,24 +170,6 @@ trsize  EQU 10 		; trigger size
 			dup trsize 
 				inc	 regpair
 			edup
-		endm
-
-		macro mktrig colnum, rownum, trtype, objtype, procaddr
-        mktrig2 tractiv, colnum, rownum, trtype, objtype, procaddr
-        endm
-
-        macro mktrig2 trstate, colnum, rownum, trtype, objtype, procaddr
-        mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, 0
-        endm
-
-        macro mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, data
-		db trstate				
-		db colnum
-		db trtype               ; trigger type - manual/auto
-		db rownum
-        dw objtype              ; object type (brick, desk, etc.) / trigger activation procedure
-		dw procaddr
-        dw data                 ; custom data
 		endm
 
 ; ---- displacement of the attributes for the thrown object

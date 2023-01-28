@@ -716,6 +716,8 @@ smap37e:
         dw scr37txd
         db FSTRDRP
         dw s37rndr
+        db TRIGMAP
+        dw s37trm
         db SCREND
 
 scr37txd:

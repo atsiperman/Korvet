@@ -1,5 +1,23 @@
 ; ---- map of triggers 
 
+    macro mktrig colnum, rownum, trtype, objtype, procaddr
+    mktrig2 tractiv, colnum, rownum, trtype, objtype, procaddr
+    endm
+
+    macro mktrig2 trstate, colnum, rownum, trtype, objtype, procaddr
+    mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, 0
+    endm
+
+    macro mktrig3 trstate, colnum, rownum, trtype, objtype, procaddr, data
+    db trstate				
+    db colnum
+    db trtype               ; trigger type - manual/auto
+    db rownum
+    dw objtype              ; object type (brick, desk, etc.) / trigger activation procedure
+    dw procaddr
+    dw data                 ; custom data
+    endm
+
     macro mkgrnd colnum, rownum
     mktrig colnum, rownum, trgmanl, trogrnd, itmproc
     endm
@@ -59,6 +77,11 @@ s30trm:
     mkgrnd 6, 12
     mkdesk 17,12,0
     mktrig 24, 12, trgmanl, trobomb, itmproc
+
+s37trm:
+    db 1
+    ;mkdesk 22,14,0
+    mktrig 22, 14, trgmanl, trodisk, itmproc
 
 s41trm:
     db 1
