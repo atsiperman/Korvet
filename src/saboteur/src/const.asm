@@ -83,6 +83,9 @@ CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 NUMFGC      EQU 80h + (CWHITE << 1)
 NUMBKC      EQU 80h + (CBLUE << 1)
+NUMFGC2     EQU 80h + (CCYAN << 1)
+NUMBKC2     EQU 80h + (CWHITE << 1)
+
 AUTHFGC     EQU 80h + (CGREEN << 1)
 CLIVEFGC    EQU 80h + (CYELLOW << 1)
 

@@ -211,14 +211,16 @@ dsktproc:
         ;;; run trigger sound procedure        
         
         ld      a,(sbholds)     ; load what saboteur holds
-        or      trobomb         ; is it a bomb ?
+        cp      trobomb         ; is it a bomb ?
         jp      z,.dskp1        ; run new timer if yes
 
         xor     a
         ld      (timractv),a    ; disable game timer if no bomb planted
         jp      .dskrun
         
-.dskp1:        
+.dskp1:
+        ld      a,TIMRCNTD      ; switch timer into 
+        ld      (timractv),a    ; countdown mode
         
 .dskrun: 
         ld      hl,(trdtptr)

@@ -482,21 +482,44 @@ postproc:
 ; ----- draws numbers (time, score)
 ;
 drwnums:
+							; draw timer value
         ld  a,(ctimechg)
         or  a
-        jp  z,.drn1        ; no change, skip drawing
-        ld  hl,curtime
-        ld  de,TIMESCRA
+        jp  z,.drnscr       ; no change, skip drawing
+		ld  a,(timractv)	; load timer mode
+		cp	TIMRCNTD		; is in countdown mode ?
+		jp	z,.drn1			; go there if yes
+
+        					; draw in normal mode
         ld  b,NUMFGC
         ld  c,NUMBKC
+		jp	.drn4
+
+.drn1:
+		ld	a,(timrfst)		; load frame state
+		or	a				
+		jp	nz,.drn2
+		inc a				; change frame state
+        ld  b,NUMFGC2
+        ld  c,NUMBKC2
+		jp	.drn3		
+.drn2:
+		xor a				; change frame state
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+.drn3:
+		ld	(timrfst),a		; save frame state
+.drn4:
+		ld  hl,curtime		
+        ld  de,TIMESCRA
         call prntnum
         xor a
         ld  (ctimechg),a
         
-.drn1:  
+.drnscr:  					; draw score value
         ld  a,(scorchg)
         or  a
-        ret z              ; no change, skip drawing
+        ret z              	; no change, skip drawing
         ld  hl,score
         ld  de,SCORSCRA
         ld  b,NUMFGC

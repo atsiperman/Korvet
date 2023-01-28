@@ -24,7 +24,7 @@ prntstr:
 
 ; ----- prints numerical string 
 ; args: DE - address in video memory to print at
-;		HL - address of the numerical string
+;       HL - address of the numerical string
 ;       B  - foreground color
 ;       C  - background color
 ;
