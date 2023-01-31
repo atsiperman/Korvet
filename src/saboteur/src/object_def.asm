@@ -159,12 +159,12 @@ tractiv EQU 1		; trigger is active
 
 ; ---- door state
 ;
-dooropn EQU 0       ; door open
-doorcls EQU 1       ; door closed
+dooropn EQU 1       ; door open
+doorcls EQU 2       ; door closed
 
 trdotyp EQU 4       ; displacement to object type
 trdodat EQU 8       ; displacement to trigger's data
-trsize  EQU 10 		; trigger size
+trsize  EQU 9 		; trigger size
 
 		macro skip_trigger regpair
 			dup trsize 

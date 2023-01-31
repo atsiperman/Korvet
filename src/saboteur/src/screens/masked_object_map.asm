@@ -68,6 +68,10 @@ s30mom:
         db 1
         mkmasko desk, 17, 9
 
+s35mom:
+        db 1
+        mkmasko desk, 19, 11
+
 s36mom:
 		db 6
 		mkmasko s36wfrml, 6, 8
@@ -151,7 +155,8 @@ s67mom:
         mkmasko smlplate,24,13
 
 s70mom:
-		db 17
+		db 18
+		mkmasko desk, 7, 3
 		mkmasko bigplate,1,15
 		mkmasko smlplate,1,14
 		mkmasko smlplate,1,13
@@ -370,6 +375,11 @@ s109mom:
 		mkmasko fencelt, 8, 10
 		mkmasko fencelt, 9, 11
 		mkmasko fencelt, 10, 12
+
+s111mom:
+        db 2
+        mkmasko bigplate, 6, 15
+        mkmasko smlplate, 6, 14
 
 s120mom:
 		db 1

@@ -15,7 +15,7 @@
     db rownum
     dw objtype              ; object type (brick, desk, etc.) / auto trigger activation procedure
     dw procaddr
-    dw data                 ; custom data
+    db data                 ; custom data
     endm
 
     macro mkgrnd colnum, rownum
@@ -78,13 +78,15 @@ s30trm:
     mkdesk 17,12,0
     mktrig 24, 12, trgmanl, trobomb, itmproc
 
+s35trm:
+    db 1
+    mkdesk 19, 14, 0
+
 s37trm:
     db 1
-    ;mkdesk 22,14,0
-    ;mktrig 22, 14, trgmanl, trodisk, itmproc
     mktrig3 tractiv, 22, 14, trgmanl, trodskn, dsktproc, trodisk
 
-s37trd:         ; data for trigger from screen 37
+s37trd:         ; data for trigger from screen 37 (DISK)
     db 1        ; trigger is active
 
 s41trm:
@@ -126,7 +128,8 @@ s66trm:
     mkgrnd 24,15
 
 s70trm:
-    db 1
+    db 2
+    mkdesk 7, 6, 0
     mkknife 18, 15
 
 s79trm:

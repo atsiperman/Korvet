@@ -436,6 +436,10 @@ smap35e:
         dw s35objm
         db TXTSMAP
         dw scr35txd
+		db TRIGMAP
+		dw s35trm
+		db MSKOMAP
+		dw s35mom
         db SCREND
 
 		

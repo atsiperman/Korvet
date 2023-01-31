@@ -318,6 +318,8 @@ smap111e:
         db SCREND
         db TXTSMAP
         dw s111txd
+		db MSKOMAP
+		dw s111mom
         db SCREND
 
 s111txd:					; description of the text RAM used by this screen		

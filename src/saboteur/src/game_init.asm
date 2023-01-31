@@ -22,6 +22,7 @@ ginitst:
 ;
 setlvl1:
         settrigs dooropn
+        ret
         
 ; ---- set up level 2
 ;

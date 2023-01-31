@@ -14,7 +14,7 @@ ylwdorst:
 ; ---- door open/close procedure: adds/removes 'bwall' in tile attributes
 ;
 ; args: A - current door state
-;       HL - pointer to the attribtues of the first tile in screen buffer
+;       HL - pointer to the attributes of the first tile in screen buffer
 ;
 doorprc:
         cp  doorcls
