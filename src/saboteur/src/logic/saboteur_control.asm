@@ -517,7 +517,8 @@ sbhand:
         ld   a,(sbholds)
         or   a
         jp   z,.hand3   ; nothing is held
-        call sbthrow
+        cp   trodskn    ; bomb or disk ?
+        call c,sbthrow  ; throw if not
         ret
 
 .hand3:

@@ -147,6 +147,7 @@ troknif EQU 3       ; knife
 troston EQU 4       ; stone
 tropipe EQU 5       ; pipe
 trogrnd EQU 4       ; stone / granade
+;			--------- objects which can not be held
 trodskn EQU 7       ; desk normal
 trodskp EQU 8       ; desk pressed
 trobomb EQU 9       ; bomb
