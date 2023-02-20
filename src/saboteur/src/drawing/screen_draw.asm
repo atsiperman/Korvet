@@ -510,9 +510,32 @@ drwnums:
 .drn3:
 		ld	(timrfst),a		; save frame state
 .drn4:
-		ld  hl,curtime		
-        ld  de,TIMESCRA
+		ld   hl,timepad
+		ld   de,TIMESCRA - VERTDISP - 1 ; top padding
+		push hl
+		push bc
+		call prntstr
+
+		pop	bc
+		pop	 hl		
+		ld   de,TIMESCRA + VERTDISP - 1 ; bottom padding
+		push hl
+		push bc
+		call prntstr
+
+		pop	bc
+		pop	 hl		
+		ld   de,TIMESCRA - 1 ; middle line
+		push hl
+		push bc
+		call prntstr
+
+		pop	bc
+		pop	 hl		
+		ld  hl,curtime						  ; current time
+        ld  de,TIMESCRA		
         call prntnum
+
         xor a
         ld  (ctimechg),a
         

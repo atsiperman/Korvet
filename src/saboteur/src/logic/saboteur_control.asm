@@ -518,9 +518,8 @@ sbhand:
         or   a
         jp   z,.hand3   ; nothing is held
         cp   trodskn    ; bomb or disk ?
-        call c,sbthrow  ; throw if not
+        jp   c,sbthrow  ; throw if not
         ret
 
 .hand3:
-        call tstokick
-        ret        
+        jp tstokick

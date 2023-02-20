@@ -159,7 +159,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn105 		; pointer to current screen
+curscr: 	dw scrn37 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -170,11 +170,11 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-            mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
+            ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
-            ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,4 ; 35
+            mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 35
 
-sbholds:    db troshrk  ; type of an object being held by saboteur
+sbholds:    db trobomb ; troshrk  ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 10
@@ -182,6 +182,7 @@ TIMRCNTD	EQU 2				; timer is in countdown mode
 
 timrfst:	db 0				; timer frame state
 timractv:	db 1				; timer state, 0 - disabled, 1 - active, TIMRCNTD - countdown mode
+timepad:	db 4, SPACECH, SPACECH, SPACECH, SPACECH
 curtime:    db 2,9,9	        ; current time: 2 digits, from high digit to low
 curtimef:   db TIMEGFRM         ; current game frame
 ctimechg:   db 1                ; current time changed

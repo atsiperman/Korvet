@@ -110,8 +110,8 @@ runmenu:
 
 .mnkb:
         call kbread
-		and 255
-		jp  z,.mnkb
+        and 255
+        jp  z,.mnkb
 
         cp  KESC
         jp  nz,.mn1

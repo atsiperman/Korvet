@@ -1,16 +1,22 @@
 ; ----- text ram init for constant places like timer
 ;
 txtrinit:
-        ld hl,TRAM + TSTARTC + 22 + 64*(TSTARTR + 10)
+        ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 9)
+		dup 4
+        ld (hl),CHBOTM
+        inc hl
+		edup
+        ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 10)
+		dup 4
         ld (hl),CHFULL
         inc hl
-        ld (hl),CHFULL
+		edup
 
         ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
         ld  a,15
         ld  c,CHBOTM
-        call filtline
-        ret
+        jp filtline
+        ;ret
 
 ; ----- print text strings
 ;
@@ -20,9 +26,8 @@ ptexts:
 
         ld de,PAYSCRA
         ld hl,paystr
-        call prntstr
-        
-        ret 
+        jp prntstr        
+        ;ret 
 
 ; ---- set up game level
 setuplvl:
@@ -52,8 +57,8 @@ ginitscr:
 		call drawfrm	; draw frame
         call ptexts     ; print const text         
         GRMODOFF
-        call txtrinit
-        ret
+        jp txtrinit
+        ;ret
 
 ; ---- main game cycle
 ;
@@ -310,25 +315,25 @@ gkupact2:
 gkupact3:		
 		cp dirrt			; direction is set on entry
 		jp nz,gkupact22		; if not correct direction then just process right/left button		
-		call sbstjmp		; start jumping
-		ret
+		jp sbstjmp		; start jumping
+		;ret
 
 gkupact4:
 		cp sbstay
 		jp nz,gkupact5		; not staying, check another state
-		call sbstshjp		; start short jump
-		ret
+		jp  sbstshjp		; start short jump
+		;ret
 		
 gkupact5:
 		cp sbladr
 		jp nz,gkupact22		; if not moving on the ladder, process right direction 		
-		call gkup			; else process up if yes
-		ret
+		jp gkup			; else process up if yes
+		;ret
 		
 gkupact22:					; process right button in case of invalid key for current state
 		ld a,dirrt			; direction is set on entry
-		call gkmoveh
-		ret
+		jp gkmoveh
+		;ret
 				
 			
 ; ----- move up
@@ -499,16 +504,16 @@ gkmvstay:
 
 gkmvstmv:					; else start movement
 		            		; C - direction
-		call sbstmove
-		ret
+		jp sbstmove
+		;ret
 		
 gkrstmv:
 		cp sbstmov			; moving started ?
 		jp nz,gkrmove		; no, check further state
 		ld a,sbmove			; state state to moving
 		sbsetst
-		call sbdomove		; yes, continue moving
-		ret 
+		jp sbdomove		; yes, continue moving
+		;ret 
 
 gkrmove:
 		cp sbmove
@@ -563,15 +568,15 @@ gtimer:
 
 		GRMODON
 
-		ld	c,15			; number of iteration
+		ld	c,10			; number of iteration
 .gte2:		
 		push bc
 
-        ld c,16
+        ld c,16				; LUT size
         ld de,LUTREG
         ld hl,LUTVAL1
 		call lutset2
-		dup 8
+		dup 6
 			halt
 		edup
 		
@@ -579,7 +584,7 @@ gtimer:
         ld de,LUTREG
         ld hl,LUTVAL
 		call lutset2
-		dup 8
+		dup 6
 			halt
 		edup
 
