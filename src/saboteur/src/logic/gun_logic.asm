@@ -16,13 +16,16 @@ gunshmov:
         jp      z,.movert
                                 ; moving left
         dec     d               ; change colnum
+        dec     d               ; change colnum
         jp      .movedn
 
 .movert:
                                 ; moving right
         inc     d               ; change colnum
+        inc     d               ; change colnum
 
 .movedn:
+        inc     e                       ; increase row
         inc     e                       ; increase row
         push    de                      ; save col and row
         call    shscradr                ; get pointer to a tile for gun shell
@@ -70,33 +73,14 @@ gunfire:
         ld      a,(gundir)      ; current gun direction
         ld      (de),a          ; save shell direction
         skip_gun_sprite de      ; skip shell sprite address to colnum
-
-        cp      dirrt                   
-        jp      z,.gnfrt        ; gun is looking right
-        cp      dirlt           
-        jp      z,.gnflt        ; gun is looking left
-
         ldcursc                 ; load gun column
-        jp      .gnfrow
-
-.gnfrt:        
-        ldcursc                 ; load gun column
-        inc     a               
-        jp      .gnfrow
-
-.gnflt: 
-        ldcursc                 ; load gun column
-        dec     a
-
-.gnfrow:
         ld      (de),a          ; save shell column
         inc     de              ; move to rownum
 
         pop     hl
         ldcursr                 ; load gun row
-        inc     a               ; 
         ld      (de),a          ; save shell row
-        ret
+        jp      gunshmov        ; make first move
 
 ; ---- implements logic for gun objects
 ; args:
