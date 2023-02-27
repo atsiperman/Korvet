@@ -7,6 +7,10 @@ clrscrch:
         ld  (gthrown),a     ; clear object thrown by guard
         ld  (gfthrwn),a     ; clear flag that object has been thrown by guard
         ld  (gfsbseen),a    ; clear flag that saboteur has been seen by guard
+        ld  (gunshd),a      ; clear gun shell data (points to direction)
+        
+        ld  a,GUNDELAY
+        ld  (gunshfr),a     ; set gun delay before firings
         ret
 
 

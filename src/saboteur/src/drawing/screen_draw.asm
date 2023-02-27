@@ -595,6 +595,7 @@ drawobj2:
 		call rsttiles		; restore tiles background according to current objects location
         call utlmtho        ; update thrown object state
         call utlmthog       ; update state of an object thrown by guard
+		call utlgunsh		; update gun shell state
 
         call drwbkmob		; draw background masked objects		
 		call drawobjs		; draw active objects

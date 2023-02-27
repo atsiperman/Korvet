@@ -2,7 +2,7 @@
 
 ; ----- calculates address of a tile with specified column and row in screen buffer
 ; args: D - column
-;		E - row
+;       E - row
 ; result: 	
 ;       HL - pointer to a byte with sprite attributes
 ;			

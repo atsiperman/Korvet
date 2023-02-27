@@ -198,6 +198,12 @@ utlmmobj:
 		pop hl
 		ret
 
+; ---- update tile map for gun shell
+;
+utlgunsh:
+        ld   hl,gunshd
+        jp   utlmtho.utlm1
+
 ; ---- update tile map for object thrown by guard
 ;
 utlmthog:
@@ -224,6 +230,7 @@ utlmtho:
 
         call shscradr               ; get pointer to a tile for thrown object
 
+.utlm12:
         dec  hl                     ; move to tile state
 		ld   a,TLOCUPID		        ; mark as occupied
 		ld   (hl),a
