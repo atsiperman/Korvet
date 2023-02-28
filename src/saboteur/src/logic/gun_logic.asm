@@ -1,54 +1,74 @@
-; ---- move gun shell
+; ---- test gun shell tile for wall and saboteur
+; args:
+;       D - shell column
+;       E - shell row
 ;
-gunshmov:        
-        ld      hl,gunshd
-        ld      a,(hl)          ; load gun direction
-        skip_gun_sprite hl      ; move to colnum
-        ld      d,(hl)          ; save colnum in D
-        inc     hl
-        ld      e,(hl)          ; save rownum in E
-
-        push    hl
-
+; result:
+;       A - 0 if nothing found
+;       D - updated shell column
+;       E - updated shell row
+;
+tstgunsh:
+        ld      a,(gunshd)              ; get shell direction 
         cp      dirdn
         jp      z,.movedn
         cp      dirrt
         jp      z,.movert
-                                ; moving left
-        dec     d               ; change colnum
-        dec     d               ; change colnum
+                                        ; moving left
+        dec     d                       ; change colnum
         jp      .movedn
 
 .movert:
-                                ; moving right
-        inc     d               ; change colnum
-        inc     d               ; change colnum
+                                        ; moving right
+        inc     d                       ; change colnum
 
 .movedn:
         inc     e                       ; increase row
-        inc     e                       ; increase row
         push    de                      ; save col and row
+
+        ; sblcursr                        ; load saboteur row
+        ; cp      e                       ; test shell row
+
+        ; sblcursc                        ; load saboteur column
+
+
         call    shscradr                ; get pointer to a tile for gun shell
+        pop     de
         ld      a,(hl)                  ; load tile attributes
         and     bwall + broof           ; is floor/wall reached ?
         jp      nz,.movend              ; yes, stop moving
-
-                                        ; otherwise update tile map
-        pop     de                      ; restore col and row
-        pop     hl                      ; restore pointer to rownum
-        ld      (hl),e                  ; save row
-        dec     hl
-        ld      (hl),d                  ; save col
-        ret                             ; continue flight
-
+        ret                             ; nothing found, continue moving
+                                        
 .movend:
-        pop     hl                      ; clear stack
-        pop     hl                      ; clear stack
+        ;pop     hl                      ; clear stack
         xor     a                       ; finish shell flight
         ld      (gunshd),a              ; clear shell direction
         ld      a,GUNDELAY
         ld      (gunshfr),a             ; reload gun timer
+        inc     a
         ret
+
+; ---- move gun shell by two tiles, test each tile for the wall/floor
+;
+gunshmov:        
+        ld      hl,gunshd + 3   
+        ld      d,(hl)                  ; save colnum in D
+        inc     hl
+        ld      e,(hl)                  ; save rownum in E
+
+        dup 2
+                push    hl
+                call    tstgunsh        ; test next tile
+                pop     hl
+                or      a
+                ret     nz              ; return if met anything        
+        edup
+                
+                                        ; otherwise save current position
+        ld      (hl),e                  ; save row
+        dec     hl
+        ld      (hl),d                  ; save col
+        ret                             ; continue flight
 
 ; ---- implements logic for gun shot fire
 ; args:
