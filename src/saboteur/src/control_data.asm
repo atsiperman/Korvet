@@ -128,6 +128,7 @@ HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
 HLDOGHIT	EQU 6			; hit by the dog
 HLKNFHIT	EQU 15			; hit by the guard's knife
+HLGUNHIT	EQU 20			; hit by gun
 
 CPTPAUS     EQU 1
 CPTPAUS2    EQU 4

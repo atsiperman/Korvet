@@ -26,12 +26,30 @@ tstgunsh:
         inc     e                       ; increase row
         push    de                      ; save col and row
 
-        ; sblcursr                        ; load saboteur row
-        ; cp      e                       ; test shell row
+        sblcursr                        ; load saboteur row
+        inc     e                       ; increase row to use NC flag
+        cp      e                       ; is shell inside saboteur body ?
+        jp      nc,.tsttil              ; test tile map if not low enough
 
-        ; sblcursc                        ; load saboteur column
 
+        sblcursc                        ; load saboteur left column
+        inc     d                       ; increase column to use NC flag
+        cp      d                       ; test shell column
+        jp      nc,.tsttil              ; test tile map if shell is outside saboteur's body
+        add     SBWI-1                  ; get saboteur right column
+        dec     d                       ; get back to shell column
+        cp      d                       ; is shell inside body ?
+        jp      c,.tsttil               ; test tile map if outside 
 
+                                        ; saboteur hit!
+    	ld      a,HLGUNHIT              ; set health hit
+	call    hldec
+        pop     de                      ; clear stack
+        jp      .movend
+
+.tsttil:
+        pop     de
+        push    de
         call    shscradr                ; get pointer to a tile for gun shell
         pop     de
         ld      a,(hl)                  ; load tile attributes
@@ -40,7 +58,6 @@ tstgunsh:
         ret                             ; nothing found, continue moving
                                         
 .movend:
-        ;pop     hl                      ; clear stack
         xor     a                       ; finish shell flight
         ld      (gunshd),a              ; clear shell direction
         ld      a,GUNDELAY
