@@ -26,43 +26,43 @@ tstgunsh:
         inc     e                       ; increase row
         push    de                      ; save col and row
 
+        call    shscradr                ; get pointer to a tile for gun shell
+        ld      a,(hl)                  ; load tile attributes
+        and     bwall + broof           ; is floor/wall reached ?
+        jp      nz,.movend              ; yes, stop moving
+
+        pop     de
+        push    de
         sblcursr                        ; load saboteur row
         inc     e                       ; increase row to use NC flag
         cp      e                       ; is shell inside saboteur body ?
-        jp      nc,.tsttil              ; test tile map if not low enough
-
+        jp      nc,.exit                ; exit if no
 
         sblcursc                        ; load saboteur left column
         inc     d                       ; increase column to use NC flag
         cp      d                       ; test shell column
-        jp      nc,.tsttil              ; test tile map if shell is outside saboteur's body
+        jp      nc,.exit                ; test tile map if shell is outside saboteur's body        
         add     SBWI-1                  ; get saboteur right column
         dec     d                       ; get back to shell column
         cp      d                       ; is shell inside body ?
-        jp      c,.tsttil               ; test tile map if outside 
+        jp      c,.exit                 ; exit if outside 
 
                                         ; saboteur hit!
     	ld      a,HLGUNHIT              ; set health hit
 	call    hldec
-        pop     de                      ; clear stack
-        jp      .movend
-
-.tsttil:
-        pop     de
-        push    de
-        call    shscradr                ; get pointer to a tile for gun shell
-        pop     de
-        ld      a,(hl)                  ; load tile attributes
-        and     bwall + broof           ; is floor/wall reached ?
-        jp      nz,.movend              ; yes, stop moving
-        ret                             ; nothing found, continue moving
                                         
 .movend:
+        pop     de                      ; clear stack
         xor     a                       ; finish shell flight
         ld      (gunshd),a              ; clear shell direction
         ld      a,GUNDELAY
         ld      (gunshfr),a             ; reload gun timer
         inc     a
+        ret
+
+.exit:
+        pop     de
+        xor     a                       ; nothing found
         ret
 
 ; ---- move gun shell by two tiles, test each tile for the wall/floor
