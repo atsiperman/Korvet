@@ -301,29 +301,26 @@ dogbite1:
 									; check right direction (right column)
 		ld a,b						; if right dog column is
 		cp e						; less than left saboteur column
-		jp c,dogbite_				; then no hit (B < E)
+		ret c						; then no hit (B < E)
 		
 		ld a,d						; if right saboteur column is
 		cp b						; less than right dog column
-		jp c,dogbite_				; then no hit (D < B)
+		ret c						; then no hit (D < B)
 		
 		jp dogbites
 		
 dogbite2:							; check left direction		
 		ld a,d						; if right saboteur column is
 		cp c						; less than left dog column
-		jp c,dogbite_				; than no hit (D < C)
+		ret c						; than no hit (D < C)
 		
 		ld a,c						; if left dog column is
 		cp e						; less than left saboteur column
-		jp c,dogbite_				; than no hit (C < E)
+		ret c						; than no hit (C < E)
 		
 dogbites:
 		ld a,HLDOGHIT				; set health hit
-		call hldec
-
-dogbite_:
-		ret
+		jp hldec
 		
 		
 ; ----	check if dog is on the same level with saboteur
@@ -370,7 +367,7 @@ dogbitev:
 		cp e						; less than top dog row
 		jp c,dogbitv_				; then no hit (B < E)
 		
-		ld a,1
+		inc	a
 		ret
 		
 dogbitv_:
