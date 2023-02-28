@@ -33,6 +33,13 @@ tstgunsh:
 
         pop     de
         push    de
+
+        ld hl,(sbctrlb + odcursp)       ; load current sprite into HL
+        inc     hl                      ; skip color
+        inc     hl                      ; skip height
+        ld      a,(hl)                  ; load width
+        ld      (.sabwid),a             ; save it
+
         sblcursr                        ; load saboteur row
         inc     e                       ; increase row to use NC flag
         cp      e                       ; is shell inside saboteur body ?
@@ -42,7 +49,9 @@ tstgunsh:
         inc     d                       ; increase column to use NC flag
         cp      d                       ; test shell column
         jp      nc,.exit                ; test tile map if shell is outside saboteur's body        
-        add     SBWI-1                  ; get saboteur right column
+        ld      hl,.sabwid
+        add     (hl)                    ; get next col after saboteur 
+        dec     a                       ; get right border
         dec     d                       ; get back to shell column
         cp      d                       ; is shell inside body ?
         jp      c,.exit                 ; exit if outside 
@@ -64,6 +73,9 @@ tstgunsh:
         pop     de
         xor     a                       ; nothing found
         ret
+
+.sabwid:                               ; saboteur width
+        db      0
 
 ; ---- move gun shell by two tiles, test each tile for the wall/floor
 ;
