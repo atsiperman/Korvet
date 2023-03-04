@@ -517,10 +517,7 @@ sbhand:
 .hand2:
         ld   a,(sbholds)
         or   a
-        jp   z,.hand3   ; nothing is held
+        jp   z,tstokick ; nothing is held, do punch
         cp   trodskn    ; bomb or disk ?
         jp   c,sbthrow  ; throw if not
-        ret
-
-.hand3:
-        jp tstokick
+        jp   tstokick   ; otherwise do punch if object can not be thrown

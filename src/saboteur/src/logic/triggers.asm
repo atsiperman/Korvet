@@ -160,7 +160,7 @@ deskproc:
 
 .dskp2:
         ld  hl,(trdtptr)    ; load pointer to triggers data
-        ;load_de_hl          ; load data
+        ;load_de_hl         ; load data
         ;ld  a,e
         ;or  d
         ld      a,(hl)      ; load data
@@ -206,13 +206,19 @@ dsktproc:
         ld      hl,s37trd
         ld      a,(hl)          ; load trigger state
         or      a               ; activated ?
-        jp      z,.dskrun       ; yes, run trigger
-
-                                ; activate trigger
+        jp      z,.dsk0         ; yes, run trigger
+                                ; activate trigger                                
         xor     a               ; set a = 0
         ld      (hl),a  	; save flag, tigger is activated
-        ;;; run trigger sound procedure        
-        
+
+        ;;; play trigger sound
+        call    playdscs
+
+.dsk0:
+        ld      a,(timractv)    ; load timer mode
+        cp      a,TIMRCNTD      ; is bomb planted ?
+        ret     z               ; return if yes
+
         ld      a,(sbholds)     ; load what saboteur holds
         cp      trobomb         ; is it a bomb ?
         jp      z,.dskp1        ; run new timer if yes
@@ -228,7 +234,7 @@ dsktproc:
 .dskrun: 
         ld      hl,(trdtptr)
         ld      (trotptr),hl
-        jp itmproc
+        jp      itmproc
 
 ; ---- draws image of the triggered object
 ;

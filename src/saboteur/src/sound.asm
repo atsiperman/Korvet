@@ -32,11 +32,69 @@ SNDMOD  EQU     36h     ; timer sound mode
         ENSND
     endm
 
+    ; ---- sends sound data
+    macro SENDSND lo, hi
+        ld hl,SNDREGD
+        ld (hl),lo
+        ld (hl),hi
+    endm
+
+    ; ---- sends sound data via preloaded HL
+    macro _SENDSND lo, hi
+        ld (hl),lo
+        ld (hl),hi
+    endm
+
     ; ---- plays sound of strike
     macro PLAYPNCH
         ld  de,sndpunch
         call playsnd
     endm
+
+; ---- plays sound of disk ejection
+playdscs:
+        ld a, 3
+        ENSND
+        ld hl,SNDREGD
+.replay:        
+        _SENDSND 100,0
+        dup 3
+                halt
+        edup
+        _SENDSND 200,0
+        dup 3
+                halt        
+        edup
+
+        _SENDSND 50,1 ; 305
+        dup 3
+                halt        
+        edup
+
+        _SENDSND 0,2  ; 510
+        dup 3
+                halt        
+        edup
+
+        _SENDSND 200,0
+        dup 3
+                halt        
+        edup
+
+        _SENDSND 150,1 ; 405
+        dup 3
+                halt        
+        edup
+
+        _SENDSND 150, 0
+        dup 3
+                halt        
+        edup
+
+        dec a
+        jp  nz,.replay
+        DISSND
+        ret
 
 ; ---- plays sound synchronously from the buffer provided
 ;  args: DE - sound buffer
@@ -51,16 +109,17 @@ playsnd:
         ld  b,a                 ; init note counter
 
 .pls1:
-        push bc                 ; save counters
+        ;;push bc                 ; save counters
 
         inc de                  ; move to the next note
+
+        DISSND
+
         ld  hl,SNDREGD          ; sound register        
 
         ld  a,(de)              ; load data
         inc  de                 ; to hi byte    
 
-        ;; or  a                   ; is a pause ?
-        ;; jp  z,.pls2
         ld  (hl),a              ; send low byte
 
         ld  a,(de)              ; load hi byte
@@ -70,25 +129,25 @@ playsnd:
 .pls2:
         inc de                  ; to duration
         ld  a,(de)              ; load duration low byte
-        inc de
-        ld  c,a
-        ld  a,(de)              ; load duration hi byte
-        ld  b,a
+        ;;inc de
+        ;;ld  c,a
+        ;;ld  a,(de)              ; load duration hi byte
+        ;;ld  b,a
 .pls3:
-        dec bc
-        ld  a,c
-        or  b
+        ;;dec bc
+        ;;ld  a,c
+        ;;or  b
+        dec a
         jp  nz,.pls3            ; delay
 
-        DISSND
-
-        pop bc                  ; restore counters
+        ;;pop bc                  ; restore counters
         dec b                   ; number of notes
         jp  nz,.pls1
 
         pop de
         dec c                   ; number of iterations
         jp  nz,.plstrt          ; continue playing if not finished
+        DISSND
         ret                         
 
 ; ---- make a sound when saboteur makes a step
@@ -125,21 +184,34 @@ waitblnk:
 
         ; ---- defines number of notes
         macro notesnum endlabl
-                db (endlabl - ($+1)) / 4    ; number of notes
+                db (endlabl - ($+1)) / 3    ; number of notes
         endm
 
         macro mknote pitch, duration
             dw pitch
-            dw duration
+            db duration
         endm
+
 ; ---- sound of a gun shell
 sndgunsh:
-sndpunch:
-        db 1                   ; number of iterations
+        db 2                   ; number of iterations
         notesnum .endsnd
-        mknote 50535, 701
-        mknote 501, 200
-        mknote 65535, 701
-        mknote 501, 200
+        dup 2
+                mknote 10, 50
+                dup 4
+                mknote 65535, 255
+                edup
+        edup
 .endsnd        
 
+; ---- sound of a punch/kick
+sndpunch:
+        db 8                   ; number of iterations
+        notesnum .endsnd
+        ;dup 2
+                mknote 10, 50
+                dup 6
+                mknote 65535, 255
+                edup
+        ;edup
+.endsnd        
