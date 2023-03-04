@@ -161,6 +161,7 @@ start:
         ei
         GRMODOFF
 
+        INITSND
         ;ei
 .main:
         call runmenu

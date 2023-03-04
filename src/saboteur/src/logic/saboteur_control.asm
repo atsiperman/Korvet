@@ -375,6 +375,7 @@ movweap:
 
 .chok2:        
         call setdead      
+        PLAYPNCH
 
 .chok3:
         xor  a
@@ -383,16 +384,16 @@ movweap:
         ret
 
 .chokile:
-		pop hl
-		pop af
-		
-		ld bc,objsize	
-		add hl,bc
-		
-		dec a
-		jp nz,.chokil
-		
-		ret
+        pop hl
+        pop af
+        
+        ld bc,objsize	
+        add hl,bc
+        
+        dec a
+        jp nz,.chokil
+        
+        ret
 
 ; ---- makes object dead: sets state and sprite for dead object
 ; args: HL - address of control block 

@@ -63,7 +63,7 @@ ginitscr:
 ; ---- main game cycle
 ;
 gcycle:
-		DISSND
+		;DISSND
 
 		call drawscr
 

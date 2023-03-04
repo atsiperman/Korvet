@@ -290,6 +290,7 @@ tstokick:
 
 .mkd1:
         call setdead
+		PLAYPNCH
         ret
 
 .endtst:        

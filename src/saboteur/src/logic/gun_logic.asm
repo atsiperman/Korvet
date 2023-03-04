@@ -1,3 +1,4 @@
+
 ; ---- test gun shell tile for wall and saboteur
 ; args:
 ;       D - shell column
@@ -61,6 +62,9 @@ tstgunsh:
 	call    hldec
                                         
 .movend:
+        ld      de,sndgunsh
+        call    playsnd
+
         pop     de                      ; clear stack
         xor     a                       ; finish shell flight
         ld      (gunshd),a              ; clear shell direction
