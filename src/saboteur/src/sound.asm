@@ -38,10 +38,6 @@ SNDMOD  EQU     36h     ; timer sound mode
         call playsnd
     endm
 
-    ; ---- defines number of notes
-    macro notesnum endlabl
-        db (endlabl - ($+1)) / 3    ; number of notes
-    endm
 ; ---- plays sound synchronously from the buffer provided
 ;  args: DE - sound buffer
 ;
@@ -53,15 +49,18 @@ playsnd:
         push de
         ld  a,(de)              ; load number of notes
         ld  b,a                 ; init note counter
+
 .pls1:
+        push bc                 ; save counters
+
         inc de                  ; move to the next note
         ld  hl,SNDREGD          ; sound register        
 
         ld  a,(de)              ; load data
         inc  de                 ; to hi byte    
 
-        or  a                   ; is empty note ?
-        jp  z,.pls2
+        ;; or  a                   ; is a pause ?
+        ;; jp  z,.pls2
         ld  (hl),a              ; send low byte
 
         ld  a,(de)              ; load hi byte
@@ -69,14 +68,21 @@ playsnd:
         ENSND                            
 
 .pls2:
-        inc  de                 ; to duration
-        ld  a,(de)              ; load duration
+        inc de                  ; to duration
+        ld  a,(de)              ; load duration low byte
+        inc de
+        ld  c,a
+        ld  a,(de)              ; load duration hi byte
+        ld  b,a
 .pls3:
-        dec a
+        dec bc
+        ld  a,c
+        or  b
         jp  nz,.pls3            ; delay
 
         DISSND
 
+        pop bc                  ; restore counters
         dec b                   ; number of notes
         jp  nz,.pls1
 
@@ -117,18 +123,23 @@ waitblnk:
 
         ret
 
+        ; ---- defines number of notes
+        macro notesnum endlabl
+                db (endlabl - ($+1)) / 4    ; number of notes
+        endm
+
         macro mknote pitch, duration
             dw pitch
-            db duration
+            dw duration
         endm
 ; ---- sound of a gun shell
 sndgunsh:
 sndpunch:
-        db 10                   ; number of iterations
+        db 1                   ; number of iterations
         notesnum .endsnd
-        mknote 65535, 250
-        mknote 65501, 250
-        mknote 65535, 250
-        mknote 65501, 250
+        mknote 50535, 701
+        mknote 501, 200
+        mknote 65535, 701
+        mknote 501, 200
 .endsnd        
 
