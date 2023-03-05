@@ -140,6 +140,9 @@ COPTWID     EQU 17          ; full width of the helicopter
 
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
+prevkeys:	db 0			; previous keys pressed
+lastkeys:	db 0			; last keys pressed
+
 ; start byte of the control data
 cdatast:
 
@@ -171,7 +174,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,22,8 ; 23
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,2,8 ; 23
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36

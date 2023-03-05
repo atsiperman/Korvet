@@ -182,14 +182,21 @@ deskproc:
         ret
 
 ; ---- procedure for simple items triggers (brick, pipe, etc.)
-;
+; result: 
+;       A - 0 if nothing changed, both objects are empty
+;       
 itmproc:
         ld   hl,(trotptr)   ; load pointer to current trigger's object type
         ld   de,sbholds     ; pointer to what saboteur holds
 
         ld   a,(de)         ; what saboteur holds
         ld   b,(hl)         ; new object type
-        ld   (hl),a         ; move current object to trigger's location
+
+        ld   c,a            ; save current object
+        or   b              ; is anything available ?
+        ret  z              ; return if no objects nowhere
+        
+        ld   (hl),c         ; move current object to trigger's location
         ld   a,b            ; save new object type in A
         ld   (de),a         ; give new object type to saboteur
 

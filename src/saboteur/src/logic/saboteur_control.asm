@@ -494,7 +494,7 @@ setdead:
 ; ---- throw the object being held or do a punch        
 ; args: HL - address of control block 
 ;
-sbhand:
+sbhand:        
         sbscurst sbpunch    ; set punch state
         sblddir             ; load direction
 

@@ -149,18 +149,25 @@ sbmain:
 		call hlalive
 		or a
 		;ret z			; stop if dead
-				
+
+		ld a,(lastkeys)
+		ld (prevkeys),a
+		xor	a
+		ld (lastkeys),a	; reset keys
+
 		call sbcanact	; check if can act
 		or a 			
 		jp z,gend		; return if zero (no actions)
 		
         call kbread
+		ld  (lastkeys),a	
+
 		and 255
 		jp nz,.sbm1
 		call sbnoactn
 		jp gend
 				
-.sbm1:
+.sbm1:				
         ld  b,a             ; save key bits
         sblcurst
         cp  sbmove          ; is moving ?
@@ -214,9 +221,13 @@ gifspace:
         jp   z,.gifsp1      ; no triggers, continue
         and  trgmanl
         jp   z,.gifsp1      ; trigger is not manual, continue
-        call trigrun        ; run manual trigger
-        jp   gend
-
+		ld   a,(prevkeys)  	; get prev keys
+		and	 KSPACE			; was SPACE already pressed ?
+		jp	 nz,gend		; yes, do nothing
+        call trigrun        ; run manual trigger if this is the first SPACE pressure
+		or	 a				; did anything happen ?
+        jp   nz,gend		; finish if yes
+							; otherwise do punch
 .gifsp1:
         call sbhand        ; throw the object being held or do a punch        
         jp   gend
