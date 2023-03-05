@@ -66,9 +66,6 @@ gcycle:
 		;DISSND
 
 		call drawscr
-
-		call sbstsnd
-
         call gtimer         
 
         sblcurst

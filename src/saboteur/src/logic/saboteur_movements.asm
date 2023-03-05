@@ -281,7 +281,8 @@ sbmoveh9:
 sbmoveh8:
 		pop hl
 		ld (hl),a		; save sprite index
-		
+		cp 3            ; is it the last sprite ?
+		call z, sndstep	
 		push hl
 		
 sbmoveh10:		

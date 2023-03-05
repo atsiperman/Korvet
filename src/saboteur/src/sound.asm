@@ -25,7 +25,7 @@ SNDMOD  EQU     36h     ; timer sound mode
     endm
 
     ; ---- starts playing sound specified
-    macro STARTSND lo, hi
+    macro STARTSND2 lo, hi
         ld hl,SNDREGD
         ld (hl),lo
         ld (hl),hi
@@ -151,21 +151,16 @@ playsnd:
         ret                         
 
 ; ---- make a sound when saboteur makes a step
-sbstsnd:
-        ld a,(sbctrlb + odcurst)    ; load current state
-        cp sbmove
-        ret nz
-
-        ld a,(sbctrlb + odcursi)    ; load sprite index
-        cp 3                        ; step sound if this is last sprite
-        ret nz
-        
-        STARTSND 255, 255
+sndstep:       
+        push af
+        push hl
+        STARTSND2 255, 255
         ld  a,255
 .sbs1:  dec a
         jp  nz,.sbs1
         DISSND
-
+        pop hl
+        pop af
         ret
 
 ; ---- wait for the blank to start
@@ -184,7 +179,7 @@ waitblnk:
 
         ; ---- defines number of notes
         macro notesnum endlabl
-                db (endlabl - ($+1)) / 3    ; number of notes
+            db (endlabl - ($+1)) / 3    ; number of notes
         endm
 
         macro mknote pitch, duration
