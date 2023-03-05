@@ -718,7 +718,7 @@ smap37e:
         dw s37mom
         db TXTSMAP
         dw scr37txd
-        db FSTRDRP
+        db SCRINIP
         dw s37rndr
         db TRIGMAP
         dw s37trm

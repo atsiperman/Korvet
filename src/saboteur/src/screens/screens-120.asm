@@ -385,7 +385,7 @@ smap122e:
 		;edup
 
         db SCREND
-        db FSTRDRP
+        db SCRINIP
         dw s122rndr
         db TRIGMAP
         dw s122trm
@@ -570,7 +570,7 @@ smap123e:
         dw s123bmom
         db MSKOMAP
         dw s123mom
-        db FSTRDRP
+        db SCRINIP
         dw s123rnd
         db TXTSMAP
         dw s123txd

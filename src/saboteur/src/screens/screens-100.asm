@@ -803,7 +803,7 @@ smap107e:
 		db 0
 		
 		db SCREND
-        db FSTRDRP
+        db SCRINIP
         dw s107rndr
         db MSKOMAP
         dw s107mom

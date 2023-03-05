@@ -634,7 +634,7 @@ smap45e:
         dw s45mom
         db TRIGMAP
         dw s45trm
-        db FSTRDRP
+        db SCRINIP
         dw s45rndr
         db SCREND
 		

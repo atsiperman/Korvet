@@ -57,6 +57,7 @@ mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
 bmobjlst:	dw 0		; pointer to the list of background masked objects on the current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
+scrinitp:	dw 0		; pointer to screen init procedure to be called after screen is decompressed
 fstrdrp:    dw 0        ; pointer to first render post processing procedure
 otramdef:	dw 0		; pointer to definition of text ram for old screen
 ; otramdef MUST be the last one
@@ -163,7 +164,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn23 		; pointer to current screen
+curscr: 	dw scrn105 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -174,7 +175,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,2,8 ; 23
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,15,3 ; 23
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36

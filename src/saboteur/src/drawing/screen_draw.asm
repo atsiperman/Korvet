@@ -181,6 +181,15 @@ decmprs5:
         jp   .decmp6
 
 .decmp13:
+        cp   SCRINIP
+        jp   nz,.decmp14
+		load_de_hl			; load screen init procedure address
+		ex de,hl
+		ld (scrinitp),hl	; save it
+        ex   de,hl		
+        jp   .decmp6
+
+.decmp14:
         inc  hl
         jp   .decmp6
 			
@@ -470,6 +479,15 @@ drawstos:
 		
 		ret
 
+; ----- call screen init procedure
+;
+sinitprc:
+        ld  hl,(scrinitp)
+        ld  a,h
+        or  l
+        ret z
+        jp  (hl)
+
 ; ----- call first render post processor
 ;
 postproc:
@@ -573,10 +591,12 @@ scrch1_:
         call waitblnk
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
-        call postproc
+        call sinitprc		; screen init procedure
+
         GRMODON
         call drawbkgr		; draw background
 		call drawstos		; draw static objects        
+		call postproc		; post processing after first render
         GRMODOFF
 		;;call drawtram		; draw text ram for new screen
         call clrscrch       ; clear data before moving to another screen

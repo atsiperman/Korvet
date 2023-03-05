@@ -12,6 +12,7 @@ TRIGMAP EQU 4       ; trigger map
 TXTSMAP EQU 5       ; text screen map marker
 FSTRDRP EQU 6       ; first render post processing procedure
 BMSOMAP EQU 7       ; background masked object map marker
+SCRINIP EQU 8		; screen initialization procedure to be called after screen decompression
 
 
 		macro mktxtaddr colnum, rownum
@@ -1063,7 +1064,7 @@ smap9e:
         dw s9trm
         db MSKOMAP
         dw s9mom
-        db FSTRDRP
+        db SCRINIP
         dw s9rndr
         db SCREND
 		

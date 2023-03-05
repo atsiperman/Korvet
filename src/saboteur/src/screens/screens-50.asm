@@ -435,7 +435,7 @@ smap52e:
 		db 0
 		
         db SCREND
-        db FSTRDRP
+        db SCRINIP
         dw s52rndr
         db OBJMAP
         dw s52objm
@@ -786,7 +786,7 @@ smap55e:
 		;edup
 		
 		db SCREND
-        db FSTRDRP
+        db SCRINIP
         dw s55rndr
         db SCREND
 		
