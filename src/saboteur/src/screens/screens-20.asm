@@ -206,14 +206,13 @@ smap23b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK8ADDR		; 1, blue ladder bottom left
 		bkindex BK9ADDR		; 2, blue ladder bottom right		
-		bkindex BK18ADDR	; 3, water blue
-		bkindex BK19ADDR	; 4, water green
+		bkindex BK43ADDR	; 3, water layer
+		bkindex BK43ADDR	; 4, water layer
 		bkindex BK15ADDR	; 5, blue tube top
 		bkindex BK16ADDR	; 6, blue tube 
 		bkindex BK10ADDR	; 7, blue small bricks
 		bkindex BK4ADDR		; 8, blue bricks
-		bkindex BK20ADDR	; 9, water blue ladder
-		bkindex BK21ADDR	; A, water green ladder		
+		bkindex BK45ADDR	; 9, water layer, ladder
 smap23e:
 		mkdup 7
 			db 0
@@ -292,7 +291,7 @@ smap23e:
 			db 0
 			mkline 2
 			mkbyte 4,4
-			mkbyte 10,10
+			mkbyte 9,9
 			mkline 2
 			mkbyte 4,4
 			mkbyte 4,0
@@ -323,8 +322,21 @@ smap23e:
         dw s23trm
         db MSKOMAP
         dw s23mom
+        db TXTSMAP
+        dw scr23txd
         db SCREND
 		
+scr23txd:					; description of the text RAM used by this screen
+		mkbyte TXLINEH,11
+			mktxtaddr 16, 6
+			db CHFULL
+
+		mkbyte TXLINEH,11
+			mktxtaddr 16, 7
+			db CHTOP
+
+		mscrend
+
 ; --- end of scrbk23
 
 scrbk24:
