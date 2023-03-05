@@ -25,10 +25,10 @@ SNDMOD  EQU     36h     ; timer sound mode
     endm
 
     ; ---- starts playing sound specified
-    macro STARTSND2 lo, hi
+    macro STARTSND pitch
         ld hl,SNDREGD
-        ld (hl),lo
-        ld (hl),hi
+        ld (hl),LOW pitch
+        ld (hl),HIGH pitch
         ENSND
     endm
 
@@ -154,7 +154,7 @@ playsnd:
 sndstep:       
         push af
         push hl
-        STARTSND2 255, 255
+        STARTSND 0fffh
         ld  a,255
 .sbs1:  dec a
         jp  nz,.sbs1

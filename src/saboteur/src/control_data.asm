@@ -133,7 +133,7 @@ HLKNFHIT	EQU 15			; hit by the guard's knife
 HLGUNHIT	EQU 25			; hit by gun
 
 CPTPAUS     EQU 1
-CPTPAUS2    EQU 4
+CPTPAUS2    EQU 3
 
 COPTCOL     EQU 6
 COPTROW     EQU 5           ; top row of the helicopter when staying
@@ -165,7 +165,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn105 		; pointer to current screen
+curscr: 	dw scrn123 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -176,7 +176,7 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 ;
 sbctrlb:	
 		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,15,3 ; 23
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,22,9 ; 23
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36

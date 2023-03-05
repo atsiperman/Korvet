@@ -29,10 +29,10 @@ cptcabin:
             ld   d,a            ; save high byte in D
         endm
 
-        macro mkdelay iternum
-            ld   c,iternum
-            call mkpause.mkp
-        endm
+        ; macro mkdelay iternum
+        ;     ld   c,iternum
+        ;     call mkpause.mkp
+        ; endm
 
         macro coptdoor_draw_tile scrbufadr_ptr, video_adr_ptr, oper
             ld   hl,(scrbufadr_ptr)
@@ -80,8 +80,7 @@ cptcabin:
 strtescp:
         sbscurst sbescap
         call rprepcpt
-        call rprepdor
-        ret
+        jp   rprepdor        
 
 ; ---- prepare door
 ;
@@ -142,13 +141,14 @@ rprepcpt:
 ; result:
 ;       A - 0 when escape process finished, 1 - not yet
 doescape:
-        call cptopndr       ; open top door
-        call flytop         ; fly to the top line
-        call flyout         ; fly out
+        call cptopndr           ; open top door
+        call flytop             ; fly to the top line
+        call flyout             ; fly out
                                             ; clear top line after copter has gone
         ld   hl,SCRADDR + COPTCOL
         ld   de,scrbuf + COLWIDB * COPTCOL
         call flytop.cpt5
+        DISSND
         ret
 
 ; ---- open door above helicopter
@@ -163,10 +163,17 @@ cptopndr:
         dec  a 
         ld   (cptdritr),a
 
+        STARTSND 60000
         copt_open_door_left
+        DISSND
+        STARTSND 65000
         copt_open_door_right
+        DISSND
 
-        mkdelay 7
+        dup 7
+        halt                    ; delay
+        edup
+
         jp   cptopndr           ; repeat until door is open
 
 ; ---- helicopter flies to the roof
@@ -208,13 +215,13 @@ flytop:
 
 .cpt3:        
         push bc
-            push hl
-            skip_buf_tile_spaddr de
-            GRMODON
-            call copytile
-            GRMODOFF
-            pop  hl
-            inc  hl            
+        push hl
+        skip_buf_tile_spaddr de
+        GRMODON
+        call copytile
+        GRMODOFF
+        pop  hl
+        inc  hl            
         pop bc
         dec c
         jp  nz,.cpt3
@@ -314,6 +321,11 @@ flyout:
 ;
 cptdelay:
         ld  a,(cptpause)
-        ld  c,a
-        call mkpause.mkp
+.delay:
+        STARTSND 30000
+        halt
+        DISSND
+        halt
+        dec a
+        jp  nz,.delay
         ret
