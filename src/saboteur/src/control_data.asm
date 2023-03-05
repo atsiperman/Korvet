@@ -54,12 +54,13 @@ TILMAPLN	EQU	ROWNUM * COLNUM
 objlist:	dw 0		; pointer to the list of objects on the current screen
 sobjlst:	dw 0		; pointer to the list of static objects on the current screen
 mobjlst:	dw 0		; pointer to the list of masked objects on the current screen
-bmobjlst:	dw 0		; pointer to the list of background masked objects on the current screen
 trigmap:	dw 0		; pointer to the list of triggers on the current screen
 tramdef:	dw 0		; pointer to definition of text ram for current screen
-scrinitp:	dw 0		; pointer to screen init procedure to be called after screen is decompressed
 fstrdrp:    dw 0        ; pointer to first render post processing procedure
+bmobjlst:	dw 0		; pointer to the list of background masked objects on the current screen
+scrinitp:	dw 0		; pointer to screen init procedure to be called after screen is decompressed
 otramdef:	dw 0		; pointer to definition of text ram for old screen
+
 ; otramdef MUST be the last one
 
             macro skip_buf_tile_spaddr reg_pair

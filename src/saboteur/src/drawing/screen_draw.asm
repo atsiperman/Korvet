@@ -118,81 +118,17 @@ decmprs5:
 		cp   SCREND			; marker of the end 
         ret  z
 
-        cp   OBJMAP
-        jp   nz,.decmp7
-		load_de_hl			; load object map address
-		ex   de,hl		
-		ld   (objlist),hl		; save pointer to the object list
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp7:
-        cp   STOMAP
-        jp   nz,.decmp8
-		load_de_hl			; load static object map address to DE
-		ex de,hl
-		ld (sobjlst),hl		; save pointer to the list of static objects
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp8:
-        cp   MSKOMAP
-        jp   nz,.decmp9
-		load_de_hl			; load masked object map address to DE
-		ex de,hl
-		ld (mobjlst),hl		; save pointer to the list of masked objects
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp9:
-        cp   TXTSMAP
-        jp   nz,.decmp10
-		load_de_hl			; load text RAM definition
-		ex de,hl
-		ld (tramdef),hl
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp10:
-        cp   TRIGMAP
-        jp   nz,.decmp11
-		load_de_hl			; load pointer to the list of triggers
-		ex de,hl
-		ld (trigmap),hl
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp11:
-        cp  FSTRDRP
-        jp  nz,.decmp12
-		load_de_hl			; load text first render post processing procedure address
-		ex  de,hl
-		ld  (fstrdrp),hl
-        ex  de,hl		
-        jp  .decmp6
-
-.decmp12:
-        cp   BMSOMAP
-        jp   nz,.decmp13
-		load_de_hl			; load background masked object map address to DE
-		ex de,hl
-		ld (bmobjlst),hl		; save pointer to the list of masked objects
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp13:
-        cp   SCRINIP
-        jp   nz,.decmp14
-		load_de_hl			; load screen init procedure address
-		ex de,hl
-		ld (scrinitp),hl	; save it
-        ex   de,hl		
-        jp   .decmp6
-
-.decmp14:
-        inc  hl
-        jp   .decmp6
-			
+		load_de_hl			; load address into DE
+		push hl
+		dec	a				; turn pointer type into index
+		ld	c,a
+		ld	b,0
+		ld	hl,objlist		; load first address
+		add hl,bc
+		add hl,bc				; calculated target address
+		savem_hl_de			; save map pointer
+		pop	hl
+		jp .decmp6
 		
 linecnt_:
 		db 0
