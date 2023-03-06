@@ -110,7 +110,7 @@ runmenu:
 
 .mnkb:
         call kbread
-        and 255
+        or  a
         jp  z,.mnkb
 
         cp  KESC
@@ -247,6 +247,47 @@ prauthor:
         ld  c,NUMBKC
         ld  de,AUTHSCRA + 02Dh
         ld  hl,authdate
-        call prntnum
+        jp prntnum
 
-        ret
+; ----- prints text for game end
+;
+prntend:
+        GRMODON
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+        ld   de,MNTITSCR
+        ld   hl,tmcomplt
+        call prntstr
+
+        ld  a,(sbholds)                         ; get object from pocket
+        cp  trodisk                             ; is it a disk ?
+        jp  z,.pntdsk                           ; print disk text if yes
+
+        ld   hl,escscor                         ; otherwise add score for empty escape
+        call addscore
+        jp   .prnte
+
+.pntdsk:
+        ld  hl,escwdsk
+        call addscore
+
+        ld      a,(timractv)                    ; load timer mode
+        cp      a,TIMRCNTD                      ; is bomb planted ?
+        jp      nz,.pntds2                      ; skip adding score for bomb if no
+
+        ld  hl,escwdab
+        call addscore
+
+.pntds2:
+        ld  b,NUMFGC
+        ld  c,NUMBKC
+        ld   de,MNTITSCR + (VERTDISP * 2) + 4
+        ld   hl,dsktaken
+        call prntstr
+
+.prnte:
+        call drwnums
+        GRMODOFF
+
+        jp waitkey
+        

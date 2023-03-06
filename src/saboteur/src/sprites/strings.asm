@@ -115,7 +115,7 @@ authinfo:
 
 authdate:
         db 4
-        db 2,0,2,2
+        db 2,0,2,3
 
 cliveinf:
         db .clivinf - cliveinf - 1
@@ -124,3 +124,14 @@ cliveinf:
 
 clivdate:
         db 4, 1,9,8,6
+
+tmcomplt:
+        db .complt - tmcomplt - 1
+        db "ZADANIE",SPACECH,"WYPOLNENO"
+.complt:
+
+dsktaken:
+        db .dsktkn - dsktaken - 1
+        db "DISK",SPACECH,"WZQT"
+.dsktkn:
+

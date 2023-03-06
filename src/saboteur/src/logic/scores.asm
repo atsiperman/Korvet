@@ -1,15 +1,4 @@
 
-; ---- kill guard by weapon
-killwpgd:
-        db 0, 0, 1, 5, 0
-
-; ---- kill guard by punch or kick
-killguad:
-        db 0, 0, 5, 0, 0
-
-; ---- escape and fight another day
-escape:
-        db 0, 1, 0, 0, 0
 
 ; ---- get disc
 diskscor:
@@ -17,11 +6,9 @@ diskscor:
 dsk2bomb:
 ; ---- escape with disc
 escwdsk:
+; ---- escape with disc and bomb planted
+escwdab:
         db 0, 5, 0, 0, 0
-
-; ---- escape with disc and bomb set
-escwdsbm:
-        db 1, 0, 0, 0, 0
 
 ; ---- add score for killed object
 ; args:

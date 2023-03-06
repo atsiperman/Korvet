@@ -301,27 +301,27 @@ bombspr:
 
 diskspr:
         db 4,24
-        db CBLACK, 0, 0, 0, 0, CBLUE
-        db CBLACK, 7, 255, 255, 224, CBLUE
-        db CBLACK, 7, 255, 255, 224, CBLUE
-        db CBLACK, 7, 255, 255, 224, CBLUE 
-        db CBLACK, 7, 255, 255, 224, CBLUE
-        db CBLACK, 7, 255, 255, 224, CBLUE
-        db CBLACK, 7, 255, 231, 224, CBLUE 
-        db CBLACK, 7, 252, 63, 224, CBLUE 
-        db CBLACK, 7, 251, 223, 224, CBLUE
-        db CBLACK, 7, 247, 239, 224, CBLUE
-        db CBLACK, 4, 23, 239, 224, CBLUE 
-        db CBLACK, 4, 23, 239, 224, CBLUE 
-        db CBLACK, 7, 247, 239, 224, CBLUE 
-        db CBLACK, 7, 251, 223, 224, CBLUE 
-        db CBLACK, 7, 252, 63, 224, CBLUE 
-        db CBLACK, 7, 255, 255, 224, CBLUE 
+        db CYELLOW, 0, 0, 0, 0, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK
+        db CYELLOW, 7, 255, 231, 224, CBLACK
+        db CYELLOW, 7, 252, 63, 224, CBLACK
+        db CYELLOW, 7, 251, 223, 224, CBLACK
+        db CYELLOW, 7, 247, 239, 224, CBLACK
+        db CYELLOW, 4, 23, 239, 224, CBLACK 
+        db CYELLOW, 4, 23, 239, 224, CBLACK
+        db CYELLOW, 7, 247, 239, 224, CBLACK 
+        db CYELLOW, 7, 251, 223, 224, CBLACK
+        db CYELLOW, 7, 252, 63, 224, CBLACK
+        db CYELLOW, 7, 255, 255, 224, CBLACK 
         db CBLACK, 255, 255, 255, 255, CYELLOW
         db CBLACK, 240, 110, 64, 155, CYELLOW
         db CBLACK, 243, 110, 78, 147, CYELLOW
         db CBLACK, 243, 108, 79, 135, CYELLOW
         db CBLACK, 243, 104, 79, 131, CYELLOW
-        db CBLACK, 224, 34, 78, 155, CYELLOW 
-        db CBLACK, 239, 166, 64, 155, CYELLOW 
-        db CBLACK, 255, 255, 255, 255, CYELLOW 
+        db CBLACK, 224, 34, 78, 155, CYELLOW
+        db CBLACK, 239, 166, 64, 155, CYELLOW
+        db CBLACK, 255, 255, 255, 255, CYELLOW

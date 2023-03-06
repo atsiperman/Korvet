@@ -34,3 +34,11 @@ kbread:
 		
 		ret
 		
+; -----  waits for any key to be pressed
+; result: A - key mask
+;
+waitkey:
+        call kbread
+        or  a
+        jp  z,waitkey
+		ret

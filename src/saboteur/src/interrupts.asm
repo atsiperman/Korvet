@@ -2,8 +2,29 @@ INTRREG             EQU 0fb28h
 INTRREGMSK          EQU 0fb29h
 INTRREGVAL          EQU 18              ; 00010110
 
+prevkeys:	        db 0			; previous keys pressed
+lastkeys:	        db 0			; last keys pressed
+
 intr_counter:       db 0
 frame_counter:      db 0
+saved_gr_mode_on:   db 0
+
+; ---- scores for killing guard by weapon
+killwpgd:
+        db 0, 0, 1, 5, 0
+
+; ---- scores for kill guard by punch or kick
+killguad:
+        db 0, 0, 5, 0, 0
+
+
+; ---- escape and fight another day
+escscor:
+        db 0, 1, 0, 0, 0
+
+; ---- escape with disc and bomb set
+escwdsbm:
+        db 1, 0, 0, 0, 0
 
                     align 32
 INTRTAB             EQU $
@@ -13,8 +34,6 @@ INTRTAB             EQU $
 ; ------------------------------
 ; screen interrupt handler
 ; ------------------------------
-saved_gr_mode_on:   db 0
-
 screen_intr_handler:
                     di
                     push hl

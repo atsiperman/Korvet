@@ -73,6 +73,7 @@ gcycle:
         jp   nz,.gmc1       ; no, continue game
 
         call doescape       ; run escape process
+		call prntend		; print text for end of game 
         xor  a
         ret
 

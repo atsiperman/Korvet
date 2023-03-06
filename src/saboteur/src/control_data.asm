@@ -142,9 +142,6 @@ COPTWID     EQU 17          ; full width of the helicopter
 
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
-prevkeys:	db 0			; previous keys pressed
-lastkeys:	db 0			; last keys pressed
-
 ; start byte of the control data
 cdatast:
 
@@ -181,8 +178,8 @@ sbctrlb:
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36
 
-sbholds:    db troshrk  ; type of an object being held by saboteur
-;sbholds:    db trobomb   ; type of an object being held by saboteur
+;sbholds:    db troshrk  ; type of an object being held by saboteur
+sbholds:    db trodisk   ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 10

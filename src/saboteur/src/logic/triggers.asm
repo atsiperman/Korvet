@@ -218,9 +218,10 @@ dsktproc:
         xor     a               ; set a = 0
         ld      (hl),a  	; save flag, tigger is activated
 
-        ;;; play trigger sound
+        ld      hl,diskscor     ; add score
+        call    addscore        ; for disk
         call    playdscs
-
+        
 .dsk0:
         ld      a,(timractv)    ; load timer mode
         cp      a,TIMRCNTD      ; is bomb planted ?
@@ -235,6 +236,16 @@ dsktproc:
         jp      .dskrun
         
 .dskp1:
+        ld      hl,(trdtptr)    ; load pointer to triggers data
+        ld      a,(hl)          ; load data
+        cp      trodisk         ; is it a disk ?
+        jp      nz,.dskp2       ; skip adding scores if no
+
+                                ; exchanging bomb to disk
+        ld      hl,dsk2bomb     ; add score
+        call    addscore        ; for bomb
+
+.dskp2:
         ld      a,TIMRCNTD      ; switch timer into 
         ld      (timractv),a    ; countdown mode
         
