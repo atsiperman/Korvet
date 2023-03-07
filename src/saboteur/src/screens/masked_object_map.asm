@@ -121,21 +121,14 @@ s60mom:
 		mkmasko	s36wfrm, 1,3
 		mkmasko	s36wfrm, 9,3
 		mkmasko	s36wfrm, 17,3
-        ;mkmasko s60slprt, 18, 6
-        ;mkmasko s60slprt, 19, 4
-        ;mkmasko s60slprt, 20, 2
-        ;mkmasko s60flprt, 19, 3
-        ;mkmasko s60flprt, 18, 5
 
 s61mom:
-        db 7
+        db 5
         mkmasko desk, 13, 11
         mkmasko desk, 19, 11
-        mkmasko s61slplt, 11, 6
-        mkmasko s61slplt, 10, 4
-        mkmasko s61slplt, 9, 2
-        mkmasko s61flplt, 10, 3
-        mkmasko s61flplt, 11, 5
+		mkmasko	s36wfrm, 12,3
+		mkmasko	s36wfrm, 20,3
+		mkmasko	s36wfrm, 28,3
 
 s64mom:
         db 1

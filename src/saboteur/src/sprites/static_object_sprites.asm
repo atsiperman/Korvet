@@ -613,50 +613,6 @@ s57hrt:
         db 1,1
         db 195,24, 3,24, 3,152, 3,248, 3,248, 3,152, 3,24, 195,24
 
-s60slprt:
-        db CMAINREG
-        db 2,1
-        db 224,15, 224,15, 192,31, 192,31, 128,62, 128,62, 0,124, 1,124
-        db 1,248, 3,248, 3,240, 7,240, 7,224, 15,224, 15,192, 31,192
-
-s60flprt:
-        db CMAINREG
-        db 1,1
-        db 255,0, 255,0, 252,1, 248,3, 240,3, 240,7, 240,7, 240,7
-
-s61slplt:
-        db CMAINREG
-        db 2,1
-        db 7,240, 7,240, 3,248, 3,248, 1,124, 1,124, 0,62, 128,62
-        db 128,31, 192,31, 192,15, 224,15, 224,7, 240,7, 240,3, 248,3
-
-s61flplt:
-        db CMAINREG
-        db 1,1
-        db 255,0, 255,0, 63,128, 31,192, 15,192, 15,224, 15,224, 15,224
-
-; s60top:
-;         db 1,8
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-
-; s60btm:
-;         db 1,8
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 0, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-;         db CMAIN, 255, CCYAN
-
 grndexp:
         db 3,24
         db CRED, 4, 72, 1, CYELLOW

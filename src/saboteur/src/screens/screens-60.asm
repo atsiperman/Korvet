@@ -96,8 +96,6 @@ smap60e:
 		;edup
 
 		db SCREND
-        ;db STOMAP
-        ;dw s60stom
         db OBJMAP        
         dw s60objm
         db MSKOMAP
@@ -109,13 +107,6 @@ smap60e:
         db SCREND
 		
 scr60txd:
-		 mkbyte TXLINEH,15
-		 	mktxtaddr 0, 1
-		 	db CHBOTM
-		 mkbyte TXLINEH,8
-		 	mktxtaddr 15, 1
-		 	db CHBOTM
-
 		mkbyte TXLINEH,15
 			mktxtaddr 0, 2
 			db CHFULL
@@ -137,13 +128,6 @@ scr60txd:
 			mktxtaddr 19, 3
 			db CHTOP
 			
-		mkbyte TXLINEH,15
-			mktxtaddr 0, 4
-			db CHTOP
-		mkbyte TXLINEH,3
-			mktxtaddr 15, 4
-			db CHTOP
-
 		db SCREND
 
 ; --- end of scrbk60
@@ -173,33 +157,35 @@ smap61e:
 		mkline 13
 		mkbyte 3,3
 
-		mkline 4			; 3
-		mkbyte 1,1
-		mkbyte 1,6
-		mkline 10
+		mkline 3			; 3
+			mkbyte 1,1
+		mkbyte 9,6
+		mkline 11
 		mkbyte 6,6
 
-		mkline 4			; 4
-		mkbyte 1,1
+		mkline 3			; 4
+			mkbyte 1,1
 		mkbyte 1,9
+		mkbyte 10,8
+		mkline 10
+			mkbyte 8,8
+		
+		mkline 4			; 5
+			mkbyte 1,1
+		mkbyte 9,10
 		mkline 10
 		mkbyte 8,8
-		
-		mkline 5			; 5
-		mkbyte 1,1
+
+		mkline 4			; 6
+			mkbyte 1,1
+		mkbyte 1,9
         mkbyte 10,8
 		mkline 9
-		mkbyte 8,8
-
-		mkline 5			; 6
-		mkbyte 1,1
-        mkbyte 9,8
-		mkline 9
-		mkbyte 8,8
+			mkbyte 8,8
 		
 		mkline 5			; 7
 		mkbyte 1,1
-		mkbyte 1,10
+		mkbyte 9,10
 		mkline 9
 		mkbyte 8,8
 
@@ -207,7 +193,7 @@ smap61e:
 		mkbyte 1,1
 		mkbyte 1,9
 		mkline 9
-		mkbyte 7,7
+		mkbyte 6,6
 		
 		mkdup 7
 			mkline 6
@@ -223,8 +209,6 @@ smap61e:
 		;edup
 
 		db SCREND
-        ;db STOMAP
-        ;dw s61stom
         db OBJMAP
         dw s61objm
         db MSKOMAP
@@ -236,33 +220,25 @@ smap61e:
 		db SCREND
 		
 scr61txd:
+		mkbyte TXLINEH,1
+			mktxtaddr 8, 2
+			db CHTOP
 		mkbyte TXLINEH,15
-			mktxtaddr 9, 1
-			db CHBOTM
+			mktxtaddr 9, 2
+			db CHFULL
 		mkbyte TXLINEH,6
-			mktxtaddr 24, 1
-			db CHBOTM
-
-		mkbyte TXLINEH,15
-			mktxtaddr 10, 2
-			db CHFULL
-		mkbyte TXLINEH,5
-			mktxtaddr 25, 2
+			mktxtaddr 24, 2
 			db CHFULL
 
+		mkbyte TXLINEH,1
+			mktxtaddr 10, 3
+			db CHTOP
 		mkbyte TXLINEH,15
 			mktxtaddr 11, 3
 			db CHFULL
 		mkbyte TXLINEH,4
 			mktxtaddr 26, 3
 			db CHFULL
-
-		mkbyte TXLINEH,15
-			mktxtaddr 12, 4
-			db CHTOP
-		mkbyte TXLINEH,3
-			mktxtaddr 27, 4
-			db CHTOP
 
 		db SCREND
 

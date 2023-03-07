@@ -278,19 +278,16 @@ BK64DATA:   bksh_b CCYAN, CBLUE                         ; horizontal door above 
             db  153, 0, 0, 102, 153, 0, 0, 85            
 
 BK65DATA:   bksh_b CYELLOW, CMAIN                      ; green-yellow L right
-            ;db  63, 63, 127, 127, 127, 255, 255, 255
 			db  255, 254, 252, 248, 240, 224, 192, 128 
-			;db  15, 30, 60, 120, 240, 224, 192, 128 
 
-BK66DATA:   bksh_b CCYAN, CYELLOW                       ; green-yellow L left
-            db  252, 252, 254, 254, 254, 255, 255, 255            
+BK66DATA:   bksh_b CYELLOW, CMAIN                       ; green-yellow L left
+			db  255, 127, 63, 31, 15, 7, 3, 1 
 
 BK67DATA:   bksh_b CMAIN, CGREEN                      ; green-yellow L top right
-            ;db  255, 255, 255, 255, 240, 240, 240, 240            
 			db  255, 254, 252, 248, 240, 224, 192, 128 
 
-BK68DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top left
-            db  255, 255, 255, 255, 15, 15, 15, 15            			
+BK68DATA:   bksh_b CMAIN, CGREEN                       ; green-yellow L top left
+			db  255, 127, 63, 31, 15, 7, 3, 1 
 
 
 DOORTILE:   bksh_b CGREEN, CWHITE
