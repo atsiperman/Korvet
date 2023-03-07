@@ -635,27 +635,27 @@ s61flplt:
         db 1,1
         db 255,0, 255,0, 63,128, 31,192, 15,192, 15,224, 15,224, 15,224
 
-s60top:
-        db 1,8
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
+; s60top:
+;         db 1,8
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
 
-s60btm:
-        db 1,8
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 0, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
-        db CMAIN, 255, CCYAN
+; s60btm:
+;         db 1,8
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 0, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
+;         db CMAIN, 255, CCYAN
 
 grndexp:
         db 3,24

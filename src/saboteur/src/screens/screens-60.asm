@@ -25,43 +25,62 @@ smap60e:
 		mkbyte 1,1
 
 							; 3		
-		mkline 10
+		mkbyte 6,6			;
+		mkline 3
+			mkbyte 6,6
+		mkbyte 6,6			;
+
+		mkline 3
+			mkbyte 6,6
+
+		mkbyte 6,6			;
 		mkbyte 6,6
-		mkbyte 6,1
-		mkline 4
-		mkbyte 1,1
+		mkbyte 6,6
+
+		;mkbyte 10,9			
+		mkbyte 6,9			
+		mkline 3
+			mkbyte 1,1
 
 							; 4		
 		mkline 10
 		mkbyte 8,8
+		mkbyte 8,10
 		mkbyte 9,1
-		mkline 4
+		mkline 3
 		mkbyte 1,1
 		
 							; 5		
-		mkline 9
+		mkline 10
 		mkbyte 8,8
-        mkbyte 8,10
-		mkline 5
+        mkbyte 10,9
+		mkline 4
 		mkbyte 1,1		
 							; 6
 		mkline 9
 		mkbyte 8,8
-        mkbyte 8,9
-		mkline 5			
+        mkbyte 8,10
+		mkbyte 9,1
+		mkline 4		
 		mkbyte 1,1		
 							; 7
 		mkline 9	
 		mkbyte 8,8
-		mkbyte 10,1
+		mkbyte 10,9
 		mkline 5			
 		mkbyte 1,1		
 							; 8
-		mkline 9
-		mkbyte 7,7
+		mkbyte 6,6			;
+		mkline 3
+			mkbyte 6,6
+		mkbyte 6,6			;
+		mkline 3
+			mkbyte 6,6
+		mkbyte 6,6			;
+
 		mkbyte 9,1
 		mkline 5			
-		mkbyte 1,1		
+			mkbyte 1,1		
 		
 		mkdup 7
 			mkline 9
@@ -77,8 +96,8 @@ smap60e:
 		;edup
 
 		db SCREND
-        db STOMAP
-        dw s60stom
+        ;db STOMAP
+        ;dw s60stom
         db OBJMAP        
         dw s60objm
         db MSKOMAP
@@ -90,19 +109,22 @@ smap60e:
         db SCREND
 		
 scr60txd:
-		mkbyte TXLINEH,15
-			mktxtaddr 0, 1
-			db CHBOTM
-		mkbyte TXLINEH,6
-			mktxtaddr 15, 1
-			db CHBOTM
+		 mkbyte TXLINEH,15
+		 	mktxtaddr 0, 1
+		 	db CHBOTM
+		 mkbyte TXLINEH,8
+		 	mktxtaddr 15, 1
+		 	db CHBOTM
 
 		mkbyte TXLINEH,15
 			mktxtaddr 0, 2
 			db CHFULL
-		mkbyte TXLINEH,5
+		mkbyte TXLINEH,6
 			mktxtaddr 15, 2
 			db CHFULL
+		mkbyte TXLINEH,1
+			mktxtaddr 21, 2
+			db CHTOP
 
 		mkbyte TXLINEH,15
 			mktxtaddr 0, 3
@@ -111,6 +133,10 @@ scr60txd:
 			mktxtaddr 15, 3
 			db CHFULL
 
+		mkbyte TXLINEH,1
+			mktxtaddr 19, 3
+			db CHTOP
+			
 		mkbyte TXLINEH,15
 			mktxtaddr 0, 4
 			db CHTOP
@@ -197,8 +223,8 @@ smap61e:
 		;edup
 
 		db SCREND
-        db STOMAP
-        dw s61stom
+        ;db STOMAP
+        ;dw s61stom
         db OBJMAP
         dw s61objm
         db MSKOMAP

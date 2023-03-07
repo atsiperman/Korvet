@@ -116,13 +116,16 @@ s57mom:
         mkmasko s57hndl, 16, 12
 
 s60mom:
-        db 6
+        db 4
         mkmasko desk, 24, 11
-        mkmasko s60slprt, 18, 6
-        mkmasko s60slprt, 19, 4
-        mkmasko s60slprt, 20, 2
-        mkmasko s60flprt, 19, 3
-        mkmasko s60flprt, 18, 5
+		mkmasko	s36wfrm, 1,3
+		mkmasko	s36wfrm, 9,3
+		mkmasko	s36wfrm, 17,3
+        ;mkmasko s60slprt, 18, 6
+        ;mkmasko s60slprt, 19, 4
+        ;mkmasko s60slprt, 20, 2
+        ;mkmasko s60flprt, 19, 3
+        ;mkmasko s60flprt, 18, 5
 
 s61mom:
         db 7

@@ -192,11 +192,15 @@ BK36DATA:	bksh3 CYELLOW,CRED,bwall					; red right top edge
 BK37DATA:	bksh3 CYELLOW,CRED,bwall					; red right bottom edge
 			DB 255, 255, 255, 255, 254, 252, 248, 240
 
-BK38DATA:	bksh3 CCYAN,CBLACK,0   					; top black half
-			DB 255, 255, 255, 255, 0, 0, 0, 0
+BK38DATA:	;bksh3 CGREEN,CMAIN,0   					; top black half
+			;DB 255, 255, 255, 255, 0, 0, 0, 0
+			bksh CMAIN
+			DB 0, 0, 0, 0, 0, 0, 0, 0
 
-BK39DATA:	bksh3 CBLACK,CCYAN,0   					; bottom black half
+BK39DATA:	;bksh CGREEN	   								; bottom black half
+			bksh3 CMAIN,CGREEN,0
 			DB 255, 255, 255, 255, 0, 0, 0, 0
+			;DB 0, 0, 0, 0, 0, 0, 0, 0
 
 BK40DATA:   bksh2 CYELLOW, bwall						; underwater floor
 			db  123, 164, 119, 8, 221, 42, 0, 0
@@ -273,17 +277,20 @@ BK63DATA:   bksh3 CGREEN, CBLUE, bwall                  ; plate under helicopter
 BK64DATA:   bksh_b CCYAN, CBLUE                         ; horizontal door above helicopter
             db  153, 0, 0, 102, 153, 0, 0, 85            
 
-BK65DATA:   bksh_b CGREEN, CYELLOW                      ; green-yellow L right
-            db  63, 63, 127, 127, 127, 255, 255, 255
+BK65DATA:   bksh_b CYELLOW, CMAIN                      ; green-yellow L right
+            ;db  63, 63, 127, 127, 127, 255, 255, 255
+			db  255, 254, 252, 248, 240, 224, 192, 128 
+			;db  15, 30, 60, 120, 240, 224, 192, 128 
 
 BK66DATA:   bksh_b CCYAN, CYELLOW                       ; green-yellow L left
             db  252, 252, 254, 254, 254, 255, 255, 255            
 
-BK67DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top right
-            db  255, 255, 255, 255, 240, 240, 240, 240            
+BK67DATA:   bksh_b CMAIN, CGREEN                      ; green-yellow L top right
+            ;db  255, 255, 255, 255, 240, 240, 240, 240            
+			db  255, 254, 252, 248, 240, 224, 192, 128 
 
 BK68DATA:   bksh_b CYELLOW, CCYAN                       ; green-yellow L top left
-            db  255, 255, 255, 255, 15, 15, 15, 15            
+            db  255, 255, 255, 255, 15, 15, 15, 15            			
 
 
 DOORTILE:   bksh_b CGREEN, CWHITE

@@ -41,6 +41,8 @@ graph_mode_on:
 ;------ screen buffer		
 ;
 scrbuf:
+        ; --- all the code below is located inside screen buffer
+        ; it is intended for intialization only, after that it will be destoryed 
 		include "drawing/mirror_table.asm"
 		include "sprites/guard_sprites.asm"
         include "sprites/saboteur_sprites.asm"
@@ -57,6 +59,7 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
         db 0
         edup
+;------ end of screen buffer		
 
         display "scrbuf start:   ", scrbuf
         display "scrbuf end:     ", $
@@ -67,7 +70,7 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         display "upper page top: ", uppertop
         display "upper page free:", 0fa00h - uppertop
 
-        if uppertop > 0fa00h
+        if uppertop >= 0fa00h
             error "Upper page size exceeded!!!"
         endif
 

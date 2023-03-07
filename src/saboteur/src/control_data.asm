@@ -162,7 +162,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn123 		; pointer to current screen
+curscr: 	dw scrn61 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -179,7 +179,7 @@ sbctrlb:
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36
 
 ;sbholds:    db troshrk  ; type of an object being held by saboteur
-sbholds:    db trodisk   ; type of an object being held by saboteur
+sbholds:    db trobomb   ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 10
