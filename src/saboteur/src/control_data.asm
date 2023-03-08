@@ -106,9 +106,9 @@ bufrows:	dw scrbuf
 			dw scrbuf + (ROWWIDB * 16)
 						
 						
-SCOLNUM		EQU 1			; index of the start column for saboteur on the new screen
+SCOLNUM		EQU 3			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
-SROWNUM 	EQU 1			; index of the start row
+SROWNUM 	EQU 8			; index of the start row
 ECOLNUMJ	EQU COLNUM-5	; index of the last column for saboteur on the new screen when jumping
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
@@ -142,6 +142,8 @@ COPTWID     EQU 17          ; full width of the helicopter
 
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
+BOATMCOL	EQU 21			; max colum for boat back at the first screen
+
 ; start byte of the control data
 cdatast:
 
@@ -171,9 +173,9 @@ SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start scree
 
 ; ----	saboteur control block			
 ;
-sbctrlb:	
-		    ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,SCOLNUM,SROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,22,9 ; 23
+sbctrlb:			
+		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,SABSTADR,sabsqtrt,0,SCOLNUM,SROWNUM
+			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,22,9 ; 23
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36

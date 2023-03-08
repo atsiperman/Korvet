@@ -60,11 +60,92 @@ ginitscr:
         jp txtrinit
         ;ret
 
+; ---- moves boat at the beginning
+;
+gboat:
+		ld hl,(sobjlst)		; HL - address of the static objects list
+		ld c,(hl)			; load number of boat parts
+		
+		inc hl				; set to the first object
+
+		ld  a,(hl)			; load column
+		cp	BOATMCOL		; reached max col ?
+		ret	z				; finish if yes
+
+.gbmove:		
+		inc	a				; increase column 
+		ld	(hl),a			; save column
+		dup 4
+			inc	hl			; move to the screen address
+		edup
+		load_de_hl			; load into DE
+		inc	de				; increase screen address
+		dec	hl	
+		dec hl
+		savem_hl_de			; save new screen address
+
+		ld  a,(hl)			; load column of the next part
+
+		dec	c
+		jp	nz,.gbmove		; move other parts
+
+		sblcursc			; move saboteur
+		inc	a				; to the next column
+		sbscursc			; save it
+
+		STARTSND 60000
+
+		call updobjs		; update objects state		
+		call rsttiles		; restore tiles background according to current objects location
+		call drawobjs		; draw active objects
+
+		DISSND
+
+		GRMODON
+
+		call showscr		; show buffer on the screen		
+		call drawstos		; draw boat at new position				
+
+		ld hl,(sobjlst) 
+		dup 5
+			inc	hl			; move to the screen address of the boat 
+		edup
+		load_de_hl			; load screen address
+		dec	de				; get previous column
+		ex	de,hl			; screen address to HL
+		ld  de,scrbuf		; empty tile to DE
+		ld	c,1				; draw one tile
+
+		call drawbktl
+		GRMODOFF
+
+		dup 10
+			halt
+		edup
+		jp gboat
+
+; ---- jump from the boat
+;
+sbdojump:
+		call sbstopst
+		sblcursr			; load current row into A
+		dec	a
+		dec	a
+		dec	a
+		sbscursr			; save it back
+		call sbstshjp		; jump from boat
+		call drawscr
+		ret
+
 ; ---- main game cycle
 ;
 gcycle:
-		;DISSND
+		rsboat
+		call drawscr
+		call gboat
+		call sbdojump
 
+.gloop:
 		call drawscr
         call gtimer         
 
@@ -86,7 +167,7 @@ gcycle:
         inc a
         ld  (frame_counter),a
 
-		jp gcycle           ; continue if not zero
+		jp .gloop           ; continue if not zero
 
 
 ; ---- main game logic

@@ -78,7 +78,7 @@ tapeimn EQU 16
         mkstobj tape4im, colnum + 4, rownum + 3
         mkstobj tape4im, colnum + 5, rownum + 3
         endm 
-
+        
 s1stom:
         db 3
         mkstobj boatback, 1, 11
@@ -447,3 +447,8 @@ s126stom:
         mktapem 2, 12
         mktapew 7, 12
         mktapem 25, 12
+
+save1stom:
+        dup s2stom - s1stom
+                db 0
+        edup

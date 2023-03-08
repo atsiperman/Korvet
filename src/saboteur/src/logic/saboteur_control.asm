@@ -2,24 +2,24 @@
 ; ---- stop and stay
 ;
 sbstopst:
-		sblddir
-		cp  dirrt
-		jp  nz,sbstpst1
-		ld  de,sabsprt
-		sbscursp
+        sblddir
+	cp  dirrt
+	jp  nz,sbstpst1
+	ld  de,sabsprt
+	sbscursp
         ld  de,sbheadr
         sbshdspr
-		jp sbstpste
+	jp sbstpste
 		
 sbstpst1:
-		ld de,sabsplt
-		sbscursp
+	ld de,sabsplt
+	sbscursp
         ld  de,sbheadl
         sbshdspr
 		
 sbstpste:
-		sbscurst sbstay
-		ret
+	sbscurst sbstay
+	ret
 
 ; ---- checks if saboteur can do any actions
 ;

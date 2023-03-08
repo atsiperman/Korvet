@@ -172,7 +172,7 @@ start:
         jp  z,.exit
 
         call ginitscr   ; init game screen		
-					
+					        
         call gcycle     ; main cycle
         call mkpause
         jp  .main

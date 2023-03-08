@@ -36,6 +36,14 @@
         rstordata objmst, objmend, objmdata
         endm
 
+        macro cpboat
+        savedata s1stom, s2stom, save1stom
+        endm
+
+        macro rsboat
+        rstordata s1stom, s2stom, save1stom
+        endm
+
 
 ; ----- initializes data
 ;
@@ -73,6 +81,7 @@ sabinit:
         cpctrldata
         cptrmap
         cpobjmap
+        cpboat
         
         call .initsbsp
         call .initgdsp

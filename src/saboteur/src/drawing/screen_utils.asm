@@ -128,9 +128,9 @@ startdrw:
 ; ----- draws background tile in video memory
 ; args: DE - address of the tile in screen buffer
 ;       HL - address in video memory
-;	    C  - number of sprites to draw starting from the current one 
+;       C  - number of sprites to draw starting from the current one 
 ; result:
-;	    HL - address of the last byte written in video memory
+;       HL - address of the last byte written in video memory
 ;		
 drawbktl:
 
