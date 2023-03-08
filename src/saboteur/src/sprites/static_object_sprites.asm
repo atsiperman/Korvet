@@ -698,6 +698,40 @@ propllr:
         db 1,1
         db 255,0, 255,0, 0,0, 0,255, 0,255, 0,255, 0,0, 0,0
 
+boatfrnt:
+        db 1,8
+        db CYELLOW, 108, CBLUE 
+        db CYELLOW, 254, CBLUE 
+        db CYELLOW, 191, CBLUE 
+        db CYELLOW, 191, CBLUE 
+        db CYELLOW, 190, CBLUE 
+        db CYELLOW, 254, CBLUE 
+        db CYELLOW, 254, CBLUE 
+        db CYELLOW, 248, CBLUE 
+
+boatback:
+        db 2,8
+        db CMAIN, 241, 96, CYELLOW
+        db CMAIN, 228, 0, CYELLOW
+        db CMAIN, 232, 32, CYELLOW
+        db CMAIN, 232, 64, CYELLOW
+        db CMAIN, 224, 64, CYELLOW
+        db CMAIN, 240, 32, CYELLOW
+        db CMAIN, 48, 0, CYELLOW
+        db CMAIN, 220, 2, CYELLOW
+
+boatmain:
+        db 4,8
+        db CMAIN, 96, 96, 96, 96, CYELLOW
+        db CMAIN, 0, 0, 0, 0, CYELLOW
+        db CMAIN, 32, 32, 32, 32, CYELLOW
+        db CMAIN, 64, 64, 64, 64, CYELLOW
+        db CMAIN, 64, 64, 64, 64, CYELLOW
+        db CMAIN, 32, 32, 32, 32, CYELLOW
+        db CMAIN, 0, 0, 0, 0, CYELLOW
+        db CMAIN, 2, 2, 2, 2, CYELLOW
+
+
 ; doortile:
 ;         db 1,8
 ;         db CWHITE, 66, CGREEN

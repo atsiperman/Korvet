@@ -162,7 +162,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn61 		; pointer to current screen
+curscr: 	dw scrn1 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 

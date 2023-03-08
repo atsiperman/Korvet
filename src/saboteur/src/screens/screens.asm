@@ -42,6 +42,57 @@ SCRINIP EQU 8		; screen initialization procedure to be called after screen decom
 		endm
 		
 scrbk1:
+		spmaplen smap1b,smap1e
+smap1b:			
+		bkindex BK5ADDR		; 0, 	solid blue
+		bkindex BK40ADDR	; 1,	underwater floor		
+		bkindex BK43ADDR	; 2,	water layer
+smap1e:										
+		mkdup 12
+			mkline 14
+				db 0
+			db 0
+
+		mkdup 4
+			mkline 14
+				mkbyte 2,2
+			mkbyte 2,2
+
+		mkline 14
+			mkbyte 1,1
+		mkbyte 1,1
+
+        db SCREND
+		db STOMAP
+		dw s1stom
+		db TXTSMAP
+        dw scrn1txd
+        db SCREND
+
+scrn1txd:					; description of the text RAM used by this screen
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 6
+			db CHBOTM
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 6
+			db CHBOTM
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 7
+			db CHFULL
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 7
+			db CHFULL
+
+		mkbyte TXLINEH,15
+			mktxtaddr 0, 8
+			db CHTOP
+		mkbyte TXLINEH,15
+			mktxtaddr 15, 8
+			db CHTOP
+
+		db SCREND
+
 scrbk2:
 		spmaplen smap2b,smap2e
 smap2b:			
@@ -139,7 +190,7 @@ scrn2txd:					; description of the text RAM used by this screen
 			mktxtaddr 15, 8
 			db CHTOP
 
-		mscrend
+		db SCREND
 
 ; --- end of scrbk2
 

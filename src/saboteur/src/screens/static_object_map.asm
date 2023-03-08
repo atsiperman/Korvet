@@ -79,6 +79,12 @@ tapeimn EQU 16
         mkstobj tape4im, colnum + 5, rownum + 3
         endm 
 
+s1stom:
+        db 3
+        mkstobj boatback, 1, 11
+        mkstobj boatmain, 3, 11
+        mkstobj boatfrnt, 7, 11
+
 s2stom:
         db 5
         mkstobj mrpillar, 8, 4
