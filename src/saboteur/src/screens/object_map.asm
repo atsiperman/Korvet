@@ -87,6 +87,10 @@ s54objm:
 		db 1
 		mkgdlt 7,9,7,21
 
+s55objm:
+		db 1
+		mkgun dirlt,26,8
+
 s58objm:
 		db 1
 		mkgun dirdn, 9, 1

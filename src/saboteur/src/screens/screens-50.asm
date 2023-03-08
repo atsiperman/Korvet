@@ -786,6 +786,10 @@ smap55e:
 		;edup
 		
 		db SCREND
+		db MSKOMAP
+		dw s55mom
+		db OBJMAP
+		dw s55objm
         db SCRINIP
         dw s55rndr
         db SCREND
@@ -921,10 +925,13 @@ smap56e:
 		mkdup 2
 			mkline 15
 			db 0
-		;edup 
-		
-		mscrend
-		
+		;edup 		
+
+		db SCREND
+		db MSKOMAP
+		dw s56mom
+		db SCREND
+
 ; --- end of scrbk56
 
 scrbk57:

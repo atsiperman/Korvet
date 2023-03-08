@@ -105,7 +105,31 @@ s45mom:
 s51mom:
         db 1
         mkmasko desk, 19, 12
-        
+
+s55mom:
+		db 8
+		mkmasko fenceltl,8,5
+		mkmasko fencelt,9,5
+		mkmasko fencelt,10,6
+		mkmasko fencelt,11,7
+		mkmasko fencelt,12,8
+		mkmasko fencelt,13,9
+		mkmasko fencelt,14,10
+		mkmasko fencelt,15,11
+
+s56mom:
+		db 9
+		mkmasko fencert,9,11
+		mkmasko fencert,10,10
+		mkmasko fencert,11,9
+		mkmasko fencertl,12,9
+
+		mkmasko fencert,21,8
+		mkmasko fencert,22,7
+		mkmasko fencert,23,6
+		mkmasko fencert,24,5
+		mkmasko fencertl,25,5
+
 s57mom:
         db 6
         mkmasko s57hndl, 13, 9
@@ -133,6 +157,18 @@ s61mom:
 s64mom:
         db 1
         mkmasko wgnwind, 13, 9
+
+s65mom:
+		db 9
+		mkmasko fencert,16,11
+		mkmasko fencert,17,10
+		mkmasko fencert,18,9
+		mkmasko fencert,19,8
+		mkmasko fencert,20,7
+		mkmasko fencert,21,6
+		mkmasko fencert,22,5
+		mkmasko fencert,23,4
+		mkmasko fencertl,24,4
 
 s67mom:	
 		db 10

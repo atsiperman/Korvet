@@ -731,6 +731,8 @@ smap65e:
 		;edup
 		
 		db SCREND
+        db MSKOMAP
+        dw s65mom
         db TRIGMAP
         dw s65trm
         db TXTSMAP        
