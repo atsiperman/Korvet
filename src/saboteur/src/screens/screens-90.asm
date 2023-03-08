@@ -266,18 +266,18 @@ smap93e:
 		db 0
 		db 0
 		mkline 8
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 4,5
 		mkline 3
-		mkbyte 1,1
+			mkbyte 1,1
 		db 0
 
 		mkbyte 1,8
 		mkline 9
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 4,5
 		mkline 3
-		mkbyte 1,1
+			mkbyte 1,1
 		db 0
 
 		mkdup 6
@@ -291,27 +291,28 @@ smap93e:
 		;edup
 
         db 0
-        mkbyte 0,1
+		db 0
         mkline 8
-        mkbyte 1,1
+        	mkbyte 1,1
         mkbyte 4,5
         mkline 3
-        mkbyte 1,1
+        	mkbyte 1,1
         db 0
-
-		db 0
-		db 0
-		mkline 8
-		mkbyte 1,1
-		mkbyte 4,5
-		mkline 3
-		mkbyte 1,1
-		db 0
 
 		db 0
 		db 0
 		mkbyte 0,1
 		mkline 7
+			mkbyte 1,1
+		mkbyte 4,5
+		mkline 3
+			mkbyte 1,1
+		db 0
+
+		db 0
+		db 0
+		db 0
+		mkline 7
 		mkbyte 1,1
 		mkbyte 4,5
 		mkline 3
@@ -320,7 +321,8 @@ smap93e:
 
 		mkline 3
 		db 0
-		mkline 7
+		mkbyte 0,1
+		mkline 6
 		mkbyte 1,1
 		mkbyte 4,5
 		mkline 3
