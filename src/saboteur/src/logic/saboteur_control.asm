@@ -363,6 +363,7 @@ movweap:
         jp  nz,.chok1       ; no, set dead
         ld  a,HLKNFHIT
         call hldec
+        PLYWEAPN
         jp   .chok3         ; goto exit
 
 .chok1:
@@ -375,7 +376,7 @@ movweap:
 
 .chok2:        
         call setdead      
-        PLAYPNCH
+        PLYWEAPN
 
 .chok3:
         xor  a

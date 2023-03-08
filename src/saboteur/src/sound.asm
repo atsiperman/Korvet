@@ -51,6 +51,12 @@ SNDMOD  EQU     36h     ; timer sound mode
         call playsnd
     endm
 
+    ; ---- plays sound of weapon hit
+    macro PLYWEAPN
+        ld  de,sndgunsh
+        call playsnd
+    endm
+
 ; ---- plays sound of disk ejection
 playdscs:
         ld a, 3

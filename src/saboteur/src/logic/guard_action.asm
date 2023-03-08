@@ -147,6 +147,73 @@ gdstkick:
         ld   (hl),a     
         ret
 
+
+; ---- checks whether guard hits saboteur
+; args: HL - address of control block
+;       A  - direction
+ghitsab:
+        push    af              ; save direction
+        push    hl              ; control block
+
+        ldcursr                 ; load guards row in A
+        inc     a               ; get height
+        inc     a               ; of hand/leg
+        ld      d,a             ; save it in D
+        pop     hl
+
+        sblcursr                ; load sab row
+        cp      d               ; is guard hits below sab's top ?
+        jp      c,.ght          ; continue if yes
+
+        pop     af              ; clear stack
+        ret
+
+.ght:
+        pop     af
+        cp      dirlt           ; test which direction to process
+        jp      z,.ghtlt
+
+                                ; saboteur is on the right
+        push    hl
+        ldcurspr                ; load current sprite into DE
+        inc     de              ; skip color
+        inc     de              ; skip height
+        ld      a,(de)          ; load width
+        ld      d,a             ; save it in D
+
+        pop     hl
+        ldcursc                 ; load screen column into A
+        add     d               ; get right column of
+        dec     a               ; the guard
+        ld      d,a             ; save it in D
+
+        sblcursc                ; load saboteur's column into A
+        cp      d
+        ret     nc
+        add     SBWI-1          ; get right side column
+        cp      d
+        ret     c               ; nothing to do if outside
+        jp      .ghit           ; do hit otherwise
+
+.ghtlt:                         ; saboteur is on the left
+        ldcursc                 ; load screen column into A
+        ld      d,a             ; save it in D
+        sblcursc                ; load saboteur's column into A
+        dec     a               ; do correction to make CARRY flag to work
+        cp      d
+        ret     nc
+        add     SBWI-1          ; get right side column
+        cp      d
+        ret     c               ; nothing to do if outside
+
+.ghit:
+        ld   a,10
+        call hldec
+        PLAYPNCH
+        ret
+
+
+
 ; ---- change column if guard is kicking
 ; args: HL - address of control block
 ;       
@@ -166,12 +233,23 @@ gdchkck:
         ld   de,gdhdkk2r
         shdspr        
         pop  hl        
-        ldcursc         ; starts kick, decrease column for left direction
+        ldcursc         ; starts kick, decrease column for right direction        
         dec  a
         ld   (hl),a
         ret
 
 .gdcr2:
+        cp   3
+        jp   nz,.gdcr3
+                        ; time to test hits' target
+        push hl
+        push af
+        ld   a,dirrt
+        call ghitsab
+        pop  af
+        pop  hl
+
+.gdcr3:        
         cp  ((sabkckre - sabkckrb - 1) / 2) - 2
         ret nz
         push hl
@@ -200,6 +278,17 @@ gdchkck:
         ret
 
 .gdcl2:
+        cp   3
+        jp   nz,.gdcl3
+                        ; time to test hits' target
+        push hl
+        push af
+        ld   a,dirlt
+        call ghitsab
+        pop  af
+        pop  hl
+
+.gdcl3:
         cp  ((sabkckre - sabkckrb - 1) / 2) - 2
         ret nz
         push hl

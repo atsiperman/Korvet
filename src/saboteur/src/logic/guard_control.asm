@@ -208,7 +208,7 @@ gfcontmv:
 ; args: HL - address of control block
 ;       A  - current state
 gdconact:
-        cp   sbkick
+        ;;cp   sbkick
 
         push hl
         push af
@@ -271,8 +271,35 @@ gdconact:
 ;       A  - 0 if this is the last sprite
 ;
 gchgspr:
+        push    hl
+        ldstate
+        cp      sbpunch                 ; is punching ?
+        pop     hl
+        jp      nz,.gch1                ; continue of not
+        push    hl
+        ldcurspi                        ; load current sprite index in A
+        pop     hl
+        push    hl
+        or      a
+        jp      nz,.gch2                ; skip sprite index reload
+
+        pop     hl
+        push    af
+        push    hl        
+        lddir     
+        pop     hl
+        push    hl                      
+        call    ghitsab
+        pop     hl
+        pop     af
+        push    hl        
+        jp      .gch2                   ; skip sprite index reload
+
+.gch1:        
         push hl
         ldcurspi                        ; load current sprite index
+
+.gch2:          
         inc  a                          ; move to the next sprite
         pop  hl
         push hl
