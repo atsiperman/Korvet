@@ -145,9 +145,11 @@ s94trm:
     mkdesk 14, 12, 0
 
 s95trm:
-    db 2
+    db 3
     mkdesk 3, 15, 0
     mkdesk 21, 14, 0
+    mkpipe 13, 7
+
 
 s97trm:
     db 5

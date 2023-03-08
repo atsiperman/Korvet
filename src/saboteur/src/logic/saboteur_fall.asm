@@ -4,6 +4,14 @@
 ;			A - 1 if can fall
 ;
 sbcanfal:
+		sblcurst
+		cp	sbsquat
+		jp	nz,.scfs
+						; can't fall if in a squatting state
+		xor	a
+		ret				
+
+.scfs:
 		sbcurrh			; get height in A
         inc  a          ; make correction for head height
         inc  a 
