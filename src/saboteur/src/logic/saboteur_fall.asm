@@ -122,7 +122,7 @@ chkfal2:
 		sbscursc
 		
 		call sbdosquat
-
+		PLAYPNCH
 		xor a
 		ret
 	

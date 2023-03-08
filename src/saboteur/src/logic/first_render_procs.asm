@@ -61,6 +61,24 @@ s9rndr:
         ld   a,8
         jp   drawdoor
 
+; ---- screen init procedure for screen N-32/33
+s32iprc:
+        ld   hl,(curscr)        ; get current screen address
+        ld   a,l                ; is it screen33 ?
+        cp   LOW scrn33         
+        ret  nz                 ; no
+        ld   a,h
+        cp   HIGH scrn33
+        ret  nz                 ; no
+
+        xor  a                  ; otherwise clear which must be on screen32 only
+        ld   hl,objlist                  
+        ld   (hl),a
+        inc  hl
+        ld   (hl),a
+        ret
+
+
 ; ---- first render post processor for screen N-37.
 ;
 s37rndr:

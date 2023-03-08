@@ -278,7 +278,7 @@ movweap:
         and  bwall
 .kiljp:        
         jp   z,.chkokil     ; no wall - keep flying, check if alive object is on the way
-
+        PLYWEAPN            ; wall, play sound 
 .mvthre:
         xor  a
         ld   hl,(wpobjp)

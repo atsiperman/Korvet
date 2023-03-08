@@ -289,6 +289,8 @@ smap32e:
         dw s32objm
         db TXTSMAP
         dw scr32txd
+		db SCRINIP
+		dw s32iprc
         db SCREND
 		
 scr32txd:

@@ -105,10 +105,13 @@ bufrows:	dw scrbuf
 			dw scrbuf + (ROWWIDB * 15)
 			dw scrbuf + (ROWWIDB * 16)
 						
-						
-SCOLNUM		EQU 3			; index of the start column for saboteur on the new screen
+
+FSCOLNUM	EQU 3			; column index of the first screen
+FSROWNUM 	EQU 8			; row index of the first screen
+
+SCOLNUM		EQU 2			; index of the start column for saboteur on the new screen
 ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
-SROWNUM 	EQU 8			; index of the start row
+
 ECOLNUMJ	EQU COLNUM-5	; index of the last column for saboteur on the new screen when jumping
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
@@ -162,29 +165,32 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
+			;define FULLSTART
+
 ; ---- screen control block
 ;
 curscr: 	dw scrn1 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
-SABSTADR	EQU SCRADDR + 64*8 + SCOLNUM 	; address for saboteur on the start screen			
+;SABSTADR	EQU SCRADDR + 64*8 + FSCOLNUM 	; address for saboteur on the start screen			
 ;SABSTADR	EQU scrbuf + ROWWIDB + SCOLNUM 	; address for saboteur on the start screen
 
 ; ----	saboteur control block			
 ;
 sbctrlb:			
-		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,SABSTADR,sabsqtrt,0,SCOLNUM,SROWNUM
+		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,22,9 ; 23
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,3 ; 
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,20,7 ; 30
             ;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,SABSTADR,sabsprt,0,17,9 ; 36
 
-sbholds:    db troshrk  ; type of an object being held by saboteur
-;sbholds:    db trobomb   ; type of an object being held by saboteur
+;sbholds:    db troshrk  ; type of an object being held by saboteur
+sbholds:    db trobomb   ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
-TIMEGFRM    EQU 10
+TIMEGFRM    EQU 3
+TIMEUPDF	EQU	10
 TIMRCNTD	EQU 2				; timer is in countdown mode
 
 timrfst:	db 0				; timer frame state
@@ -192,12 +198,13 @@ timractv:	db 1				; timer state, 0 - disabled, 1 - active, TIMRCNTD - countdown 
 timepad:	db 4, SPACECH, SPACECH, SPACECH, SPACECH
 curtime:    db 2,9,9	        ; current time: 2 digits, from high digit to low
 curtimef:   db TIMEGFRM         ; current game frame
+timeupdf:	db TIMEUPDF			; timer update frame
 ctimechg:   db 1                ; current time changed
 
 score:      db 5, 0,0,0,0,0     ; score digits, from high to low
 scorchg:    db 1                ; score changed
 
-GUNDELAY	EQU 10
+GUNDELAY	EQU 20
 
 ; ---- gun shell data
 gunshd:
@@ -210,9 +217,8 @@ gunshd:
 			inc	regpair
 			inc	regpair
 			endm
-gunshfr:			
-			db 0		; frame count
 
+gunshfr:	db 0		; frame count
 gundir:		db 0		; current gun direction
 
 ; ---- object thrown by saboteur
@@ -242,8 +248,12 @@ trproc:	    dw 0		; pointer to the current trigger's procedure
 trotptr:    dw 0        ; pointer to trigger's object type
 trdtptr:    dw 0        ; pointer to trigger's custom data
 
+HLRGNFRM	EQU 1		; number of frames for health regeneration
+
 ; ----	saboteur health
 ;			
+hlfrm:	db HLRGNFRM
+
 sbhealth:
 		db HEALMAX			; 0, current health
 		db 0				; 1, old value

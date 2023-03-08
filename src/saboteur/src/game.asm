@@ -93,13 +93,12 @@ gboat:
 		inc	a				; to the next column
 		sbscursc			; save it
 
-		STARTSND 60000
-
+		STARTSND 55000
 		call updobjs		; update objects state		
-		call rsttiles		; restore tiles background according to current objects location
-		call drawobjs		; draw active objects
-
 		DISSND
+		
+		call rsttiles		; restore tiles background according to current objects location
+		call drawobjs		; draw active objects		
 
 		GRMODON
 
@@ -119,9 +118,8 @@ gboat:
 		call drawbktl
 		GRMODOFF
 
-		dup 10
-			halt
-		edup
+		halt
+
 		jp gboat
 
 ; ---- jump from the boat
@@ -140,10 +138,12 @@ sbdojump:
 ; ---- main game cycle
 ;
 gcycle:
+		ifdef FULLSTART
 		rsboat
 		call drawscr
 		call gboat
 		call sbdojump
+		endif
 
 .gloop:
 		call drawscr
@@ -613,12 +613,32 @@ gkrmove:
 		
 ; ---- end of gkmoveh
 
+
+; ---- restart game timer
+rstgtime:
+        ld      hl,0909h				; restart timer
+		ld		(curtime + 1),hl
+		ret
+
 ; ---- game timer
 ;
 gtimer:
 		ld	a,(timractv)	; load timer state
 		or	a				; and test it
 		ret z				; exit if timer is disabled
+
+		ld	hl,timeupdf		; timer update counter
+		ld	a,(hl)			; load counter
+		or  a				; is it zeroed on the previous frame ?
+		jp	z,.gtst			; call timer procedure if yes
+		dec	a				; reduce counter otherwise
+		ld	(hl),a
+		ret
+
+.gtst:
+        ld	a,TIMEUPDF		; reload update timer counter
+		ld	(hl),a			; save it
+        ld  (ctimechg),a    ; set flag
 
         ld  hl,curtimef     
         ld  a,(hl)          ; load current timer frame
@@ -629,9 +649,6 @@ gtimer:
         ret
 
 .gt1:
-        inc a
-        ld  (ctimechg),a    ; set flag
-
         ld  (hl),TIMEGFRM   ; reload timer
         ld  hl,curtime + 2  ; pointer to the last digit of the timer
         ld  a,(hl)
@@ -651,11 +668,13 @@ gtimer:
         ld  (hl),9          ; reload low digit
         ret
         
-.gtend:
+.gtend:						; time elapsed, finish game
+
 		ld  a,(timractv)	; load timer mode
 		cp	TIMRCNTD		; is in countdown mode ?
 		jp	nz,.gtdie		; no, just make it dead
 
+							; the bomb has been planted, let's explode it!
 		GRMODON
 
 		ld	c,10			; number of iteration

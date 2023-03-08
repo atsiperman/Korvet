@@ -272,7 +272,7 @@ prntend:
         call addscore
 
         ld      a,(timractv)                    ; load timer mode
-        cp      a,TIMRCNTD                      ; is bomb planted ?
+        cp      TIMRCNTD                      ; is bomb planted ?
         jp      nz,.pntds2                      ; skip adding score for bomb if no
 
         ld  hl,escwdab

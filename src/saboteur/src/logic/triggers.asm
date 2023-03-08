@@ -224,7 +224,7 @@ dsktproc:
         
 .dsk0:
         ld      a,(timractv)    ; load timer mode
-        cp      a,TIMRCNTD      ; is bomb planted ?
+        cp      TIMRCNTD      ; is bomb planted ?
         ret     z               ; return if yes
 
         ld      a,(sbholds)     ; load what saboteur holds
@@ -248,7 +248,8 @@ dsktproc:
 .dskp2:
         ld      a,TIMRCNTD      ; switch timer into 
         ld      (timractv),a    ; countdown mode
-        
+        call    rstgtime
+                
 .dskrun: 
         ld      hl,(trdtptr)
         ld      (trotptr),hl

@@ -13,6 +13,18 @@ hlalive:
 ; ---- increase health
 ;
 hlinc:		
+		ld hl,hlfrm
+		ld	a,(hl)
+		or	a
+		jp	z,.hl2
+		dec	a
+		ld (hl),a
+		ret
+		
+.hl2:
+		ld	a,HLRGNFRM		; reload regeneration timer
+		ld	(hl),a			; and save
+
 		ld hl,sbhealth
 		ld a,(hl)			; load health value
 		cp HEALMAX
