@@ -154,14 +154,12 @@ gcycle:
         jp   nz,.gmc1       ; no, continue game
 
         call doescape       ; run escape process
-		call prntend		; print text for end of game 
-        xor  a
-        ret
+		jp	.gmcend
 
 .gmc1:
 		call gmain          ; main game logic
 		or a		
-        ret z
+        jp	z,.gmcend
 
         ld  a,(frame_counter)
         inc a
@@ -169,6 +167,10 @@ gcycle:
 
 		jp .gloop           ; continue if not zero
 
+.gmcend:
+		call prntend		; print text for end of game 
+        xor  a
+        ret
 
 ; ---- main game logic
 ; result: A - 0 to stop, other - continue game
@@ -230,7 +232,9 @@ gaction2:					; it will return on this line
 sbmain:		
 		call hlalive
 		or a
-		;ret z			; stop if dead
+		ifdef ENDDEAD
+		ret z			; stop if dead
+		endif
 
 		ld a,(lastkeys)
 		ld (prevkeys),a

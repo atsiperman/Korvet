@@ -139,3 +139,7 @@ dsktaken:
         db "DISK",SPACECH,"WZQT"
 .dsktkn:
 
+tmfailed:
+        db .tmfail - tmfailed - 1
+        db "ZADANIE",SPACECH,"PROWALENO"
+.tmfail:

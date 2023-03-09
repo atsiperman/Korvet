@@ -130,7 +130,9 @@ chkfal2:
 		sbscursc
 		
 		call sbdosquat
-		PLAYPNCH
+		ld	a,HLFALL
+		call hldec
+		PLYWEAPN
 		xor a
 		ret
 	

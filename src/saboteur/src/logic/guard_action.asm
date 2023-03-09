@@ -188,7 +188,9 @@ ghitsab:
         ld      d,a             ; save it in D
 
         pop     hl
+        push    hl
         ldcursc                 ; load screen column into A
+        pop     hl
         add     d               ; get right column of
         dec     a               ; the guard
         ld      d,a             ; save it in D
@@ -202,7 +204,9 @@ ghitsab:
         jp      .ghit           ; do hit otherwise
 
 .ghtlt:                         ; saboteur is on the left
+        push    hl
         ldcursc                 ; load screen column into A
+        pop     hl
         ld      d,a             ; save it in D
         sblcursc                ; load saboteur's column into A
         dec     a               ; do correction to make CARRY flag to work
@@ -213,7 +217,16 @@ ghitsab:
         ret     c               ; nothing to do if outside
 
 .ghit:
-        ld   a,10
+        ldstate
+        cp   sbkick
+        jp   z,.ghtkck
+        ld   a,HLGDPNCH        
+        jp   .gdohit
+
+.ghtkck:        
+        ld   a,HLGDPKCK
+
+.gdohit:        
         call hldec
         PLAYPNCH
         ret

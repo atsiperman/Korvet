@@ -252,6 +252,25 @@ prauthor:
 ; ----- prints text for game end
 ;
 prntend:
+        sblcurst
+        cp  sbdead
+        jp  nz,.prntok  
+
+        ; saboteur is dead
+        ld   hl,0               ; remove objects
+        ld   (objlist),hl       ; from screen
+        call drawscr
+
+        GRMODON
+        ld  b,DEADFGC
+        ld  c,DEADBKC
+        ld   de,MNTITSCR
+        ld   hl,tmfailed
+        call prntstr
+        GRMODOFF
+        jp  waitkey
+
+.prntok:        
         GRMODON
         ld  b,NUMFGC
         ld  c,NUMBKC

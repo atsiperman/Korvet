@@ -131,9 +131,12 @@ HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar
 
 HLSCRADR	EQU FRMADDR + (FRMHIGT-3)*8*64 + 6	; screen address for the health line
 HEALMAX		EQU 120			; max value of health
-HLDOGHIT	EQU 6			; hit by the dog
+HLDOGHIT	EQU 5			; hit by the dog
 HLKNFHIT	EQU 15			; hit by the guard's knife
-HLGUNHIT	EQU 25			; hit by gun
+HLGUNHIT	EQU 15			; hit by gun
+HLGDPNCH	EQU 7			; hit by guard's punch
+HLGDPKCK	EQU 12			; hit by guard's kick
+HLFALL		EQU 6			; hit due to fall
 
 CPTPAUS     EQU 1
 CPTPAUS2    EQU 3
@@ -166,10 +169,11 @@ cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of t
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
 			;define FULLSTART
+			define ENDDEAD			; end game if dead
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn17 		; pointer to current screen
+curscr: 	dw scrn106 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -180,7 +184,7 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:			
 		    ;mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,7
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,3
 
 ;sbholds:    db troshrk  ; type of an object being held by saboteur
 sbholds:    db trobomb   ; type of an object being held by saboteur

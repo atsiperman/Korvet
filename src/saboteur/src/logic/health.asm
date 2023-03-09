@@ -51,11 +51,14 @@ hldec:
 		sub e				; decrease value
 		jp nc,hldec2		; normal way
 
-		xor a				; less than zero, set to zero
-		
+		xor a				; less than zero, set to zero		
 hldec2:		
 		ld (hl),a			; save new value
-		ret
+		or	a
+		ret	nz
+
+		ld	hl,sbctrlb
+		jp setdead
 		
 ; ---- draws health bar
 ;
