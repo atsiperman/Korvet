@@ -48,10 +48,41 @@ sbdsqt3:
 		ld (hl),a
 		ret
 
+
+; ----- tests two tiles for a roof attrs
+; args: D - column
+;       E - row
+; result: 	
+;       A - 0 if no wall/roof in two tiles starting from specified one
+;			
+iswalabv:
+		push de						; save coordinates
+		call shscradr				; get address of tile attrs
+		pop	de
+
+		ld	a,(hl)					; load attrs		
+		and bkroof					; is anything here ?
+		ret	nz
+
+		inc	d						; move to the next column
+		call shscradr				; get address of tile attrs
+		ld	a,(hl)					; load attrs		
+		and bkroof					; is anything here ?
+		ret
 ;
 ;	saboteur starts kicking
 ;		
 sbstkick:
+		ld 	hl,sbctrlb + odcursc
+		ld	d,(hl)					; load column into D		
+		inc	hl
+		ld	e,(hl)					; load row into E
+		dec	e						; get tile above head
+		inc	d						; test first middle column
+		call iswalabv				; is wall above head ?
+		or	a
+		ret	nz
+
 		sblddir
 		cp dirrt
 		jp nz,sbstkck1

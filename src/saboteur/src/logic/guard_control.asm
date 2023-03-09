@@ -120,6 +120,31 @@ gdstopmv:
         jp   gdststay                   ; stop and stay
 
 
+; ---- makes a test if there is a wall above guard
+; args: HL - address of control block
+;       A - number of rows for additional decrement
+; result: 	
+;       A - 0 if no wall
+;			
+gdwalabv:
+        ld      e,a                     ; save decrement in E
+
+        push    hl                         
+        ldcursc                         ; load column 
+        ld	d,a			; save it in D		
+        inc	hl
+        ld	a,(hl)  		; load row into A
+        dec	a			; get tile above head        
+        
+        sub     e                       ; additional decrement if any
+        ld      e,a                     ; save row in E
+
+        inc	d			; test first middle column
+        call    iswalabv		; is wall above head ?
+        pop     hl                      ; restore control block
+        ret
+
+
 ; ---- guard continues moving
 ; args: HL - address of control block
 ;       
@@ -150,10 +175,27 @@ gfcontmv:
         pop  hl                         ; restore control block
         pop  de                         ; restore distance
         ld   a,d        
-        cp   KICKDST
-        jp   c,.gfcm2                   ; close enough, stop moving        
-                                        ; too far, keep moving
+        cp   KICKDST                    ; is close enough to kick ?
+        jp   nc,.gkpmv                  ; keep moving if no
 
+        push   af                       ; save column
+                                        ; make a test for a wall above head
+        ld      a,1                     ; get tile above head, since moving sprite is less
+        call    gdwalabv                                   
+        or	a                       ; is wall ?
+        jp      nz,.gkpm2               ; test for punch distance if yes
+
+                                        ; no wall, can do kick
+        pop     af
+        jp	.gfcm2                  ; stop moving 
+
+.gkpm2:        
+        pop     af                      ; restore column        
+        cp      PNCHDST                 ; is close enough to punch ?
+        jp      c,.gfcm2                ; close enough, stop moving        
+
+.gkpmv:
+                                        ; too far, keep moving
         push hl
         ldcursc
         pop  hl

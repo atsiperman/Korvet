@@ -16,7 +16,13 @@ gdrdyact:
 .gd1:
         cp   KICKDST                    ; close enough to kick ?
         jp   nc,.gd2                    ; not yet
-        ld   de,gdstkick                ; yes, do kick
+
+        xor  a                          
+        call gdwalabv                   ; is wall above head ?
+        or   a
+        jp   nz,.gd4                    ; return if yes
+
+        ld   de,gdstkick                ; no wall, do kick
         ld   a,d
         ret
 

@@ -122,7 +122,7 @@ s68objm:
 
 s70objm:
 		db 2
-		mkgdrt 12,1,3,24
+		mkgdrt 12,1,3,25
 		mkdog dirlt,dogspml1,0,24,4,0,24
 
 s71objm:
