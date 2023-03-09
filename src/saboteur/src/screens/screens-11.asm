@@ -601,87 +601,80 @@ smap18b:
 smap18e:
 		mkdup 7
 			mkline 4
-			db 0
+				db 0
 			mkbyte 2,3
 			mkline 10
-			db 0
+				db 0
 		;edup
 
 		mkline 3
-		mkbyte 4,4
-
+			mkbyte 4,4
 		db 0
 		mkbyte 2,3
 		mkline 10
-		db 0
+			db 0
 		
 		mkline 3
-		mkbyte 1,1
-
+			mkbyte 1,1
 		mkbyte 4,4
 		mkbyte 2,3
 		mkline 4
-		mkbyte 4,4
-
+			mkbyte 4,4
 		mkbyte 4,0
 		mkline 5
-		db 0
+			db 0
 		
 		mkline 4
-		mkbyte 1,1
-
+			mkbyte 1,1
 		mkbyte 2,3
 		mkline 4
-		mkbyte 1,1
-
+			mkbyte 1,1
 		mkbyte 1,4
 		mkline 4
-		mkbyte 4,4
-
+			mkbyte 4,4
 		db 0
 		
 		mkdup 4
 			mkline 4
-			mkbyte 1,1
+				mkbyte 1,1
 			mkbyte 2,3
 			mkline 9
-			mkbyte 1,1
+				mkbyte 1,1
 			db 0
 		;edup
 
 		db 0
-		mkline 3
+		;mkline 3
+			;mkbyte 1,1
+		db 0
+		mkbyte 1,1
 		mkbyte 1,1
 
 		mkbyte 2,3
 		mkline 9
-		mkbyte 1,1
-
-		mkline 3
-		db 0
+			mkbyte 1,1
 		
+		mkline 3
+			db 0		
 		mkbyte 5,0
 		mkline 3
-		db 0
-
+			db 0
 		mkbyte 5,0
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 
+		; --- 
 		mkline 3
-		db 0
-		
+			db 0		
 		mkbyte 6,0
 		mkline 3
-		db 0
-
+			db 0
 		mkbyte 6,0
 		mkline 2
-		db 0
+			db 0
 		mkbyte 0,6
 		mkline 3
-		db 0
-
+			db 0
 		mkbyte 6,0
 		db 0
 

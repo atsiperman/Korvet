@@ -113,7 +113,27 @@ sbstkcke:
 		dec a
 		sbscursr
 		ret		
-		
+
+; ---- stops kick when it is in the first phase and brings saboteur to initial position
+tstpkick:
+		sblddir				; load direction
+		cp  dirrt			; looking right ?
+		jp  z,.stpk			; skip changes if yes
+
+							; looking left, make correction for X
+		ld	hl,sbctrlb + odcursc	; load column
+		ld	a,(hl)					; into A
+		dec	a				; make correction
+		ld	(hl),a			; save it back
+
+.stpk:
+		ld	hl,sbctrlb + odcursr
+		ld	a,(hl)			; load current row
+		inc	a				; move him down to stay
+		ld	(hl),a			; save it
+
+		jp	sbstopst		; stop and stay
+							
 
 ;
 ;	saboteur is kicking
@@ -139,17 +159,17 @@ sbdokick:
 		ld c,a				; save sprite index
 		sblddir				; load direction
 		cp dirlt
-        ld a,c              ; move spriteindex back to a
+        ld a,c              ; move sprite index back to a
 		jp z,sbdokck1		; left direction
 		
 		ld a,c              ; looking right
 		ld hl,sbctrlb + odcursp	
 		snewspa sabkckrb			; set address of the next sprite (index in A)
 
-		;;ld c,a
             				; save sprite index
 		cp SBKCKI1
 		jp z,sbdokck2		; phase change, correct X position
+
 		cp SBKCKI2			; back to initial position
 		jp z,sbdokck3		; correct X position
 		ret
@@ -160,12 +180,26 @@ sbdokck1:                   ; looking left
 		
 		ld c,a				; save sprite index
 		cp SBKCKI1
-		jp z,sbdokck4		; correct X position when first phase is changed		
+		jp z,sbdokck4		; correct X position when first phase is changed	
+			
 		cp SBKCKI2			; back to initial position
 		jp z,sbdokck5		; correct X position
 		ret
 
 sbdokck2:		
+		ld 	hl,sbctrlb + odcursc
+		ld	d,(hl)					; load column into D		
+		inc	hl
+		ld	e,(hl)					; load row into E
+		inc	e						; get feet level
+		inc	e								
+		inc	d						; get right side
+		inc	d
+		inc	d						
+		call iswalabv				; is wall on the right ?
+		or	a
+		jp 	nz,tstpkick				; stop if yes
+		
 		sblcursc			; correct X position, move sprite to the left
 		dec a
 		sbscursc
@@ -182,6 +216,18 @@ sbdokck3:
 		ret
 
 sbdokck4:
+		ld 	hl,sbctrlb + odcursc
+		ld	d,(hl)					; load column into D		
+		inc	hl
+		ld	e,(hl)					; load row into E
+		inc	e						; get feet level
+		inc	e										
+		dec	d						; get left side
+		dec d
+		call iswalabv				; is wall on the left ?
+		or	a
+		jp nz,tstpkick				; stop if yes
+
 		sblcursc			; correct X position, move sprite to the left on two columns
 		dec a
 		dec a
