@@ -184,11 +184,11 @@ sbgolt:
 		push hl
 		ld hl,sbchknpl
 		ld (sbmoveh2 + 1),hl
-		ld a,SCOLNUM
+		ld a,LECOLNUM ; SCOLNUM
 		ld (sbmoveh3 + 1),a
 		ld hl,goscrnlt
 		ld (sbmoveh4 + 1),hl
-		ld a,ECOLNUM
+		ld a,LSCOLNUM ; ECOLNUM
 		ld (sbmoveh5 + 1),a
 		ld a,0x3D				; dec a
 		ld (sbmoveh6),a	

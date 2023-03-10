@@ -644,11 +644,11 @@ smap18e:
 		;edup
 
 		db 0
-		;mkline 3
-			;mkbyte 1,1
-		db 0
-		mkbyte 1,1
-		mkbyte 1,1
+		mkline 3
+			mkbyte 1,1
+		;db 0
+		;mkbyte 1,1
+		;mkbyte 1,1
 
 		mkbyte 2,3
 		mkline 9

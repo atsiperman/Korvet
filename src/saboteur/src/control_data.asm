@@ -106,13 +106,6 @@ bufrows:	dw scrbuf
 			dw scrbuf + (ROWWIDB * 16)
 						
 
-FSCOLNUM	EQU 3			; column index of the first screen
-FSROWNUM 	EQU 8			; row index of the first screen
-
-SCOLNUM		EQU 2			; index of the start column for saboteur on the new screen
-ECOLNUM		EQU COLNUM-6	; index of the last column for saboteur on the new screen
-
-ECOLNUMJ	EQU COLNUM-5	; index of the last column for saboteur on the new screen when jumping
 SBWI		EQU 4			; width of the saboteur sprite
 SBHI		EQU 6			; height of the saboteur sprite
 SBJMPHI		EQU 4			; height of the saboteur sprite when jumping
@@ -120,6 +113,17 @@ SBJMPWI		EQU 3			; width of the saboteur sprite when jumping
 SBWILAD		EQU 2			; width of the saboteur sprite for ladder
 SBHILAD		EQU 7			; height of the saboteur sprite for ladder
 ESCAPCOL    EQU 11          ; column on the last screen saboteur may escape from 
+
+FSCOLNUM	EQU 3			; column index of the first screen
+FSROWNUM 	EQU 8			; row index of the first screen
+
+LECOLNUM	EQU 1					; index of the last column for saboteur on the new screen when going left
+ECOLNUM		EQU COLNUM-SBWI-1		; index of the last column for saboteur on the new screen when going right
+ECOLNUMJ	EQU COLNUM-SBJMPWI-1	; index of the last column for saboteur on the new screen when jumping
+
+SCOLNUM		EQU 2					; index of the start column for saboteur on the new screen when going right
+LSCOLNUM	EQU COLNUM-SBWI-2		; index of the start column for saboteur on the new screen when going left
+LSCOLNUMJ	EQU COLNUM-SBJMPWI-1
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
 KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
@@ -173,7 +177,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn106 		; pointer to current screen
+curscr: 	dw scrn92 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -184,7 +188,7 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ;
 sbctrlb:			
 		    ;mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,3
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,25,2
 
 ;sbholds:    db troshrk  ; type of an object being held by saboteur
 sbholds:    db trobomb   ; type of an object being held by saboteur

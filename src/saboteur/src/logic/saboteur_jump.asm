@@ -2,6 +2,44 @@
 ;	this file contains logic for jumps
 ;
 
+; ---- switch screen if necessary during jump
+;
+; result: 
+;			A - 1 if can proceeed, 0 - screen has been changed
+jmpbordr:
+		sblddir
+		cp dirrt
+		jp z,.jmprt
+							; moving left
+		sblcursc
+		cp LECOLNUM			; is first column
+		ret	nz				; return column as result != 0
+
+		call goscrnlt		; switch screen
+		or a
+		jp z,.jmpret1		; screen not changed - no more way, return NON-zero to let him stop
+
+							; screen has been changed, setup new position
+		ld a,LSCOLNUMJ 		; index of the first column from right side
+		sbscursc
+		ret
+				
+.jmprt:						; moving right
+		sblcursc
+		cp ECOLNUMJ			; is last column
+		ret	nz				; return column as result != 0
+
+		call goscrnrt		; switch screen
+		or a
+		jp z,.jmpret1		; screen not changed - no more way, return NON-zero to let him stop
+
+		ld a,SCOLNUM 		; index of the first column 
+		sbscursc
+
+.jmpret1:
+		inc	a
+		ret
+
 ; ---- checks if it is possible to jump
 ;
 ; args:     A - row to check
@@ -14,17 +52,7 @@ canjmp:
 		sblddir
 		cp dirrt
 		jp z,canjmp1
-		
-		sblcursc
-		cp SCOLNUM			; is first column
-		jp nz,canjmp1_
-		call goscrnlt		; switch screen
-		or a
-		jp z,canjmpn2		; return if screen not changed
-		ld a,ECOLNUMJ 		; index of the first column 
-		sbscursc
-		
-canjmp1_:		
+ 							; moving left
 		pop af
 		ld e,a				; save Y in E
 		sblcursc			
@@ -33,19 +61,16 @@ canjmp1_:
 		call shscradr		; get top left position
 		jp canjmp5
 		
-canjmp1:		
-		sblcursc
-		cp ECOLNUMJ			; is last column
-		jp c,canjmp2
-		call goscrnrt		; switch screen
-		or a
-		jp z,canjmpn2		; return if screen not changed
-		ld a,SCOLNUM 		; index of the first column 
-		sbscursc
-
-canjmp2:	
+canjmp1:					; moving right
+ 		sblcursc			
 		add SBWI			; check right position for sprite in stay mode
 		ld d,a				; save column number
+		sblcurst			; load current state
+		cp	sbstay			; decrease right column if not staying
+		jp	z,canjmp2
+		dec	d
+		
+canjmp2:		
 		pop af
 		ld e,a				; save row number
 		call shscradr		; get top right position 
@@ -193,6 +218,10 @@ _sbdjp1_:
 		jp z,_sbjstay		; jump has been finished, stay and be ready
 
 							; otherwise do check if we can move forward
+		call jmpbordr		; need to switch screen ?
+		or	a
+		ret	z
+
 		sblcursr			; load current row
 		call canjmp
 		or a
