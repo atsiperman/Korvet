@@ -4,42 +4,42 @@
 ;		
 dogact:
 		ex de,hl
-		push hl
-		
+
+		push hl		
 		ldstate 		; load state
 		pop hl
 		
 		cp sbdead
 		ret z			; dead - do nothing
-		
-		push hl		
-		
+				
 		cp dogtrn
 		jp nz,dogact2	; dog is moving
 		
-		pop hl
-		call dogturn	; dog is turning
 		push hl
+		call dogturn	; dog is turning
+		pop	hl
+		
 		jp dogact_
 						
 dogact2:				
-		lddir			; load direction		
-				
+		push hl
+		lddir			; load direction						
 		pop hl
 		
 		cp dirrt
 		jp nz,dogact3	; move left
 		push hl
 		call dogmvrt	; else move right
-		
+		pop	hl
+
 		jp dogact_
 		
 dogact3:		
 		push hl
 		call dogmvlt	; move left
+		pop	hl
 		
 dogact_:		
-		pop hl
 		call dogbite	; check if dog is biting saboteur
 		
 		ret
@@ -261,6 +261,7 @@ dogbite1:
 		ldcurspr					; load sprite address		
 		ex de,hl
 		inc hl						; skip color
+		inc	hl						; skip height
 		ld d,(hl)					; load width
 				
 		pop hl
@@ -323,7 +324,7 @@ dogbites:
 		jp hldec
 		
 		
-; ----	check if dog is on the same level with saboteur
+; ----	makes a test whether dog's head crosses saboteur vertical axis
 ; args: 
 ;		HL - address of the object's control block
 ;
@@ -331,41 +332,26 @@ dogbites:
 ;		A - 0 if not on the same level
 ;
 dogbitev:				
-		push hl
-		ldcurspr					; load sprite address		
-		ex de,hl
-		inc hl						; skip color
-		ld a,(hl)					; load height
-		ld d,a						; number of rows	
-		
-		pop hl
 		ldcursr						; load dog's row
-		ld e,a
+		ld e,a						; save it in E		
 		inc e						; inc row since visible dog height is less than sprite height
-		add d				
-		dec a
-		ld d,a						; dog: E - top row, D - bottom row
-								
-		ld   a,(sbctrlb + odcursr)        
-        inc  a                      ; add head height
-        inc  a
-		ld   c,a						; save saboteur top row
+
+		sblcursr					; get saboteur's top row
+		ld c,a						; save it in C
 					
-		ld hl,(sbctrlb + odcursp)	; load sprite address		
+		ld hl,(sbctrlb + odcursp)   ; load sprite address		
 		inc hl						; skip color
 		ld a,(hl)					; load sprite height
-		add c
-		dec a
-		ld b,a						; saboteur: C - top row, B - bottom row
+		inc	a						; increase by half of head height to get feet level
+		add c						; add to row
+		ld	d,a						; save bottom row in D
 				
-					; ----------- do check 
-		ld a,d						; if bottom dog row is
-		cp c						; less than top saboteur row
+		cp e						; if dog row is below saboteur's feet
 		jp c,dogbitv_				; then no hit (D < C)
-
-		ld a,b						; if bottom saboteur row is
-		cp e						; less than top dog row
-		jp c,dogbitv_				; then no hit (B < E)
+		
+		ld a,e						; move dog's row into A
+		cp c						; test against saboteur's top row
+		jp c,dogbitv_				; if saboteur's head is below dog's head then no hit
 		
 		inc	a
 		ret

@@ -273,7 +273,7 @@ tstokick:
         sblcursp            ; load saboteur sprite 
         ex  de,hl           ; into HL
 		inc hl			    ; skip color
-        inc hl
+        inc hl				; skip height
         ld c,(hl)		    ; sprite width        
 
         sblcursr            ; load saboteur's row

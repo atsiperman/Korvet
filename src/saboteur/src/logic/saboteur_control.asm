@@ -27,143 +27,143 @@ sbstpste:
 ;		A - 0 no actions can be done (saboteur is currently falling, jumping etc.)
 ;		
 sbcanact:
-		call chkfalng
-		or a
-		ret z			; exit if is falling down
+        call chkfalng
+        or a
+        ret z			; exit if is falling down
 
-		sblcurst		
-		cp sbkick		; if is kicking		
-		jp nz,sbcnact1
-		call sbdokick	; continue kicking
-		jp sbcnactn
+        sblcurst		
+        cp sbkick		; if is kicking		
+        jp nz,sbcnact1
+        call sbdokick	; continue kicking
+        jp sbcnactn
 		
 sbcnact1:
-		cp sbjump		; jumping
-		jp nz,sbcnact2
-		call sblongjp
-		jp sbcnactn
+        cp sbjump		; jumping
+        jp nz,sbcnact2
+        call sblongjp
+        jp sbcnactn
 		
 sbcnact2:
-		cp sbshjmp		; short jump
-		jp nz, sbcnact3
-		call sbdoshjp
-		jp sbcnactn
+        cp sbshjmp		; short jump
+        jp nz, sbcnact3
+        call sbdoshjp
+        jp sbcnactn
 
 sbcnact3:		
-		cp sbladr
-		jp z,sbcnacty
+        cp sbladr
+        jp z,sbcnacty
 
-		call sbcanfal	; check if he must fall down	
-		or a
-		jp z,sbcnacty
-						; start falling down
-		call sbstfall
-		jp sbcnactn
+        call sbcanfal	; check if he must fall down	
+        or a
+        jp z,sbcnacty
+                                        ; start falling down
+        call sbstfall
+        jp sbcnactn
 
 sbcnacty:
-		or 1			; exit with non zero to allow actions
-		ret
+        or 1			; exit with non zero to allow actions
+        ret
 		
 sbcnactn:		
-		xor a
-		ret
+        xor a
+        ret
 		
 ; ---- logic when no button pressed
 ;
 sbnoactn:
-		sblcurst		
-		cp sbstay
-		jp nz,.sbnoact
-							; player is staying, no action									
-		call hlinc			; update health 
-		ret
+        sblcurst		
+        cp sbstay
+        jp nz,.sbnoact
+                                                ; player is staying, no action									
+        call hlinc			; update health 
+        ret
 
 .sbnoact:		
-		cp sbstmov			; check if just started moving
-		jp nz,.sbnoac1		; no
+        cp sbstmov			; check if just started moving
+        jp nz,.sbnoac1		; no
 
-							; yes, need to do at least one step
-		sblddir				; load current direction
-		ld c,a
-		call sbdomove		; do at least one movement since it was allowed
+                                                ; yes, need to do at least one step
+        sblddir				; load current direction
+        ld c,a
+        call sbdomove		; do at least one movement since it was allowed
 
 .sbnoac1:
-		cp sbladr			
-		jp nz,.sbnoac2
-							; player is on the ladder
-		call sbstplna		
-		ret
+        cp sbladr			
+        jp nz,.sbnoac2
+                                                ; player is on the ladder
+        call sbstplna		
+        ret
 		
 .sbnoac2:		
-		cp sbsquat
-		jp nz,.sbnoac4
-        
-		sblddir
-		cp   dirlt
-		jp   z,.sbnoac5
-							; was moving right
-							        ; player is squatting, now stand up																
-							        ; player is looking right, decrease column
-		ld   hl,sbctrlb + odcursc	
-		ld   a,(hl)			        ; load column
-		dec  a
-		ld   (hl),a
+        cp sbsquat
+        jp nz,.sbnoac4
+
+        sblddir
+        cp   dirlt
+        jp   z,.sbnoac5
+                                                ; was moving right
+                                                        ; player is squatting, now stand up																
+                                                        ; player is looking right, decrease column
+        ld   hl,sbctrlb + odcursc	
+        ld   a,(hl)			        ; load column
+        dec  a
+        ld   (hl),a
 		
 .sbnoac4:
-		sblddir
-		cp   dirlt
-		jp   z,.sbnoac5
+        sblddir
+        cp   dirlt
+        jp   z,.sbnoac5
 
-		ld  de,sabsprt 
-		sbscursp			; stop, look at right		
+        ld  de,sabsprt 
+        sbscursp		; stop, look at right		
         ld  de,sbheadr
-        sbshdspr            ; set head sprite
-		jp .sbstop
+        sbshdspr                ; set head sprite
+        jp .sbstop
 		
 .sbnoac5:
-							; was moving left
-		ld de,sabsplt
-		sbscursp			; stop, look at left
+                                ; was moving left
+        ld de,sabsplt
+        sbscursp		; stop, look at left
         ld  de,sbheadl
-        sbshdspr            ; set head sprite
+        sbshdspr                ; set head sprite
 
 .sbstop:
-		sbscurst sbstay		; is staying now
+        sbscurst sbstay		; is staying now
+        
+        sblprvsp		; load previous
+        ldsprht                 ; sprite height
+        push af			; save prev height
 		
-		sblprvsp		    ; load previous
-		ldsprht             ; sprite height
-		push af			    ; save prev height
-		
-        sblcursp			; load cur sprite 
-		ldsprht			    ; current height
+        sblcursp		; load cur sprite 
+        ldsprht			; current height
 
-		pop  bc             ; restore prev height in B
-		sub  b				; current is always bigger than previous
+        pop  bc                 ; restore prev height in B
+        sub  b			; current is always bigger than previous
 		
-        ld   c,a			; save the difference
-		sblcursr
-		sub  c				; increase height 
-		sbscursr
-		ret
+        ld   c,a		; save the difference
+        sblcursr
+        sub  c			; increase height 
+        sbscursr
+        ret
 		
 .sbnoace:		
-		pop hl		
-		ret
+        pop hl		
+        ret
 		
 
 ; ---- check if can move on the ladder up and stop if not
 ;		
 sbstplna:			
-		ld hl,sbctrlb
-		ld c,dirup
-		call cangolad
-		or a
-		ret nz
-		
-		sblddir
-		call sbleavld		; if yes - stop and stay
-		call sbstopst
-		ret
+        ld hl,sbctrlb
+        ld c,dirup
+        call cangolad
+        or a
+        ret nz
+        
+        sblddir
+        call sbleavld		; if yes - stop and stay
+        call sbstopst
+        ret
 
 ; ---- saboteur throws a weapon object
 ;
@@ -291,18 +291,18 @@ movweap:
         jp  .chokil         
 
 .chkokil:
-		ld hl,(objlist)		; HL - address of the object list
-		ld a,h
-		or l
-		ret z				; address is zero - exit
+        ld hl,(objlist)		; HL - address of the object list
+        ld a,h
+        or l
+        ret z				; address is zero - exit
 
-		ld a,(hl)			; load number of objects
-		
-		inc hl				; set to the first object
+        ld a,(hl)			; load number of objects
+        
+	inc hl				; set to the first object
 
 .chokil:		
-		push af
-		push hl
+        push af
+        push hl
 
         ldstate
         cp   sbdead

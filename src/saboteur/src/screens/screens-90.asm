@@ -127,103 +127,103 @@ smap92b:
         bkindex BK50ADDR    ; 5, big cyan horizontal tube
 smap92e:
 		mkline 4
-		db 0
+			db 0
 		mkbyte 0,4
 		mkbyte 4,4
 		mkbyte 4,0
 		mkline 8
-		db 0
+			db 0
 		
 		mkline 4
-		db 0
+			db 0
 		mkbyte 0,5
 		mkbyte 5,5
 		mkbyte 5,0
 		db 0
 		db 0
 		mkline 6
-		mkbyte 1,1
+			mkbyte 1,1
 		
 		mkdup 2
 			mkline 4
-			db 0
+				db 0
 			mkline 11
-			mkbyte 1,1
+				mkbyte 1,1
 		;edup
 		
 		mkdup 4
 			mkline 4
-			db 0
+				db 0
 			mkline 11
-			mkbyte 1,1
+				mkbyte 1,1
 		;edup
 		
 		mkline 9
-		db 0
+			db 0
 		mkline 3
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 1,0
 		db 0
 		db 0
 		
 		mkbyte 1,2
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 2,1
 		mkline 3
-		mkbyte 1,1
+			mkbyte 1,1
 		mkline 3
-		db 0
+			db 0
 		
 		mkbyte 1,3
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 3,1
 		mkline 2
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 1,0
 		mkline 3
-		db 0
+			db 0
 
 		mkbyte 1,3
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 3,1
 		mkbyte 1,1
 		mkbyte 1,1
 		mkline 4
-		db 0
+			db 0
 
 		mkbyte 1,3
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 3,1
 		mkbyte 1,1
 		mkbyte 1,0
 		mkline 4
-		db 0
+			db 0
 
 		mkbyte 1,3
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 3,1
 		mkbyte 1,1
 		mkline 5
-		db 0
+			db 0
 
 		mkbyte 1,3
 		mkline 7
-		mkbyte 1,1
+			mkbyte 1,1
 		mkbyte 3,1
 		mkbyte 1,0
 		mkline 5
-		db 0
+			db 0
 		
 		mkdup 2
 			db 0
 			db 0
 			mkline 13
-			db 0
+				db 0
 		;edup
 		
         db SCREND
