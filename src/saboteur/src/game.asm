@@ -63,11 +63,20 @@ ginitscr:
 ; ---- water top layer state
 wttopd:	db  220, 154, 8
 
-; ---- draw dynamic top water layer
-drwtopwt:
-		ld	de,wttopd		; load data address
-		ld	c,3				; counter = data length
+; ---- draw dynamic top water layer on screen 1
+;
+drwtops2:
+		ld  b,COLNUM - 7	; number of columns to draw
+		jp  drwtops1.drwtop
+
+; ---- draw dynamic top water layer on screen 1
+;
+drwtops1:
 		ld  b,COLNUM		; number of columns to draw
+
+.drwtop:		
+		ld	de,wttopd		; load data address		
+		ld	c,3				; counter = data length
 		ld	hl,SCRADDR + (BOATROW + 1) * 64 * 8
 
 		; ---- draw line
@@ -180,7 +189,7 @@ gboat:
 
 		call drawbktl
 
-		call drwtopwt		; draw water top
+		call drwtops1		; draw water top
 
 		GRMODOFF
 

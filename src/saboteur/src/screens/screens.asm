@@ -72,6 +72,8 @@ smap1e:
 		dw s1stom
 		db TXTSMAP
         dw scrn1txd
+		db SCRINIP
+		dw s1iprc
         db SCREND
 
 scrn1txd:					; description of the text RAM used by this screen
@@ -183,6 +185,8 @@ smap2e:
         dw s2mom
         db TXTSMAP
         dw scrn2txd
+		db SCRINIP
+		dw s2iprc
         db SCREND
 
 scrn2txd:					; description of the text RAM used by this screen

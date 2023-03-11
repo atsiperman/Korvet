@@ -507,6 +507,15 @@ drwnums:
 
         ret        
 
+; ----- calls additional drawing procedure
+;
+adddraw:
+		ld hl,(addnldrw)
+		ld	a,h
+		or	l
+		ret	z
+		jp	(hl)
+
 ; ----- draws current screen	
 ;
 drawscr:
@@ -572,6 +581,7 @@ drawobj2:
 		call hldraw			; draw health bar
         call drwnums        ; draw current time
 
+		call adddraw		; call additional drawing procedure, if any
         GRMODOFF
 
 		xor a

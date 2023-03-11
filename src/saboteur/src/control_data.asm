@@ -59,7 +59,9 @@ tramdef:	dw 0		; pointer to definition of text ram for current screen
 fstrdrp:    dw 0        ; pointer to first render post processing procedure
 bmobjlst:	dw 0		; pointer to the list of background masked objects on the current screen
 scrinitp:	dw 0		; pointer to screen init procedure to be called after screen is decompressed
+addnldrw:	dw 0		; additional draw procedure (e.g. water animation)
 otramdef:	dw 0		; pointer to definition of text ram for old screen
+
 
 ; otramdef MUST be the last one
 

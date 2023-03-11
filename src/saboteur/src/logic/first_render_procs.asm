@@ -46,7 +46,18 @@ drawdoor:
         dec  a
         jp   nz,.drd1
         ret
-        
+
+; ---- screen init procedure for screen N-1
+s1iprc:
+        ld  hl,drwtops1
+        ld  (addnldrw),hl
+        ret
+
+; ---- screen init procedure for screen N-2
+s2iprc:
+        ld  hl,drwtops2
+        ld  (addnldrw),hl
+        ret
 
 ; ---- first render post processor for screen N-9.
 ;
