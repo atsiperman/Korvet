@@ -206,7 +206,7 @@ smap23b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK8ADDR		; 1, blue ladder bottom left
 		bkindex BK9ADDR		; 2, blue ladder bottom right		
-		bkindex BK43ADDR	; 3, water layer
+		bkindex BK71ADDR	; 3, solid water layer top
 		bkindex BK43ADDR	; 4, water layer
 		bkindex BK15ADDR	; 5, blue tube top
 		bkindex BK16ADDR	; 6, blue tube 

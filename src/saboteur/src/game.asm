@@ -323,7 +323,7 @@ sbmain:
         call kbread
 		ld  (lastkeys),a	
 
-		and 255
+		or a
 		jp nz,.sbm1
 		call sbnoactn
 		jp gend
@@ -415,9 +415,9 @@ giflt:
 		and KLEFT
 		jp z,gifrt
 
-        sblcurst
-        cp  sbsquat     ; is squatting ?
-        jp  z,gend      ; yes, stop check, we can't move left-right
+        ; ; sblcurst
+        ; ; cp  sbsquat     ; is squatting ?
+        ; ; jp  z,gend      ; yes, stop check, we can't move left-right
 
 		ld a,dirlt
 		call gkmoveh
@@ -428,9 +428,9 @@ gifrt:
 		and KRIGHT
 		jp z,gifup
 
-        sblcurst
-        cp  sbsquat     ; is squatting ?
-        jp  z,gend      ; yes, stop check, we can't move left-right
+        ; ; sblcurst
+        ; ; cp  sbsquat     ; is squatting ?
+        ; ; jp  z,gend      ; yes, stop check, we can't move left-right
 
 		ld a,dirrt
 		call gkmoveh

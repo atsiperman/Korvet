@@ -54,6 +54,7 @@ sbtstsqt:
 		ld	d,(hl)					; load screen column into D
 		inc	hl
 		ld	e,(hl)					; load screen row into E
+		inc	e						; head is always 2 rows, so skip empty one above
 		call shscradr				; get tile address
 		ld	a,(hl)					; get attributes
 		and	bwater					; is it water ?

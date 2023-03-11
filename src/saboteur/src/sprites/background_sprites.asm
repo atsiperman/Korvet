@@ -77,6 +77,7 @@ BK67ADDR:   DW BK67DATA
 BK68ADDR:   DW BK68DATA
 BK69ADDR:   DW BK69DATA
 BK70ADDR:   DW BK70DATA
+BK71ADDR:   DW BK71DATA
 BKDOORTL:   DW DOORTILE
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -296,6 +297,9 @@ BK69DATA:	bksh3 CCYAN, CBLUE, bwater + fgtile					; water top
 
 BK70DATA:	bksh3 CCYAN, CBLUE, bwater + fgtile + bladder		; water top + ladder
 			db  220, 154, 8, 0, 0, 64, 0, 2 
+
+BK71DATA:	bksh3 CCYAN, CBLUE, bwater + fgtile					; solid water top 
+			db  0, 154, 8, 0, 0, 64, 0, 2 
 
 DOORTILE:   bksh_b CGREEN, CWHITE
             db  66, 126, 66, 82, 66, 82, 66, 126            
