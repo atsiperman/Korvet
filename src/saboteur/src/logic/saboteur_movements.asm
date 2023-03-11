@@ -360,8 +360,7 @@ sbtrygup:
 		and bwall
 		jp z,_sbcngupn		; no wall, can't go up
 
-		ld hl,sbctrlb
-		call sbgoupst
+		call sbdecrow
 		ld a,1
 		ret
 
@@ -393,8 +392,7 @@ _sbstpud3:
 		isfloor
 		ret z				; no wall, do nothing
 
-		ld hl, sbctrlb
-		call sbgodnst
+		call sbincrow
 		ld a,1
 		ret
 
@@ -467,25 +465,32 @@ _sbchknp:
 		xor a
 		ret
 
-; ---- go upstairs
-; args: HL - address of control block
+
+
+; ---- test saboteur's position after screen switch and move him up/down if necessary
+;	this is a workaround for some screens like 17/18
+;   when the floor level changes on the border
+;   so the saboteur has to be moved up/down after screen switch
 ;
-sbgoupst:		
-		ld bc,odcursr
-		add hl,bc
-		ld a,(hl)
-		dec a
-		ld (hl),a
-		ld a,1
+sbtstpos:
+		sblcurst			; load current state
+							; position has to be fixed when he :
+
+		cp	sbmove			; is moving
+		jp 	z,sbstepud
+
+		cp	sbstmov			; or is going to move
+		jp 	z,sbstepud		
+
+		cp	sbstay			; or is staying
+		jp 	z,sbstepud		
+
+		cp sbjump
+		jp 	z,sbstepud		
+
+		cp sbshjmp
+		jp 	z,sbstepud		
+
 		ret
-				
-; ---- go downstairs
-; args: HL - address of control block
-;
-sbgodnst:
-		ld bc,odcursr
-		add hl,bc
-		ld a,(hl)
-		inc a
-		ld (hl),a
-		ret
+
+

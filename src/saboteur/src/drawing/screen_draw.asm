@@ -529,6 +529,11 @@ scrch1_:
 		call drawtram		; draw text ram for new screen
         call sinitprc		; screen init procedure
 
+			
+		call sbtstpos		; workaround for some screens like 17/18, when the floor level
+							; changes on the border, 
+							; so the saboteur has to be moved up/down after screen switch
+
         GRMODON
         call drawbkgr		; draw background
 		call drawstos		; draw static objects        

@@ -280,7 +280,7 @@ smap93e:
 			mkbyte 1,1
 		db 0
 
-		mkdup 6
+		mkdup 7
 			mkbyte 1,9
 			mkline 9
 			mkbyte 1,1
@@ -290,14 +290,14 @@ smap93e:
 			db 0
 		;edup
 
-        db 0
-		db 0
-        mkline 8
-        	mkbyte 1,1
-        mkbyte 4,5
-        mkline 3
-        	mkbyte 1,1
-        db 0
+        ; db 0				; XXX
+		; db 0
+        ; mkline 8
+        ; 	mkbyte 1,1
+        ; mkbyte 4,5
+        ; mkline 3
+        ; 	mkbyte 1,1
+        ; db 0
 
 		db 0
 		db 0
