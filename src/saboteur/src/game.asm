@@ -116,6 +116,8 @@ gboat:
 		ld	c,1				; draw one tile
 
 		call drawbktl
+
+		
 		GRMODOFF
 
 		halt

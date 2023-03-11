@@ -75,6 +75,8 @@ BK65ADDR:   DW BK65DATA
 BK66ADDR:   DW BK66DATA
 BK67ADDR:   DW BK67DATA
 BK68ADDR:   DW BK68DATA
+BK69ADDR:   DW BK69DATA
+BK70ADDR:   DW BK70DATA
 BKDOORTL:   DW DOORTILE
 
 BK1DATA: 	bksh CYELLOW		; yellow L
@@ -289,6 +291,11 @@ BK67DATA:   bksh_b CMAIN, CGREEN                      ; green-yellow L top right
 BK68DATA:   bksh_b CMAIN, CGREEN                       ; green-yellow L top left
 			db  255, 127, 63, 31, 15, 7, 3, 1 
 
+BK69DATA:	bksh3 CCYAN, CBLUE, fgtile
+			db  220, 154, 8, 0, 0, 64, 0, 2 
+
+BK70DATA:	bksh3 CCYAN, CBLUE, fgtile + bladder
+			db  220, 154, 8, 0, 0, 64, 0, 2 
 
 DOORTILE:   bksh_b CGREEN, CWHITE
             db  66, 126, 66, 82, 66, 82, 66, 126            

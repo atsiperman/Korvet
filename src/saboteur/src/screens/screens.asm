@@ -47,13 +47,18 @@ smap1b:
 		bkindex BK5ADDR		; 0, 	solid blue
 		bkindex BK40ADDR	; 1,	underwater floor		
 		bkindex BK43ADDR	; 2,	water layer
+		bkindex BK69ADDR	; 3, water top
 smap1e:										
 		mkdup 12
 			mkline 14
 				db 0
 			db 0
 
-		mkdup 4
+		mkline 14
+			mkbyte 3,3
+		mkbyte 3,3
+
+		mkdup 3
 			mkline 14
 				mkbyte 2,2
 			mkbyte 2,2
@@ -104,6 +109,8 @@ smap2b:
 		bkindex BK43ADDR	; 5,	water layer
 		bkindex BK44ADDR	; 6,    invisible ladder
 		bkindex BK45ADDR	; 7 ,   water layer, ladder
+		bkindex BK69ADDR	; 8, 	water top
+		bkindex BK70ADDR	; 9, 	water top, ladder
 smap2e:										
 							; 1st line
 		mkdup 7
@@ -134,7 +141,20 @@ smap2e:
 			mkbyte 1,1
 		;edup
 
-		mkdup 4
+		mkline 4
+			mkbyte 8,8
+		mkbyte 8,9
+		mkbyte 9,8
+		mkbyte 8,8
+		mkbyte 9,9
+		mkbyte 8,8
+		mkbyte 8,9
+		mkbyte 9,8
+		mkbyte 9,1
+		mkline 3
+			mkbyte 1,1
+
+		mkdup 3
 			mkline 4
 			mkbyte 5,5
 			mkbyte 5,7
