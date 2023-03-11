@@ -213,13 +213,13 @@ BK41DATA:   bksh2 CRED, bladder							; moorage, horizontal part
 BK42DATA:   bksh2 CRED, bladder							; moorage, vertical part
             db  42, 106, 90, 90, 86, 90, 106, 42
 
-BK43DATA:	bksh3 CGREEN, CCYAN, fgtile					; water layer
+BK43DATA:	bksh3 CGREEN, CCYAN, fgtile + bwater		; water layer
       		db  95, 251, 191, 223, 255, 127, 239, 255
 
 BK44DATA:	bksh2 CBLUE, bladder						; solid blue, ladder
 			DB 255,255,255,255,255,255,255,255
 
-BK45DATA:	bksh3 CGREEN, CCYAN, fgtile + bladder		; water layer, ladder
+BK45DATA:	bksh3 CGREEN, CCYAN, bwater + fgtile + bladder		; water layer, ladder
       		db  95, 251, 191, 223, 255, 127, 239, 255
 
 BK46DATA:	bksh3 CBLUE,CBLACK,fgtile			   		; top black half on blue
@@ -291,10 +291,10 @@ BK67DATA:   bksh_b CMAIN, CGREEN                      ; green-yellow L top right
 BK68DATA:   bksh_b CMAIN, CGREEN                       ; green-yellow L top left
 			db  255, 127, 63, 31, 15, 7, 3, 1 
 
-BK69DATA:	bksh3 CCYAN, CBLUE, fgtile
+BK69DATA:	bksh3 CCYAN, CBLUE, bwater + fgtile					; water top
 			db  220, 154, 8, 0, 0, 64, 0, 2 
 
-BK70DATA:	bksh3 CCYAN, CBLUE, fgtile + bladder
+BK70DATA:	bksh3 CCYAN, CBLUE, bwater + fgtile + bladder		; water top + ladder
 			db  220, 154, 8, 0, 0, 64, 0, 2 
 
 DOORTILE:   bksh_b CGREEN, CWHITE

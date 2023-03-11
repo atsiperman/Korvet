@@ -33,6 +33,7 @@ bwall   EQU 1
 bladder EQU 2 
 broof   EQU 4       ; roof, works as bwall but doesn't prevent from moving left/right 
                     ; when it is in the middle of saboteur's figure
+bwater	EQU 8		; water layer					
 
 bkroof EQU bwall + broof    ; background is a kind of roof
 

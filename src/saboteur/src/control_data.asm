@@ -143,6 +143,7 @@ HLGUNHIT	EQU 15			; hit by gun
 HLGDPNCH	EQU 7			; hit by guard's punch
 HLGDPKCK	EQU 12			; hit by guard's kick
 HLFALL		EQU 6			; hit due to fall
+HLWATER		EQU 3			; hit due to lack of oxigen under water
 
 CPTPAUS     EQU 1
 CPTPAUS2    EQU 3

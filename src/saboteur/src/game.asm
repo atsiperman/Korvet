@@ -338,10 +338,16 @@ sbmain:
         jp  nz,.sbm1_1      ; no, stop checking for released keys
         ld  a,b             ; restore key bits        
         and KDOWN           ; is down button still pressed ?
-        jp  nz,.sbm1_1      ; go normal way if yes
+        ;jp  nz,.sbm1_1      ; go normal way if yes
+		jp	nz,.sbsqt		; already squatting
+
                             ; if not pressed any more
         call sbnoactn       ; then stand up
         jp gend
+
+.sbsqt:
+		call sbtstsqt
+		jp	gend
 
 .sbm1_1:
         ld  a,b             ; restore key bits

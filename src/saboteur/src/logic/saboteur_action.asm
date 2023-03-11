@@ -48,6 +48,18 @@ sbdsqt3:
 		ld (hl),a
 		ret
 
+; ---- test whether is squatting under water
+sbtstsqt:
+		ld	hl,sbctrlb + odcursc
+		ld	d,(hl)					; load screen column into D
+		inc	hl
+		ld	e,(hl)					; load screen row into E
+		call shscradr				; get tile address
+		ld	a,(hl)					; get attributes
+		and	bwater					; is it water ?
+		ret	z						; return if not
+		ld	a,HLWATER
+		jp hldec
 
 ; ----- tests two tiles for a roof attrs
 ; args: D - column
