@@ -22,6 +22,7 @@ jmpbordr:
 							; screen has been changed, setup new position
 		ld a,LSCOLNUMJ 		; index of the first column from right side
 		sbscursc
+		xor	a
 		ret
 				
 .jmprt:						; moving right
@@ -35,6 +36,8 @@ jmpbordr:
 
 		ld a,SCOLNUM 		; index of the first column 
 		sbscursc
+		xor	a
+		ret
 
 .jmpret1:
 		inc	a
@@ -69,7 +72,7 @@ canjmp1:					; moving right
 		cp	sbstay			; decrease right column if not staying
 		jp	z,canjmp2
 		dec	d
-		
+
 canjmp2:		
 		pop af
 		ld e,a				; save row number
@@ -242,8 +245,11 @@ sbdojp4:
 		load_de_hl			; get address of the current sprite in DE
 		sbscursp			; save new sprite address
 
-		cp 1
-		jp nz,sbdojp5
+		or	a
+		ret z				; nothing more for 0-th sprite
+
+		cp 1				; do column change only 
+		jp nz,sbdojp5		; if sprite index > 1
 		jp sbjrdec
 						    ; keep old column for the first small sprite 
 		
@@ -281,6 +287,10 @@ sbjrdec:
 ;				
 ;
 sbstopjp:
+		call jmpbordr		; need to switch screen ?
+		or	a
+		ret	z				; return if yes
+
 		sblddir
 
 		cp dirrt
@@ -304,16 +314,6 @@ _sbstpjr:
 ;
 sblandrh:
 		sblcursc		; load column
-
-		cp ECOLNUMJ		; check for maximal column index
-		jp c,_slndrh1	; continue if index is not less than current column
-		call goscrnrt	; switch screen to the right
-		or a
-		ret z			; return if screen not changed
-
-		ld a,SCOLNUM 	; index of the first column 
-		sbscursc
-_slndrh1:
 		add SBJMPWI		; next column on the right
 		ld d,a			; save column in D
 		sblcursr		; load row
@@ -324,13 +324,16 @@ _slndrh1:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_slndrhe	; yes, no move 
+			jp nz,.sble		; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
-		sblcursc			; load column
-		inc a				; move right, it's free
-		sbscursc			; save column
+		; current position is the one before the last one
+		; so we'll need to move yet one time for the last sprite
+		; so we need to test position X + 2
+
+		sblcursc			; test next column, since staying sprite is wider
+		inc	a
 
 		pop hl				; restore (X,Y)
 		push hl
@@ -341,15 +344,29 @@ _slndrh1:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_slndrhe	; yes, no move 
+			jp nz,.sble2	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
+							; make movement for the last sprite
 		sblcursc			; load column
 		inc a				; move right, it's free
 		sbscursc			; save column
 
-_slndrhe:
+		pop bc				; clear stack
+		ret
+
+.sble:
+							; there is a wall immediately on the right
+							; so move left since the last sprite is wider
+		sblcursc			; load column
+		dec a				
+		sbscursc			; save column
+
+		pop bc				; clear stack
+		ret
+
+.sble2:
 		pop bc				; clear stack
 		ret
 
@@ -358,19 +375,9 @@ _slndrhe:
 ;
 sblandlh:
 		sblcursc		; load column
-		cp SCOLNUM + 2	; check for minimal column index
-		jp nc,_slndlh1	; continue if index is less than current column
-		call goscrnlt	; switch screen to the left
-		or a
-		ret z			; return if screen not changed
-
-		ld a,ECOLNUMJ + 1 ; index of the first column 
-		sbscursc
-	
-_slndlh1:
-		dec a		
-		dec a			; two columns on the left	
+		dec a			; test column on the left side before (X - 1)
 		ld d,a			; save column in D
+
 		sblcursr		; load row
 		ld e,a			; save row in E
 		call shscradr	; get position (X - 2,Y) in HL
@@ -387,9 +394,12 @@ _slndlh1:
 			add hl,bc		; Y = Y + 1
 		edup
 
+		; current position is the one before the last one
+		; so we'll need to move yet one time for the last sprite
+		; so we need to test position X - 2
+
 		sblcursc			; load column
 		dec a				; move left, it's free
-		sbscursc			; save column
 
 		pop hl				; restore (X - 2,Y)
 		push hl
@@ -400,7 +410,7 @@ _slndlh1:
 			jp nz,_slndlhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
-
+							; make movement for the last sprite
 		sblcursc			; load column
 		dec a				; move left, it's free
 		sbscursc			; save column
@@ -418,7 +428,7 @@ sblandv:
 		ld d,a			; save column in D
 
 		sblcursr		; load row
-		add SBJMPHI		; row under feet
+		add  SBJMPHI		; row under feet
 		ld e,a			; save row in E
 		call shscradr	; get position (X,Y) in HL
 
@@ -448,7 +458,7 @@ sblandv:
 		jp _stlnd5				
 
 _stlnd1:
-		sblcursr
+		sblcursr		; load current row
 		sub (SBHI - SBJMPHI)	; dec row to let him stay
 		sbscursr
 
@@ -459,9 +469,6 @@ _stlnd5:
 		cp dirlt
 		jp z,_stlnd3			; leave current column for left direction
 
-		sblcursc				; for right direction:
-		dec a					; 	dec column, staying sprite is wider
-		sbscursc
 		ld de,sabjmpr1
 		jp _stlnd4
 
