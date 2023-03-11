@@ -304,9 +304,15 @@ _sbstpj1:
 		ret
 
 _sbstpjr:
+		call sblandrh
+							; test current column after moving right
+		call jmpbordr		; need to switch screen ?
+		or	a
+		ret	z				; return if yes
+
         ld   de,sbhjmp1r
         sbshdspr
-		call sblandrh
+
 		call sblandv
 		ret
 
@@ -332,12 +338,8 @@ sblandrh:
 		; so we'll need to move yet one time for the last sprite
 		; so we need to test position X + 2
 
-		;sblcursc			; test next column, since staying sprite is wider
-		;inc	a
-
-
+							; test next column, since staying sprite is wider
 		pop hl				; restore (X,Y)
-		push hl
 		ld bc,COLWIDB
 		add hl,bc			; X = X + 1
 							; start with (X + 1,Y)
@@ -345,7 +347,7 @@ sblandrh:
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,.sble2	; yes, no move 
+			ret	nz			; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 
@@ -354,21 +356,16 @@ sblandrh:
 		inc a				; move right, it's free
 		sbscursc			; save column
 
-		pop bc				; clear stack
 		ret
 
-.sble:
+.sble:		
 							; there is a wall immediately on the right
 							; so move left since the last sprite is wider
 		sblcursc			; load column
 		dec a				
 		sbscursc			; save column
 
-		pop bc				; clear stack
-		ret
-
-.sble2:
-		pop bc				; clear stack
+		pop	hl				; clear stack
 		ret
 
 
@@ -381,13 +378,13 @@ sblandlh:
 
 		sblcursr		; load row
 		ld e,a			; save row in E
-		call shscradr	; get position (X - 2,Y) in HL
+		call shscradr	; get position X - 1 in HL
 
 		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
 			and bwall		; is wall ?
-			jp nz,_slndlhe	; yes, no move 
+			ret nz			; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
 							; current position is the one before the last one
@@ -395,11 +392,7 @@ sblandlh:
 		sblcursc			; load column
 		dec a				; move left, it's free
 		sbscursc			; save column
-
-_slndlhe:
-		;pop hl				; clear stack
-		ret
-		
+		ret		
 
 		
 ; ---- finds place to land in vertical direction to the right
@@ -458,7 +451,7 @@ _stlnd3:
 
 _stlnd4:		
 		sbscursp
-
+				
 		sblcurst				; load current state
 		cp sbshjmp
 		jp z,_stlnd2
