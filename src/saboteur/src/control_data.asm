@@ -152,6 +152,7 @@ COPTWID     EQU 17          ; full width of the helicopter
 
 CPTDRCOL    EQU 14          ; column number from which the door in helicopter's room starts opening
 
+BOATROW		EQU 11
 BOATMCOL	EQU 21			; max colum for boat back at the first screen
 
 ; start byte of the control data

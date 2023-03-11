@@ -58,7 +58,69 @@ ginitscr:
         call ptexts     ; print const text         
         GRMODOFF
         jp txtrinit
-        ;ret
+
+
+; ---- water top layer state
+wttopd:	db  220, 154, 8
+
+; ---- draw dynamic top water layer
+drwtopwt:
+		ld	de,wttopd		; load data address
+		ld	c,3				; counter = data length
+		ld  b,COLNUM		; number of columns to draw
+		ld	hl,SCRADDR + (BOATROW + 1) * 64 * 8
+
+		; ---- draw line
+		; ----
+.drwtlp:
+		push bc
+		ld	a,80h + (CBLUE << 1) 			; load foreground color
+		ld  (COLRREG),a		; set color register
+
+		xor	a				; reset CY
+
+		ld	a,(de)			; load data byte		
+		rra
+		jp	nc,.drwcy		; skip next if low bit was not 1		
+		or	128				; otherwise put it to the beginning
+
+.drwcy:
+		ld  (de),a			; save changes
+		
+.drwt1:		
+		ld	(hl),a
+		inc	hl
+		dec	b
+		jp 	nz,.drwt1
+
+		pop	bc				; restore counters
+
+		; ---- draw back line
+		; ----
+		dec	hl				; move back to the last drawn column
+
+		push bc
+		ld	a,80h + (CCYAN << 1)			; load foreground color
+		ld  (COLRREG),a		; set color register
+
+		ld	a,(de)			; load data byte
+		cpl
+.drwt2:		
+		ld	(hl),a
+		dec	hl
+		dec	b
+		jp 	nz,.drwt2
+
+		pop	bc
+		dec	c
+		inc	de				; move to the next sprite byte
+		push bc				; save counters
+		ld	bc,65			; HL was pointing to the column before the beginning of prevous line
+		add hl,bc			; so displacement to the next line in video memory is 64 + 1
+		pop	bc				; restore counters
+		jp	nz,.drwtlp		
+
+		ret
 
 ; ---- moves boat at the beginning
 ;
@@ -105,6 +167,7 @@ gboat:
 		call showscr		; show buffer on the screen		
 		call drawstos		; draw boat at new position				
 
+							; clear tile behind the boat
 		ld hl,(sobjlst) 
 		dup 5
 			inc	hl			; move to the screen address of the boat 
@@ -117,7 +180,8 @@ gboat:
 
 		call drawbktl
 
-		
+		call drwtopwt		; draw water top
+
 		GRMODOFF
 
 		halt

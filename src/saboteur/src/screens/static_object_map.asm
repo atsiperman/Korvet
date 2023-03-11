@@ -81,9 +81,9 @@ tapeimn EQU 16
         
 s1stom:
         db 3
-        mkstobj boatback, 1, 11
-        mkstobj boatmain, 3, 11
-        mkstobj boatfrnt, 7, 11
+        mkstobj boatback, 1, BOATROW
+        mkstobj boatmain, 3, BOATROW
+        mkstobj boatfrnt, 7, BOATROW
 
 s2stom:
         db 5
