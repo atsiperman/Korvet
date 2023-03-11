@@ -390,6 +390,8 @@ smap73e:
 		db SCREND
         db STOMAP
         dw s73stom
+		db TRIGMAP
+		dw s73trm
         db SCREND
 
 ; --- end of scrbk73
@@ -476,6 +478,8 @@ smap75e:
         dw s75stom
         db TXTSMAP
         dw scr75txd
+		db TRIGMAP
+		dw s75trm
         db SCREND
 
 scr75txd:						; description of the text RAM used by this screen

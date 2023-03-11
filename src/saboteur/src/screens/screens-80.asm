@@ -36,6 +36,8 @@ smap80e:
         dw s80stom
         db OBJMAP
         dw s80objm
+		db TRIGMAP
+		dw s80trm
         db SCREND
 
 		

@@ -800,6 +800,8 @@ smap98e:
         dw s98mom
         db STOMAP
         dw s98stom
+		db TRIGMAP
+		dw s98trm
         db SCREND
 ; --- end of scrbk98
 

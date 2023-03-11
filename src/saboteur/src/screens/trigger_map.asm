@@ -42,6 +42,10 @@
     mktrig3 tractiv, colnum, rownum, trgmanl, trodskn, deskproc, data
     endm    
 
+    macro mkbomb colnum, rownum
+    mktrig2 trdisab, colnum, rownum, trgmanl, trobomb, itmproc
+    endm
+
 trmapst:    ; start of trigger map
 
 s3trm:
@@ -76,7 +80,9 @@ s30trm:
     db 3
     mkgrnd 6, 12
     mkdesk 17,12,0
-    mktrig 24, 12, trgmanl, trobomb, itmproc
+s30bmb:
+    mkbomb 24, 12
+    ;mktrig 24, 12, trgmanl, trobomb, itmproc
 
 s35trm:
     db 1
@@ -132,9 +138,23 @@ s70trm:
     mkdesk 7, 6, 0
     mkknife 18, 15
 
+s73trm:
+    db 1
+s73bmb:
+    mkbomb 17,14
+
+s75trm:
+    db 1
+    mkgrnd 7,15
+
 s79trm:
     db 1
     mkdesk 3, 6, dooropn
+
+s80trm:
+    db 1
+s80bmb:
+    mkbomb 24, 15
 
 s91trm:
     db 1
@@ -158,6 +178,16 @@ s97trm:
     mkdesk 12, 6, 0
     mkdesk 15, 6, 0
     mkdesk 18, 6, 0
+
+s98trm:
+    db 1
+s98bmb:
+    mkbomb 21,9
+
+s100trm:
+    db 1
+s100bmb:
+    mkbomb 23,15
 
 s101trm:
     db 1
@@ -195,5 +225,11 @@ s120trm:
 s122trm:
     db 1
     mkstone 21, 14
+
+s124trm:
+    db 1
+s124bmb:
+    mkbomb 16, 15
+
 
 trmapend:    ; end of trigger map

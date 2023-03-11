@@ -26,7 +26,8 @@ menutit:
 
 
 txtlvl0:
-        db .txlvl0 - txtlvl0 - 1, "O^ENX",SPACECH,"LEGKIJ"
+        ;db .txlvl0 - txtlvl0 - 1, "O^ENX",SPACECH,"LEGKIJ"
+        db .txlvl0 - txtlvl0 - 1, "PROSTOJ"
 .txlvl0:
 
 txtlvl1:
@@ -42,11 +43,13 @@ txtlvl3:
 .txlvl3:        
 
 txtlvl4:
-        db .txlvl4 - txtlvl4 - 1, "O^ENX",SPACECH,"TRUDNYJ"
+        ;db .txlvl4 - txtlvl4 - 1, "O^ENX",SPACECH,"TRUDNYJ"
+        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
 .txlvl4:        
 
 txtlvl5:
-        db .txlvl5 - txtlvl5 - 1, "TQVELYJ"
+        ;db .txlvl5 - txtlvl5 - 1, "TQVELYJ"
+        db .txlvl5 - txtlvl5 - 1, "PROFI"
 .txlvl5:        
 
 txtexit:
@@ -69,7 +72,7 @@ menutxt:
 			db CHFULL
         mkbyte TXLINEH,7
 			mktxtaddr 7, 5
-            db CHFULL
+                        db CHFULL
         mkbyte TXLINEH,7
 			mktxtaddr 7, 6
 			db CHFULL

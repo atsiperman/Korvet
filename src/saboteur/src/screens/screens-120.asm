@@ -710,6 +710,8 @@ smap124e:
         dw s124stom
         db TXTSMAP
         dw s124txd
+		db TRIGMAP
+		dw s124trm
         db SCREND
 
 s124txd:

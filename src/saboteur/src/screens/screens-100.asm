@@ -44,6 +44,8 @@ smap100e:
 		db 0
 		
 		db SCREND
+		db TRIGMAP
+		dw s100trm
         db OBJMAP
         dw s100om
         db STOMAP
