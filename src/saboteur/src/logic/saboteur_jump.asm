@@ -332,8 +332,9 @@ sblandrh:
 		; so we'll need to move yet one time for the last sprite
 		; so we need to test position X + 2
 
-		sblcursc			; test next column, since staying sprite is wider
-		inc	a
+		;sblcursc			; test next column, since staying sprite is wider
+		;inc	a
+
 
 		pop hl				; restore (X,Y)
 		push hl
@@ -382,10 +383,6 @@ sblandlh:
 		ld e,a			; save row in E
 		call shscradr	; get position (X - 2,Y) in HL
 
-		push hl			; save initial address
-		ld bc,COLWIDB	
-		add hl,bc		; start from first column on the left (X - 1,Y)
-
 		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
@@ -393,30 +390,14 @@ sblandlh:
 			jp nz,_slndlhe	; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
-
-		; current position is the one before the last one
-		; so we'll need to move yet one time for the last sprite
-		; so we need to test position X - 2
-
-		sblcursc			; load column
-		dec a				; move left, it's free
-
-		pop hl				; restore (X - 2,Y)
-		push hl
-							; start with (X - 2,Y)
-		dup 3
-			ld a,(hl)		; read attributes
-			and bwall		; is wall ?
-			jp nz,_slndlhe	; yes, no move 
-			add hl,bc		; Y = Y + 1
-		edup
-							; make movement for the last sprite
+							; current position is the one before the last one
+							; so we'll need to move yet one time for the last sprite
 		sblcursc			; load column
 		dec a				; move left, it's free
 		sbscursc			; save column
 
 _slndlhe:
-		pop bc				; clear stack
+		;pop hl				; clear stack
 		ret
 		
 
