@@ -27,23 +27,35 @@ gdrdyact:
         ret
 
 .gd2:
-        cp   THRWDST                    ; close enough to throw weapon ?
-        jp   nc,.gd3                     ; yes, try throw
+        cp   THRWDST                    ; far enough to throw weapon ?
+        jp   nc,.gd3                    ; yes, try throw
         xor  a                          ; otherwise do nothing
         ret
 
 .gd3:        
         ld   a,(gfthrwn)                ; is object thrown ?
         or   a        
-        jp   nz,.gd4                    ; yes, skip throwing
-        ld   de,gdtrythr                ; yes, do trhow
+        jp   nz,.gdnw                   ; yes, wait until it is flying
+
+        ld   de,gdtrythr                ; yes, do throw
         ld   a,d
         ret
+
+.gdnw:
+        ld   a,(gthrown)                ; still flying ?
+        or   a
+        jp   z,.gd4                     ; not ready, if no
+
+        ld   de,gdwait                  ; wait for flight to finish
+        ret                             ; return A > 0
 
 .gd4:
         xor  a
         ret
 
+; ---- guard waits for thrown weapon
+gdwait:
+        ret
 
 ; ---- start guard action
 ; args: HL - address of control block
