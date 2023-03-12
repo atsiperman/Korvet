@@ -249,8 +249,8 @@ ghitsab:
 
 .gdohit:        
         call hldec
-        PLAYPNCH
-        ret
+        jp playpnch
+        ;ret
 
 
 

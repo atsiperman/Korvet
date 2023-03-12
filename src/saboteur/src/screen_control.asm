@@ -23,20 +23,16 @@ swchscrn:
 ;
 goscrnrt:
 		ld de,rigtscrd
-		call swchscrn 
-		ret
+		jp swchscrn 
 				
 goscrnlt:
 		ld de,leftscrd
-		call swchscrn 
-		ret		
+		jp swchscrn 
 		
 goscrnup:
 		ld de,upscrd
-		call swchscrn 
-		ret		
+		jp swchscrn 
 
 goscrndn:		
 		ld de,downscrd
-		call swchscrn 
-		ret		
+		jp swchscrn 

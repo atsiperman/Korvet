@@ -132,8 +132,8 @@ _sbstj2:
 		sbscursp
 		xor a
 		sbscursi
-		call sbdecrow
-		ret
+		jp sbdecrow
+		;ret
 		
 ; ---- starts short jump
 ; 		
@@ -313,8 +313,8 @@ _sbstpjr:
         ld   de,sbhjmp1r
         sbshdspr
 
-		call sblandv
-		ret
+		jp sblandv
+		;ret
 
 ; ---- finds place to land in horizontal direction to the right
 ;

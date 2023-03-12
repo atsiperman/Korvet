@@ -193,7 +193,7 @@ gboat:
 
 		GRMODOFF
 
-		halt
+		halt				; delay
 
 		jp gboat
 
@@ -207,8 +207,8 @@ sbdojump:
 		dec	a
 		sbscursr			; save it back
 		call sbstshjp		; jump from boat
-		call drawscr
-		ret
+		jp drawscr
+		;ret
 
 ; ---- main game cycle
 ;
@@ -669,8 +669,8 @@ gkright1:
         sblcurst
         cp  sbstay
         call nz,sbdecrow    ; decrement row if not staying, since staying sprite is taller
-		call sbstopst
-		ret		
+		jp sbstopst
+		;ret		
 		
 gkmvstay:
 		sblcurst

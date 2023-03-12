@@ -384,8 +384,8 @@ tstokick:
 
 .mkd1:
         call setdead
-		PLAYPNCH
-        ret
+		jp playpnch
+        ;ret
 
 .endtst:        
         pop hl

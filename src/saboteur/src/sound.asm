@@ -46,11 +46,11 @@ SNDMOD  EQU     36h     ; timer sound mode
     endm
 
     ; ---- plays sound of strike
-    macro PLAYPNCH
-        ;ld  de,sndpunch
-        ;call playsnd
-        call playpnch
-    endm
+;     macro PLAYPNCH
+;         ;ld  de,sndpunch
+;         ;call playsnd
+;         call playpnch
+;     endm
 
     ; ---- plays sound of weapon hit
     macro PLYWEAPN

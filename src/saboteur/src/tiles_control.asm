@@ -239,6 +239,6 @@ utlmtho:
         dec  hl                     ; move to tile start
 
         pop  de
-        call putspr
+        jp putspr
 
-        ret
+        ;ret

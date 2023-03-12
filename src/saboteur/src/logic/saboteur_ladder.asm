@@ -322,8 +322,8 @@ sbleavld:
 		sbscursc
 
 		ld hl,sbctrlb
-		call sbincrow		; sprite has less height	
-		ret
+		jp sbincrow		; sprite has less height	
+		;ret
 		
 		
 		

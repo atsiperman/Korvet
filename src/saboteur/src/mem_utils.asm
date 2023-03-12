@@ -3,14 +3,14 @@
 ;		HL - memory address to write
 ;		BC - length
 ; 		E  - byte to write
-fillmem:
-		ld (hl),e
-		inc hl
-        dec bc
-        ld a,b
-        or c
-        jp nz,fillmem
-		ret
+; ; fillmem:
+; ; 		ld (hl),e
+; ; 		inc hl
+; ;         dec bc
+; ;         ld a,b
+; ;         or c
+; ;         jp nz,fillmem
+; ; 		ret
 		
 ; ---- copies bytes from one region to another
 ; args: 
@@ -35,19 +35,19 @@ copymem:
 ; result:
 ;		HL - result
 ;
-multpl:	
-		;ld b,h
-		;ld c,l
-		ld hl,0
+; ; multpl:	
+; ; 		;ld b,h
+; ; 		;ld c,l
+; ; 		ld hl,0
 		
-		or a			; return 0 if multiplier is 0
-		ret z
+; ; 		or a			; return 0 if multiplier is 0
+; ; 		ret z
 		
-multpl2:		
-		add hl,bc
-		dec a		
-		ret z
-		jp multpl2
+; ; multpl2:		
+; ; 		add hl,bc
+; ; 		dec a		
+; ; 		ret z
+; ; 		jp multpl2
 		
 ; ---- divides number by 8
 ; args: 
@@ -55,12 +55,12 @@ multpl2:
 ;
 ; result:
 ;		A - result		
-dvd8:
-		rra
-		rra
-		rra 
-		and 31
-		ret
+; ; dvd8:
+; ; 		rra
+; ; 		rra
+; ; 		rra 
+; ; 		and 31
+; ; 		ret
 
 ; ---- fills line in text ram with a character provided
 ; args: C  - character to print

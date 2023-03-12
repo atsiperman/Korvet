@@ -159,8 +159,8 @@ pfrrail:
         call drwrail
         call clrrails
         ld  a,dirrt
-        call drwrail
-        ret
+        jp drwrail
+        ;ret
 
 ; ---- draw rails
 ;
@@ -263,5 +263,5 @@ wgntract:
         ld  a,(hl)      ; load trigger row
         sub SBHI-1      
         sbscursr        ; save current row 
-        call sbstopst
-        ret
+        jp sbstopst
+        ;ret

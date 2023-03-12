@@ -84,8 +84,8 @@ sabinit:
         cpboat
         
         call .initsbsp
-        call .initgdsp
-        ret
+        jp .initgdsp
+        ;ret
 
 .initsbsp:
         ; copy mirror table
@@ -224,9 +224,9 @@ sabinit:
         ld  hl,_sbhlad2
         ld  de,sbhlad2
         ld  bc,_sbhlad2.esabh - _sbhlad2
-        call copymem
+        jp copymem
 
-        ret
+        ;ret
 
 .initgdsp:
         ; guard sprites
@@ -269,8 +269,8 @@ sabinit:
         call copymem
         ld  hl,gdhwalkl
         ld  de,gdhwalkr
-		call mirrspr
+		jp mirrspr
 
         ; ---- guard move sprite/left ---
-		ret
+		;ret
 .endinit		

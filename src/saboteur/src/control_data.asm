@@ -178,7 +178,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 
 explsnp:	dw 100h;  playwpn		; data buffer for bomb explosion sound
 
-			;define FULLSTART
+			define FULLSTART
 			define ENDDEAD			; end game if dead
 
 ; ---- screen control block
