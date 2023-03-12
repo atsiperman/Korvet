@@ -159,14 +159,18 @@ sbdokick:
 		inc a
         cp  SBKICKI
         jp  nz,.kick1
-        push af
+
+        push af		
         call tstokick       ; test if an object is kicked
-        pop  af
+        pop  af		
+
+		jp .kick2			; continue motion
 
 .kick1:        
 		cp c
 		jp z,sbdokcke		; last sprite, stop kicking
 
+.kick2:
 		sbscursi			; set next sprite index
 		
 		ld c,a				; save sprite index
