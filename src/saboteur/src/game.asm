@@ -49,7 +49,7 @@ ginitscr:
         rstrmap
         rsobjmap
         call setuplvl
-
+		call rstgtime
         GRMODON
         ;call clrscrn
         ld a,COLORCLR 
@@ -701,7 +701,7 @@ gkrmove:
 
 ; ---- restart game timer
 rstgtime:
-        ld      hl,0909h				; restart timer
+        ld      hl,(timeinit)		; restart timer
 		ld		(curtime + 1),hl
 		ret
 

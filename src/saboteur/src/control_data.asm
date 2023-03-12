@@ -176,12 +176,16 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			;define FULLSTART
-			;define ENDDEAD			; end game if dead
+			define FULLSTART
+			define ENDDEAD			; end game if dead
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn7 		; pointer to current screen
+		ifdef FULLSTART
+curscr: 	dw scrn1 		; pointer to current screen
+		else
+curscr: 	dw scrn7 		; pointer to current screen		
+		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -190,18 +194,27 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 
 ; ----	saboteur control block			
 ;
-sbctrlb:			
-		    ;mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,7
+sbctrlb:	
+		ifdef FULLSTART
+		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
+		else
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,10
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
+		endif
 
+		ifdef FULLSTART
 sbholds:    db troshrk  ; type of an object being held by saboteur
-;sbholds:    db trobomb   ; type of an object being held by saboteur
+		else
+sbholds:    db trobomb   ; type of an object being held by saboteur
+		endif
+
 sbhldch:    db 1        ; flag, when object is changed
 
 TIMEGFRM    EQU 4				; frames counter for timer countdown 
 TIMEUPDF	EQU	10				; frames counter for timer redraw
 TIMRCNTD	EQU 2				; timer is in countdown mode
+
+timeinit:	db 9, 9				; timer initialization value
 
 timrfst:	db 0				; timer frame state
 timractv:	db 1				; timer state, 0 - disabled, 1 - active, TIMRCNTD - countdown mode

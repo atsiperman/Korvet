@@ -167,7 +167,7 @@ smap51b:
 		bkindex BK2ADDR		; 0, wall
 		bkindex BK1ADDR		; 1, yellow L
 		bkindex BK7_1ADR    ; 2, big yellow brick as wall
-		bkindex BK5ADDR		; 3, solid blue 
+		bkindex BK4ADDR		; 3, blue bricks
 smap51e:
 		mkbyte 3,3			; 1
 		mkbyte 3,3

@@ -21,7 +21,11 @@ e_trig  EQU s51trm + 1 + trdodat
         ld      a,tractiv
         ld      (trigaddr),a
         endm
-
+        
+        macro settime num
+        ld      hl,num
+        ld      (timeinit),hl
+        endm
 ginitst:
 
 ; ---- set up level 1 (open all doors)
@@ -39,6 +43,7 @@ setlvl2:
         ld   (b_trig),a
         ld   (e_trig),a
         setbomb s80bmb
+        settime 0509h
         ret
 
 ; ---- set up level 3
@@ -49,6 +54,7 @@ setlvl3:
         ld   (c_trig),a
         ld   (e_trig),a        
         setbomb s98bmb
+        settime 0009h
         ret
 
 ; ---- set up level 4
@@ -60,6 +66,7 @@ setlvl4:
         ld   (d_trig),a
         ld   (e_trig),a
         setbomb s124bmb
+        settime 0508h
         ret
 
 ; ---- set up level 5
@@ -73,6 +80,7 @@ setlvl5:
         ld   a,dooropn
         ld   (b_trig),a
         setbomb s100bmb
+        settime 0008h
         ret
 
 ; ---- set up level 6
@@ -80,6 +88,7 @@ setlvl5:
 setlvl6:
         settrigs doorcls
         setbomb s73bmb
+        settime 0007h
         ret
         
 ; ---- address of procs for setting up game level

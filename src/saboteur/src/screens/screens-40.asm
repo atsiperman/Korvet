@@ -441,7 +441,7 @@ smap45b:
 		bkindex BK24ADDR	; 2, yellow ladder left
 		bkindex BK25ADDR	; 3, yellow ladder right
 		bkindex BK7ADDR     ; 4, big yellow brick
-		bkindex BK5ADDR		; 5, solid blue 
+		bkindex BK4ADDR		; 5, blue bricks
 smap45e:
 		mkbyte 5,5
 		mkbyte 5,5
