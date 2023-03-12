@@ -174,6 +174,16 @@ ghitsab:
         ret
 
 .ght:
+        inc     a
+        inc     a               ; get level under saboteur
+        cp      d               ; is guard hits below sab's bottom ?
+
+        jp      nc,.ght2        ; continue if yes
+
+        pop     af              ; clear stack
+        ret
+
+.ght2:
         pop     af
         cp      dirlt           ; test which direction to process
         jp      z,.ghtlt

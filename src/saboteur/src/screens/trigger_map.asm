@@ -149,7 +149,7 @@ s75trm:
 
 s79trm:
     db 1
-    mkdesk 3, 6, dooropn
+    mkdesk 3, 15, dooropn
 
 s80trm:
     db 1

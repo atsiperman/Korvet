@@ -129,8 +129,8 @@ LSCOLNUMJ	EQU COLNUM-SBJMPWI-1
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
 KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
-THRWDST     EQU 8          ; threshold in columns, on which guard may throw weapon
-BKSEEDST    EQU 3           ; threshold in columns, on which guard sees saboteur when that is moving from back side
+THRWDST     EQU 8           ; threshold in columns, on which guard may throw weapon
+BKSEEDST    EQU 4           ; threshold in columns, on which guard sees saboteur when that is moving from back side
 
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
 HLCOLRRM	EQU CBLUE 		; (80h + (CBLUE << 1)) ; color register to clear health bar
@@ -176,7 +176,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			define FULLSTART
+			;define FULLSTART
 			define ENDDEAD			; end game if dead
 
 ; ---- screen control block
@@ -184,7 +184,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 		ifdef FULLSTART
 curscr: 	dw scrn1 		; pointer to current screen
 		else
-curscr: 	dw scrn7 		; pointer to current screen		
+curscr: 	dw scrn35 		; pointer to current screen		
 		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
@@ -198,7 +198,7 @@ sbctrlb:
 		ifdef FULLSTART
 		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 		else
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,10
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,20,9
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
 		endif
 

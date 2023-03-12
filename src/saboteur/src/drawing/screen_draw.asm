@@ -539,9 +539,21 @@ setpobjd:
 		ldstate
 		pop	 hl
 
-		cp	sbkick
-		ret	nz				; no need of correction if not kicking
+		cp	odead
+		ret	z				; nothing to do for dead guard
 
+		cp	sbmove
+		jp	nz,.setp		; continue if not moving
+
+							; make row correction if moving
+		push hl
+		ldcursr				; load row
+		dec	 a				; move sprite up to normal position
+		ld   (hl),a			; and save new row
+		pop	hl				; restore control block
+		jp	gdststay		; set to stay mode 
+
+.setp:
 		push	hl
 		ldcurspr			; load current sprite
 		ex	de,hl
@@ -550,8 +562,9 @@ setpobjd:
 		ld	a,(hl)			; load width
 		pop		hl
 		cp	SBWI+1			
-		ret	c				; return if current width is less than in stay mode
+		jp	c,gdststay		; set to stay mode if current width is less than in stay mode
 
+							; otherwise make column correction
 		push hl
 		ldcursc				; load column
 		inc	 a				; move sprite to normal position
