@@ -1,21 +1,27 @@
 
 
 ; ----- checks if screen has changed
+; 		keeps in mind that screen addresses start with hi byte > 0
+;
 ; result: A - 0 if not changed, 
 scrchngd:
 		ld hl,(curscr)
 		ex de,hl
 		ld hl,(prevscr)
-		ld a,l
-		cp e
-		jp nz,scrchng2
-		ld a,h
-		cp d
-		jp nz,scrchng2
-		ld a,0
+
+		ld a,d
+		cp h
+		ret	nz				; H != D - screen changed, return A != 0
+
+		ld a,e
+		cp l
+		jp nz,scrchng2		; low byte may potentially be 0, so return explicit non-zero value
+
+		xor	a
 		ret
+
 scrchng2:	
-		ld a,1
+		ld a,h				; anything != 0			
 		ret
 
 
@@ -516,6 +522,48 @@ adddraw:
 		ret	z
 		jp	(hl)
 
+; --- setup objects after screen changed
+;
+setpobjd:
+		ld hl,(objlist)		; HL - address of the objects list
+		ld a,h
+		or l
+		ret z				; address is zero - exit
+
+		inc hl				; set to the first object's control block
+		ld	a,(hl)
+		cp	oguard
+		ret	nz				; no guard found
+		
+		push hl
+		ldstate
+		pop	 hl
+
+		cp	sbkick
+		ret	nz				; no need of correction if not kicking
+
+		push	hl
+		ldcurspr			; load current sprite
+		ex	de,hl
+		inc hl				; skip color
+		inc hl				; skip height
+		ld	a,(hl)			; load width
+		pop		hl
+		cp	SBWI+1			
+		ret	c				; return if current width is less than in stay mode
+
+		push hl
+		ldcursc				; load column
+		inc	 a				; move sprite to normal position
+		ld   (hl),a			; and save new column
+		inc	 hl				; move to screen row
+		ld	 a,(hl)			; get screen row
+		inc	 a				; move guard down
+		ld   (hl),a			; save new row
+		pop	hl				; restore control block
+
+		jp	gdststay		; set to stay mode
+
 ; ----- draws current screen	
 ;
 drawscr:
@@ -525,13 +573,14 @@ drawscr:
 				
 scrch1_:		
 		call scrchngd		; screen changed ?
-		and a		
+		or a		
 		jp z,drawobj1		; do not draw if no
 		
 		ld a,1
 		ld (fstrendr),a		; set flag for first render
 
 		call decmrscr		; decompress new screen map
+		call setpobjd		; setup object on new screen, e.g stop actions for guards 
 
         call waitblnk
 		call clrtxscr		; clear text ram for old screen		

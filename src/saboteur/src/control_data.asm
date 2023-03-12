@@ -129,7 +129,7 @@ LSCOLNUMJ	EQU COLNUM-SBJMPWI-1
 
 PNCHDST     EQU 3           ; threshold in columns, on which guard may do punch
 KICKDST     EQU 4           ; threshold in columns, on which guard may do kick
-THRWDST     EQU 15          ; threshold in columns, on which guard may throw weapon
+THRWDST     EQU 8          ; threshold in columns, on which guard may throw weapon
 BKSEEDST    EQU 3           ; threshold in columns, on which guard sees saboteur when that is moving from back side
 
 HLCOLRON	EQU	CRED  		; (80h + (CRED << 1)) ; color register to draw health bar
@@ -176,12 +176,12 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			;define FULLSTART
-			;define ENDDEAD			; end game if dead
+			define FULLSTART
+			define ENDDEAD			; end game if dead
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn3 		; pointer to current screen
+curscr: 	dw scrn1 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -191,16 +191,16 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ; ----	saboteur control block			
 ;
 sbctrlb:			
-		    ;mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
+		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,10,10
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
+			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
 
 sbholds:    db troshrk  ; type of an object being held by saboteur
 ;sbholds:    db trobomb   ; type of an object being held by saboteur
 sbhldch:    db 1        ; flag, when object is changed
 
-TIMEGFRM    EQU 3
-TIMEUPDF	EQU	10
+TIMEGFRM    EQU 4				; frames counter for timer countdown 
+TIMEUPDF	EQU	10				; frames counter for timer redraw
 TIMRCNTD	EQU 2				; timer is in countdown mode
 
 timrfst:	db 0				; timer frame state

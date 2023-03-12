@@ -18,14 +18,9 @@ guardprc:
         jp   z,.gdact2                  ; if staying then check for the next action
 
         cp   sbmove
-        jp   z,.gdact1                  ; if moving then continue moving
+        jp   z,gfcontmv                 ; if moving then continue moving
 
-        call gdconact                   ; continue action
-        ret
-
-.gdact1:
-        call gfcontmv                   ; continue moving
-        ret
+        jp gdconact                   ; continue action
 
 .gdact2:
         ld   a,(gfsbseen)                
@@ -43,8 +38,7 @@ guardprc:
         pop  af
         ret  nz                         ; and return
 
-        call gdstact                    ; otherwise: seen saboteur, direction not changed - start action
-        ret
+        jp gdstact                    ; otherwise: seen saboteur, direction not changed - start action
 
 .gdact3:
         push hl
@@ -55,8 +49,7 @@ guardprc:
         ret  z                          ; doesn't see saboteur, do nothing
         and  c                          ; changed direction ?
         ret  z                          ; no, do nothing
-        call gdststay                   ; change sprite
-        ret
+        jp gdststay                   ; change sprite
 
 ; ---- guard starts moving
 ; args: HL - address of control block

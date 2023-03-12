@@ -18,7 +18,7 @@ s7objm:
 
 s8objm:
 		db 2
-		mkgdlt 4,7,4,20	
+		mkgdrt 19,7,4,20	
 		mkdog dirlt,dogspml1,0,23,10,3,22		
 
 s9objm:
@@ -118,7 +118,7 @@ s67objm:
 
 s68objm:
         db 1
-        mkgdlt 8,10,3,23
+        mkgdlt 12,10,3,23
 
 s70objm:
 		db 2
@@ -135,8 +135,8 @@ s77objm:
 
 s78objm:
 		db 2
-		mkdog dirlt,dogspml1,0,10,13,2,23
         mkgdlt 19,10,3,24
+		mkdog dirlt,dogspml1,0,10,13,2,23
 
 s79objm:
 		db 1

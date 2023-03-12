@@ -28,7 +28,7 @@ gdrdyact:
 
 .gd2:
         cp   THRWDST                    ; close enough to throw weapon ?
-        jp   c,.gd3                     ; yes, try throw
+        jp   nc,.gd3                     ; yes, try throw
         xor  a                          ; otherwise do nothing
         ret
 
@@ -58,8 +58,7 @@ gdstact:
         ret                             ; return to action procedure - start it
 
 .gd1:
-        call gdstmov                    ; start move otherwise 
-        ret
+        jp gdstmov                    ; start move otherwise 
 
 ; ---- guard starts punch action
 ; args: HL - address of control block
