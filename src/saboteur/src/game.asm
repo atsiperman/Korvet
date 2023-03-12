@@ -759,40 +759,42 @@ gtimer:
 		cp	TIMRCNTD		; is in countdown mode ?
 		jp	nz,.gtdie		; no, just make it dead
 
-							; the bomb has been planted, let's explode it!
-		GRMODON
+							; the bomb has been planted, let's explode it!		
+		ENSND
 
-		ld	c,10			; number of iteration
+		ld	c,15			; number of iteration
 .gte2:		
 		push bc
 
-        ld c,16				; LUT size
-        ld de,LUTREG
         ld hl,LUTVAL1
-		call lutset2
-		dup 6
-			halt
-		edup
-		
-        ld c,16
-        ld de,LUTREG
+		call lutxplsn		
+
         ld hl,LUTVAL
-		call lutset2
-		dup 6
-			halt
-		edup
+		call lutxplsn
 
 		pop	bc
 		dec	c
 		jp	nz,.gte2
-
-		GRMODOFF
+		
+		DISSND
 .gtdie:		
         ; --- end of time, make saboteur dead
-        xor a
-        ld  (sbhealth),a		
+		ld	a,255			;
+		call hldec			;  make saboteur dead
+
+        xor a        
 		ld  (timractv),a		; disable timer 
 
-        ret
+		ret
 
+; ----- 
+lutxplsn:
+        ld c,16				; LUT size
+        ld de,LUTREG
+
+		GRMODON
+		call lutset2
+		GRMODOFF
+
+		jp plyxlpsn
         

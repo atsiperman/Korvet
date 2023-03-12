@@ -84,6 +84,9 @@ CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 DEADFGC     EQU 80h + (CRED << 1)
 DEADBKC     EQU 80h + (CBLUE << 1)
 
+;DEADFGC     EQU ((7 & ~CRED) << 1) + 1
+;DEADBKC     EQU ((7 & ~CBLUE) << 1) + 1
+
 NUMFGC      EQU 80h + (CWHITE << 1)
 NUMBKC      EQU 80h + (CBLUE << 1)
 NUMFGC2     EQU 80h + (CCYAN << 1)

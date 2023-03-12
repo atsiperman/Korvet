@@ -47,58 +47,132 @@ SNDMOD  EQU     36h     ; timer sound mode
 
     ; ---- plays sound of strike
     macro PLAYPNCH
-        ld  de,sndpunch
-        call playsnd
+        ;ld  de,sndpunch
+        ;call playsnd
+        call playpnch
     endm
 
     ; ---- plays sound of weapon hit
     macro PLYWEAPN
-        ld  de,sndgunsh
-        call playsnd
+        call playwpn
+        ;ld  de,sndgunsh
+        ;call playsnd
     endm
 
-; ---- plays sound of disk ejection
-playdscs:
-        ld a, 3
-        ENSND
-        ld hl,SNDREGD
-.replay:        
-        _SENDSND 100,0
+; ---- plays sound of punch hit 
+playpnch:
+        ld  de,sndpunch
+        jp playsnd
+
+; ---- plays sound of weapon hit ejection
+playwpn:
+        ld  de,sndgunsh
+        jp playsnd
+
+; ---- plays sound of weapon hit ejection
+plyxlpsn:        
+        ld b,3        
+        ld hl,(explsnp)
+        ld de,SNDREGD		; load sound data pointer
+        
+.plxpl:        
+        dup 2
+                ld a,(hl)       ; load data byte from buffer
+                ld (de),a       ; send it to the sound register
+                inc hl           
+        edup
         dup 3
                 halt
         edup
-        _SENDSND 200,0
+        dec b
+        jp  nz,.plxpl
+        ld  (explsnp),hl        ; save current pointer
+        ret
+
+; ---- disk sound data
+dsksnd:
+        db (.esnd - dsksnd) / 2
+        dw 100, 305, 510, 405, 150, 700, 210, 110
+.esnd:        
+
+; ---- plays sound of disk ejection
+playdscs:
+        ld      de,dsksnd
+        ld      b,3         
+        jp      playsmps
+
+;         ENSND
+;         ld hl,SNDREGD
+
+;         ld b, 08h                 ; repeat count
+
+; .replay:   
+;         ld  de,playdscs + 1
+;         ld  c,35
+;         ;ld de,dsksnd            ; load data pointer
+;         ;ld a,(de)               ; load counter
+;         ;ld c,a                  ; save it in C
+
+; .play:        
+;         inc de                  
+;         ld a,(de)
+;         ld (hl),a
+
+;         inc de                  
+;         ld a,(de)
+;         ;and b
+;         ld (hl),a
+
+;         dup 3
+;                 halt
+;         edup
+
+;         dec c
+;         jp   nz,.play
+
+;         ; dec b
+;         ; jp  nz,.replay
+;         DISSND
+;         ret
+
+; ---- plays simple sound from the buffer provided
+; args: DE - buffer to play from
+;       B  - count of repetition
+;
+playsmps:
+        ENSND
+        ld hl,SNDREGD
+        ld a,(de)               ; load counter
+
+.replay:   
+        push af                 ; save counter
+        push de                 ; save buffer
+        ;ld a,(de)               ; load counter
+        ld c,a                  ; save it in C
+
+.play:        
+        inc de                  
+        ld a,(de)
+        ld (hl),a
+
+        inc de                  
+        ld a,(de)
+        ld (hl),a
+
         dup 3
-                halt        
+                halt
         edup
 
-        _SENDSND 50,1 ; 305
-        dup 3
-                halt        
-        edup
+        dec c                   ; number of sounds
+        jp   nz,.play
 
-        _SENDSND 0,2  ; 510
-        dup 3
-                halt        
-        edup
+        pop  de                 ; restore buffer
+        pop  af                 ; restore sound counter
+        dec  de                 
 
-        _SENDSND 200,0
-        dup 3
-                halt        
-        edup
-
-        _SENDSND 150,1 ; 405
-        dup 3
-                halt        
-        edup
-
-        _SENDSND 150, 0
-        dup 3
-                halt        
-        edup
-
-        dec a
+        dec b                   ; number of replays
         jp  nz,.replay
+
         DISSND
         ret
 
