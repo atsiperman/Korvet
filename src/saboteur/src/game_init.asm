@@ -81,7 +81,7 @@ setlvl5:
         ld   a,dooropn
         ld   (b_trig),a
         setbomb s100bmb
-        settime 0008h
+        settime 0507h
         ret
 
 ; ---- set up level 6
@@ -89,7 +89,7 @@ setlvl5:
 setlvl6:
         settrigs doorcls
         setbomb s73bmb
-        settime 0007h
+        settime 0506h
         ret
         
 ; ---- address of procs for setting up game level
