@@ -525,6 +525,8 @@ adddraw:
 ; --- setup objects after screen changed
 ;
 setpobjd:
+		;ret
+
 		ld hl,(objlist)		; HL - address of the objects list
 		ld a,h
 		or l
@@ -542,39 +544,47 @@ setpobjd:
 		cp	odead
 		ret	z				; nothing to do for dead guard
 
-		cp	sbmove
-		jp	nz,.setp		; continue if not moving
-
-							; make row correction if moving
-		push hl
-		ldcursr				; load row
-		dec	 a				; move sprite up to normal position
-		ld   (hl),a			; and save new row
+		push hl				; save control block
+		ld	bc,objmst
+		sub_hl_bc			; DE = HL - BC - displacement to guard's data in object map
+		ld	hl,objmdata		; address of saved map copy
+		add	hl,de			; get address of data in original map
+		ld	bc,odcursr		; displacement to row num
+		add hl,bc			; address of row num
+		ld	a,(hl)			; get row num
 		pop	hl				; restore control block
-		jp	gdststay		; set to stay mode 
 
-.setp:
-		push	hl
-		ldcurspr			; load current sprite
-		ex	de,hl
-		inc hl				; skip color
-		inc hl				; skip height
-		ld	a,(hl)			; load width
-		pop		hl
-		cp	SBWI+1			
-		jp	c,gdststay		; set to stay mode if current width is less than in stay mode
+		push hl
+		scursr				; set row to default value
+		pop	hl
 
-							; otherwise make column correction
+		push hl
+		ldstate				; load state
+		pop	 hl
+		cp	sbkick
+		jp	nz,gdststay		; stop and stay if not kick
+
+		push hl
+		lddir
+		pop	hl
+		cp dirlt
+		jp z,.setplt
+							; process right direction
+
 		push hl
 		ldcursc				; load column
-		inc	 a				; move sprite to normal position
-		ld   (hl),a			; and save new column
-		inc	 hl				; move to screen row
-		ld	 a,(hl)			; get screen row
-		inc	 a				; move guard down
-		ld   (hl),a			; save new row
-		pop	hl				; restore control block
+		dec	a				; make correction
+		ld (hl),a			; save new column
+		jp .setpf			; save and finish
 
+.setplt:
+		push hl
+		ldcursc				; load column
+		inc	a				; make correction
+
+.setpf:
+		ld (hl),a			; save new column
+		pop hl				; restore control block
 		jp	gdststay		; set to stay mode
 
 ; ----- draws current screen	

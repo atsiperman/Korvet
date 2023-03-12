@@ -458,3 +458,12 @@ odfrown EQU 4       ; rownum
         cp   odead              ; dead object has no dedicated head sprite 
         jp   z,skiplab
         endm
+
+        macro sub_hl_bc  ; DE = HL - BC
+            ld   a,l            
+            sub  c              ; A = L - C
+            ld   e,a            ; save low byte in E
+            ld   a,h
+            sbc  b              ; A = H - B - (1)
+            ld   d,a            ; save high byte in D
+        endm

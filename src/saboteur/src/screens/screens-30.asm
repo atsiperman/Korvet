@@ -386,7 +386,7 @@ scr34txd:
 			mktxtaddr 25, 3
 			db CHFULL
 
-		mscrend
+		db SCREND
 
 ; --- end of scrbk34
 
@@ -462,7 +462,7 @@ scr35txd:
 			mktxtaddr 25, 2
 			db CHFULL
 
-		mscrend
+		db SCREND
 
 ; --- end of scrbk35
 

@@ -189,6 +189,11 @@ start:
 
 		jp 0			; soft reset
 
+        display 0beffh - $, "bytes free"
+
+        dup 0beffh - $  ; stack guard for the rest
+            db 0
+        edup
 
 ;END 100h
 
