@@ -176,12 +176,12 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			define FULLSTART
-			define ENDDEAD			; end game if dead
+			;define FULLSTART
+			;define ENDDEAD			; end game if dead
 
 ; ---- screen control block
 ;
-curscr: 	dw scrn1 		; pointer to current screen
+curscr: 	dw scrn7 		; pointer to current screen
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
 
@@ -191,8 +191,8 @@ fstrendr:	db 1			; flag, if this is the first render on the new screen
 ; ----	saboteur control block			
 ;
 sbctrlb:			
-		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
-			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,10,10
+		    ;mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,7
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
 
 sbholds:    db troshrk  ; type of an object being held by saboteur

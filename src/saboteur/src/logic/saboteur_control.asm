@@ -422,8 +422,7 @@ setdead:
         push hl
         scurspr 
         pop  hl
-        call .mvdead
-        ret
+        ;jp .mvdead
 
 ; ---- moves down dead sprite until wall tile is found
 ; args: HL - address of control block 
@@ -434,6 +433,7 @@ setdead:
         ex   de,hl      ; sprite pointer into HL
         inc  hl         ; skip color
         ld   e,(hl)     ; load sprite height into E
+
         inc  hl         ; move to width
         ld   d,(hl)     ; save width in D
 
@@ -446,11 +446,13 @@ setdead:
         inc  hl
         ld   a,(hl)     ; load current row into A
         add  e          ; add sprite height, start with line under object
-        pop  de         ; restore dimensions
         ld   e,a        ; save row in E
         push de
         call shscradr   ; pointer to tile attributes in HL
-        pop  de
+        pop  de         ; restore row in E
+        ld   a,e        ; save row in A
+        pop  de         ; restore dimensions
+        ld   e,a        ; save row in E
         push de         ; save counters
         push hl         ; save initial pointer to tile attrs
 .mvdn1:
@@ -458,6 +460,7 @@ setdead:
         and  bkroof     ; is something to lie on
         jp   z,.mvdn2   ; no, continue
                         ; yes, write new row and exit
+                        
         ld   a,e        ; save row in A
         pop  de         ; clear stack
         pop  de         ; clear stack        
@@ -482,7 +485,7 @@ setdead:
         jp   .mvdn1
 
 .mvdn3:
-        pop  hl         ; restor pointer to the first tile
+        pop  hl         ; restore pointer to the first tile
         pop  de         ; restore counters
         inc  e          ; inc row numbers
         ld   bc,ROWWIDB
