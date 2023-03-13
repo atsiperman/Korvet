@@ -61,16 +61,21 @@ gdwait:
 ; args: HL - address of control block
 ;       D  - distance to saboteur
 gdstact:
-        push hl
-        call gdrdyact
-        pop  hl
-        or   a                          ; ready for action ?
-        jp   z,.gd1                     ; no, start movement
-        push de                         ; save action procedure address
-        ret                             ; return to action procedure - start it
+        push    de                      ; save distance
+        call gdsabcy                    ; see saboteur by Y ?
+        pop     de                      ; restore distance
+        or      a                       
+        ret     z                       ; return if not
 
-.gd1:
-        jp gdstmov                    ; start move otherwise 
+        push hl                         ; keep control block for action procedure, if happens
+        call gdrdyact
+        pop  hl                         ; restore control block
+
+        or   a                          ; ready for action ?
+        jp   z,gdstmov                  ; no, start movement
+        
+        push de                         ; otherwise save action procedure address
+        ret                             ; return to action procedure - start it
 
 ; ---- guard starts punch action
 ; args: HL - address of control block
@@ -186,11 +191,15 @@ ghitsab:
         ret
 
 .ght:
-        inc     a
-        inc     a               ; get level under saboteur
+        push    hl
+        ld      hl,(sbctrlb + odcursp)          ; load current sprite
+        inc     hl                              ; skip color
+        ld      e,(hl)                          ; load height
+        add     e                               ; get saboteur's feet level
+        pop     hl
+        
         cp      d               ; is guard hits below sab's bottom ?
-
-        jp      nc,.ght2        ; continue if yes
+        jp      nc,.ght2        ; continue if not
 
         pop     af              ; clear stack
         ret

@@ -399,8 +399,11 @@ gdststay:
 ; args: HL - address of control block
 ; result:
 ;       A - 1 - yes, 0 - no
-gdsabcy:
+gdsabcy:        
+        push    hl
         ldcursr                         ; load row into A
+        pop     hl
+
         ld      e,a                     ; save it in E
         sblcursr                        ; load saboteur's row
         ld      d,a                     ; save it in D
@@ -411,10 +414,10 @@ gdsabcy:
         ld      a,e                     ; move guard's row into A
         add     SBHI-2                  ; get level under guard
         cp      d                       ; is saboteur's row below guard ?
-        ret     nc                      ; if no - see saboteur, then return with A != 0 
+        ret     nc                      ; if not below - see saboteur, then return with A != 0 
 
 .gdsno:
-        xor     a
+        xor a
         ret
 
 
@@ -426,11 +429,11 @@ gdsabcy:
 ;       D - distance to the saboteur
 ;       C - 1 - yes, 0 - no, flag, whether direction has been changed
 gdseesab:
-        push hl
-        call gdsabcy                    ; see saboteur by Y ?
-        pop   hl
+        ld      a,(gfsbseen)            ; already seen ?
+        or      a
+        call    z,gdsabcy               ; test Y axis, if not yet 
         or      a                       
-        ret     z                       ; return if not
+        ret     z                       ; return if doesn't see
 
         push hl
         ldcursc
