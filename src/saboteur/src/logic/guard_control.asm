@@ -20,7 +20,7 @@ guardprc:
         cp   sbmove
         jp   z,gfcontmv                 ; if moving then continue moving
 
-        jp gdconact                   ; continue action
+        jp gdconact                     ; continue action
 
 .gdact2:
         ld   a,(gfsbseen)                
@@ -394,6 +394,31 @@ gdststay:
         shdspr
         ret
 
+
+; ---- checks whether guard and saboteur cross by Y coordinate
+; args: HL - address of control block
+; result:
+;       A - 1 - yes, 0 - no
+gdsabcy:
+        ldcursr                         ; load row into A
+        ld      e,a                     ; save it in E
+        sblcursr                        ; load saboteur's row
+        ld      d,a                     ; save it in D
+        add     SBHI-2                  ; get level under saboteur
+        cp      e                       ; is guards row below saboteur ?
+        jp      c,.gdsno                ; do nothing if yes
+
+        ld      a,e                     ; move guard's row into A
+        add     SBHI-2                  ; get level under guard
+        cp      d                       ; is saboteur's row below guard ?
+        ret     nc                      ; if no - see saboteur, then return with A != 0 
+
+.gdsno:
+        xor     a
+        ret
+
+
+
 ; ---- checks whether guard sees saboteur
 ; args: HL - address of control block
 ; result:
@@ -402,17 +427,22 @@ gdststay:
 ;       C - 1 - yes, 0 - no, flag, whether direction has been changed
 gdseesab:
         push hl
+        call gdsabcy                    ; see saboteur by Y ?
+        pop   hl
+        or      a                       
+        ret     z                       ; return if not
 
+        push hl
         ldcursc
         ld   d,a                        ; save column in D
         pop  hl
-        push hl
 
+        push hl
         ldcursr
         ld   e,a                        ; save row in E
         pop  hl
-        push hl
 
+        push hl
         lddir                           ; load guard's direction
         pop  hl
         cp   dirlt
