@@ -80,7 +80,7 @@ setlvl5:
         ld   (e_trig),a
         ld   a,dooropn
         ld   (b_trig),a
-        setbomb s100bmb
+        setbomb s73bmb
         settime 0507h
         ret
 
@@ -88,7 +88,7 @@ setlvl5:
 ;
 setlvl6:
         settrigs doorcls
-        setbomb s73bmb
+        setbomb s100bmb
         settime 0506h
         ret
         
