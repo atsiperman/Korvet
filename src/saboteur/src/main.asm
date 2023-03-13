@@ -154,7 +154,8 @@ start:
         ld hl,0
         add hl,sp
         ld (OLDSTK),hl
-        ld sp,NEWSTK
+        ;;ld sp,NEWSTK
+        ld  sp,100h - 1
 		
 		call sabinit
 
@@ -165,7 +166,6 @@ start:
         GRMODOFF
 
         INITSND
-        ;ei
 .main:
         call runmenu
         or  a
@@ -179,9 +179,8 @@ start:
 
 .exit:
 						; exit to cp/m
-        ld hl,(OLDSTK)
-        ld sp,hl
-		;ei		
+        ; ; ld hl,(OLDSTK)
+        ; ; ld sp,hl
 
         di
         ld a,RESCONF
