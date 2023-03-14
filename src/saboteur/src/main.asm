@@ -46,14 +46,8 @@ scrbuf:
 		include "drawing/mirror_table.asm"
 		include "sprites/guard_sprites.asm"
         include "sprites/saboteur_sprites.asm"
-        include "game_init.asm"
-
-; ---- disk sound data
-scdsksnd:
-        db (.esnd - scdsksnd) / 2
-        dw 100, 305, 510, 405, 150, 700, 210, 110
-.esnd:        
-
+        include "sound_data.asm"
+        include "game_init.asm"        
         include "upper_block_def.asm"
         
 		include "init.asm"
@@ -61,7 +55,7 @@ scdsksnd:
         ; minus total length of saboteur sprites data
         ; this place will be reused as a screen buffer
 
-TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) + (ginitend - ginitst) + (scdsksnd.esnd - scdsksnd)
+TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) + (ginitend - ginitst) + (sndend - sndstrt)
         dw ROWNUM * ROWWIDB
         dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
         db 0

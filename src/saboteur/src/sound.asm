@@ -45,18 +45,9 @@ SNDMOD  EQU     36h     ; timer sound mode
         ld (hl),hi
     endm
 
-    ; ---- plays sound of strike
-;     macro PLAYPNCH
-;         ;ld  de,sndpunch
-;         ;call playsnd
-;         call playpnch
-;     endm
-
     ; ---- plays sound of weapon hit
     macro PLYWEAPN
         call playwpn
-        ;ld  de,sndgunsh
-        ;call playsnd
     endm
 
 ; ---- plays sound of punch hit 
@@ -250,37 +241,3 @@ waitblnk:
         jp   nz,.waitbl1
 
         ret
-
-        ; ---- defines number of notes
-        macro notesnum endlabl
-            db (endlabl - ($+1)) / 3    ; number of notes
-        endm
-
-        macro mknote pitch, duration
-            dw pitch
-            db duration
-        endm
-
-; ---- sound of a gun shell
-sndgunsh:
-        db 2                   ; number of iterations
-        notesnum .endsnd
-        dup 2
-                mknote 10, 50
-                dup 4
-                mknote 65535, 255
-                edup
-        edup
-.endsnd        
-
-; ---- sound of a punch/kick
-sndpunch:
-        db 8                   ; number of iterations
-        notesnum .endsnd
-        ;dup 2
-                mknote 10, 50
-                dup 6
-                mknote 65535, 255
-                edup
-        ;edup
-.endsnd        

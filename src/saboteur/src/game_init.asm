@@ -33,7 +33,7 @@ ginitst:
 setlvl1:
         settrigs dooropn
         setbomb s30bmb
-        ;settime 0100h
+        settime 0100h
         ret
         
 ; ---- set up level 2
