@@ -217,32 +217,34 @@ pipe:
 ;         db CGREEN, 3, 255, 142, 0, CBLUE
 ;         db CGREEN, 0, 254, 0, 0, CBLUE
 
+DSKBKC  EQU CBLACK
+
 desknorm:
         db 4,24
-        db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 12, 6, 0, CBLACK 
-        db CCYAN, 0, 12, 6, 0, CBLACK 
-        db CCYAN, 0, 63, 255, 192, CBLACK 
-        db CCYAN, 0, 48, 0, 192, CBLACK 
-        db CCYAN, 0, 55, 255, 248, CBLACK 
-        db CCYAN, 3, 232, 0, 24, CBLACK 
-        db CCYAN, 31, 15, 255, 216, CBLACK 
-        db CCYAN, 24, 254, 0, 88, CBLACK 
-        db CCYAN, 25, 255, 255, 152, CBLACK 
-        db CCYAN, 31, 242, 2, 120, CBLACK 
-        db CCYAN, 0, 3, 254, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 250, 0, CBLACK 
-        db CCYAN, 0, 3, 254, 0, CBLACK 
-        db CCYAN, 0, 0, 0, 0, CBLACK 
+        db CCYAN, 0, 0, 0, 0, DSKBKC
+        db CCYAN, 0, 0, 0, 0, DSKBKC 
+        db CCYAN, 0, 0, 0, 0, DSKBKC 
+        db CCYAN, 0, 0, 0, 0, DSKBKC 
+        db CCYAN, 0, 0, 0, 0, DSKBKC 
+        db CCYAN, 0, 12, 0, 0, DSKBKC 
+        db CCYAN, 0, 12, 6, 0, DSKBKC 
+        db CCYAN, 0, 63, 255, 192, DSKBKC
+        db CCYAN, 0, 48, 0, 192, DSKBKC
+        db CCYAN, 0, 55, 255, 248, DSKBKC
+        db CCYAN, 3, 232, 0, 24, DSKBKC
+        db CCYAN, 31, 15, 255, 216, DSKBKC
+        db CCYAN, 24, 254, 0, 88, DSKBKC
+        db CCYAN, 25, 255, 255, 152, DSKBKC
+        db CCYAN, 31, 242, 2, 120, DSKBKC
+        db CCYAN, 0, 3, 254, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 250, 0, DSKBKC 
+        db CCYAN, 0, 3, 254, 0, DSKBKC 
+        db CCYAN, 0, 0, 0, 0, DSKBKC
 
 deskprsd:
         db 4,24
@@ -251,8 +253,8 @@ deskprsd:
         db CCYAN, 0, 0, 0, 0, CBLACK 
         db CCYAN, 0, 0, 0, 0, CBLACK 
         db CCYAN, 0, 0, 0, 0, CBLACK 
-        db CCYAN, 0, 0, 6, 0, CBLACK 
-        db CCYAN, 0, 0, 6, 0, CBLACK 
+        db CRED, 0, 0, 6, 0, CBLACK 
+        db CRED, 0, 12, 6, 0, CBLACK 
         db CCYAN, 0, 63, 255, 192, CBLACK 
         db CCYAN, 0, 48, 0, 192, CBLACK 
         db CCYAN, 0, 55, 255, 248, CBLACK 
@@ -273,11 +275,11 @@ deskprsd:
 
 bombspr:
         db 4,24
-        db CRED, 0, 0, 0, 0, CBLUE
-        db CRED, 0, 6, 128, 0, CBLUE
-        db CRED, 0, 137, 64, 0, CBLUE 
-        db CRED, 1, 104, 32, 0, CBLUE
-        db CRED, 2, 16, 51, 0, CBLUE
+        db CYELLOW, 0, 0, 0, 0, CBLUE
+        db CYELLOW, 0, 6, 128, 0, CBLUE
+        db CYELLOW, 0, 137, 64, 0, CBLUE 
+        db CYELLOW, 1, 104, 32, 0, CBLUE
+        db CYELLOW, 2, 16, 51, 0, CBLUE
         db CRED, 7, 119, 18, 0, CBLUE
         db CRED, 7, 119, 127, 192, CBLUE
         db CRED, 7, 119, 127, 192, CBLUE
@@ -299,24 +301,26 @@ bombspr:
         db CYELLOW, 60, 242, 39, 146, CBLACK
         db CYELLOW, 0, 0, 0, 0, CBLACK
 
+DISKBKC EQU CBLUE
+
 diskspr:
         db 4,24
-        db CYELLOW, 0, 0, 0, 0, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK
-        db CYELLOW, 7, 255, 231, 224, CBLACK
-        db CYELLOW, 7, 252, 63, 224, CBLACK
-        db CYELLOW, 7, 251, 223, 224, CBLACK
-        db CYELLOW, 7, 247, 239, 224, CBLACK
-        db CYELLOW, 4, 23, 239, 224, CBLACK 
-        db CYELLOW, 4, 23, 239, 224, CBLACK
-        db CYELLOW, 7, 247, 239, 224, CBLACK 
-        db CYELLOW, 7, 251, 223, 224, CBLACK
-        db CYELLOW, 7, 252, 63, 224, CBLACK
-        db CYELLOW, 7, 255, 255, 224, CBLACK 
+        db CYELLOW, 0, 0, 0, 0, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC
+        db CYELLOW, 7, 255, 231, 224, DISKBKC
+        db CYELLOW, 7, 252, 63, 224, DISKBKC
+        db CYELLOW, 7, 251, 223, 224, DISKBKC
+        db CYELLOW, 7, 247, 239, 224, DISKBKC
+        db CYELLOW, 4, 23, 239, 224, DISKBKC
+        db CYELLOW, 4, 23, 239, 224, DISKBKC
+        db CYELLOW, 7, 247, 239, 224, DISKBKC 
+        db CYELLOW, 7, 251, 223, 224, DISKBKC
+        db CYELLOW, 7, 252, 63, 224, DISKBKC
+        db CYELLOW, 7, 255, 255, 224, DISKBKC 
         db CBLACK, 255, 255, 255, 255, CYELLOW
         db CBLACK, 240, 110, 64, 155, CYELLOW
         db CBLACK, 243, 110, 78, 147, CYELLOW
