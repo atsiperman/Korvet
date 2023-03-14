@@ -90,8 +90,9 @@ lvlproc  EQU ginitmem + (_lvlproc - ginitst)
 dsksnd   EQU lvlproc + (ginitend - ginitst)
 sndgunsh EQU dsksnd + (scdsksnd.esnd - scdsksnd)
 sndpunch EQU sndgunsh + (sndgnshd.endsnd - sndgnshd)
+sndxplsn EQU sndpunch + (sndpnchd.endsnd - sndpnchd)
 
-uppertop EQU sndpunch + (sndpnchd.endsnd - sndpnchd)
+uppertop EQU sndxplsn + (dexplsn.endsnd - dexplsn)
 
 
 ; ----- no more space in upper memory block

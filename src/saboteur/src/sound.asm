@@ -55,35 +55,24 @@ playpnch:
         ld  de,sndpunch
         jp playsnd
 
-; ---- plays sound of weapon hit ejection
+; ---- plays sound of bomb explosion
+plyxlpsn:        
+        ld      de,sndxplsn
+        jp      playsnd
+
+        ;ld      de,sndxplsn
+        ;ld      b,1
+        ;jp      playsmps
+
+; ---- plays sound of weapon hit 
 playwpn:
         ld  de,sndgunsh
         jp playsnd
 
-; ---- plays sound of weapon hit ejection
-plyxlpsn:        
-        ld b,3        
-        ld hl,(explsnp)
-        ld de,SNDREGD		; load sound data pointer
-        
-.plxpl:        
-        dup 2
-                ld a,(hl)       ; load data byte from buffer
-                ld (de),a       ; send it to the sound register
-                inc hl           
-        edup
-        dup 3
-                halt
-        edup
-        dec b
-        jp  nz,.plxpl
-        ld  (explsnp),hl        ; save current pointer
-        ret
-
 ; ---- plays sound of disk ejection
 playdscs:
         ld      de,dsksnd
-        ld      b,3         
+        ld      b,3
         jp      playsmps
 
 ;         ENSND

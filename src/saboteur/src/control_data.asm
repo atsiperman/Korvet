@@ -176,8 +176,6 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-explsnp:	dw 100h;  playwpn		; data buffer for bomb explosion sound
-
 			;define FULLSTART
 			define ENDDEAD			; end game if dead
 
