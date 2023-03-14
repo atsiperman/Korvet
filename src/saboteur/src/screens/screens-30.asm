@@ -763,6 +763,7 @@ smap38b:
 		bkindex BK25ADDR	; 3, yellow ladder right
 		bkindex BK26ADDR    ; 4, cyan vertical tube
 		bkindex BK23ADDR	; 5, red beam
+		bkindex BK32ADDR    ; 6, green vertical tube
 smap38e:
 						; 1
 		mkbyte 1,1
@@ -865,7 +866,7 @@ smap38e:
 						; 10
 		mkline 3
 		db 0
-		mkbyte 0,1
+		mkbyte 0,6
 		mkline 4
 		mkbyte 1,1
 		mkbyte 4,1
@@ -876,7 +877,8 @@ smap38e:
 						; 11
 		mkline 3
 		db 0
-		mkline 5
+		mkbyte 1,6
+		mkline 4
 		mkbyte 1,1
 		mkbyte 4,1
 		mkbyte 2,3
@@ -884,10 +886,11 @@ smap38e:
 		mkbyte 1,1
 
 						; 12
-		mkline 2
+		db 0
 		db 0
 		mkbyte 0,1
-		mkline 5
+		mkbyte 1,6
+		mkline 4
 		mkbyte 1,1
 		mkbyte 4,1
 		mkbyte 2,3
@@ -895,9 +898,11 @@ smap38e:
 		mkbyte 1,1
 
 						; 13
-		mkline 2
 		db 0
-		mkline 6
+		db 0
+		mkbyte 1,1
+		mkbyte 1,6
+		mkline 4
 		mkbyte 1,1
 		mkbyte 4,1
 		mkbyte 2,3

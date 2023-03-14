@@ -37,14 +37,23 @@ tstgunsh:
 
         ld hl,(sbctrlb + odcursp)       ; load current sprite into HL
         inc     hl                      ; skip color
-        inc     hl                      ; skip height
+        ld      a,(hl)                  ; load height
+        inc     a                       ; add half of head heigh, to get row of feet level
+        ld      (.sabhi),a              ; save it
+        inc     hl                      
         ld      a,(hl)                  ; load width
         ld      (.sabwid),a             ; save it
 
         sblcursr                        ; load saboteur row
-        inc     e                       ; increase row to use NC flag
-        cp      e                       ; is shell inside saboteur body ?
-        jp      nc,.exit                ; exit if no
+        inc     e                       ; increase shell row to use NC flag
+        cp      e                       ; is shell inside saboteur's body ?
+        jp      nc,.exit                ; exit if not
+
+        ld      hl,.sabhi
+        add     (hl)                    ; get feet level
+        dec     e                       ; get back to the shell row
+        cp      e                       ; is shell beneath saboteur body ?
+        jp      c,.exit                 ; exit if yes
 
         sblcursc                        ; load saboteur left column
         inc     d                       ; increase column to use NC flag
@@ -78,7 +87,9 @@ tstgunsh:
         xor     a                       ; nothing found
         ret
 
-.sabwid:                               ; saboteur width
+.sabwid:                                ; saboteur width
+        db      0
+.sabhi:                                 ; saboteur height
         db      0
 
 ; ---- move gun shell by two tiles, test each tile for the wall/floor
