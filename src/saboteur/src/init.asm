@@ -50,6 +50,11 @@
         
 sabinit:
         ; copy level initialization code into upper memory block
+        ld  hl,scdsksnd
+        ld  de,dsksnd
+        ld  bc,scdsksnd.esnd - scdsksnd
+        call copymem              
+
         ld  hl,ginitst
         ld  de,ginitmem
         ld  bc,ginitend - ginitst

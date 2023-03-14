@@ -87,7 +87,9 @@ ginitmem EQU gdhwalkl + (_gdhwalk.heade - _gdhwalk)
 ; ---- address of procs for setting up game level
 lvlproc  EQU ginitmem + (_lvlproc - ginitst)
 
-uppertop EQU ginitmem + (ginitend - ginitst)
+dsksnd   EQU lvlproc + (ginitend - ginitst)
+
+uppertop EQU dsksnd + (scdsksnd.esnd - scdsksnd)
 
 
 ; ----- no more space in upper memory block

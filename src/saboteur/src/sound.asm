@@ -89,12 +89,6 @@ plyxlpsn:
         ld  (explsnp),hl        ; save current pointer
         ret
 
-; ---- disk sound data
-dsksnd:
-        db (.esnd - dsksnd) / 2
-        dw 100, 305, 510, 405, 150, 700, 210, 110
-.esnd:        
-
 ; ---- plays sound of disk ejection
 playdscs:
         ld      de,dsksnd
