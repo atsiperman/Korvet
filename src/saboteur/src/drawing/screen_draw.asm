@@ -474,6 +474,9 @@ drwnums:
 		ld   de,TIMESCRA - VERTDISP - 1 ; top padding
 		push hl
 		push bc
+
+		halt
+
 		call prntstr
 
 		pop	bc
@@ -605,7 +608,8 @@ scrch1_:
 		call decmrscr		; decompress new screen map
 		call setpobjd		; setup object on new screen, e.g stop actions for guards 
 
-        call waitblnk
+		halt
+        ;call waitblnk
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
         call sinitprc		; screen init procedure

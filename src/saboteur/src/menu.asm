@@ -171,6 +171,7 @@ runmenu:
 ; ----- shows menu
 ;
 mnshow:
+        halt
         GRMODON
 
         ld  b,NUMFGC
@@ -218,9 +219,10 @@ mnshow:
 ; ----- makes a pause
 ;
 mkpause:
-        ld   c,10
-.mkp:        
-        call waitblnk
+        ld   c,7
+.mkp:    
+        halt
+        ;call waitblnk
         dec  c
         jp   nz,.mkp
         ret

@@ -29,6 +29,8 @@ graph_mode_on:
         ei
         endm
 
+		;define PRINTFPS
+
         include "interrupts.asm"
         include "const.asm"
 		include "sbmacro.asm"	
