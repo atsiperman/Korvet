@@ -38,8 +38,8 @@
     mktrig colnum, rownum, trgmanl, troston, itmproc    
     endm
 
-    macro mkdesk colnum, rownum, data
-    mktrig3 tractiv, colnum, rownum, trgmanl, trodskn, deskproc, data
+    macro mkdesk colnum, rownum
+    mktrig3 tractiv, colnum, rownum, trgmanl, trodskn, deskproc, dooropn
     endm    
 
     macro mkbomb colnum, rownum
@@ -50,7 +50,7 @@ trmapst:    ; start of trigger map
 
 s3trm:
     db 2
-    mkdesk 24, 6, 0
+    mkdesk 24, 6
     mkbrick 22, 15
 
 s8trm:
@@ -79,14 +79,14 @@ s25trm:
 s30trm:
     db 3
     mkgrnd 6, 12
-    mkdesk 17,12,0
+    mkdesk 17,12
 s30bmb:
     mkbomb 24, 12
     ;mktrig 24, 12, trgmanl, trobomb, itmproc
 
 s35trm:
     db 1
-    mkdesk 19, 14, 0
+    mkdesk 19, 14
 
 s37trm:
     db 1
@@ -97,7 +97,7 @@ s37trd:         ; data for trigger from screen 37 (DISK)
 
 s41trm:
     db 1
-    mkdesk 4,13,0
+    mkdesk 4,13
 
 s45trm:
     db 1
@@ -105,7 +105,7 @@ s45trm:
 
 s51trm:
     db 1
-    mkdesk 19,15,dooropn
+    mkdesk 19,15
 
 s57trm:
     db 1
@@ -113,12 +113,12 @@ s57trm:
 
 s60trm:
     db 1
-    mkdesk 24,14,0
+    mkdesk 24,14
 
 s61trm:
     db 2
-    mkdesk 13,14,0
-    mkdesk 19,14,0
+    mkdesk 13,14
+    mkdesk 19,14
 
 s64trm:
     db 2
@@ -135,7 +135,7 @@ s66trm:
 
 s70trm:
     db 2
-    mkdesk 7, 6, 0
+    mkdesk 7, 6
     mkknife 18, 15
 
 s73trm:
@@ -149,7 +149,7 @@ s75trm:
 
 s79trm:
     db 1
-    mkdesk 3, 15, dooropn
+    mkdesk 3, 15
 
 s80trm:
     db 1
@@ -162,22 +162,22 @@ s91trm:
 
 s94trm:
     db 1
-    mkdesk 14, 12, 0
+    mkdesk 14, 12
 
 s95trm:
     db 3
-    mkdesk 3, 15, 0
-    mkdesk 21, 14, 0
+    mkdesk 3, 15
+    mkdesk 21, 14
     mkpipe 13, 7
 
 
 s97trm:
     db 5
-    mkdesk 6, 6, dooropn
-    mkdesk 9, 6, 0
-    mkdesk 12, 6, 0
-    mkdesk 15, 6, 0
-    mkdesk 18, 6, 0
+    mkdesk 6, 6
+    mkdesk 9, 6
+    mkdesk 12, 6
+    mkdesk 15, 6
+    mkdesk 18, 6
 
 s98trm:
     db 1
@@ -196,23 +196,23 @@ s101trm:
 s102trm:
     db 2
     mkknife 12, 8
-    mkdesk 18, 8, 0
+    mkdesk 18, 8
 
 s104trm:
     db 4
-    mkdesk 11, 14, dooropn
-    mkdesk 6, 14, 0
-    mkdesk 8, 14, 0
-    mkdesk 14, 14, 0
+    mkdesk 11, 14
+    mkdesk 6, 14
+    mkdesk 8, 14
+    mkdesk 14, 14
 
 s105trm:
     db 1
-    mkdesk 23,8,dooropn
+    mkdesk 23,8
 
 s106trm:
     db 2
-    mkdesk 3,8,0
-    mkdesk 21,8,0
+    mkdesk 3,8
+    mkdesk 21,8
 
 s113trm:
     db 1
@@ -220,7 +220,7 @@ s113trm:
 
 s120trm:
     db 1
-    mkdesk 13,12,0
+    mkdesk 13,12
 
 s122trm:
     db 1

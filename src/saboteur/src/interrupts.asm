@@ -35,20 +35,47 @@ INTRTAB             EQU $
 ; screen interrupt handler
 ; ------------------------------
 screen_intr_handler:
-                    di
-                    push hl
-                    push af
-                    push de
+                di
+                push hl
+                push af
+                push de
 
-                    ld   a,(graph_mode_on)       
-                    ld   (saved_gr_mode_on),a    
-                    or   a
-                    jp   z,.test_counter         ; test counter if not in graph mode
-                    ; GRMODOFF
-                    ld a,DOSCONF
-                    ld (GSYSREG),a
+                ld   a,(graph_mode_on)       
+                ld   (saved_gr_mode_on),a    
+                or   a
+                jp   z,.prntfps                 ; test counter if not in graph mode
+                ; GRMODOFF
+                ld a,DOSCONF
+                ld (GSYSREG),a
 
-.test_counter:
+.prntfps:
+
+                ifdef PRINTFPS
+                call print_fps
+                endif    
+
+                ld  a,20h
+                ld  (INTRREG),a                 ; finish interrupt processing
+
+                ld  a,(saved_gr_mode_on)        ; get previous mode
+                or  a                           ; was graph on ?
+                jp  z,.exit                     ; no - exit
+
+                ; GRMODON
+                ld a,GCONFIG
+                ld (TSYSREG),a
+.exit:
+                pop  de
+                pop  af
+                pop  hl
+
+                ei
+                ret     
+
+        ifdef PRINTFPS
+; ----- prints FPS counter
+
+print_fps:
                     ld   a,(intr_counter)
                     cp   50
                     jp   nc,.print_frame_counter ; print frame counter if interrupt counter >= 50
@@ -85,23 +112,8 @@ screen_intr_handler:
                     ld  (intr_counter),a        ; reset interrupt counter
 
 .end
-                    ld  a,20h
-                    ld  (INTRREG),a         ; finish interrupt processing
-
-                    ld  a,(saved_gr_mode_on)    ; get previous mode
-                    or  a                       ; was graph on ?
-                    jp  z,.exit                  ; no - exit
-
-                    ; GRMODON
-                    ld a,GCONFIG
-                    ld (TSYSREG),a
-.exit:
-                    pop  de
-                    pop  af
-                    pop  hl
-
-                    ei                    
                     ret   
+        endif ; ifdef PRINTFPS
 
 ; ------------------------------
 ;  installs interrupt handlers
