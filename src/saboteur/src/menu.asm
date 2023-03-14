@@ -3,14 +3,17 @@ paystr:
         db "GONORAR",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
 .paystr
 
+TXTCOLD EQU 5           ; text displacement
+TXTCOLN EQU 12          ; column in text video memory
+
 menu:
-        dw MNSTSCRA, txtlvl0
-        dw MNSTSCRA + (VERTDISP * 2), txtlvl1
-        dw MNSTSCRA + (VERTDISP * 4), txtlvl2
-        dw MNSTSCRA + (VERTDISP * 6), txtlvl3
-        dw MNSTSCRA + VERTDISP * 8, txtlvl4
-        dw MNSTSCRA + VERTDISP * 10, txtlvl5
-        dw MNSTSCRA + VERTDISP * 13, txtexit
+        dw MNSTSCRA + TXTCOLD, txtlvl0
+        dw MNSTSCRA + (VERTDISP * 2) + TXTCOLD, txtlvl1
+        dw MNSTSCRA + (VERTDISP * 4) + TXTCOLD, txtlvl2
+        dw MNSTSCRA + (VERTDISP * 6) + TXTCOLD, txtlvl3
+        dw MNSTSCRA + VERTDISP * 8  + TXTCOLD, txtlvl4
+        dw MNSTSCRA + VERTDISP * 10  + TXTCOLD, txtlvl5
+        dw MNSTSCRA + VERTDISP * 13 + 2, txtexit
 menue:
 
 menuptr:
@@ -26,7 +29,6 @@ menutit:
 
 
 txtlvl0:
-        ;db .txlvl0 - txtlvl0 - 1, "O^ENX",SPACECH,"LEGKIJ"
         db .txlvl0 - txtlvl0 - 1, "PROSTOJ"
 .txlvl0:
 
@@ -43,12 +45,10 @@ txtlvl3:
 .txlvl3:        
 
 txtlvl4:
-        ;db .txlvl4 - txtlvl4 - 1, "O^ENX",SPACECH,"TRUDNYJ"
-        db .txlvl4 - txtlvl4 - 1, "TQVELYJ"
+        db .txlvl4 - txtlvl4 - 1, "MASTER" ;"TQVELYJ"
 .txlvl4:        
 
 txtlvl5:
-        ;db .txlvl5 - txtlvl5 - 1, "TQVELYJ"
         db .txlvl5 - txtlvl5 - 1, "PROFI"
 .txlvl5:        
 
@@ -65,25 +65,25 @@ menutxt:
 			db CHFULL
 
         mkbyte TXLINEH,12
-			mktxtaddr 7, 3
+			mktxtaddr TXTCOLN, 3
 			db CHFULL
         mkbyte TXLINEH,7
-			mktxtaddr 7, 4
+			mktxtaddr TXTCOLN, 4
 			db CHFULL
         mkbyte TXLINEH,7
-			mktxtaddr 7, 5
+			mktxtaddr TXTCOLN, 5
                         db CHFULL
         mkbyte TXLINEH,7
-			mktxtaddr 7, 6
+			mktxtaddr TXTCOLN, 6
 			db CHFULL
         mkbyte TXLINEH,13
-			mktxtaddr 7, 7
+			mktxtaddr TXTCOLN, 7
 			db CHFULL
         mkbyte TXLINEH,7
-			mktxtaddr 7, 8
+			mktxtaddr TXTCOLN, 8
 			db CHFULL
         mkbyte TXLINEH,13
-			mktxtaddr 7, 10
+			mktxtaddr 9, 10
 			db CHFULL
         db SCREND
 
