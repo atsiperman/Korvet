@@ -1,16 +1,43 @@
+; ----- clear text RAM in timer's area
+timeclrt:
+		xor a
+        ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 9)
+		ld c,4
+.t1:		
+        ld (hl),a
+        inc hl
+		dec	c
+		jp	nz,.t1
+
+        ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 10)
+		ld	c,4
+.t2:		
+        ld (hl),a
+        inc hl
+		dec	c
+		jp	nz,.t2
+		ret
+
 ; ----- text ram init for constant places like timer
 ;
 txtrinit:
         ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 9)
-		dup 4
-        ld (hl),CHBOTM
+		ld c,4
+		ld	a,CHBOTM
+.t1:		
+        ld (hl),a
         inc hl
-		edup
+		dec	c
+		jp	nz,.t1
+
         ld hl,TRAM + TSTARTC + 21 + 64*(TSTARTR + 10)
-		dup 4
-        ld (hl),CHFULL
+		ld	c,4
+		ld	a,CHFULL
+.t2:		
+        ld (hl),a
         inc hl
-		edup
+		dec	c
+		jp	nz,.t2
 
         ld hl,TRAM + TSTARTC + 5 + 64*(TSTARTR + 9)
         ld  a,15
@@ -450,12 +477,15 @@ gifdown:
 		call gkdown
 		jp gend
 
+
 gkifesc:		
+	ifndef FULLSTART
 		ld a,c
 		cp KESC
 		jp nz,gend
 		xor a
 		ret z			; exit button - end game	
+	endif
 
 gend:		
 		ld a,1

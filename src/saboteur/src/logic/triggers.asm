@@ -248,7 +248,8 @@ dsktproc:
 .dskp2:
         ld      a,TIMRCNTD      ; switch timer into 
         ld      (timractv),a    ; countdown mode
-        call    rstgtime
+        call    rstgtime        ; restart timer
+        call    timeclrt        ; clear text RAM for timer 
                 
 .dskrun: 
         ld      hl,(trdtptr)

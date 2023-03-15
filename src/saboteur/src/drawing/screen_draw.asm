@@ -460,13 +460,13 @@ drwnums:
 		or	a				
 		jp	nz,.drn2
 		inc a				; change frame state
-        ld  b,NUMFGC2
-        ld  c,NUMBKC2
+        ld  b,TIMEFGCI
+        ld  c,TIMEBKCI
 		jp	.drn3		
 .drn2:
 		xor a				; change frame state
-        ld  b,NUMFGC
-        ld  c,NUMBKC
+        ld  b,TIMEBKCI
+        ld  c,TIMEFGCI
 .drn3:
 		ld	(timrfst),a		; save frame state
 .drn4:
