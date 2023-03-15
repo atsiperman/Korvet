@@ -176,7 +176,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			define FULLSTART
+			;define FULLSTART
 			define ENDDEAD			; end game if dead
 		
 ; ---- screen control block
@@ -205,7 +205,8 @@ sbctrlb:
 		ifdef FULLSTART
 sbholds:    db troshrk  ; type of an object being held by saboteur
 		else
-sbholds:    db trobomb   ; type of an object being held by saboteur
+;sbholds:    db trobomb   ; type of an object being held by saboteur
+sbholds:    db troshrk  ; type of an object being held by saboteur
 		endif
 
 sbhldch:    db 1        ; flag, when object is changed

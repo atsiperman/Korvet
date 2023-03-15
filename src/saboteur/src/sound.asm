@@ -50,64 +50,32 @@ SNDMOD  EQU     36h     ; timer sound mode
         call playwpn
     endm
 
+; ---- plays sound of a weapon throw
+playthrw:
+        ld      de,sndthrow
+        ld      b,1
+        jp      playsmps
+
 ; ---- plays sound of punch hit 
 playpnch:
-        ld  de,sndpunch
-        jp playsnd
+        ld      de,sndpunch
+        jp      playsnd
 
 ; ---- plays sound of bomb explosion
 plyxlpsn:        
         ld      de,sndxplsn
         jp      playsnd
 
-        ;ld      de,sndxplsn
-        ;ld      b,1
-        ;jp      playsmps
-
 ; ---- plays sound of weapon hit 
 playwpn:
-        ld  de,sndgunsh
-        jp playsnd
+        ld      de,sndgunsh
+        jp      playsnd
 
 ; ---- plays sound of disk ejection
 playdscs:
         ld      de,dsksnd
         ld      b,3
         jp      playsmps
-
-;         ENSND
-;         ld hl,SNDREGD
-
-;         ld b, 08h                 ; repeat count
-
-; .replay:   
-;         ld  de,playdscs + 1
-;         ld  c,35
-;         ;ld de,dsksnd            ; load data pointer
-;         ;ld a,(de)               ; load counter
-;         ;ld c,a                  ; save it in C
-
-; .play:        
-;         inc de                  
-;         ld a,(de)
-;         ld (hl),a
-
-;         inc de                  
-;         ld a,(de)
-;         ;and b
-;         ld (hl),a
-
-;         dup 3
-;                 halt
-;         edup
-
-;         dec c
-;         jp   nz,.play
-
-;         ; dec b
-;         ; jp  nz,.replay
-;         DISSND
-;         ret
 
 ; ---- plays simple sound from the buffer provided
 ; args: DE - buffer to play from
@@ -163,8 +131,6 @@ playsnd:
         ld  b,a                 ; init note counter
 
 .pls1:
-        ;;push bc                 ; save counters
-
         inc de                  ; move to the next note
 
         DISSND
@@ -183,18 +149,10 @@ playsnd:
 .pls2:
         inc de                  ; to duration
         ld  a,(de)              ; load duration low byte
-        ;;inc de
-        ;;ld  c,a
-        ;;ld  a,(de)              ; load duration hi byte
-        ;;ld  b,a
 .pls3:
-        ;;dec bc
-        ;;ld  a,c
-        ;;or  b
         dec a
         jp  nz,.pls3            ; delay
 
-        ;;pop bc                  ; restore counters
         dec b                   ; number of notes
         jp  nz,.pls1
 

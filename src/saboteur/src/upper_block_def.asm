@@ -88,11 +88,12 @@ ginitmem EQU gdhwalkl + (_gdhwalk.heade - _gdhwalk)
 lvlproc  EQU ginitmem + (_lvlproc - ginitst)
 
 dsksnd   EQU lvlproc + (ginitend - ginitst)
-sndgunsh EQU dsksnd + (scdsksnd.esnd - scdsksnd)
+sndgunsh EQU dsksnd + (scdsksnd.endsnd - scdsksnd)
 sndpunch EQU sndgunsh + (sndgnshd.endsnd - sndgnshd)
 sndxplsn EQU sndpunch + (sndpnchd.endsnd - sndpnchd)
+sndthrow EQU sndxplsn + (dexplsn.endsnd - dexplsn)
 
-uppertop EQU sndxplsn + (dexplsn.endsnd - dexplsn)
+uppertop EQU sndthrow + (dthrwsnd.endsnd - dthrwsnd)
 
 
 ; ----- no more space in upper memory block

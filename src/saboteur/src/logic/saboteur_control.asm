@@ -206,6 +206,7 @@ sbthrow:
         inc  a
         ld   (sbhldch),a    ; redraw object
 
+        call playthrw
         jp   movthrnw        ; check next column to move
 
 

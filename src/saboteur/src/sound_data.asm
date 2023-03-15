@@ -12,12 +12,12 @@ sndstrt:
 
 ; ---- disk sound data
 scdsksnd:
-        db (.esnd - scdsksnd) / 2
-        dw 100, 305, 
-        dw 510, 405,
-        dw 150, 500,
+        db (.endsnd - scdsksnd) / 2
+        dw 100, 305 
+        dw 510, 405
+        dw 150, 500
         dw 210, 110
-.esnd:        
+.endsnd:        
 
 ; ---- sound of a gun shell
 sndgnshd:
@@ -50,5 +50,11 @@ dexplsn:
         mknote 60000, 50
         mknote 65535, 255
 .endsnd:        	
+
+; ---- weapon throw data
+dthrwsnd:
+        db (.endsnd - dthrwsnd) / 2
+        dw 200 ;, 100
+.endsnd:
 
 sndend:
