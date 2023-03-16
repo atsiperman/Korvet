@@ -191,12 +191,12 @@ gboat:
 		inc	a				; to the next column
 		sbscursc			; save it
 
-		STARTSND 55000
 		call updobjs		; update objects state		
-		DISSND
 		
 		call rsttiles		; restore tiles background according to current objects location
 		call drawobjs		; draw active objects		
+		
+		STARTSND 55000
 
 		GRMODON
 
@@ -220,7 +220,11 @@ gboat:
 
 		GRMODOFF
 
+		DISSND
+
+		dup 2
 		halt				; delay
+		edup
 
 		jp gboat
 
@@ -243,6 +247,7 @@ gcycle:
 		ifdef FULLSTART
 		rsboat
 		call drawscr
+		call mkpause
 		call gboat
 		call sbdojump
 		endif

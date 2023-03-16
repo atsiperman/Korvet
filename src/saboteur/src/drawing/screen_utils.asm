@@ -72,7 +72,25 @@ lutset2:
         dec c
         jp nz,lutset2
         ret
-		
+
+; ----- makes all colors black
+lutoff:        
+        GRMODON
+        di
+
+        ld c,16
+        ld de,LUTREG
+        xor a        
+.ltoff:      
+        ld (de),a  
+        inc a
+        dec c
+        jp nz,.ltoff
+
+        ei
+        GRMODOFF
+        ret
+
 ; -----  fills screen with black
 ;
 clrscrn:
@@ -484,7 +502,7 @@ clrtxscr:
         or l
         ret z			    ; address is zero, nothing to draw
         
-        ld a,0AFh           ; xor a
+        ld a,0AFh           ; 'xor a'
         ld (_drtrm2_),a
         ld (_drtrm3_),a
         jp _drtrams
@@ -501,7 +519,7 @@ drawtram:
 ;args: HL - address of text ram definition
 ;
 drwtram:
-        ld a,7eh                ; ld a,(hl)
+        ld a,7eh                ; 'ld a,(hl)'
         ld (_drtrm2_),a
         ld (_drtrm3_),a
 

@@ -222,7 +222,6 @@ mkpause:
         ld   c,7
 .mkp:    
         halt
-        ;call waitblnk
         dec  c
         jp   nz,.mkp
         ret
@@ -273,7 +272,7 @@ prntend:
         ld   hl,tmfailed
         call prntstr
         GRMODOFF
-        jp  waitkey
+        jp  .gend
 
 .prntok:        
         GRMODON
@@ -296,7 +295,7 @@ prntend:
         call addscore
 
         ld      a,(timractv)                    ; load timer mode
-        cp      TIMRCNTD                      ; is bomb planted ?
+        cp      TIMRCNTD                        ; is bomb planted ?
         jp      nz,.pntds2                      ; skip adding score for bomb if no
 
         ld  hl,escwdab
@@ -312,6 +311,10 @@ prntend:
 .prnte:
         call drwnums
         GRMODOFF
+
+.gend:
+        ld   c,100
+        call mkpause.mkp
 
         jp waitkey
         

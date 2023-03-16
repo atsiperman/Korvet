@@ -602,14 +602,13 @@ scrch1_:
 		or a		
 		jp z,drawobj1		; do not draw if no
 		
-		ld a,1
 		ld (fstrendr),a		; set flag for first render
 
 		call decmrscr		; decompress new screen map
 		call setpobjd		; setup object on new screen, e.g stop actions for guards 
-
-		halt
-        ;call waitblnk
+	ifdef DOLUTOFF
+		call lutoff			; screen off
+	endif
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
         call sinitprc		; screen init procedure
@@ -623,8 +622,8 @@ scrch1_:
         call drawbkgr		; draw background
 		call drawstos		; draw static objects        
 		call postproc		; post processing after first render
-        GRMODOFF
-		;;call drawtram		; draw text ram for new screen
+		GRMODOFF
+		
         call clrscrch       ; clear data before moving to another screen
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		
@@ -647,7 +646,6 @@ drawobj2:
 		call drawobjs		; draw active objects
 		call drwmobjs		; draw masked objects
 
-        ;call waitblnk
         GRMODON
 
 		call showscr		; show buffer on the screen		
@@ -660,6 +658,17 @@ drawobj2:
 		call adddraw		; call additional drawing procedure, if any
         GRMODOFF
 
+	ifdef DOLUTOFF
+		ld a,(fstrendr)		; load flag 
+		or a				; first render ?
+		ret	z				; do nothing if not
+
+		halt				; set up colors
+		GRMODON				; after first render complete
+		call lutsetup
+        GRMODOFF
+	endif
+	
 		xor a
 		ld (fstrendr),a		; reset set flag for first render
 

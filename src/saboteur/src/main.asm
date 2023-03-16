@@ -174,6 +174,9 @@ start:
         or  a
         jp  z,.exit
 
+    ifdef DOLUTOFF
+   		call lutoff			; screen off
+    endif
         call ginitscr   ; init game screen		
 					        
         call gcycle     ; main cycle

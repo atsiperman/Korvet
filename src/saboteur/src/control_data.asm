@@ -32,13 +32,11 @@ LUTVAL1:
 		db 01100010b	    ; CRED
 		db 01100011b        ; CYELLOW   
     
-        ; with text layer
 		db 01101000b	    ; CWHITE
 		db 01101001b	    ; CBLUE   
         db 01101010b	    ; CGREEN = CRED
 		db 01101011b        ; CYELLOW = CYAN
 
-		; black color		
 		db 01000100b
 		db 01000101b
 		db 01000110b
@@ -176,8 +174,9 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			;define FULLSTART
+			define FULLSTART
 			define ENDDEAD			; end game if dead
+			;define DOLUTOFF			; turn off colors when screen is changed
 		
 ; ---- screen control block
 ;
