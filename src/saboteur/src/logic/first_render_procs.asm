@@ -139,6 +139,109 @@ s107rndr:
         ld  a,(s105trm + 1 + trdodat)
         jp  doorprc
 
+; ---- screen init procedure for screen N-113
+s113iprc:
+        ld  a,(dlevel)
+        cp  6
+        ret nz
+
+        ld  hl, scrbuf + COLWIDB * 19 + ROWWIDB * 15
+
+.s113c:
+        ld  c,5                                         ; number of blocks
+
+
+.s113r:        
+        ld  de, BK1DATA                                 ; yellow L
+
+.s113s:        
+        savem_hl_de             ; save sprite address
+        xor     a
+        ld      (hl),a
+        inc     hl              ; skip tile state        
+        inc     de              ; skip colors
+        inc     de              
+        ld      a,(de)          ; load attributes
+        ld      (hl),a          ; save attributes
+        inc     hl              ; move to tile data
+        skip_buf_tile_data hl
+        dec c
+        jp nz,.s113r
+        ret
+
+; ---- screen init procedure for screen N-114
+s114iprc:
+        ld  a,(dlevel)
+        cp  6
+        jp  z,.s114_
+        cp  5
+        ret nz
+
+.s114_:
+        ld hl,TRAM + TSTARTC + 8 + 64*(TSTARTR + 6)
+        ld (hl),CHFULL
+        ld hl,TRAM + TSTARTC + 13 + 64*(TSTARTR + 6)
+        ld (hl),CHFULL
+
+        ld  hl, scrbuf + COLWIDB * 21 + ROWWIDB * 11
+        call s113iprc.s113c
+        ld  hl, scrbuf + COLWIDB * 7 + ROWWIDB * 11
+        ld  c,8
+        call  s113iprc.s113r
+
+        ld  hl, scrbuf + COLWIDB * 8 + ROWWIDB * 11
+        ld  de, BK26DATA
+        inc c
+        call s113iprc.s113s
+
+        ld  hl, scrbuf + COLWIDB * 13 + ROWWIDB * 11
+        ld  de, BK26DATA
+        inc c
+        jp   s113iprc.s113s
+
+; ---- screen init procedure for screen N-116
+s116iprc:
+        ld  a,(dlevel)
+        cp  6
+        jp  z,.ss16_
+        cp  5
+        ret nz
+
+.ss16_:
+        ld  hl, scrbuf + COLWIDB * 5 + ROWWIDB * 8
+        ld  c,10
+        jp s113iprc.s113r
+
+; ---- screen init procedure for screen N-119
+s119iprc:
+        ld  a,(dlevel)
+        cp  6
+        ret nz
+
+        ld hl,TRAM + TSTARTC + 8 + 64*(TSTARTR + 5)
+        ld (hl),CHFULL
+
+        ld  hl, scrbuf + COLWIDB * 6 + ROWWIDB * 10
+        call s113iprc.s113c
+
+;.s119p:
+        ld  hl, scrbuf + COLWIDB * 8 + ROWWIDB * 10
+        ld  de, BK26DATA
+        inc c
+        jp   s113iprc.s113s
+
+; ---- screen init procedure for screen N-120
+s120iprc:
+        ld  a,(dlevel)
+        cp  6
+        jp  z,.s120_
+        cp 5
+        ret nz
+
+.s120_:
+        ld  hl, scrbuf + ROWWIDB * 13
+        jp s113iprc.s113c
+
 s122rndr:
         ld  hl, scrbuf + COLWIDB * 2 + ROWWIDB * 8 + TLMDATR
         ld  a,(s97trm + 1 + trdodat)
@@ -160,6 +263,5 @@ s123rnd:
             add hl,bc       ; move to next row
         edup
 
-        call cptcabin
-        ret
+        jp cptcabin
         

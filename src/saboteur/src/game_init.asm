@@ -2,8 +2,7 @@ a_trig  EQU s104trm + 1 + trdodat
 b_trig  EQU s105trm + 1 + trdodat
 c_trig  EQU s97trm + 1 + trdodat
 d_trig  EQU s79trm + 1 + trdodat
-e_trig  EQU s51trm + 1 + trdodat
-        
+e_trig  EQU s51trm + 1 + trdodat        
 
 ; ---- set game triggers
 ; args: A - door state
@@ -26,14 +25,21 @@ e_trig  EQU s51trm + 1 + trdodat
         ld      hl,num
         ld      (timeinit),hl
         endm
+
+        macro setcdtime num
+        ld      hl,num
+        ld      (timecntd),hl
+        endm
+
 ginitst:
 
 ; ---- set up level 1 (open all doors)
 ;
 setlvl1:
-        settrigs dooropn
-        setbomb s30bmb
+        ;settrigs dooropn
+        setbomb s30bmb        
         ;settime 0300h
+        ;setcdtime 00008h
         ret
         
 ; ---- set up level 2
@@ -45,6 +51,7 @@ setlvl2:
         ld   (e_trig),a
         setbomb s80bmb
         settime 0509h
+        setcdtime 0507h
         ret
 
 ; ---- set up level 3
@@ -55,7 +62,8 @@ setlvl3:
         ld   (c_trig),a
         ld   (e_trig),a        
         setbomb s98bmb
-        settime 0009h
+        settime 0009h  
+        setcdtime 0007h      
         ret
 
 ; ---- set up level 4
@@ -68,6 +76,7 @@ setlvl4:
         ld   (e_trig),a
         setbomb s124bmb
         settime 0508h
+        setcdtime 0506h
         ret
 
 ; ---- set up level 5
@@ -82,6 +91,9 @@ setlvl5:
         ld   (b_trig),a
         setbomb s73bmb
         settime 0507h
+        setcdtime 0006h
+        ld      a,5
+        ld      (dlevel),a
         ret
 
 ; ---- set up level 6
@@ -90,6 +102,9 @@ setlvl6:
         settrigs doorcls
         setbomb s100bmb
         settime 0506h
+        setcdtime 0504h
+        ld      a,6
+        ld      (dlevel),a
         ret
         
 ; ---- address of procs for setting up game level

@@ -195,7 +195,7 @@ gboat:
 		
 		call rsttiles		; restore tiles background according to current objects location
 		call drawobjs		; draw active objects		
-		
+
 		STARTSND 55000
 
 		GRMODON
@@ -733,6 +733,11 @@ gkrmove:
 		
 ; ---- end of gkmoveh
 
+; ---- restart game timer in coundown mode
+gtimcntd:
+        ld      hl,(timecntd)		; restart timer
+		ld		(curtime + 1),hl
+		ret
 
 ; ---- restart game timer
 rstgtime:

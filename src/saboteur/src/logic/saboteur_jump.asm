@@ -80,14 +80,14 @@ canjmp2:
 		
 canjmp5:
 		ld a,(hl)
-		and bwall
+		and bkroof
 		jp nz,canjmpn		; wall, no way
 		
 		dup 3
 			ld de,ROWWIDB
 			add hl,de			; Y = Y + 1
 			ld a,(hl)
-			and bwall
+			and bkroof
 			jp nz,canjmpn		; wall, no way
 		edup
 
@@ -329,7 +329,7 @@ sblandrh:
 		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
-			and bwall		; is wall ?
+			and bkroof		; is wall ?
 			jp nz,.sble		; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
@@ -346,7 +346,7 @@ sblandrh:
 		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
-			and bwall		; is wall ?
+			and bkroof		; is wall ?
 			ret	nz			; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup
@@ -383,7 +383,7 @@ sblandlh:
 		ld bc,ROWWIDB
 		dup 3
 			ld a,(hl)		; read attributes
-			and bwall		; is wall ?
+			and bkroof		; is wall ?
 			ret nz			; yes, no move 
 			add hl,bc		; Y = Y + 1
 		edup

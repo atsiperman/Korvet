@@ -213,7 +213,7 @@ s106om:
 
 s125objm:
         db 1
-        mkgdrt 19,10,5,23
+        mkgdlt 19,10,5,23
 
 s122om:
         db 1

@@ -160,19 +160,14 @@ deskproc:
 
 .dskp2:
         ld  hl,(trdtptr)    ; load pointer to triggers data
-        ;load_de_hl         ; load data
-        ;ld  a,e
-        ;or  d
         ld      a,(hl)      ; load data
         or      a
         ret z               ; return if no data specified, then do not change image
 
-                        ; switch door state
+                                ; switch door state
         cpl                     ; invert bits
         and doorcls + dooropn   ; leave allowed bits
-        ;dec hl
-        ;dec hl              ; save low byte only
-        ld  (hl),a          ; save new value
+        ld  (hl),a              ; save new value
 
 .dskpe:
         ld  hl,(trotptr)    ; load pointer to current trigger's object type
@@ -248,7 +243,7 @@ dsktproc:
 .dskp2:
         ld      a,TIMRCNTD      ; switch timer into 
         ld      (timractv),a    ; countdown mode
-        call    rstgtime        ; restart timer
+        call    gtimcntd        ; restart timer
         call    timeclrt        ; clear text RAM for timer 
                 
 .dskrun: 

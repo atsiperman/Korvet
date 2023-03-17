@@ -159,6 +159,8 @@ BOATMCOL	EQU 21			; max colum for boat back at the first screen
 ; start byte of the control data
 cdatast:
 
+dlevel: 	db 0             ; game difficulty level
+
 ; ---- helicopter data
 ;
 cptpause:   db CPTPAUS
@@ -183,7 +185,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 		ifdef FULLSTART
 curscr: 	dw scrn1 		; pointer to current screen
 		else
-curscr: 	dw scrn37 		; pointer to current screen		
+curscr: 	dw scrn112 		; pointer to current screen		
 		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
@@ -197,7 +199,7 @@ sbctrlb:
 		ifdef FULLSTART
 		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 		else
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,20,10
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,25,10
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
 		endif
 
@@ -215,6 +217,7 @@ TIMEUPDF	EQU	10				; frames counter for timer redraw
 TIMRCNTD	EQU 2				; timer is in countdown mode
 
 timeinit:	db 9, 9				; timer initialization value
+timecntd:	db 9, 9				; timer value for coundown mode
 
 timrfst:	db 0				; timer frame state
 timractv:	db 1				; timer state, 0 - disabled, 1 - active, TIMRCNTD - countdown mode

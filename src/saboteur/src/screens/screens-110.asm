@@ -802,6 +802,8 @@ smap113e:
         dw s113txd
         db TRIGMAP
         dw s113trm
+		db SCRINIP
+		dw s113iprc
         db SCREND
 
 s113txd:
@@ -1050,6 +1052,8 @@ smap114e:
 		mkbyte 1,1		
 		
 		db SCREND
+		db SCRINIP
+		dw s114iprc		
         db TXTSMAP
         dw s114txd
         db SCREND
@@ -1483,6 +1487,8 @@ smap116e:
 		db SCREND
         db TXTSMAP
         dw s116txd
+		db SCRINIP
+		dw s116iprc
         db SCREND
 
 s116txd:
@@ -2005,6 +2011,8 @@ smap119e:
 		mkbyte 1,1		
 				
 		db SCREND
+		db SCRINIP
+		dw s119iprc
         db TXTSMAP
         dw s119txd
         db SCREND

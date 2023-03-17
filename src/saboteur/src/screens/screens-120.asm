@@ -88,6 +88,8 @@ smap120e:
         dw s120mom
         db TXTSMAP
         dw s120txd
+		db SCRINIP
+		dw s120iprc
         db SCREND
 
 s120txd:
