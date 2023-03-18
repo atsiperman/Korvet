@@ -210,7 +210,7 @@ sbholds:    db troshrk  ; type of an object being held by saboteur
 sbholds:    db troshrk  ; type of an object being held by saboteur
 		endif
 
-sbhldch:    db 1        ; flag, when object is changed
+sbhldch:    db 1        		; flag, when held object is changed
 
 TIMEGFRM    EQU 4				; frames counter for timer countdown 
 TIMEUPDF	EQU	10				; frames counter for timer redraw

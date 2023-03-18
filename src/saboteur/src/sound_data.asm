@@ -54,7 +54,7 @@ dexplsn:
 ; ---- weapon throw data
 dthrwsnd:
         db (.endsnd - dthrwsnd) / 2
-        dw 200 ;, 100
+        dw 200, 200
 .endsnd:
 
 sndend:

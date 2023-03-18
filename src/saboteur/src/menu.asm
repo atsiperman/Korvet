@@ -1,6 +1,6 @@
 paystr:
         db .paystr - paystr - 1
-        db "GONORAR",COLONCH,DOLRCH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
+        db "GONORAR",COLONCH,DOLRCH,SPACECH ;,SPACECH,SPACECH,SPACECH,SPACECH,SPACECH
 .paystr
 
 TXTCOLD EQU 5           ; text displacement
@@ -45,7 +45,7 @@ txtlvl3:
 .txlvl3:        
 
 txtlvl4:
-        db .txlvl4 - txtlvl4 - 1, "MASTER" ;"TQVELYJ"
+        db .txlvl4 - txtlvl4 - 1, "MASTER" ;
 .txlvl4:        
 
 txtlvl5:
@@ -105,7 +105,7 @@ runmenu:
         
         GRMODON
         ld a,NUMBKC 
-        call fillvram	; clear screen with black
+        call fillvram	; clear screen with blue
         call prauthor
         GRMODOFF
         
@@ -261,15 +261,17 @@ prntend:
         jp  nz,.prntok  
 
         ; saboteur is dead
-        ld   hl,0               ; remove objects
-        ld   (objlist),hl       ; from screen
-        call drawscr
+        ;;ld   hl,0               ; remove objects
+        ;;ld   (objlist),hl       ; from screen
+        ;;call drawscr
 
         GRMODON
+        ld a,NUMBKC 
+        call fillvram                           ; clear screen with blue
         ld  b,DEADFGC
-        ld  c,DEADBKC
+        ld  c,DEADBKC                           
         ld   de,MNTITSCR
-        ld   hl,tmfailed
+        ld   hl,tmfailed                        ; print end game text 
         call prntstr
         GRMODOFF
         jp  .gend
