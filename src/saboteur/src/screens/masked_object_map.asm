@@ -187,7 +187,7 @@ s67mom:
         mkmasko smlplate,24,13
 
 s70mom:
-		db 18
+		db 15
 		mkmasko desk, 7, 3
 		mkmasko bigplate,1,15
 		mkmasko smlplate,1,14
@@ -207,9 +207,9 @@ s70mom:
 		mkmasko smlplate,22,13
 		mkmasko smlplate,22,12
 
-		mkmasko bigplate,25,15
-		mkmasko smlplate,25,14
-		mkmasko smlplate,25,13
+		;mkmasko bigplate,25,15
+		;mkmasko smlplate,25,14
+		;mkmasko smlplate,25,13
 
 s77mom:
         db 4
@@ -219,11 +219,11 @@ s77mom:
         mkmasko smlplate, 21, 12
 
 s78mom:
-        db 4
+        db 2
         mkmasko bigplate, 2, 15
         mkmasko smlplate, 2, 14
-        mkmasko smlplate, 2, 13
-        mkmasko smlplate, 2, 12
+        ;mkmasko smlplate, 2, 13
+        ;mkmasko smlplate, 2, 12
 
 s79mom:
         db 1
@@ -327,13 +327,13 @@ s99mom:
 		mkmasko fencelt, 9, 6
 
 s100mom:
-		db 7
+		db 6
 		mkmasko bigplate,18,6
 		mkmasko smlplate,18,5		
 
 		mkmasko bigplate,23,6
 		mkmasko smlplate,23,5
-		mkmasko smlplate,23,4
+		;;mkmasko smlplate,23,4
 
 		mkmasko bigplate,12,15
 		mkmasko smlplate,12,14

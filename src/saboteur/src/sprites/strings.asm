@@ -143,3 +143,13 @@ tmfailed:
         db .tmfail - tmfailed - 1
         db "ZADANIE",SPACECH,"PROWALENO"
 .tmfail:
+
+lvlbnst:
+        db lvlbnst.endlb - lvlbnst - 1
+        db "BONUS",SPACECH,"ZA",SPACECH,"SLOVNOSTX",COLONCH,DOLRCH
+.endlb:
+
+totlbns:
+        db totlbns.endtb - totlbns - 1
+        db "WSEGO",COLONCH,DOLRCH
+.endtb:

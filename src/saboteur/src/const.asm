@@ -93,6 +93,8 @@ NUMBKC      EQU 80h + (CBLUE << 1)
 TIMEFGCI    EQU 80h + (CRED << 1)           ; inverted foreground color for timer
 TIMEBKCI    EQU 80h + (CYELLOW << 1)        ; inverted background color for timer
 
+TEXTFGC     EQU 80h + (CWHITE << 1)
+
 AUTHFGC     EQU 80h + (CGREEN << 1)
 CLIVEFGC    EQU 80h + (CRED << 1)
 

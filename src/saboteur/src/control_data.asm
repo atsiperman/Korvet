@@ -159,7 +159,8 @@ BOATMCOL	EQU 21			; max colum for boat back at the first screen
 ; start byte of the control data
 cdatast:
 
-dlevel: 	db 0             ; game difficulty level
+dlevel: 	db 1             ; game difficulty level
+dlvlbns:    db 5, 0,0,0,0,0  ; difficulty level bonus
 
 ; ---- helicopter data
 ;
@@ -185,7 +186,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 		ifdef FULLSTART
 curscr: 	dw scrn1 		; pointer to current screen
 		else
-curscr: 	dw scrn3 		; pointer to current screen		
+curscr: 	dw scrn122 		; pointer to current screen		
 		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
@@ -199,15 +200,17 @@ sbctrlb:
 		ifdef FULLSTART
 		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 		else
-			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,25,10
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,5,9
+			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,2,1
 		endif
 
 		ifdef FULLSTART
 sbholds:    db troshrk  ; type of an object being held by saboteur
 		else
 ;sbholds:    db trobomb   ; type of an object being held by saboteur
-sbholds:    db troshrk  ; type of an object being held by saboteur
+;
+sbholds:    db trodisk  ; type of an object being held by saboteur
+;sbholds:    db troshrk  ; type of an object being held by saboteur
 		endif
 
 sbhldch:    db 1        		; flag, when held object is changed

@@ -1,5 +1,6 @@
 
-
+; ---- difficulty level bonus
+lvlbnsd:        
 ; ---- get disc
 diskscor:
 ; ---- swipe disk to bomb
@@ -15,6 +16,8 @@ escwdab:
 ;       HL - address of the score data
 addscore:   
         ld   de,score + 5       ; address of the last byte
+
+.adscr:        
         ld   bc,4
         add  hl,bc              ; move pointer to the last byte
         ld   c,5

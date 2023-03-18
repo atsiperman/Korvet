@@ -46,9 +46,11 @@ shscradr:
 ; -----  clear text screen
 ;
 clrtscr:
+        ld d,0
+
+.filts:
         ld hl,0fc00h
         ld bc,1024
-        ld d,0
 
 ctslop: ld (hl),d
         inc hl

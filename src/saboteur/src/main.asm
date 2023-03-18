@@ -194,6 +194,7 @@ start:
 
 		jp 0			; soft reset
 
+        display $
         display 0beffh - $, " bytes free"
 
         dup 0beffh - $  ; stack guard for the rest

@@ -256,6 +256,14 @@ prauthor:
 ; ----- prints text for game end
 ;
 prntend:
+        halt
+        ld d,CHFULL
+        call clrtscr.filts
+
+        GRMODON
+        ld a,NUMBKC 
+        call fillvram                           ; clear screen with blue
+
         sblcurst
         cp  sbdead
         jp  nz,.prntok  
@@ -265,32 +273,28 @@ prntend:
         ;;ld   (objlist),hl       ; from screen
         ;;call drawscr
 
-        GRMODON
-        ld a,NUMBKC 
-        call fillvram                           ; clear screen with blue
         ld  b,DEADFGC
         ld  c,DEADBKC                           
         ld   de,MNTITSCR
         ld   hl,tmfailed                        ; print end game text 
         call prntstr
-        GRMODOFF
         jp  .gend
 
 .prntok:        
-        GRMODON
-        ld  b,NUMFGC
+        ld  b,TEXTFGC
         ld  c,NUMBKC
         ld   de,MNTITSCR
         ld   hl,tmcomplt
         call prntstr
 
+.dskbns:
         ld  a,(sbholds)                         ; get object from pocket
         cp  trodisk                             ; is it a disk ?
         jp  z,.pntdsk                           ; print disk text if yes
 
         ld   hl,escscor                         ; otherwise add score for empty escape
         call addscore
-        jp   .prnte
+        jp   .lvbns
 
 .pntdsk:
         ld  hl,escwdsk
@@ -304,17 +308,59 @@ prntend:
         call addscore
 
 .pntds2:
-        ld  b,NUMFGC
+        ld  b,TEXTFGC
         ld  c,NUMBKC
         ld   de,MNTITSCR + (VERTDISP * 2) + 4
         ld   hl,dsktaken
         call prntstr
 
-.prnte:
-        call drwnums
-        GRMODOFF
+                                                ; add bonus for difficulty level, if any
+        ld  a,(dlevel)                          ; load difficulty level
+        dec a                                   ; no bonus for the first level
+        jp  z,.gend
+        
+.lvbns:
+        push af
+        ld  hl,lvlbnsd                          ; difficulty level bonus
+        ld  de,dlvlbns + 5                      ; address of the last byte
+        call addscore.adscr                     ; add bonus
+        pop  af
+        dec  a
+        jp   nz,.lvbns
+
+        ld  hl,dlvlbns+1                        ; add level bonus to total number
+        call addscore
+
+        ld  b,TEXTFGC
+        ld  c,NUMBKC
+        push bc
+        ld   de,MNTITSCR + (VERTDISP * 4) - 4
+        ld   hl,lvlbnst                         ; level bonus text
+        call prntstr
+
+        pop  bc                                 ; restore colors
+        push bc
+        ld   hl,dlvlbns                         ; level bonus number
+        ld   de,MNTITSCR + (VERTDISP * 4) + 16
+        call prntnum                            ; print level bonus
+
+        pop  bc                                 ; restore colors
+        push bc
+        ld   de,MNTITSCR + (VERTDISP * 7) + 2
+        ld   hl,totlbns                         ; total score text
+        call prntstr
+
+        pop  bc                                 ; restore colors
+        ld   hl,score                           ; total score
+        ld   de,MNTITSCR + (VERTDISP * 7) + 9
+        call prntnum                            ; print total score
+
+;;.prnte:
+        ;;call drwnums
 
 .gend:
+        GRMODOFF
+
         ld   c,100
         call mkpause.mkp
 

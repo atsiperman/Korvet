@@ -242,20 +242,20 @@ s78stom:
         mkbox34 16, 13
 
 s79stom:
-        db 13
+        db 10
         mkstobj barelimg, 6, 13
         mkstobj barelimg, 9, 13
-        mkstobj barelimg, 8, 10
+        ;mkstobj barelimg, 8, 10
         mkstobj barelimg, 19, 13
         mkstobj barelimg, 22, 13
         mkstobj barelimg, 25, 13
         mkstobj barelimg, 21, 10
-        mkstobj barelimg, 25, 10
-        mkstobj barelimg, 23, 7
+        ;mkstobj barelimg, 25, 10
+        ;mkstobj barelimg, 23, 7
         mkbox34 14, 13
 
 s80stom:
-        db 18
+        db 17
         mkstobj barelimg, 2, 13
         mkstobj barelimg, 5, 13
         mkstobj barelimg, 8, 13
@@ -263,17 +263,17 @@ s80stom:
         mkstobj barelimg, 3, 10
         mkstobj barelimg, 7, 10
         mkstobj barelimg, 10, 10
-        mkstobj barelimg, 5, 7
+        ;mkstobj barelimg, 5, 7
         mkbox33 16, 13
         mkbox34 24, 13
         mkbox33 25, 10
 
 s81stom:
-        db 20
+        db 19
         mkstobj barelimg, 11, 13
         mkstobj barelimg, 14, 13
         mkstobj barelimg, 12, 10
-        mkstobj barelimg, 15, 10
+        ;mkstobj barelimg, 15, 10
         mkstobj barelimg, 26, 13
         mkbox33 7,13
         mkbox34 15,13
@@ -384,7 +384,7 @@ s99stom:
         mkstobj barelimg, 23, 7
 
 s100stom:
-        db 21
+        db 19
         mkbox33 2, 2
         mkbox34 2, 5
         mkbox33 8, 5
@@ -400,8 +400,8 @@ s100stom:
         mkstobj barelimg, 25, 13
 
         mkstobj barelimg, 18, 10
-        mkstobj barelimg, 22, 10
-        mkstobj barelimg, 25, 10
+        ;;mkstobj barelimg, 22, 10
+        ;;mkstobj barelimg, 25, 10
 
 s101stom:
         db 7
