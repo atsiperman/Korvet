@@ -192,7 +192,7 @@ _drwbkt2:
         push bc         ; save address in screen buffer
 
         ld a,(de)	; read back color
-        ld c,a      ; save back color in C
+        ld c,a          ; save back color in C
         inc de
 	        
         ld a,(de)	; read foreground color
@@ -201,7 +201,7 @@ _drwbkt2:
         inc de		; skip header
 
         dup 8
-                push bc		; save fg color
+                ;;push bc		; save fg color
 
                 ld a,(de)	; load data byte			
                 push de		; save data address
@@ -217,16 +217,22 @@ _drwbkt2:
                 ld (hl),c	; set background color
                 
                 ex de,hl	; HL - screen address
-                cpl         ; get bits to be drawn as background
+                cpl             ; get bits to be drawn as background
                 ld (hl),a	; move data byte
 
                 pop de		; restore data address                        
                 inc de      ; next byte from sprite
                 
-                ld bc,64    ; add 64
-                add hl,bc   ; move to the next line on screen
+                ld  a,64
+                add l
+                ld  l,a
+                ld  a,h
+                adc 0
+                ld  h,a
                 
-                pop bc      ; restore fg color
+                ;;ld bc,64    ; add 64
+                ;;add hl,bc   ; move to the next line on screen                
+                ;;pop bc      ; restore fg color
         edup
 
         pop de
@@ -239,7 +245,7 @@ _drwbkt2:
 
 nextline:
         pop hl          ; restore address of the last column
-	    ret	
+	ret	
 		
 
 ; ----- marks tiles, occupied by static objects
@@ -479,11 +485,18 @@ drawsto:
         ld   (de),a     ; write to video ram
 
 .drwso2:
-        push hl         ; save color reg
-        ld   hl,64      ; load displacement to the video line in the last column
-        add  hl,de
-        ex   de,hl      ; save new address of video cell in DE
-        pop  hl
+        ;;push hl         ; save color reg
+        ;;ld   hl,64      ; load displacement to the video line in the last column        
+        ;;add  hl,de
+        ;;ex   de,hl      ; save new address of video cell in DE
+        ;;pop  hl
+        ld   a,64
+        add  e
+        ld   e,a
+        ld   a,d
+        adc  0
+        ld   d,a
+
         pop  bc         ; restore address of the last byte in current line
         inc  bc
 
@@ -555,25 +568,36 @@ _drtram2:
 
 _drtram3:
         ld a,c                  ; reload data byte
-        and 0Fh			        ; leave counter
+        and 0Fh			; leave counter
         ld c,a
         load_de_hl              ; load text RAM address
 _drtrm3_:
-        ld a,(hl)		        ; load byte
-        inc hl
-        push hl
-
+        ;;ld a,(hl)		; load byte
+        ;;inc hl
+        ;;push hl
+        
 _drtram4:
+        ld a,(hl)		; load byte
         ld (de),a               ; set character
-        push bc
-        ld bc,64
-        ex de,hl
-        add hl,bc               ; move to the next line in text ram
-        ex de,hl
-        pop bc
+
+        ; ; push bc
+        ; ; ld bc,64
+        ; ; ex de,hl
+        ; ; add hl,bc               ; move to the next line in text ram
+        ; ; ex de,hl
+        ; ; pop bc
+
+        ld   a,64
+        add  e
+        ld   e,a
+        ld   a,d
+        adc  0
+        ld   d,a
+
         dec c
         jp nz, _drtram4
-        pop hl
+        inc hl
+        ;;pop hl
         jp _drtram1
 
 _drtrame:

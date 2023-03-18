@@ -224,7 +224,6 @@ s119iprc:
         ld  hl, scrbuf + COLWIDB * 6 + ROWWIDB * 10
         call s113iprc.s113c
 
-;.s119p:
         ld  hl, scrbuf + COLWIDB * 8 + ROWWIDB * 10
         ld  de, BK26DATA
         inc c
