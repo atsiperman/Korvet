@@ -1,19 +1,21 @@
 
 mkdir out
 
+set filename=SABOTEUR
+
 del /Q out\*.*
 ..\..\tools\sjasmplus makefile  --lst=out/sabmain.lst
 
 @IF ERRORLEVEL 1 GOTO error
 
 @echo off
-del /Q sab.kdi
-copy /Y sab-clean.kdi sab.kdi
+del /Q %filename%.kdi
+copy /Y sab-clean.kdi %filename%.kdi
 @IF ERRORLEVEL 1 GOTO error
 
 cd out
-..\..\..\tools\xkorvet a ..\sab.kdi SAB.COM >nul
-..\..\..\tools\xkorvet w ..\sab.kdi >nul
+..\..\..\tools\xkorvet a ..\%filename%.kdi %filename%.COM >nul
+..\..\..\tools\xkorvet w ..\%filename%.kdi >nul
 cd ..
 
 GOTO end

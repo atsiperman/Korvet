@@ -3,4 +3,4 @@
         include "src/main.asm"
 
 XEND:
-        SAVEBIN "out/SAB.COM",0x100,(XEND-0x100)        
+        SAVEBIN "out/SABOTEUR.COM",0x100,(XEND-0x100)        
