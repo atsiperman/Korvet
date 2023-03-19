@@ -185,17 +185,19 @@ smap71e:
 		mkline 5
 		db 0
 		
-		mkbyte 1,1
-		mkbyte 1,1
-		mkbyte 1,0
+		;mkbyte 1,1
+		;mkbyte 1,1
+		mkline 3
+			mkbyte 1,1
 		mkline 7
-		db 0
+			db 0
 		mkline 5
-		mkbyte 4,4
+			mkbyte 4,4
 		
 		mkline 3
-		db 0
-		mkline 12
+			db 0
+		mkbyte 0,4
+		mkline 11
 		mkbyte 4,4
 		
 		mkdup 6

@@ -57,17 +57,6 @@ s1iprc:
 s2iprc:
         ld  hl,drwtops2
         ld  (addnldrw),hl
-
-                                        ; make red horizontal slab a wall
-        ld  a,bwall     
-        ld  hl, scrbuf + COLWIDB * 23 + ROWWIDB * 7 + TLMDATR
-        ld  de,COLWIDB
-        ld  c,7
-.s2trp:        
-        ld  (hl),a
-        add hl,de
-        dec c
-        jp  nz,.s2trp
         ret
 
 ; ---- first render post processor for screen N-9.

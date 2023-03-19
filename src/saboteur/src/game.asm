@@ -412,17 +412,24 @@ gifspace:
 
         sblcurst            ; load state
         cp  sbstay          ; is staying ?
+		jp	z,.gdoact		; do action if yes
+
+		cp	sbpunch			; already punching ?
         jp  nz,gifrtup      ; do next test if no
 
+
+.gdoact:
                             ; else do action
         ld   a,(trtype)  
         or   a          
         jp   z,.gifsp1      ; no triggers, continue
         and  trgmanl
         jp   z,.gifsp1      ; trigger is not manual, continue
+
 		ld   a,(prevkeys)  	; get prev keys
 		and	 KSPACE			; was SPACE already pressed ?
 		jp	 nz,gend		; yes, do nothing
+
         call trigrun        ; run manual trigger if this is the first SPACE pressure
 		or	 a				; did anything happen ?
         jp   nz,gend		; finish if yes

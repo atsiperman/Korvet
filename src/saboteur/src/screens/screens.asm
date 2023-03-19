@@ -66,12 +66,13 @@ smap2b:
 		bkindex BK2ADDR		; 1, 	wall
 		bkindex BK40ADDR	; 2,	underwater floor
 		bkindex BK42ADDR	; 3,	moorage, vertical part
-		bkindex BK41ADDR	; 4,	moorage, horizontal part
+		bkindex BK41ADDR	; 4,	moorage, horizontal part, ladder
 		bkindex BK43ADDR	; 5,	water layer
 		bkindex BK44ADDR	; 6,    invisible ladder
 		bkindex BK45ADDR	; 7 ,   water layer, ladder
 		bkindex BK69ADDR	; 8, 	water top
 		bkindex BK70ADDR	; 9, 	water top, ladder
+		bkindex B_41ADDR	; 10,	moorage, horizontal part, wall
 smap2e:										
 							; 1st line
 		mkdup 7
@@ -81,10 +82,20 @@ smap2e:
 		;edup
 
 		mkline 4
-		db 0
-		mkline 9
+			db 0
+		mkbyte 10,4
+		mkbyte 4,10
+		mkbyte 10,10
 		mkbyte 4,4
-		mkbyte 4,1		
+		mkbyte 10,10
+		mkbyte 10,4
+		mkbyte 4,10
+		mkbyte 10,10
+		mkbyte 10,10
+		mkbyte 10,1
+		; mkline 9
+		; 	mkbyte 4,4
+		; mkbyte 4,1		
 		mkbyte 1,1
 
 		mkdup 4

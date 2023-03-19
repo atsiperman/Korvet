@@ -48,6 +48,7 @@ BK38ADDR:   DW BK38DATA
 BK39ADDR:   DW BK39DATA
 BK40ADDR:   DW BK40DATA
 BK41ADDR:   DW BK41DATA
+B_41ADDR:	DW B_41DATA
 BK42ADDR:   DW BK42DATA
 BK43ADDR:   DW BK43DATA
 BK44ADDR:	DW BK44DATA
@@ -209,6 +210,9 @@ BK40DATA:   bksh2 CYELLOW, bwall						; underwater floor
 			db  123, 164, 119, 8, 221, 42, 0, 0
 
 BK41DATA:   bksh2 CRED, bladder							; moorage, horizontal part
+	        db  0, 127, 193, 62, 227, 28, 247, 0
+
+B_41DATA:   bksh2 CRED, bwall 							; moorage, horizontal part, wall
 	        db  0, 127, 193, 62, 227, 28, 247, 0
 
 BK42DATA:   bksh2 CRED, bladder							; moorage, vertical part
