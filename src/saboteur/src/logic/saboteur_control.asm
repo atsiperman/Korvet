@@ -308,6 +308,10 @@ movweap:
         push af
         push hl
 
+        ld   a,(hl)
+        cp   ogun
+        jp   z,.chokile      ; no actions for gun
+
         ldstate
         cp   sbdead
         jp   z,.chokile      ; object is dead, no actions

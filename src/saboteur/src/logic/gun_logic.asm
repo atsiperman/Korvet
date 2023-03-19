@@ -97,9 +97,8 @@ tstgunsh:
         call movweap.chkokil            ; hit somobody ?
 
         ld   a,(gunshd)                 ; load current state, 
-        or a                            ; <> 0 if nobody hit
-        jp   nz,.exit                   ; exit if still flying
-        jp   .movend                    ; hit, reload timer
+        or a                            ; = 0 if somebody hit
+        jp   z,.movend                  ; hit, reload timer
 
 .exit:
         pop     de
