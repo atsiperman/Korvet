@@ -408,7 +408,7 @@ sbmain:
 gifspace:       
         ld  c,a
         and KSPACE
-        jp  z,gifrtup      ; not space, do next test 
+        jp  z,.gsprl      	; not space, test for released SPACE
 
         sblcurst            ; load state
         cp  sbstay          ; is staying ?
@@ -435,9 +435,17 @@ gifspace:
         jp   nz,gend		; finish if yes
 							; otherwise do punch
 .gifsp1:
-        call sbhand        ; throw the object being held or do a punch        
+        call sbhand         ; throw the object being held or do a punch        
         jp   gend
-						
+
+.gsprl:						; test for released SPACE key
+		sblcurst
+		cp	sbpunch			; was punching ?
+		jp	nz,gifrtup		; make next test if not
+
+		call sbstopst		; otherwise stay normally
+		jp	gend
+
 gifrtup:
         ld a,c
 		cp KRIGHT + KUP	; right + up
@@ -454,10 +462,6 @@ giflt:
 		and KLEFT
 		jp z,gifrt
 
-        ; ; sblcurst
-        ; ; cp  sbsquat     ; is squatting ?
-        ; ; jp  z,gend      ; yes, stop check, we can't move left-right
-
 		ld a,dirlt
 		call gkmoveh
 		jp gend
@@ -466,10 +470,6 @@ gifrt:
 		ld a,c
 		and KRIGHT
 		jp z,gifup
-
-        ; ; sblcurst
-        ; ; cp  sbsquat     ; is squatting ?
-        ; ; jp  z,gend      ; yes, stop check, we can't move left-right
 
 		ld a,dirrt
 		call gkmoveh
