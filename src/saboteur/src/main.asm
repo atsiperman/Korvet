@@ -92,6 +92,7 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 
         include "screens/masked_object_map.asm"
 		include "screens/static_object_map.asm"
+        
         include "screens/screens.asm"
 		include "screens/screens-11.asm"
 		include "screens/screens-20.asm"
@@ -149,16 +150,16 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
 
 start:
 		di
+        ld  sp,100h - 1
 
         call install_interrupt_handler
 		ld a, ALTCHAR
 		ld (TVIREG),a
 
-        ld hl,0
-        add hl,sp
-        ld (OLDSTK),hl
-        ;;ld sp,NEWSTK
-        ld  sp,100h - 1
+        ;;ld hl,0
+        ;;add hl,sp
+        ;;ld (OLDSTK),hl
+        ;;ld sp,NEWSTK        
 		
 		call sabinit
 
@@ -185,8 +186,8 @@ start:
 
 .exit:
 						; exit to cp/m
-        ; ; ld hl,(OLDSTK)
-        ; ; ld sp,hl
+        ;;ld hl,(OLDSTK)
+        ;;ld sp,hl
 
         di
         ld a,RESCONF
@@ -194,11 +195,13 @@ start:
 
 		jp 0			; soft reset
 
-        display $
-        display 0beffh - $, " bytes free"
+RAMTOP  EQU 0C37Fh
 
-        dup 0beffh - $  ; stack guard for the rest
-            db 0
+        display $
+        display RAMTOP - $, " bytes free"
+
+        dup RAMTOP - $   ; guard for the rest
+            db 0h
         edup
 
 ;END 100h

@@ -1,45 +1,4 @@
-SCREND	EQU 255
-LINELEN EQU 15 << 4
-DUPLEN	EQU 14 << 4
 
-TXLINEV EQU 1
-TXLINEH EQU 2
-
-OBJMAP  EQU 1       ; object map marker
-STOMAP  EQU 2       ; static object map marker
-MSKOMAP EQU 3       ; masked object map marker
-TRIGMAP EQU 4       ; trigger map
-TXTSMAP EQU 5       ; text screen map marker
-FSTRDRP EQU 6       ; first render post processing procedure
-BMSOMAP EQU 7       ; background masked object map marker
-SCRINIP EQU 8		; screen initialization procedure to be called after screen decompression
-
-
-		macro mktxtaddr colnum, rownum
-		dw TRAM + TSTARTC + colnum + 64*(TSTARTR + rownum)
-		endm
-
-		; sprite map length
-		macro spmaplen	bmap, emap
-		db	(emap - bmap)
-		endm
-
-		macro mscrend
-		db	SCREND
-        db	SCREND
-		endm
-
-		macro mkbyte hi,lo
-		db (hi << 4) | lo
-		endm
-								
-		macro mkline len
-		db LINELEN | len
-		endm
-		
-		macro mkdup len
-		db DUPLEN | len
-		endm
 		
 scrbk1:
 		spmaplen smap1b,smap1e
