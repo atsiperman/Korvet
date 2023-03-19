@@ -396,7 +396,9 @@ gdtrythr:
 
         inc  a              ; just any non zero value
         ld   (gfthrwn),a    ; object is thrown
+        call playthrw
 
+        ; fall down to movgweap
 
 ; ---- move weapon object thrown by guard
 ;

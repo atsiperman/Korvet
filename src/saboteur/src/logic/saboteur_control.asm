@@ -207,7 +207,8 @@ sbthrow:
         ld   (sbhldch),a    ; redraw object
 
         call playthrw
-        jp   movthrnw        ; check next column to move
+                                ; check next column to move
+        ; fall down to movthrnw
 
 
 ; ---- moving weapon thrown by saboteur
@@ -344,7 +345,7 @@ movweap:
         pop  hl
         
         cp   e
-        jp   nc,.chokile    ; greater or equal to object's Y, fying under the object
+        jp   nc,.chokile    ; greater or equal to object's Y, flying under the object
 
         inc  hl             ; move to object sprite width
         ld   a,b            ; load object's column into A

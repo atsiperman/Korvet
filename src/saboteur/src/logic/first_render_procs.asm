@@ -93,7 +93,7 @@ s32iprc:
         cp   HIGH scrn33
         ret  nz                 ; no
 
-        xor  a                  ; otherwise clear which must be on screen32 only
+        xor  a                  ; otherwise clear object list which must be on screen32 only
         ld   hl,objlist                  
         ld   (hl),a
         inc  hl
