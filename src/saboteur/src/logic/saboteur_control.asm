@@ -228,7 +228,9 @@ movthrnw:
         ld  hl,movweap.chkokil       ; start address of the code to test against guard/dog
         ld  (movweap.kiljp + 1),hl
 
-        jp  movweap
+        ; --- fall down to movweap      
+        ;;jp  movweap                   
+
 
 
 wpobjp:  dw 0       ; pointer to object
@@ -270,10 +272,10 @@ movweap:
         ld   (hl),a
 
 .mvthr2:
-        ld   d,a
+        ld   d,a            ; save column in D
         ld   hl,(wprowp)
         ld   a,(hl)         ; load row 
-        ld   e,a
+        ld   e,a            ; save row in E
         call shscradr
 
         ld   a,(hl)
@@ -313,7 +315,7 @@ movweap:
         pop  hl
         push hl
         ldcursc
-        ld   b,a             ; save column in D
+        ld   b,a             ; save column in B
         inc  hl
         ld   c,(hl)          ; save row in C
 

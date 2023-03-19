@@ -64,7 +64,7 @@ tstgunsh:
         dec     a                       ; get right border
         dec     d                       ; get back to shell column
         cp      d                       ; is shell inside body ?
-        jp      c,.exit                 ; exit if outside 
+        jp      c,.tstohit              ; exit if outside 
 
                                         ; saboteur hit!
     	ld      a,HLGUNHIT              ; set health hit
@@ -81,6 +81,25 @@ tstgunsh:
         ld      (gunshfr),a             ; reload gun timer
         inc     a
         ret
+
+.tstohit:                               ; test if hit someone
+
+        ld  hl,gunshd
+        ld  (wpobjp),hl
+        ld  hl,gunshd + odfcoln
+        ld  (wpcolp),hl
+        ld  hl,gunshd + odfrown
+        ld  (wprowp),hl
+
+        ld  hl,movweap.chkokil          ; start address of the code to test against guard/dog
+        ld  (movweap.kiljp + 1),hl
+
+        call movweap.chkokil            ; hit somobody ?
+
+        ld   a,(gunshd)                 ; load current state, 
+        or a                            ; <> 0 if nobody hit
+        jp   nz,.exit                   ; exit if still flying
+        jp   .movend                    ; hit, reload timer
 
 .exit:
         pop     de

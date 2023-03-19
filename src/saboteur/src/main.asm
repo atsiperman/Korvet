@@ -127,15 +127,15 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         include "drawing/draw_digits.asm"
 
         include "logic/scores.asm"
-		include "logic/saboteur_utils.asm"
-		include "logic/saboteur_fall.asm"
-		include "logic/saboteur_ladder.asm"
-		include "logic/saboteur_action.asm"
-		include "logic/saboteur_control.asm"
-		include "logic/saboteur_movements.asm"
-		include "logic/saboteur_jump.asm"
+		;;include "logic/saboteur_utils.asm"
+		;;include "logic/saboteur_fall.asm"
+		;;include "logic/saboteur_ladder.asm"
+		;;include "logic/saboteur_action.asm"
+		;;include "logic/saboteur_control.asm"
+		;;include "logic/saboteur_movements.asm"
+		;;include "logic/saboteur_jump.asm"
 		include "logic/health.asm"
-		include "logic/gun_logic.asm"
+		;;include "logic/gun_logic.asm"
 		include "logic/triggers.asm"
         include "logic/wagons.asm"
         include "logic/helpers.asm"
@@ -195,14 +195,24 @@ start:
 
 		jp 0			; soft reset
 
+		include "logic/saboteur_utils.asm"
+		include "logic/saboteur_fall.asm"
+		include "logic/saboteur_ladder.asm"
+		include "logic/saboteur_action.asm"
+		include "logic/saboteur_control.asm"
+		include "logic/saboteur_movements.asm"
+		include "logic/saboteur_jump.asm"
+
+		include "logic/gun_logic.asm"
+
 RAMTOP  EQU 0C37Fh
 
         display $
         display RAMTOP - $, " bytes free"
 
-        dup RAMTOP - $   ; guard for the rest
-            db 0h
-        edup
+        ; ; dup RAMTOP - $   ; guard for the rest
+        ; ;     db 0h
+        ; ; edup
 
 ;END 100h
 
