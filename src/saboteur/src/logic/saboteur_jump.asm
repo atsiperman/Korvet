@@ -43,13 +43,57 @@ jmpbordr:
 		inc	a
 		ret
 
-; ---- checks if it is possible to jump
+; ---- checks if it is possible to jump in vertical and horizontal direction
 ;
 ; args:     A - row to check
 ; result: 
 ;			A - 0 if no space to jump
 ;
 canjmp:
+		push af				; save row
+
+		ld	e,a 			; save row in E
+		sblcursc			; load column
+		ld	d,a				; save it in D
+
+		sblddir				; load direction
+		cp	dirlt			; moving left ?
+		jp  z,.cnjmp		; skip column change if yes
+
+							; moving right
+		inc	d				; skip left column above hand
+
+.cnjmp:
+		call shscradr		; get start position 
+
+		ld b,bkroof
+		ld a,(hl)
+		and b
+		jp nz,.jmpn			; wall, no way
+		
+		ld de,COLWIDB
+		dup 2
+			add hl,de		; X = X + 1
+			ld a,(hl)
+			and b
+			jp nz,.jmpn		; wall, no way
+		edup
+
+		pop	af				; restore row
+		jp	canjmph			; test horizontal way
+
+.jmpn:
+		pop af
+		xor a
+		ret
+
+; ---- checks if it is possible to jump in horizontal direction
+;
+; args:     A - row to check
+; result: 
+;			A - 0 if no space to jump
+;
+canjmph:
 		push af 			; save row
 		
 		sblddir
@@ -79,27 +123,27 @@ canjmp2:
 		call shscradr		; get top right position 
 		
 canjmp5:
+		ld b,bkroof		 
 		ld a,(hl)
-		and bkroof
+		and b
 		jp nz,canjmpn		; wall, no way
-		
+
+		ld de,ROWWIDB
+
 		dup 3
-			ld de,ROWWIDB
-			add hl,de			; Y = Y + 1
+			add hl,de		; Y = Y + 1
 			ld a,(hl)
-			and bkroof
-			jp nz,canjmpn		; wall, no way
+			and b
+			jp nz,canjmpn	; wall, no way
 		edup
 
-		ld a,1				; yes, can jump
+		inc	a				; yes, can jump
 		ret
 		
-canjmpn:
-		xor a
-		ret
-
 canjmpn2:
 		pop af
+
+canjmpn:
 		xor a
 		ret
 		
@@ -226,7 +270,7 @@ _sbdjp1_:
 		ret	z
 
 		sblcursr			; load current row
-		call canjmp
+		call canjmph
 		or a
 		jp z,sbdojpe
 
