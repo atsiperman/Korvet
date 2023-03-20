@@ -176,7 +176,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			;define FULLSTART
+			define FULLSTART
 			define ENDDEAD			; end game if dead
 			;define DOLUTOFF			; turn off colors when screen is changed
 		

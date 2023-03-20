@@ -361,7 +361,7 @@ prntend:
 .gend:
         GRMODOFF
 
-        ld   c,100
+        ld   c,50
         call mkpause.mkp
 
         jp waitkey

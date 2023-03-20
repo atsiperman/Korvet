@@ -364,12 +364,14 @@ tstokick:
         push hl
         ld  e,c         ; save saboteur's column in E
         ldcursc         ; load screen column
-        inc  a          ; check for column inside body
-        cp   e
-        jp   z,.mkdead
-        inc  a          ; check for column inside body
-        cp   e
-        jp   nz,.endtst
+				        
+        cp   e			; check for column inside body
+        jp   nc,.endtst ; not inside, return
+		dup 2		
+        inc  a          ; check right border
+		edup		
+        cp   e			; check for column inside body
+        jp   c,.endtst	; not inside, return
 
 .mkdead:
         pop  hl
@@ -385,7 +387,6 @@ tstokick:
 .mkd1:
         call setdead
 		jp playpnch
-        ;ret
 
 .endtst:        
         pop hl

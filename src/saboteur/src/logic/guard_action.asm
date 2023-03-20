@@ -228,7 +228,7 @@ ghitsab:
         sblcursc                ; load saboteur's column into A
         cp      d
         ret     nc
-        add     SBWI-1          ; get right side column
+        add     SBWI-2          ; get right border
         cp      d
         ret     c               ; nothing to do if outside
         jp      .ghit           ; do hit otherwise
@@ -239,11 +239,12 @@ ghitsab:
         pop     hl
         ld      d,a             ; save it in D
         sblcursc                ; load saboteur's column into A
-        dec     a               ; do correction to make CARRY flag to work
-        cp      d
-        ret     nc
+        
+.gtst:        
+        cp      d               ; is inside saboteur ?
+        ret     nc              ; return if no
         add     SBWI-1          ; get right side column
-        cp      d
+        cp      d               ; is inside saboteur ?
         ret     c               ; nothing to do if outside
 
 .ghit:
