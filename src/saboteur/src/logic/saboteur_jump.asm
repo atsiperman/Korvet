@@ -338,16 +338,15 @@ sbstopjp:
 		sblddir
 
 		cp dirrt
-		jp z,_sbstpjr
+		jp z,.sbstpjr
 
-_sbstpj1:
         ld   de,sbhjmp1l
         sbshdspr
 		call sblandlh
 		call sblandv
-		ret
+		jp	 .endjp
 
-_sbstpjr:
+.sbstpjr:
 		call sblandrh
 							; test current column after moving right
 		call jmpbordr		; need to switch screen ?
@@ -357,8 +356,17 @@ _sbstpjr:
         ld   de,sbhjmp1r
         sbshdspr
 
-		jp sblandv
-		;ret
+		call sblandv
+
+.endjp:
+		or	a
+		jp	nz,jmpend		; landing place found, just finish jump
+
+		sblcursr			; otherwise decrease row, will fall down
+		inc	a
+		sbscursr
+
+		jp jmpend			; finish jump
 
 ; ---- finds place to land in horizontal direction to the right
 ;
@@ -440,13 +448,13 @@ sblandlh:
 
 		
 ; ---- finds place to land in vertical direction to the right
-;
+; result: A - 1 if landed, 0 if no place found 
 sblandv:
 		sblcursc
 		ld d,a			; save column in D
 
 		sblcursr		; load row
-		add  SBJMPHI		; row under feet
+		add  SBJMPHI	; row under feet
 		ld e,a			; save row in E
 		call shscradr	; get position (X,Y) in HL
 
@@ -479,10 +487,20 @@ _stlnd1:
 		sblcursr		; load current row
 		sub (SBHI - SBJMPHI)	; dec row to let him stay
 		sbscursr
+		pop bc 					; clear stack
+		inc	a					; return >0
+		ret
+
 
 _stlnd5:
 		pop bc 					; clear stack
+		xor a
+		ret
 
+
+; ---- ends jump
+;
+jmpend:
 		sblddir
 		cp dirlt
 		jp z,_stlnd3			; leave current column for left direction

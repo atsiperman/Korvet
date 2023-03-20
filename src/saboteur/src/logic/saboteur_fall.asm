@@ -48,16 +48,27 @@ _sbcnfal0:
 ; args:  A - row index
 ;
 ; result:
-;		A - 1 if there is a floor
+;		A - 1 if there is a floor, 0 - nothing below feet
 ;
 _isfloor:		
 		call scadrlt		; get left position		
+		ld  b,bkroof
+		ld	c,bladder		
+		ld  d,0				; roof tiles flag
+
 		dup 2
 			skip_buf_tile hl	; X = X + 1
 			ld a,(hl)
-			isfloor
-			ret nz
+			ld e,a
+			and b				; roof ?
+			ret nz				; return if yes
+			ld	a,e
+			and c				; ladder ?			
+			or	d				; combine with flag
+			ld  d,a				; and save it
 		edup
+
+		ld a,d
 		ret
 		
 _isflore:
