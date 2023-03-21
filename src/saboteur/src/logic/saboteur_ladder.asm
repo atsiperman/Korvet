@@ -30,7 +30,7 @@ freeabov:
 ;			index of the left column of the ladder if success
 ;
 ;		The idea is to check tiles from left to right position according to current sprite width.
-;       Success - if two tiles of ladder type found.
+;       Success - if two neighbour tiles of ladder type found, following one by one.
 ; 		Skip left hand column if he's looking in right direction or right hand column if looking on the left side.
 cangolad:
 		sblcurst
@@ -41,8 +41,8 @@ cangolad:
 		ldsprht				; load sprite height, it may be different depending on the current state
 		ld e,a				; save height in E
 		        
-        inc  e
-        inc  e        
+        inc  e				; add head height of 2 rows
+        inc  e        		
 
 		sblcursr
 		add e				; Y + 1 from bottom position (under feet, for down direction by default)
@@ -95,8 +95,9 @@ sbcanld4:
 							; else check if more than one tile discovered
 							
 		rra					; bladder = 2, so shift it right
-		and b					
-		jp z,sbcanld5				
+		and b				; already found anything ?
+		jp z,sbcanld5		; clear counter if not
+
 							; not zero if B already contains 1, then success
 							; calculate left ladder column
 		pop de				; restore start column
@@ -108,8 +109,12 @@ sbcanld4:
 		
 sbcanld5:		
 		inc b				; increase counter
-		
+		jp sbcanld8			; continue
+
 sbcanld7:
+		ld	b,a				; A = 0 here, clear counter
+
+sbcanld8:
 		skip_buf_tile hl	; next column
 		dec c
 		jp nz,sbcanld4		; continue check
