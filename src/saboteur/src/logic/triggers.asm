@@ -4,12 +4,11 @@
 trigrun:
         ld   hl,(trproc)    ; trigger is manual, load trigger procedure
         jp   (hl)           ; call trigger
-        ret
 
 ; ---- runs auto trigger
 ;
 ; result:
-;       A - 1 if trigger action is in progress
+;       A >0 if trigger action is in progress
 ;
 trigact:
         ld  a,(trtype)
@@ -23,11 +22,6 @@ trigact:
 .tract1:
         ld  hl,(trproc)     ; load trigger proc
         jp  (hl)
-        or  a
-        ret nz              ; return, trigger is in progress
-        
-        ld  (trtype),a      ; clear trigger
-        ret 
 
 ; ---- check for the triggers on the screen
 ;
