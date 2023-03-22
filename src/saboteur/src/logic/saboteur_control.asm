@@ -448,30 +448,28 @@ setdead:
         pop  hl
         push hl         ; save control block
         
-        push de         ; save sprite dimensions
         ldcursc     
         ld   d,a        ; load current column into D
+
         inc  hl
         ld   a,(hl)     ; load current row into A
-        add  e          ; add sprite height, start with line under object
+        add  e          ; add sprite height, start with line under object in the middle by X
         ld   e,a        ; save row in E
+
         push de
         call shscradr   ; pointer to tile attributes in HL
         pop  de         ; restore row in E
-        ld   a,e        ; save row in A
-        pop  de         ; restore dimensions
-        ld   e,a        ; save row in E
-        push de         ; save counters
-        push hl         ; save initial pointer to tile attrs
+
+        ld   bc,ROWWIDB
+
 .mvdn1:
         ld   a,(hl)
-        and  bkroof     ; is something to lie on
-        jp   z,.mvdn2   ; no, continue
+        and  bkroof + bladder   ; is something to lie on ?
+        jp   z,.mvdn2           ; no, continue
+                                
                         ; yes, write new row and exit
                         
         ld   a,e        ; save row in A
-        pop  de         ; clear stack
-        pop  de         ; clear stack        
 
         pop  hl         ; restore control block
         push hl
@@ -487,19 +485,15 @@ setdead:
         ret
 
 .mvdn2:
-        dec  d        
-        jp   z,.mvdn3       ; stop iteration, start next one
-        skip_buf_tile hl    ; move to the next tile
-        jp   .mvdn1
+        ld   a,(hl)
+        and  bladder            ; is staying on the ladder
+        jp   z,.mvdn3           ; continue if not
+        skip_buf_tile hl        ; otherwise find first tile without ladder
+        jp   .mvdn2
 
 .mvdn3:
-        pop  hl         ; restore pointer to the first tile
-        pop  de         ; restore counters
         inc  e          ; inc row numbers
-        ld   bc,ROWWIDB
         add  hl,bc      ; move pointer to the next line
-        push de
-        push hl
         jp   .mvdn1
 
 
