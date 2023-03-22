@@ -77,7 +77,7 @@ tstgunsh:
         pop     de                      ; clear stack
         xor     a                       ; finish shell flight
         ld      (gunshd),a              ; clear shell direction
-        ld      a,GUNDELAY
+        ld      a,(gundelay)
         ld      (gunshfr),a             ; reload gun timer
         inc     a
         ret

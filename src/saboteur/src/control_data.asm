@@ -176,7 +176,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			;define FULLSTART
+			define FULLSTART
 			define ENDDEAD			; end game if dead
 			;define DOLUTOFF			; turn off colors when screen is changed
 		
@@ -231,7 +231,10 @@ ctimechg:   db 1                ; current time changed
 score:      db 5, 0,0,0,0,0     ; score digits, from high to low
 scorchg:    db 1                ; score changed
 
-GUNDELAY	EQU 25
+gundelay:	db 35
+GUNDELD		EQU 5		; gun delay decrement by game each level
+
+;;GUNDELAY	EQU 25
 
 ; ---- gun shell data
 gunshd:

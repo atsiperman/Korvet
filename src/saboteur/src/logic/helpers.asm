@@ -9,7 +9,7 @@ clrscrch:
         ld  (gfsbseen),a    ; clear flag that saboteur has been seen by guard
         ld  (gunshd),a      ; clear gun shell data (points to direction)
         
-        ld  a,GUNDELAY
+        ld  a,(gundelay)
         ld  (gunshfr),a     ; set gun delay before firings
         ret
 

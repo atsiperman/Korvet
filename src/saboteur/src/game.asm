@@ -56,11 +56,28 @@ ptexts:
         jp prntstr        
         ;ret 
 
+; ---- set up counters
+; args: A - selected level index
+setupcnt:
+		ld	c,a				; save level index
+		ld	b,GUNDELD		; load decrement
+		ld	a,(gundelay)	; load initial counter
+
+.gnctr:
+		sub b				; reduce counter
+		dec	c
+		jp	nz,.gnctr		; repeat
+		ld	(gundelay),a	; save new counter
+		ret
+
 ; ---- set up game level
 setuplvl:
         ld   hl,lvlproc
         ld   a,(menuptr) 
         dec  a              ; get menu item index
+		push af
+		call setupcnt
+		pop	af
         ld   b,0
         ld   c,a
         add  hl,bc
