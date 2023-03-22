@@ -370,7 +370,6 @@ sbmain:
         jp  nz,.sbm1_1      ; no, stop checking for released keys
         ld  a,b             ; restore key bits        
         and KDOWN           ; is down button still pressed ?
-        ;jp  nz,.sbm1_1      ; go normal way if yes
 		jp	nz,.sbsqt		; already squatting
 
                             ; if not pressed any more
@@ -406,7 +405,7 @@ sbmain:
         ld  a,b             ; restore key bits
 
 gifspace:       
-        ld  c,a
+        ld  c,a				; save keys in C
         and KSPACE
         jp  z,.gsprl      	; not space, test for released SPACE
 
@@ -435,6 +434,7 @@ gifspace:
         jp   nz,gend		; finish if yes
 							; otherwise do punch
 .gifsp1:
+		ld	a,c				; restore keys in A
         call sbhand         ; throw the object being held or do a punch        
         jp   gend
 

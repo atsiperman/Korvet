@@ -166,8 +166,10 @@ sbstplna:
         ret
 
 ; ---- saboteur throws a weapon object
-;
+;       A  - keys pressed mask
 sbthrow:
+        push af                         ; save keys
+
         ld   a,(sbholds)
 
         ld   hl,othrwlst
@@ -185,8 +187,20 @@ sbthrow:
         inc  c                          ; make correction if throwing left
 
         sblddir                         ; load current direction into A
+        ld   b,a                        ; save direction in B
+
+        pop  af                         ; restore keys        
+        and  KDOWN                      ; need to throw down ?
+        jp   z,.thrws                   ; skip if not
+
+        ld   a,dirdn
+        or   b                          ; combine directions
+        ld   b,a                        ; save direction in B
+
+.thrws:
+        ld   a,b
         ld   (othrown),a                ; save direction of an object to fly
-        cp   dirlt
+        and  dirrt
         jp   z,.sbthr1
 
         inc  c                          ; throw right
@@ -240,19 +254,20 @@ wprowp:  dw 0       ; pointer to object's row
 ; ---- move thrown weapon
 ;
 movweap:
-        ld   hl,(wpobjp)
-        ld   d,(hl)            ; save direction in D
+        ld   hl,(wpobjp)        
+        ld   d,(hl)             ; save direction in D
+
+        push de                 ; save direction
 
         ld   hl,(wpcolp)
-        ld   a,(hl)         ; load colnum
-        ld   c,a            ; save in C
+        ld   c,(hl)             ; load colnum into C
 
-        ld   a,d            ; restore direction in A
-        cp   dirrt
-        jp   z,.mvthr1
+        ld   a,d                ; restore direction in A
+        and  dirrt
+        jp   nz,.mvthr1
 
-        ld   a,c            ; moving left
-        cp   2              ; last column on the left, stop moving
+        ld   a,c                ; moving left
+        cp   2                  ; last column on the left, stop moving
         jp   c,.mvthre
 
         dec  a
@@ -276,14 +291,25 @@ movweap:
         ld   hl,(wprowp)
         ld   a,(hl)         ; load row 
         ld   e,a            ; save row in E
+
+        pop  af                 ; restore direction
+        and  dirdn              ; fly down too ?
+        jp   z,.mvthv           ; skip correction if not
+        inc  e                  ; move down
+        ld   (hl),e             ; save new row
+
+.mvthv:        
         call shscradr
 
         ld   a,(hl)
         and  bwall
 .kiljp:        
-        jp   z,.chkokil     ; no wall - keep flying, check if alive object is on the way
-        PLYWEAPN            ; wall, play sound 
+        jp   z,.chkokil         ; no wall - keep flying, check if alive object is on the way
+        push af                 ; symmetrical push, to be cleared on exit
+        PLYWEAPN                ; wall, play sound 
+
 .mvthre:
+        pop  af                 ; clear stack
         xor  a
         ld   hl,(wpobjp)
         ld   (hl),a         ; movement is finished
@@ -498,9 +524,11 @@ setdead:
 
 
 ; ---- throw the object being held or do a punch        
-; args: HL - address of control block 
-;
+; args:
+;       A  - keys pressed mask
 sbhand:        
+        push af                 ; save keys pressed
+
         sbscurst sbpunch    ; set punch state
         sblddir             ; load direction
 
@@ -521,9 +549,12 @@ sbhand:
         sbshdspr
 
 .hand2:
+        pop  de                 ; restore keys in D
         ld   a,(sbholds)
         or   a
-        jp   z,tstokick ; nothing is held, do punch
-        cp   trodskn    ; bomb or disk ?
-        jp   c,sbthrow  ; throw if not
-        jp   tstokick   ; otherwise do punch if object can not be thrown
+        jp   z,tstokick         ; nothing is held, do punch
+        cp   trodskn            ; bomb or disk ?
+        ld   a,d                ; copy keys into A
+        jp   c,sbthrow          ; throw if not
+        jp   tstokick           ; otherwise do punch if object can not be thrown
+
