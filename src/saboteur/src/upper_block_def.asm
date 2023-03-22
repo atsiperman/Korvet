@@ -1,4 +1,4 @@
-mirtable EQU 0c000h
+mirtable EQU 0c400h
 
 sbheadr  EQU mirtable + 256
 sbheadl  EQU sbheadr + (_sbmvrh.sbmvre - _sbmvrh)

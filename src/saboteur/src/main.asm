@@ -132,7 +132,7 @@ TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (gu
         include "logic/wagons.asm"
         include "logic/helpers.asm"			
         include "logic/helicopter.asm"        
-        
+
 		include "keyboard.asm"
 		include "game.asm"
         include "menu.asm"
@@ -197,7 +197,7 @@ start:
 
 RAMTOP  EQU 0C37Fh
 
-        display $
+        display "Program top address ", $
         display RAMTOP - $, " bytes free"
 
         ; ; dup RAMTOP - $   ; guard for the rest
