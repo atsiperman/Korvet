@@ -55,6 +55,7 @@ setlvl2:
         ld   (e_trig),a
         setbomb s80bmb
         settime 0509h
+        ;settime 0300h
         setcdtime 0507h
         setlevel 2
         ret

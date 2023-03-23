@@ -761,12 +761,18 @@ gkrmove:
 gtimcntd:
         ld      hl,(timecntd)		; restart timer
 		ld		(curtime + 1),hl
-		ret
+		jp		rldtimef
 
 ; ---- restart game timer
 rstgtime:
         ld      hl,(timeinit)		; restart timer
 		ld		(curtime + 1),hl
+		jp		rldtimef
+
+; ---- reload game time update frame counter
+rldtimef:
+		ld	a,TIMEUPDF		; reload update timer counter
+		ld (timeupdf),a
 		ret
 
 ; ---- game timer
