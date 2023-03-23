@@ -294,7 +294,7 @@ prntend:
 
         ld   hl,escscor                         ; otherwise add score for empty escape
         call addscore
-        jp   .lvbns
+        jp   .elvlbs
 
 .pntdsk:
         ld  hl,escwdsk
@@ -314,10 +314,22 @@ prntend:
         ld   hl,dsktaken
         call prntstr
 
+.elvlbs:        
                                                 ; add bonus for difficulty level, if any
         ld  a,(dlevel)                          ; load difficulty level
         dec a                                   ; no bonus for the first level
         jp  z,.gend
+        
+        cp  5                                   ; is the most difficult ?
+        jp  nz,.lvbns                           ; skip if not
+
+        push af
+                                                ; otherwise add extra bonus
+        ld  hl,lvlbnsd                          ; difficulty level bonus
+        ld  de,dlvlbns + 5                      ; address of the last byte
+        call addscore.adscr                     ; add bonus
+
+        pop  af
         
 .lvbns:
         push af

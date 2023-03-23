@@ -490,8 +490,15 @@ setdead:
 
 .mvdn1:
         ld   a,(hl)
-        and  bkroof + bladder   ; is something to lie on ?
-        jp   z,.mvdn2           ; no, continue
+        and  bladder            ; is staying on the ladder
+        jp   z,.mvdn2           ; continue if not
+        skip_buf_tile hl        ; otherwise find first tile without ladder
+        jp   .mvdn1
+
+.mvdn2:
+        ld   a,(hl)
+        and  bkroof     ; is something to lie on ?
+        jp   z,.mvdn3   ; no, continue
                                 
                         ; yes, write new row and exit
                         
@@ -509,13 +516,6 @@ setdead:
         pop  hl         ; restore control block
         scursr
         ret
-
-.mvdn2:
-        ld   a,(hl)
-        and  bladder            ; is staying on the ladder
-        jp   z,.mvdn3           ; continue if not
-        skip_buf_tile hl        ; otherwise find first tile without ladder
-        jp   .mvdn2
 
 .mvdn3:
         inc  e          ; inc row numbers

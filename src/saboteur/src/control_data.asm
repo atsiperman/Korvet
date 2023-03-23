@@ -176,7 +176,7 @@ cptheit:    db COPTHI       ; height of the helicopter
 cptbuf:     dw scrbuf + COLWIDB * COPTCOL + ROWWIDB * COPTROW     ; address of the copter's body 
 cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start address in video memory
 
-			define FULLSTART
+			;define FULLSTART
 			define ENDDEAD			; end game if dead
 			;define DOLUTOFF			; turn off colors when screen is changed
 		
@@ -185,7 +185,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 		ifdef FULLSTART
 curscr: 	dw scrn1 		; pointer to current screen
 		else
-curscr: 	dw scrn3 		; pointer to current screen		
+curscr: 	dw scrn107 		; pointer to current screen		
 		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
@@ -199,7 +199,7 @@ sbctrlb:
 		ifdef FULLSTART
 		    mkctrlb osabotr,0,sbsquat,dirrt,sbhsqtr,0,sabsqtrt,0,FSCOLNUM,FSROWNUM
 		else
-			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,3,1
+			mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,23,9
 			;mkctrlb osabotr,0,sbstay,dirrt,sbheadr,0,sabsprt,0,25,3
 		endif
 

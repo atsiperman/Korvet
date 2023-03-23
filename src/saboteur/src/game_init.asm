@@ -98,7 +98,7 @@ setlvl5:
         ld   (b_trig),a
         setbomb s73bmb
         settime 0007h
-        setcdtime 0505h
+        setcdtime 0005h
         setlevel 5
         ret
 
@@ -108,7 +108,7 @@ setlvl6:
         settrigs doorcls
         setbomb s100bmb
         settime 0006h
-        setcdtime 0004h
+        setcdtime 0503h
         setlevel 6
         ret
         
