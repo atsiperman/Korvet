@@ -516,12 +516,39 @@ clrtxscr:
         ld hl,(otramdef)
         ld a,h
         or l
-        ret z			    ; address is zero, nothing to draw
+        ret z			        ; address is zero, nothing to draw
+
+        ld de,0                         ; zero data
+        ld hl,0
+        add hl,sp                       ; save stack pointer
+        ld (.tstack),hl                  
+
+        ld c,2 * 9                      ; 9 lines, 2 parts in each line
+
+        di
+        ld hl,TRAM + 64*(TSTARTR + 9)   ; last position on the working screen
+        ld sp,hl                        ; set stack pointer to text RAM
         
-        ld a,0AFh           ; 'xor a'
-        ld (_drtrm2_),a
-        ld (_drtrm3_),a
-        jp _drtrams
+.crlt:        
+        dup 16
+                push de                 ; clear RAM
+        edup
+        dec  c
+        jp  nz,.crlt
+
+        ld hl,(.tstack)                 ; restore stack pointer
+        ld sp,hl
+
+        ei
+
+        ret
+
+.tstack: dw 0
+
+        ; ; ld a,0AFh           ; 'xor a'
+        ; ; ld (_drtrm2_),a
+        ; ; ld (_drtrm3_),a
+        ; ; jp _drtrams
 
 ; ----- draws text ram for current screen
 ;
@@ -535,9 +562,9 @@ drawtram:
 ;args: HL - address of text ram definition
 ;
 drwtram:
-        ld a,7eh                ; 'ld a,(hl)'
-        ld (_drtrm2_),a
-        ld (_drtrm3_),a
+        ; ld a,7eh                ; 'ld a,(hl)'
+        ; ld (_drtrm2_),a
+        ; ld (_drtrm3_),a
 
 _drtrams:                
 ;        GRMODOFF

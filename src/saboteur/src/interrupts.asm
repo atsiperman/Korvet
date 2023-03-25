@@ -2,10 +2,10 @@ INTRREG             EQU 0fb28h
 INTRREGMSK          EQU 0fb29h
 INTRREGVAL          EQU 18              ; 00010110
 
-prevkeys:	        db 0			; previous keys pressed
-lastkeys:	        db 0			; last keys pressed
+prevkeys:	    db 0                ; previous keys pressed
+lastkeys:	    db 0                ; last keys pressed
 
-intr_counter:       db 0
+intr_counter:       db 50
 frame_counter:      db 0
 saved_gr_mode_on:   db 0
 
@@ -77,40 +77,37 @@ screen_intr_handler:
 
 print_fps:
                     ld   a,(intr_counter)
-                    cp   50
-                    jp   nc,.print_frame_counter ; print frame counter if interrupt counter >= 50
-                    inc  a                       ; increase interrupt counter
-                    ld   (intr_counter),a        ; save it
+                    dec  a
+                    jp   z,.print_frame_counter  ; print frame counter 
+                    ld   (intr_counter),a        ; save interrupt counter
                     jp   .end                    ; and exit
                     
 .print_frame_counter:
-                    ld   hl,0fc00h 
+                    ld   hl,0fc00h              ; text RAM to print at
                     ld   a,(frame_counter)      ; load frame counter
                     ld   e,a                    ; save it in E
 
-                    ld  a,e
                     and  ~7                     ; get hi digit
                     rra
                     rra
                     rra
-                    ;rra
                     add  '0'     
 
-                    ld   (hl),a
-                    inc  hl
+                    ld   (hl),a                 ; print first digit
+                    inc  hl                     ; move to the next position
 
-                    ld   a,e
+                    ld   a,e                    ; restore frame counter
 
-                    and  7                     ; get low digit
+                    and  7                      ; get low digit
                     add  '0'
 
-                    ld   (hl),a
-                    inc  hl
+                    ld   (hl),a                 ; print second digit
 
                     xor  a
                     ld  (frame_counter),a       ; reset frame counter
-                    ld  (intr_counter),a        ; reset interrupt counter
 
+                    ld  a,50
+                    ld  (intr_counter),a        ; reset interrupt counter
 .end
                     ret   
         endif ; ifdef PRINTFPS
