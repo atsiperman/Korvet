@@ -7,38 +7,39 @@
 ;       HL - pointer to a byte with sprite attributes
 ;			
 shscradr:
-        ld a,e          ; load current row index
-        add a,a		; make address displacement
-        ld c,a		
-        ld b,0          ; BC - displacement to row address in bytes
+        ld a,e          ; load current row index        5 t-s
+        add a,a		; make address displacement     4 t-s
+        ld c,a		;                               5 t-s
+        ld b,0          ; BC - displacement to row address in bytes 5 t-s
         
-        ld a,d          ; save col index in A	
+        ld a,d          ; save col index in A	        5 t-s
 
-        ld hl,bufrows
-        add hl,bc       ; pointer to row address
-        load_de_hl	; save row address in DE
+        ld hl,bufrows   ;                              10 t-s
+        add hl,bc       ; pointer to row address       10 t-s  
+        load_de_hl	; load row address into DE
                 
-        ld c,a		; save column in C
+        rla		;       	                4 t-s
+        rla             ; multipy by 4                  4 t-s
+        ld c,a		; save it in C (column * 4)     5 t-s
 
-        rla				
-        rla
-        rla		; multipy by 8
-        ld l,a		; save it in L
+        rla		; multipy by 8                  4 t-s
+        ld l,a		; save it in L (colnum * 8)     5 t-s
 
-        xor a
-        ld h,a		; zero to H
+        xor a           ;                               4 t-s
+        ld h,a		; zero to H                     5 t-s
                         ; L = column index * 8                        
-        ld b,a		; B = 0
+        ld b,a		; B = 0                         5 t-s
                         ; C = column index
-        
-        add hl,bc	; add column index to get column offset in byte
-        add hl,bc	; add column index to get column offset in byte
-        add hl,bc	; add column index to get column offset in byte
-        add hl,bc	; add column index to get column offset in byte
 
-        add hl,de	; column address in HL
+                        ; COLWID = 12
+                        ; L = conum * 8
+                        ; C = colnum * 4
+                        ; L + C = colnum * 12 - total displacement to the column
+        add hl,bc       ; add column index to get column offset in byte  10 t-s
 
-        inc hl                          
+        add hl,de	; column address in HL          10 t-s
+
+        inc hl          ;                               5 t-s
         inc hl          ; skip sprite address
         inc hl          ; skip tile state
         ret
