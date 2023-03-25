@@ -83,7 +83,7 @@ sbcanld2:
 
 		inc e				; skip column
 
-		skip_buf_tile hl	; skip position behind (first left column for right direction)
+		skip_buf_tile_hl	; skip position behind (first left column for right direction)
 		
 sbcanld3:
 		push de
@@ -115,7 +115,7 @@ sbcanld7:
 		ld	b,a				; A = 0 here, clear counter
 
 sbcanld8:
-		skip_buf_tile hl	; next column
+		skip_buf_tile_hl	; next column
 		dec c
 		jp nz,sbcanld4		; continue check
 		

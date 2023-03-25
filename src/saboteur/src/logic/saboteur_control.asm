@@ -492,7 +492,7 @@ setdead:
         ld   a,(hl)
         and  bladder            ; is staying on the ladder
         jp   z,.mvdn2           ; continue if not
-        skip_buf_tile hl        ; otherwise find first tile without ladder
+        skip_buf_tile_hl        ; otherwise find first tile without ladder
         jp   .mvdn1
 
 .mvdn2:

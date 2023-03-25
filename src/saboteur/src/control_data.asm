@@ -74,15 +74,29 @@ otramdef:	dw 0		; pointer to definition of text ram for old screen
                 edup
             endm
 
-            macro skip_buf_tile reg_pair
-                dup COLWIDB
-                    inc reg_pair
-                edup
+            macro skip_buf_tile_hl
+				push bc				; 11 t-s
+				ld	bc,COLWIDB		; 10 t-s
+				add hl,bc			; 10 t-s
+				pop	bc				; 10 t-s
+									; 41 t-s in total
+
+                ;dup COLWIDB		; 12 * 5 = 60 t-states
+                ;    inc reg_pair	; 5 t-states
+                ;edup
             endm
 
+			macro skip_buf_tile_de	; 41 + 4 = 45 t-s
+				push hl
+				ld	hl,COLWIDB
+				add hl,de	
+				ex  de,hl			; 4-ts
+				pop	hl				
+			endm
+
             macro skip_buf_tile_data reg_pair
-                dup 8
-                    inc reg_pair
+                dup 8				; 8 * 5 = 40 t-states
+                    inc reg_pair	; 5 t-states
                 edup
             endm
 

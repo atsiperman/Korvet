@@ -57,7 +57,7 @@ _isfloor:
 		ld  d,0				; roof tiles flag
 
 		dup 2
-			skip_buf_tile hl	; X = X + 1
+			skip_buf_tile_hl	; X = X + 1
 			ld a,(hl)
 			ld e,a
 			and b				; roof ?

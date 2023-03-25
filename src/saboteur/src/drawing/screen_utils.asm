@@ -8,35 +8,35 @@
 ;			
 shscradr:
         ld a,e          ; load current row index
-        add a,a		    ; make address displacement
+        add a,a		; make address displacement
         ld c,a		
         ld b,0          ; BC - displacement to row address in bytes
         
         ld a,d          ; save col index in A	
 
         ld hl,bufrows
-        add hl,bc	    ; pointer to row address
-        load_de_hl	    ; save row address in DE
+        add hl,bc       ; pointer to row address
+        load_de_hl	; save row address in DE
                 
-        ld c,a		    ; save column in C
+        ld c,a		; save column in C
 
         rla				
         rla
-        rla		        ; multipy by 8
-        ld l,a		    ; save it in L
+        rla		; multipy by 8
+        ld l,a		; save it in L
 
         xor a
-        ld h,a		    ; zero to H
+        ld h,a		; zero to H
                         ; L = column index * 8                        
-        ld b,a		    ; B - 0
-                        ; C - column index
+        ld b,a		; B = 0
+                        ; C = column index
         
-        add hl,bc	    ; add column index to get column offset in byte
-        add hl,bc	    ; add column index to get column offset in byte
-        add hl,bc	    ; add column index to get column offset in byte
-        add hl,bc	    ; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
+        add hl,bc	; add column index to get column offset in byte
 
-        add hl,de	    ; column address in HL
+        add hl,de	; column address in HL
 
         inc hl                          
         inc hl          ; skip sprite address
@@ -259,7 +259,7 @@ nextline:
           ld a,(hl)
           or stotile + fgtile
           ld (hl),a
-          skip_buf_tile hl
+          skip_buf_tile_hl
         endm
 
 stotiles:
@@ -415,7 +415,7 @@ drawsto:
         ld  a,(bc)      ; load foreground color         
         rla     
         add 80h         ; make color mask
-        ld  (hl),a	    ; set main color
+        ld  (hl),a	; set main color
         inc bc          ; move to data byte
         
 .drws41:

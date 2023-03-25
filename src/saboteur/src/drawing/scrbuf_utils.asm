@@ -94,7 +94,7 @@ showsc1:
 		
 showsc2:
 		inc hl					; move to the next column in video memory		
-		skip_buf_tile de 		; move to the next column in screen buffer	
+		skip_buf_tile_de 		; move to the next column in screen buffer	
 		
 		dec c		
 		jp nz,showsc1

@@ -119,7 +119,7 @@ uptlm2:
 		ld (hl),a
 
 uptlm3:
-		skip_buf_tile hl	; move to the next tile
+		skip_buf_tile_hl	; move to the next tile
 		dec c
 		jp nz,uptlm2	; next column
 		
@@ -176,7 +176,7 @@ utlmmobj:
 		ld a,TLOCUPID		; mark as occupied
 		ld (hl),a
 
-		skip_buf_tile hl	; move to the next tile
+		skip_buf_tile_hl	; move to the next tile
 		dec c
 		jp nz,.utlmo1		; next column
 		
