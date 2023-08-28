@@ -147,19 +147,14 @@ _cpytil1:
 			
 			ld hl,COLRREG				; 
 			ld (hl), b					; set main color
-			
-			ex de,hl					; HL - screen address
-
-			ld (hl),a					; set data bits
-					
-			ex de,hl					; HL - color reg
-			
+						
+			ld (de),a					; set data bits					
 			dec b						; set color to clear		
 			ld (hl),b					
-			ex de,hl					; HL - screen address			
 			cpl							; get bits to clear
-			ld (hl),a					; move data byte
+			ld (de),a					; move data byte
 			
+			ex de,hl					; HL - screen address
 			pop de						; restore address in buffer
 					
 			ld bc,64
