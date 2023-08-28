@@ -204,7 +204,7 @@ _drwbkt2:
         inc de		; skip header
 
         dup 8
-                ;;push bc		; save fg color
+                ;;push bc		; save fg color  11 t-s
 
                 ld a,(de)	; load data byte			
                 push de		; save data address
@@ -226,16 +226,16 @@ _drwbkt2:
                 pop de		; restore data address                        
                 inc de      ; next byte from sprite
                 
-                ld  a,64
-                add l
-                ld  l,a
-                ld  a,h
-                adc 0
-                ld  h,a
+                ld  a,64        ; 7 t-s
+                add l           ; 4 t-s
+                ld  l,a         ; 5 t-s
+                ld  a,h         ; 5 t-s
+                adc 0           ; 7 t-s
+                ld  h,a         ; 5 t-s
                 
-                ;;ld bc,64    ; add 64
-                ;;add hl,bc   ; move to the next line on screen                
-                ;;pop bc      ; restore fg color
+                ;;ld bc,64    ; add 64                          10 t-s
+                ;;add hl,bc   ; move to the next line on screen 10 t-s
+                ;;pop bc      ; restore fg color                10 t-s
         edup
 
         pop de
