@@ -287,7 +287,7 @@ prntend:
         ld   hl,tmcomplt
         call prntstr
 
-.dskbns:
+;;.dskbns:
         ld  a,(sbholds)                         ; get object from pocket
         cp  trodisk                             ; is it a disk ?
         jp  z,.pntdsk                           ; print disk text if yes
