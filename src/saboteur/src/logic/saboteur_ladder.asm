@@ -283,14 +283,20 @@ sbdolade:
 ;		
 sbstplad:
 		ld c,a				; save direction
-		
+
+		sblcursr			; load current row
+		cp ROWNUM-SBHILAD	; is on the screen border ?
+		jp nz,.stplad		; do check if not
+		xor a				; can't leave ladder
+		ret
+
+.stplad:		
+		add SBHILAD	- 1		; get one level up from the floor 
+		ld e,a				; save row in E
+
 		sblcursc			; load current column
 		dec a				; X - 1
 		ld d,a				; save column in D
-
-		sblcursr			; load current row
-		add SBHILAD	- 1		; get one level up from the floor 
-		ld e,a				; save row in E
 
 		push bc
 		call shscradr		; get pointer to tile attributes in HL
