@@ -1,0 +1,7 @@
+
+ Level 1 (Простой): Ignore all buttons, bomb on screen 30. (1,2), time: 99
+ Level 2 (Легкий): Use B,E, bomb on screen 80. (4)              , time: 95
+ Level 3 (Средний): Use C,E, bomb on screen 98. (5)             , time: 90
+ Level 4 (Трудный): Use C,D,E, bomb on screen 124 (6)           , time: 85
+ Level 5 (Тяжёлый): Use A,C,D,E, bomb on screen 73. (8)         , time: 80
+ Level 6 (Профи): User all buttons, bomb on screen 100 (9)      , time: 70
