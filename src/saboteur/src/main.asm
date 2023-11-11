@@ -50,18 +50,16 @@ scrbuf:
         include "sprites/saboteur_sprites.asm"
         include "sound_data.asm"
         include "game_init.asm"        
-        include "upper_block_def.asm"
-        
+        include "upper_block_def.asm"        
 		include "init.asm"
-        ; MIRFLEN - size of the file with mirroring procs & data
-        ; minus total length of saboteur sprites data
         ; this place will be reused as a screen buffer
 
-TMPDLEN EQU MIRFLEN + (sabinit.endinit - sabinit) + (sabspend - _sabjmpr1) + (guarde - guardst) + (ginitend - ginitst) + (sndend - sndstrt)
-        dw ROWNUM * ROWWIDB
-        dup (ROWNUM * ROWWIDB) - TMPDLEN - 4
+TMPDLEN EQU $ - scrbuf
+
+        dup (ROWNUM * ROWWIDB) - TMPDLEN
         db 0
         edup
+        
 ;------ end of screen buffer		
 
         display "scrbuf start:   ", scrbuf

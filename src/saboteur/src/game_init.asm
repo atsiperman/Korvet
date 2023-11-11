@@ -41,7 +41,7 @@ ginitst:
 ;
 setlvl1:
         ;settrigs dooropn
-        ;;setbomb s30bmb        
+        setbomb s30bmb        
         ;settime 0300h
         ;setcdtime 00008h
         ret
