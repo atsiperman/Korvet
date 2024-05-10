@@ -199,44 +199,43 @@ _drwbkt2:
         inc de
 	        
         ld a,(de)	; read foreground color
-        ld b,a		; save fg color in B
+        ld (COLRREG), a ; set FG color
         inc de
         inc de		; skip header
 
-        dup 8
-                ;;push bc		; save fg color  11 t-s
+        push bc         ; save colors
+        push hl         ; save first address
 
+        ; --- start drawing with FG color
+        ld bc,64
+        ld a, 255               ; all dots by default for FG color
+        dup 7
+                ld (hl), a
+                add hl, bc
+        edup
+        ld (hl),a
+
+        ; --- end drawing with FG color
+
+        ; --- start drawing with back color
+        pop hl                  ; restore screen address
+        pop bc                  ; restore BACK color in C
+        ld  a,c                 ; set it in A
+        ld (COLRREG), a         ; set back color
+        ld bc,64
+        dup 7
                 ld a,(de)	; load data byte			
-                push de		; save data address
-                
-                ex de,hl	; DE - screen address		
-                                
-                ld hl,COLRREG	; set color register		
-                ld (hl),b	; set main color
-                ex de,hl	; HL - screen address
-                ld (hl),255	; set main color by default
-                
-                ex de,hl	; DE - screen address				
-                ld (hl),c	; set background color
-                
-                ex de,hl	; HL - screen address
                 cpl             ; get bits to be drawn as background
                 ld (hl),a	; move data byte
-
-                pop de		; restore data address                        
-                inc de      ; next byte from sprite
-                
-                ld  a,64        ; 7 t-s
-                add l           ; 4 t-s
-                ld  l,a         ; 5 t-s
-                ld  a,h         ; 5 t-s
-                adc 0           ; 7 t-s
-                ld  h,a         ; 5 t-s
-                
-                ;;ld bc,64    ; add 64                          10 t-s
-                ;;add hl,bc   ; move to the next line on screen 10 t-s
-                ;;pop bc      ; restore fg color                10 t-s
+                inc de          ; next byte from sprite                
+                add hl,bc       ; move to the next line on screen 10 t-s
         edup
+        ; draw 8-th line        
+        ld a,(de)	        ; load data byte			
+        cpl                     ; get bits to be drawn as background
+        ld (hl),a	        ; move data byte
+
+        ; --- end drawing with back color
 
         pop de
         pop bc        
