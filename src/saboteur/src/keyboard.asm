@@ -10,28 +10,13 @@ KSPACE  EQU 80h
 ; result: A - key mask
 ;
 kbread:	
-		ld hl,0f901h
+		ld hl,0f903h		; test arrow keys
 		ld a,(hl)
-		and a,(KDOWN + KLEFT + KRIGHT)
-		ld b,a
+		ld c,a
 
-		ld hl,0f902h	; check key up
+		ld hl,0f8ffh		; other keys
 		ld a,(hl)
-		and a,KUP		
-		or b			; combine with previous
-		ld b,a
-		
-		ld hl,0f880h	; check key esc
-		ld a,(hl)
-		and a,KESC
-		or b			; combine with previous
-		ld b,a
-
-		ld hl,0f840h	; check key space
-		ld a,(hl)
-		and a,KSPACE
-		or b			; combine with previous
-		
+		or c				; add saved in C		
 		ret
 		
 ; -----  waits for any key to be pressed
