@@ -609,21 +609,24 @@ scrch1_:
 	ifdef DOLUTOFF
 		call lutoff			; screen off
 	endif
+
+		halt
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
-        call sinitprc		; screen init procedure
 
+        call sinitprc		; screen init procedure
 			
+        GRMODON
+		call clrwrksc		; clear working screen
+        call drawbkgr		; draw background
+		call drawstos		; draw static objects      
+		call postproc		; post processing after first render
+		GRMODOFF
+
 		call sbtstpos		; workaround for some screens like 17/18, when the floor level
 							; changes on the border, 
 							; so the saboteur has to be moved up/down after screen switch
 
-        GRMODON
-        call drawbkgr		; draw background
-		call drawstos		; draw static objects        
-		call postproc		; post processing after first render
-		GRMODOFF
-		
         call clrscrch       ; clear data before moving to another screen
 		ld hl,(curscr)		; save current screen as previous
 		ld (prevscr),hl		

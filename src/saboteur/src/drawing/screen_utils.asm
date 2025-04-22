@@ -123,6 +123,27 @@ fillvram:
         jp nz,.fsloop
         ret
 
+; ----- clears working screen with BLACK 
+clrwrksc:
+        ld      hl,SCRADDR
+        ld      de,64                   ; vertical displacement between lines
+        ld      c,ROWNUM*8              ; total lines on working screen
+
+        ld      a,CMAINREG
+        ld      (COLRREG),a             ; set graphics mode
+        ld      a,255                   ; clear all bits
+.loop:        
+        push    hl
+        dup COLNUM
+                ld      (hl),a
+                inc     hl
+        edup
+        pop     hl
+        dec     c        
+        ret     z
+        add     hl,de                   ; move to the next line
+        jp      .loop
+
 ; ----- draws background for current screen
 ; args: DE - address of the shadow screen model
 ; 
