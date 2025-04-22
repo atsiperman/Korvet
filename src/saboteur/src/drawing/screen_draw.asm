@@ -611,14 +611,17 @@ scrch1_:
 	endif
 
 		halt
+	    GRMODON
+		call clrwrksc		; clear working screen, so hide colors created by text layer
+		GRMODOFF
+
 		call clrtxscr		; clear text ram for old screen		
 		call drawtram		; draw text ram for new screen
 
         call sinitprc		; screen init procedure
 			
         GRMODON
-		call clrwrksc		; clear working screen
-        call drawbkgr		; draw background
+        call drawbkgr		; draw background - reveals colors combined with text layer
 		call drawstos		; draw static objects      
 		call postproc		; post processing after first render
 		GRMODOFF

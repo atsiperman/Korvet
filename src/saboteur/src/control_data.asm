@@ -199,7 +199,7 @@ cptvmem:    dw SCRADDR + COPTCOL + COPTROW * VERTDISP             ; start addres
 		ifdef FULLSTART
 curscr: 	dw scrn1 		; pointer to current screen
 		else
-curscr: 	dw scrn112 		; pointer to current screen		
+curscr: 	dw scrn41 		; pointer to current screen		
 		endif
 prevscr:	dw 0			; pointer to previous screen
 fstrendr:	db 1			; flag, if this is the first render on the new screen
