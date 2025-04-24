@@ -129,7 +129,7 @@ clrwrksc:
         ld      de,64                   ; vertical displacement between lines
         ld      c,ROWNUM*8              ; total lines on working screen
 
-        ld      a,CMAINREG
+        ld      a,COLORCLR              ; empty working screen color
         ld      (COLRREG),a             ; set graphics mode
         ld      a,255                   ; clear all bits
 .loop:        

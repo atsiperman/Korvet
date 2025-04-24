@@ -15,7 +15,7 @@ swchscrn:
 		
 		ex de,hl
 		ld (curscr),hl	; save address of the next screen block
-		ld a,1
+		ld a,h			; return non-zero
 		
 		ret	
 

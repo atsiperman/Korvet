@@ -76,9 +76,9 @@ CWHITE		EQU 0           ; CBLACK + text
 CMAIN 		EQU 4			; color of the main character
 
 
-;COLORCLR	EQU 80h + ((7 & CMAIN) << 1)	; color to clear working screen
+COLORCLR	EQU 80h + (CMAIN << 1)	; color to clear working screen
 ;COLORCLR	EQU ((7 & ~CMAIN) << 1) + 1		; color to clear working screen
-COLORCLR	EQU 128 + CBLACK        		; color to clear working screen
+;COLORCLR	EQU 128 + CBLACK        		; color to clear working screen
 CMAINREG	EQU ((7 & ~CMAIN) << 1) + 1
 
 DEADFGC     EQU 80h + (CRED << 1)

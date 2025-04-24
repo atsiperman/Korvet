@@ -5,7 +5,7 @@
 ; ---- switch screen if necessary during jump
 ;
 ; result: 
-;			A - 1 if can proceeed, 0 - screen has been changed
+;			A - 128 if no way to the next screen, 0 - screen has been changed, other value - if can proceeed
 jmpbordr:
 		sblddir
 		cp dirrt
@@ -40,7 +40,7 @@ jmpbordr:
 		ret
 
 .jmpret1:
-		inc	a
+		ld	a,128
 		ret
 
 ; ---- checks if it is possible to jump in vertical and horizontal direction
@@ -257,22 +257,27 @@ sbdojp:
 
 _sbdjp2_:		
 		cp (SBJPSPN - 2)    ; check index of the current sprite 
-		jp z,sbdojpe		; stop jump if this is the previous sprite before the last one
-
+		jp z,sbstopjp		; stop jump if this is the previous sprite before the last one
 
 _sbdjp1_:		
 		cp (SBJPSPN - 1)	; check index of the current sprite 
-		jp z,_sbjstay		; jump has been finished, stay and be ready
+		jp z,sbstopst		; jump has been finished, stay and be ready
 
 							; otherwise do check if we can move forward
 		call jmpbordr		; need to switch screen ?
 		or	a
 		ret	z
 
+		and 128				; test result code for prohibited screen switch
+		jp  z,.sbdjcnt
+		call sbinccol		; HACK! since the only screnn is the moorage, so move saboteur to the right
+		jp	sbstopjp		; stop and stay
+
+.sbdjcnt:
 		sblcursr			; load current row
 		call canjmph
 		or a
-		jp z,sbdojpe
+		jp z,sbstopjp
 
 _sbdjp3_:
 		sblcursi			; load sprite index
@@ -300,18 +305,8 @@ sbdojp4:
 sbdojp5:		
 		sblddir
 		cp dirrt
-		jp z,sbdojp9
+		jp z,sbinccol		; do move right
 		jp  sbdeccol		; do move left
-		
-sbdojp9:
-		jp  sbinccol		; do move right
-			
-sbdojpe:
-		jp  sbstopjp
-
-_sbjstay:		
-		jp  sbstopst		; jump finished, stop and stay
-
 
 ; ---- dec row when starts jumping, change head sprite
 ;				
