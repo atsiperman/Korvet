@@ -31,8 +31,8 @@ graph_mode_on:
 
 		;define PRINTFPS
 
-        include "interrupts.asm"
         include "const.asm"
+        include "interrupts.asm"        
 		include "sbmacro.asm"	
 		include "object_def.asm"
 		include "sprites/dog_sprites.asm"				
@@ -140,7 +140,8 @@ TMPDLEN EQU $ - scrbuf
 start:
 		di
         ld  sp,100h - 1
-
+        INITSND
+        
         call install_interrupt_handler
 		ld a, ALTCHAR
 		ld (TVIREG),a
@@ -156,9 +157,7 @@ start:
         di
 		call lutsetup
         ei
-        GRMODOFF
-
-        INITSND
+        GRMODOFF        
 .main:
         call runmenu
         or  a

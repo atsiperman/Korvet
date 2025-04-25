@@ -21,6 +21,14 @@ GSYSREG 	EQU GREGBASE + SYSREG
 COLRREG 	EQU GREGBASE + 0bfh
 LUTREG		EQU GREGBASE + 0fbh
 
+SNDREGD 	EQU     0FB00H     ; sound data register
+SNDREGM 	EQU     0FB03H     ; sound mode register
+SNDREGS 	EQU     0FB32H     ; enable sound register
+
+SNDEN   	EQU     8       ; enable sound 
+SNDDIS  	EQU     0       ; disable sound
+SNDMOD  	EQU     36h     ; timer sound mode 
+
 TVISTS      EQU TVRGBASE + 38h
 TVIREG		EQU TVRGBASE + 3ah
 
@@ -143,3 +151,25 @@ SCRINIP EQU 8		; screen initialization procedure to be called after screen decom
 		macro mkdup len
 		db DUPLEN | len
 		endm
+
+		; ---- enable sound 
+		macro ENSND
+			ld hl,SNDREGS
+			ld (hl),SNDEN
+		endm
+
+		; ---- disable sound
+		macro DISSND
+			ld hl,SNDREGS
+			ld (hl),SNDDIS
+		endm
+
+        ; ---- defines number of notes
+        macro notesnum endlabl
+            db (endlabl - ($+1)) / 3    ; number of notes
+        endm
+
+        macro mknote pitch, duration
+            dw pitch
+            db duration
+        endm

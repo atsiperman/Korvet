@@ -1,12 +1,3 @@
-        ; ---- defines number of notes
-        macro notesnum endlabl
-            db (endlabl - ($+1)) / 3    ; number of notes
-        endm
-
-        macro mknote pitch, duration
-            dw pitch
-            db duration
-        endm
 
 sndstrt:
 

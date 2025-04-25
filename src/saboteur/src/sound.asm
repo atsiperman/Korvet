@@ -1,27 +1,8 @@
-SNDREGD EQU     0FB00H     ; sound data register
-SNDREGM EQU     0FB03H     ; sound mode register
-SNDREGS EQU     0FB32H     ; enable sound register
-
-SNDEN   EQU     8       ; enable sound 
-SNDDIS  EQU     0       ; disable sound
-SNDMOD  EQU     36h     ; timer sound mode 
 
     ; ---- init sound register
     macro INITSND
         ld hl,SNDREGM
         ld (hl),SNDMOD
-    endm
-
-    ; ---- enable sound 
-    macro ENSND
-        ld hl,SNDREGS
-        ld (hl),SNDEN
-    endm
-
-    ; ---- disable sound
-    macro DISSND
-        ld hl,SNDREGS
-        ld (hl),SNDDIS
     endm
 
     ; ---- starts playing sound specified
