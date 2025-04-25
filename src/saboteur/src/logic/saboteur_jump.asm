@@ -437,7 +437,14 @@ sblandlh:
 							; current position is the one before the last one
 							; so we'll need to move yet one time for the last sprite
 		sblcursc			; load column
+		cp	LECOLNUM 		; less than left screen border ?
+		jp	z,.lhend		; keep current column if it is a border
+		jp	nc,.lhdec		; decrease column if not a borer
+		inc	a				; increase index if this is a 0-th column
+		jp	z,.lhend		; keep current column if it is a border
+.lhdec:
 		dec a				; move left, it's free
+.lhend:
 		sbscursc			; save column
 		ret		
 
