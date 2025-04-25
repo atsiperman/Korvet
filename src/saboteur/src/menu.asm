@@ -110,7 +110,7 @@ runmenu:
         GRMODOFF
         
         call mnshow
-
+        call enablemm   ; enable menu melody
 .mnkb:
         call kbread
         or  a
@@ -132,6 +132,7 @@ runmenu:
         ;ret z           ; KSPACE - start game, return current A (>0)
         jp  nz,.mnkb
 
+        call disablmm   ; disable menu melody
         ld  a,(menuptr) ; load selected item number
         cp  MENUITN
         ret nz          ; A != 0 and not the last item -> start game

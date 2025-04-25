@@ -141,7 +141,7 @@ start:
 		di
         ld  sp,100h - 1
         INITSND
-        
+
         call install_interrupt_handler
 		ld a, ALTCHAR
 		ld (TVIREG),a
@@ -191,7 +191,8 @@ start:
 		include "logic/saboteur_control.asm"
 		include "logic/saboteur_movements.asm"
 		include "logic/saboteur_jump.asm"
-
+        include "menu_music.asm"
+        
 RAMTOP  EQU 0C37Fh
 
         display "Program top address ", $
