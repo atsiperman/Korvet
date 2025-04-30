@@ -529,11 +529,16 @@ gkupact:
 		and KLEFT
 		jp nz,gkupact1
 							; prepare code for right direction
-		ld a,dirrt
+
+		sblddir
+		cp	dirrt			; looking right ?
+		jp	nz,sbstkick		; do kick if not - he's looking in opposite direction
 		jp gkupact2		
 		
 gkupact1:					; prepare code for left direction
-		ld a,dirlt
+		sblddir
+		cp	dirlt			; looking left ?
+		jp	nz,sbstkick		; do kick if not - he's looking in opposite direction
 							; main logic
 gkupact2:
 		ld (gkupact3+1),a		; set arguments for further calls
