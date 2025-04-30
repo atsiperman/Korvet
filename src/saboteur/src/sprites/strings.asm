@@ -119,7 +119,7 @@ authinfo:
 
 authdate:
         db 4
-        db 2,0,2,3
+        db 2,0,2,5
 
 cliveinf:
         db .clivinf - cliveinf - 1

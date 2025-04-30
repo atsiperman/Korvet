@@ -12,6 +12,11 @@ NOTE2_4 EQU     4340
 NOTE2_5 EQU     5100
 NOTE2_6 EQU     5650
 
+
+LONGNOTE EQU    13
+SHRTNOTE EQU    7 
+LNGNOTE2 EQU    13
+
 ; --- menu music data
 mmusdata:
         notesnum        .emmusd
@@ -19,92 +24,92 @@ mmusdata:
         dup     2               
                 ; --- 1-st phrase
                 dup     4
-                        mknote          NOTE1, 7
+                        mknote          NOTE1, SHRTNOTE
                 edup
-                mknote          NOTE2, 15
+                mknote          NOTE2, LNGNOTE2
                 dup     2
-                        mknote          NOTE1, 7
-                        mknote          NOTE2, 14
+                        mknote          NOTE1, SHRTNOTE
+                        mknote          NOTE2, LONGNOTE
                 edup
-                mknote          NOTE3, 14
-                mknote          NOTE4, 14
+                mknote          NOTE3, LONGNOTE
+                mknote          NOTE4, LONGNOTE
                 ; --- 2-nd phrase
                 dup     4
-                        mknote          NOTE1, 7
+                        mknote          NOTE1, SHRTNOTE
                 edup
-                mknote          NOTE2, 15
+                mknote          NOTE2, LNGNOTE2
                 dup     2
-                        mknote          NOTE1, 7
-                        mknote          NOTE2, 14
+                        mknote          NOTE1, SHRTNOTE
+                        mknote          NOTE2, LONGNOTE
                 edup
-                mknote          NOTE3, 7
-                mknote          NOTE4, 7
-                mknote          NOTE5, 7
-                mknote          NOTE6, 7
+                mknote          NOTE3, SHRTNOTE
+                mknote          NOTE4, SHRTNOTE
+                mknote          NOTE5, SHRTNOTE
+                mknote          NOTE6, SHRTNOTE
         edup
 
         ; --- second part
                 ; --- 3-rd phrase
                 dup     4
-                        mknote          NOTE2_1, 7
+                        mknote          NOTE2_1, SHRTNOTE
                 edup
-                mknote          NOTE2_2, 15
+                mknote          NOTE2_2, LNGNOTE2
                 dup     3
-                        mknote          NOTE2_1, 7
-                        mknote          NOTE2_2, 14
+                        mknote          NOTE2_1, SHRTNOTE
+                        mknote          NOTE2_2, LONGNOTE
                 edup
-                mknote          NOTE2_3, 14
-                mknote          NOTE2_4, 14
+                mknote          NOTE2_3, LONGNOTE
+                mknote          NOTE2_4, LONGNOTE
                 ; --- 2-nd phrase
                 dup     4
-                        mknote          NOTE2_1, 7
+                        mknote          NOTE2_1, SHRTNOTE
                 edup
-                mknote          NOTE2_2, 15
+                mknote          NOTE2_2, LNGNOTE2
                 dup     3
-                        mknote          NOTE2_1, 7
-                        mknote          NOTE2_2, 14
+                        mknote          NOTE2_1, SHRTNOTE
+                        mknote          NOTE2_2, LONGNOTE
                 edup
-                mknote          NOTE2_3, 7
-                mknote          NOTE2_4, 7
-                mknote          NOTE2_5, 7
-                mknote          NOTE2_6, 7
+                mknote          NOTE2_3, SHRTNOTE
+                mknote          NOTE2_4, SHRTNOTE
+                mknote          NOTE2_5, SHRTNOTE
+                mknote          NOTE2_6, SHRTNOTE
 
                 ; --- 4-th phrase
                 dup     4
-                        mknote          NOTE2_1, 7
+                        mknote          NOTE2_1, SHRTNOTE
                 edup
-                mknote          NOTE2_2, 15
+                mknote          NOTE2_2, LNGNOTE2
                 dup     3
-                        mknote          NOTE2_1, 7
-                        mknote          NOTE2_2, 14
+                        mknote          NOTE2_1, SHRTNOTE
+                        mknote          NOTE2_2, LONGNOTE
                 edup
-                mknote          NOTE2_3, 14
-                mknote          NOTE2_4, 14
+                mknote          NOTE2_3, LONGNOTE
+                mknote          NOTE2_4, LONGNOTE
                 ; --- 2-nd phrase
                 dup     4
-                        mknote          NOTE2_1, 7
+                        mknote          NOTE2_1, SHRTNOTE
                 edup
-                mknote          NOTE2_2, 15
+                mknote          NOTE2_2, LNGNOTE2
                 dup     2
-                        mknote          NOTE2_1, 7
-                        mknote          NOTE2_2, 14
+                        mknote          NOTE2_1, SHRTNOTE
+                        mknote          NOTE2_2, LONGNOTE
                 edup
-                mknote          2850, 7
-                mknote          3030, 7 
-                mknote          3400, 7
-                mknote          3800, 7
-                mknote          2850, 7
-                mknote          4570, 7
-                mknote          5120, 7
-                mknote          4570, 7
-                mknote          4050, 7
-                mknote          4570, 7
-                mknote          5120, 7
-                mknote          5650, 7
-                mknote          6700, 7
-                mknote          7650, 7
-                mknote          9100, 7
-                mknote          10200, 7
+                mknote          2850, SHRTNOTE
+                mknote          3030, SHRTNOTE 
+                mknote          3400, SHRTNOTE
+                mknote          3800, SHRTNOTE
+                mknote          2850, SHRTNOTE
+                mknote          4570, SHRTNOTE
+                mknote          5120, SHRTNOTE
+                mknote          4570, SHRTNOTE
+                mknote          4050, SHRTNOTE
+                mknote          4570, SHRTNOTE
+                mknote          5120, SHRTNOTE
+                mknote          5650, SHRTNOTE
+                mknote          6700, SHRTNOTE
+                mknote          7650, SHRTNOTE
+                mknote          9100, SHRTNOTE
+                ;;mknote          10200, SHRTNOTE
 .emmusd        
 
 muslen: db 1                    ; melody length in notes
@@ -127,6 +132,13 @@ playmmus:
 
 .playn:
         DISSND
+
+        ld      bc,0ffh           ; make a pause
+.mmpause:        
+        dec     bc
+        ld      a,c
+        or      b
+        jp      nz,.mmpause
 
         ld      a,(muslen)      ; notes counter
         dec     a
@@ -158,10 +170,6 @@ playmmus:
         ex      de,hl           ; move pointer to HL
         inc     hl              ; move pointer to the next note
         ld      (musptr),hl     ; save it 
-
-        ;;ld      a,c             ; if BC == 0
-        ;;or      b               ; then it is a pause
-        ;;ret     z               ; play nothing
 
         ENSND                            
         ret
